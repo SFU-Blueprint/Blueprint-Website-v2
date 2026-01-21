@@ -8,7 +8,7 @@ import ProjectsPage from "./pages/ProjectsPage";
 import StudentsPage from "./pages/StudentsPage";
 import NonprofitsPage from "./pages/NonprofitsPage";
 import IndividualProject from "./pages/IndividualProject";
-import Footer from "./components/footer/Footer";
+import FooterRevamp from "./components/footer/FooterRevamp";
 import ScrollToHashElement from "./components/shared/ScrollToHash";
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
         <Route path="/projects/:slug" element={<IndividualProject />} />
       </Routes>
       </main>
-      <Footer></Footer>
+      <FooterRevamp />
     </div>
   );
 }

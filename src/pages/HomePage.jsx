@@ -6,7 +6,7 @@ const HomePage = () => {
     // All margin values are placeholder
     <PageContainer>
       {/* Hero Section */}
-      <section class="m-4">
+      <section className="m-4">
         <h1>we are sfu blueprint</h1>
         <p>we build tech for social good.</p>
         <button>Learn more placeholder</button>
@@ -14,7 +14,7 @@ const HomePage = () => {
       </section>
 
       {/* Mission Statement */}
-      <section class="m-4">
+      <section className="m-4">
         <p>Introduction paragraph placeholder</p>
         <ul>
           <li>ALL NGO sectors Placeholder</li>
@@ -25,7 +25,7 @@ const HomePage = () => {
       </section>
 
       {/* Projects preview */}
-      <section class="m-4">
+      <section className="m-4">
         <h2>our partnerships</h2>
         <ul>
           <li>partnership card placeholder</li>
@@ -35,7 +35,7 @@ const HomePage = () => {
       </section>
 
       {/* Partner info */}
-      <section class="m-4">
+      <section className="m-4">
         <h2>launch a project for your non profit</h2>
         <p>Blueprint partner description placeholder</p>
         <button>Learn more placeholder</button>
@@ -43,7 +43,7 @@ const HomePage = () => {
       </section>
 
       {/* Blueprint Events */}
-      <section class="m-4">
+      <section className="m-4">
         <h2>for students: turn real projects into real opportunities.</h2>
         <p>blueprinters internship stats placeholder</p>
         <button>Join us placeholder</button>

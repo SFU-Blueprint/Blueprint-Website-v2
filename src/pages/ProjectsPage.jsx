@@ -3,6 +3,7 @@ import PageContainer from "../components/layout/PageContainer";
 
 const ProjectsPage = () => {
   return (
+    // All margin values are placeholder
     <PageContainer>
       {/* Title */}
       <section className="m-4"> 

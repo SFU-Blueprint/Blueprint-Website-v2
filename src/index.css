@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@600&family=Just+Me+Again+Down+Here&family=Poppins&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@100..800&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@100..800&display=swap");
 body {
   margin: 0;
   padding: 0;

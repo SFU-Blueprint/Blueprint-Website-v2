@@ -5,7 +5,7 @@ const MobileGearSection = () => {
   return (
     <div className="gear-section">
       <img
-        src={`${process.env.PUBLIC_URL}/gears/mobile_gear_bg.png`}
+        src="/gears/mobile_gear_bg.png"
         className="mobile-gear-image"
         alt="mobile version geartrain"
       />

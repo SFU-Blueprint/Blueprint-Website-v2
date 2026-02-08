@@ -1,37 +1,35 @@
 ## Getting Started
 
 ### Prerequisites
-(Add requirements for npm and node versions, as well as other versions here. For me, node@20.10.0 and npm@10.2.4, which is the latest LTS.)
+- Node.js 22.x
+- npm 10.x or higher
 
 ### Setup
-Run `npm ci` 
+Run `npm ci`
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `npm start`
+### `npm run dev`
 
-Runs the app in the development mode.\
+Runs the app in development mode with Vite's dev server.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The page will reload when you make changes using hot module replacement (HMR).
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
+Builds the app for production to the `dist` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### `npm run preview`
+
+Locally preview the production build from the `dist` folder.\
+Useful for testing the production build before deployment.
 
 # Website Data Management
 

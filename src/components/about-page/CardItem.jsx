@@ -1,6 +1,6 @@
 import React from "react";
 import { ParagraphText } from "../Common";
-import { headshots } from "../../index.js";
+import { headshots } from "../../main";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 

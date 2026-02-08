@@ -45,7 +45,7 @@ const GearSection = () => {
     <div className="gear-section">
       <div className="gear-train">
         <img
-          src={`${process.env.PUBLIC_URL}/gears/gear_bg.png`}
+          src="/gears/gear_bg.png"
           className="gear-background"
           alt="gear background"
         />

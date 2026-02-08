@@ -3,6 +3,7 @@
     EXAMPLE:
     {
         name: "Project Name", // Name of the project.
+        status: "completed" | "current", // Project status for grouping (Current vs Completed).
         description: "Brief description of the project purpose.", // Short summary of what the project is about.
         tags: ["Tag1", "Tag2"], // Array of tags related to the project for categorization or search.
         image: "project_image.png", // Store the image in the /public folder and provide the relative path here.
@@ -21,6 +22,7 @@ export const Projects = [
   {
     name: "Mosaic",
     slug: "mosaic",
+    status: "completed",
     description: "Aiding New Comers to Canada",
     date: "November 2023 - Current",
     tags: ["Immigration", "AI / Bot"],
@@ -36,6 +38,7 @@ export const Projects = [
   {
     name: "Pedals",
     slug: "pedals",
+    status: "completed",
     description: "Empowering Communities Through Bicycles",
     date: "January 2024 - Current",
     tags: ["Community", "Admin"],
@@ -65,6 +68,7 @@ export const Projects = [
   {
     name: "Reel Youth",
     slug: "reel-youth",
+    status: "current",
     description: "Helping Reel Youth build website",
     date: "August 2024 - Current",
     tags: ["Community", "Website"],

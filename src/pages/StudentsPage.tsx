@@ -5,15 +5,15 @@ const StudentsPage = () => {
   return (
   <PageContainer>
     {/* Hero Section */}
-    <section class="m-4">
+    <section className="m-4">
       <h1>join our team</h1>
       <p>Gain real-world experience in the tech industry and work with other passionate students - all while making a positive impact in your community. </p>
-      <btn>See open positions placeholder</btn>
+      <button>See open positions placeholder</button>
       <hr />
     </section>
 
     {/* Blueprinter Trait sections*/}
-    <section class="m-4">
+    <section className="m-4">
       <p>Blueprint is right for you if you're:</p>
       <ul>
         <li>a post-secondary student in Greater Vancouver</li>
@@ -24,7 +24,7 @@ const StudentsPage = () => {
     </section>
 
     {/* Experience at Blueprint*/}
-    <section class="m-4">
+    <section className="m-4">
       <h2>A typical experience at Blueprint</h2>
 
       {/* role description */}
@@ -59,7 +59,7 @@ const StudentsPage = () => {
     </section>
 
     {/* Application process */}
-    <section class="m-4">
+    <section className="m-4">
       <h2>the application process</h2>
       <ul>
         <li>
@@ -86,26 +86,26 @@ const StudentsPage = () => {
     </section>
 
     {/* Open Positions */}
-    <section class="m-4">
+    <section className="m-4">
       <h2>Open positions</h2>
-      <btn>Senior Dev PLACEHOLDER link</btn>
-      <btn>Junior Dev PLACEHOLDER link</btn>
+      <button>Senior Dev PLACEHOLDER link</button>
+      <button>Junior Dev PLACEHOLDER link</button>
     </section>
 
     {/* Links */}
-    <section class="m-4">
+    <section className="m-4">
       <h2>Stay updated</h2>
       <ul>
         <li>
-          <btn>Discord</btn>
+          <button>Discord</button>
           <p>Join our Discord for hiring updates, announcements, and a place to ask any questions in our #questions channel. </p>
         </li>
         <li>
-          <btn>Instagram</btn>
+          <button>Instagram</button>
           <p>Follow us on Instagram to stay updated on events and see what our club is working on. </p>
         </li>
         <li>
-          <btn>LinkedIn</btn>
+          <button>LinkedIn</button>
           <p>Connect with us on LinkedIn to follow our announcements and keep up with club milestones.</p>
         </li>
       </ul>

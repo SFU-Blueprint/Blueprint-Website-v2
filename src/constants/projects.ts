@@ -13,10 +13,10 @@
         page: "https://example.com/project-page" // URL to the project's dedicated page or external site.
     },
 */
-import { Mosaic } from "./Team/Mosaic";
-import { Pedals } from "./Team/Pedals";
-import { Blueprint } from "./Team/Blueprint";
-import { ReelYouth } from "./Team/ReelYouth";
+import { Mosaic } from "./Team/Mosaic.ts";
+import { Pedals } from "./Team/Pedals.ts";
+import { Blueprint } from "./Team/Blueprint.ts";
+import { ReelYouth } from "./Team/ReelYouth.ts";
 
 export const Projects = [
   {

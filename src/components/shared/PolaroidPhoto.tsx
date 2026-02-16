@@ -17,7 +17,7 @@ type PolaroidPhotoProps = {
 const PolaroidPhoto = ({imageSrc, caption, alt}: PolaroidPhotoProps) => {
     // Outer container for component
     return (
-    <div className="bg-blueprint-white border border-black-4 gap-[8px] shadow-[2px_4px_10px_0_rgba(0_0_0_0.07)] w-[306px] h-[270px] pt-[11px] pr-[12px] pb-[15px] pl-[13px] 
+    <div className="bg-blueprint-white gap-[8px] shadow-[2px_4px_10px_0_rgba(0_0_0_0.07)] w-[306px] h-[270px] pt-[11px] pr-[12px] pb-[15px] pl-[13px] 
                     md:h-[359px] md:w-[377px] md:px-[18px] md:pt[20px] md:pb[24px] overflow-hidden">
         {/* Inner container for all elements */}
         <div className="flex flex-col self-stretch shrink-0 items-center gap-[8px] md:gap-[10px]"> 

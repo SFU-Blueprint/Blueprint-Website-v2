@@ -2,16 +2,27 @@
 // This is a reusable UI element for displaying a vertical stack of filter “pills” (outlined and filled states).
 
 const Filters = () => {
-    return (
-        <>  
-    <div className="h-10 px-7 py-2.5 bg-white/20 rounded-[10px] outline outline-1 outline-offset-[-1px] outline-white inline-flex justify-center items-center gap-2.5">
-        <div className="justify-start text-white text-sm font-medium font-['Poppins'] uppercase">EXECUTIVES</div>
-    </div>
+return (
+    <>
+    {/* This is the outlined state */}
+        <div className="bg-blueprint-black p-2"> {/* This div is to see the outlined state */}
+            <button
+                type="button"
+                className="w-fit text-white text-sm font-medium font-['Poppins'] uppercase py-3 px-[18px]
+                md:py-[10px] md:px-[30px] md:rounded-[10px] rounded-[5px] border border-blueprint-white bg-blueprint-white/20"
+            >
+                EXECUTIVES
+            </button>
+        </div>
 
-    <div className="h-10 px-7 py-2.5 bg-zinc-100 rounded-[10px] outline outline-1 outline-offset-[-1px] outline-white inline-flex justify-center items-center gap-2.5">
-        <div className="justify-start text-zinc-800 text-sm font-medium font-['Poppins'] uppercase">EXECUTIVES</div>
-    </div>
-        </>
+        {/* This is the filled state */}
+        <div className="bg-blueprint-neutral-dark p-2">
+            <button className="w-fit text-blueprint-neutral-dark text-sm font-medium font-['Poppins'] uppercase 
+            py-3 px-[18px] md:py-[10px] md:px-[30px] md:rounded-[10px] rounded-[5px] bg-blueprint-white">
+                    EXECUTIVES
+                </button>
+        </div>
+    </>
     );
 };
 

@@ -1,6 +1,12 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
 module.exports = {
   content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    screens: {
+      desktop: "1025px",
+      tablet: "630px",
+      ...defaultTheme.screens,  
+    },
     darkMode: "false",
     extend: {
       colors: {
@@ -77,11 +83,7 @@ module.exports = {
       },
     },
   },
-  plugins: [require("daisyui"),
-    function({addVariant}) {
-      addVariant("h-desktop", "@media(min-height:27rem)");
-    }
-  ],
+  plugins: [require("daisyui")],
   daisyui: {
     // Disable dark mode
     themes: [],

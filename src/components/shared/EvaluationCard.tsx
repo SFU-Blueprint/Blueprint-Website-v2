@@ -28,7 +28,7 @@ const EvaluationCard = ({ title, body }: EvaluationCardProps) => {
         <div className="inline-flex tablet:hidden desktop:inline-flex max-w-[630px] min-w-[328px] h-[341px] pb-[30px] pt-[42px] px-3 relative bg-white rounded-xl border-2 overflow-hidden flex-col items-start">
           <svg className="absolute w-0 h-0" aria-hidden>
             <clipPath id={clipId} clipPathUnits="objectBoundingBox">
-              <path d="M 1 0 L 1 0 Q 1 0 1 0.04 L 1 0.55 Q 1 0.78 0.92 0.78 L 0.06 1 Q 0 0.95 0 0.78 L 0 0 Q 0 0 0 0 Z" />
+              <path d="M 1 0 L 1 0 Q 1 0 1 0 L 1 0.55 Q 1 0.77 0.95 0.78 L 0.06 1 Q 0 1 0 1 L 0 0 Q 0 0 0 0 Z" />
             </clipPath>
           </svg>
           <div

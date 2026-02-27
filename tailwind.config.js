@@ -11,6 +11,7 @@ module.exports = {
           white: "#FFFFFF",
           offwhite: "#FCFCFC",
           deepblue: "#0D579F",
+          navyblue: "#0146BE",
           // Link states (nav, footer, buttons)
           linkHover: "#0146BE",
           linkActive: "#002F80",
@@ -76,7 +77,11 @@ module.exports = {
       },
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui"),
+    function({addVariant}) {
+      addVariant("h-desktop", "@media(min-height:27rem)");
+    }
+  ],
   daisyui: {
     // Disable dark mode
     themes: [],

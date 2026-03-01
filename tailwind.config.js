@@ -1,6 +1,12 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
 module.exports = {
   content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    screens: {
+      desktop: "1025px",
+      tablet: "630px",
+      ...defaultTheme.screens,  
+    },
     darkMode: "false",
     extend: {
       colors: {
@@ -11,9 +17,16 @@ module.exports = {
           white: "#FFFFFF",
           offwhite: "#FCFCFC",
           deepblue: "#0D579F",
+          navyblue: "#0146BE",
           // Link states (nav, footer, buttons)
           linkHover: "#0146BE",
           linkActive: "#002F80",
+          hoverBlue: "#00389B",
+          // Accent (button/icon hover surfaces)
+          accent: {
+            lightBlue: "#A5C6FF",
+            veryLightBlue: "#D3E3FF",
+          },
           // Neutrals (backgrounds, borders, muted text)
           gray: {
             dark: "#B8B8B8",

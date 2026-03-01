@@ -1,9 +1,20 @@
 import React from "react";
 import PageContainer from "../components/layout/PageContainer";
+import EvaluationCard from "../components/shared/EvaluationCard";
 
 const NonprofitsPage = () => {
   return (
     <PageContainer>
+        <EvaluationCard title="Organizational Need" body="What measurable improvements would this product deliver to current operations? 
+        How does it align with long-term organizational goals? How urgent is its development?" />
+        <EvaluationCard title="Organizational Need" body="What measurable improvements would this product deliver to current operations? 
+        How does it align with long-term organizational goals? How urgent is its development?" />
+        <EvaluationCard title="Organizational Need" body="What measurable improvements would this product deliver to current operations? 
+        How does it align with long-term organizational goals? How urgent is its development?" />  
+        {/* <EvaluationCard title="Technical Feasibility" body="Are the desired features commonly built-in software products or near the frontiers of what can be built? Some examples of solutions we can achieve include: Mobile apps, Websites, In-browser games, Information databases, & AI/machine learning solutions." /> */}
+
+
+      
     {/* Hero Section */}
     <section class="m-4">
       <h1>Partner with us</h1>

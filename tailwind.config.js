@@ -18,6 +18,7 @@ module.exports = {
           offwhite: "#FCFCFC",
           deepblue: "#0D579F",
           navyblue: "#0146BE",
+          orange: "#F49F00",
           // Link states (nav, footer, buttons)
           linkHover: "#0146BE",
           linkActive: "#002F80",

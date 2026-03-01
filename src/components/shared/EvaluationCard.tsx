@@ -33,7 +33,7 @@ const EvaluationCard = ({ title, body, colour="blueprint-navyblue" }: Evaluation
             </clipPath>
           </svg>
           <div
-            className="absolute left-0 right-0 top-0 h-[102px] min-w-[302px] max-wfull max-w-[605px] bg-blueprint-navyblue rounded-xl m-3"
+            className={`absolute left-0 right-0 top-0 h-[102px] min-w-[302px] max-wfull max-w-[605px] bg-${colour} rounded-xl m-3`}
             style={{ clipPath: `url(#${clipId})` }}
             aria-hidden
           />

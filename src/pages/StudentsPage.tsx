@@ -1,6 +1,6 @@
 import React from "react";
 import PageContainer from "../components/layout/PageContainer";
-
+import Filters from "../components/shared/Filters";
 const StudentsPage = () => {
   return (
   <PageContainer>
@@ -11,6 +11,8 @@ const StudentsPage = () => {
       <button>See open positions placeholder</button>
       <hr />
     </section>
+
+    <Filters />
 
     {/* Blueprinter Trait sections*/}
     <section className="m-4">

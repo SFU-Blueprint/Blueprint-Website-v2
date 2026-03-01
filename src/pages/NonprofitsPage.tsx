@@ -1,11 +1,25 @@
 import React from "react";
 import PageContainer from "../components/layout/PageContainer";
+<<<<<<< HEAD
 import PolaroidPhoto from "../components/shared/PolaroidPhoto";
 
+=======
+import EvaluationCard from "../components/shared/EvaluationCard";
+>>>>>>> 7858b85802ec3d57333b622508860d201d6476e4
 
 const NonprofitsPage = () => {
   return (
     <PageContainer>
+        <EvaluationCard title="Organizational Need" body="What measurable improvements would this product deliver to current operations? 
+        How does it align with long-term organizational goals? How urgent is its development?" />
+        <EvaluationCard title="Organizational Need" body="What measurable improvements would this product deliver to current operations? 
+        How does it align with long-term organizational goals? How urgent is its development?" />
+        <EvaluationCard title="Organizational Need" body="What measurable improvements would this product deliver to current operations? 
+        How does it align with long-term organizational goals? How urgent is its development?" />  
+        {/* <EvaluationCard title="Technical Feasibility" body="Are the desired features commonly built-in software products or near the frontiers of what can be built? Some examples of solutions we can achieve include: Mobile apps, Websites, In-browser games, Information databases, & AI/machine learning solutions." /> */}
+
+
+      
     {/* Hero Section */}
     <section className="mb-[180px] flex flex-row">
       <div className="gap-[24px] w-[939px]">

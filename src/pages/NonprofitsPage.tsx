@@ -13,7 +13,7 @@ const NonprofitsPage = () => {
                               max-md:bg-[url('/images/non-profit/mobile_partner_crosspoint.svg')] max-md:bg-[calc(100%+130px)_-132px]">
     {/* Hero Section */}
     <section className="mb-[180px]
-    max-[1024px]:mb-[30px]">
+                        max-[1024px]:mb-[30px]">
         <h1 className="text-blueprint-neutral-dark text-[96px]/[100%] font-[400] font-poppins tracking-[-1.92px] text-left mb-[24px] whitespace-pre-wrap
                         max-md:text-[56px] max-md:tracking-[-1.12px] max-md:mb-[12px]
                         max-[400px]:w-[200px]">
@@ -21,7 +21,7 @@ const NonprofitsPage = () => {
         </h1>
         {/* Img & Desc container*/}
         <div className="flex flex-row w-[100%] 
-          max-[900px]:flex-col"> 
+                        max-[900px]:flex-col"> 
           <p className="font-poppins font-[400] text-[30px]/[100%] text-black tracking-[-0.6px] 
                         min-[769px]:pr-[30px]
                         max-md:text-[20px]/[140%] max-md:text-blueprint-neutral-dark max-md:tracking-[-0.4px]">
@@ -29,12 +29,11 @@ const NonprofitsPage = () => {
             and <div className={`bg-[#D2A6FB]  ${colouredRectCSSBase}`} />  bring your vision for social good to life through innovative ways, all free of charge.
           </p>
           {/* Polaroid Wrapper */}
-          <div className="
-          min-[1025px]:h-0
-          max-[1024px]:mt-[32px]"> 
+          <div className="min-[1025px]:h-0
+                          max-[1024px]:mt-[32px]"> 
             <PolaroidPhoto imageSrc="https://placehold.co/398x298" caption="placeholder" alt="placeholder" 
             className="ml-auto rotate-[7deg]
-                      max-[1024px]:mr-auto "/>
+                       max-[1024px]:mr-auto "/>
           </div>
         </div>
     </section>
@@ -56,7 +55,7 @@ const NonprofitsPage = () => {
         </div>
         {/* Eval Card list */}
         <ul className="flex flex-row gap-x-[6px] max-w-[100%]
-            max-[1076px]:flex-col max-[1076px]:gap-y-[18px]">
+                       max-[1076px]:flex-col max-[1076px]:gap-y-[18px]">
           <li>
             {/* hexcode: #0146BE */}
             <EvaluationCard colour="blueprint-navyblue" title="Organizational Need" body="What measurable improvements would this product deliver to current operations? 
@@ -69,7 +68,6 @@ const NonprofitsPage = () => {
           <li>
             {/* hexcode: #0177E8 */}
             <EvaluationCard colour="blueprint-blue" title="Community Impact" body="Does the non-profit understand the challenges encountered by the community it serves? How would the product would align with solving those problems?" />  
-            {/* <EvaluationCard title="Technical Feasibility" body="Are the desired features commonly built-in software products or near the frontiers of what can be built? Some examples of solutions we can achieve include: Mobile apps, Websites, In-browser games, Information databases, & AI/machine learning solutions." /> */}
           </li>
         </ul>
       </section>

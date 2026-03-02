@@ -13,7 +13,7 @@ module.exports = {
         blueprint: {
           // Brand
           blue: "#0177E8",
-          black: "#292A3B",
+          black: "#2A2A2A",
           white: "#FFFFFF",
           offwhite: "#FCFCFC",
           deepblue: "#0D579F",
@@ -37,6 +37,15 @@ module.exports = {
             muted: "#D9D9D9",
             mutedAlt: "#AAAAAA",
             mid: "#777777",
+          },
+          // Open Role Card: bp-darkest-grey (default/hover fill), bp-black (pressed fill)
+          darkestGrey: "#383838",
+          // Role accent colors: dev green, pm orange, designer purple, executive light blue
+          roleAccent: {
+            dev: "#71EC59",
+            pm: "#F59E0B",
+            designer: "#A855F7",
+            executive: "#38BDF8",
           },
         },
       },

@@ -36,7 +36,7 @@ const NavBar = () => {
 
   return (
     <nav className="w-full p-5 justify-center">
-      <div className="flex flex-col gap-4 max-lg:flex-grow lg:flex-row lg:gap-0 lg:items-stretch w-full max-w-[1254px] mx-auto">
+      <div className="flex flex-col gap-4 max-lg:flex-grow lg:flex-row lg:gap-0 lg:items-stretch w-full max-w-full px-2 md:px-6 xl:px-32  mx-auto">
       <div className={`flex justify-between items-center rounded-lg 
                       ${isDark ? 'bg-blueprint-black' : 'bg-blueprint-white'}
                       shadow-[0px_4px_15px_0px_rgba(0,0,0,0.07)] backdrop-blur-xl overflow-hidden max-lg:pr-4`}>

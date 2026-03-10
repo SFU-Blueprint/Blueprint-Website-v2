@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import linkedinIcon from "../../assets/linkedin2.png";
+import linkedinIcon from "../../assets/icons/linkedin2.png";
 import { ReactComponent as ArrowUpRightIcon } from "../../assets/icons/ArrowUpRight.svg";
 
 export type MemberCardProps = {
@@ -10,11 +10,11 @@ export type MemberCardProps = {
   linkedinUrl?: string;
 };
 
-// Role-based hover/click background (palette: bp-accent-purple, bp-orange, bp-accent-light-blue, bp-accent-very-light-blue)
+// Role-based hover/click background (solid brand colors per palette)
 const ROLE_HOVER_BG_CLASS: Record<NonNullable<MemberCardProps["roleType"]>, string> = {
-  designer: "bg-blueprint-accent-purple/20",
-  pm: "bg-blueprint-orange/15",
-  dev: "bg-blueprint-accent-lightBlue/25",
+  designer: "bg-blueprint-accent-purple",
+  pm: "bg-blueprint-orange",
+  dev: "bg-blueprint-accent-lightBlue",
   exec: "bg-blueprint-accent-veryLightBlue",
 };
 

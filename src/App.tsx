@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import ProjectsPage from "./pages/ProjectsPage";
 import StudentsPage from "./pages/StudentsPage";
+import AlumniPage from "./pages/AlumniPage";
 import NonprofitsPage from "./pages/NonprofitsPage";
 import IndividualProject from "./pages/IndividualProject";
 import FooterRevamp from "./components/footer/FooterRevamp";
@@ -22,6 +23,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/alumni" element={<AlumniPage />} />
         <Route path="/projectspage" element={<ProjectsPage />} />
         <Route path="/students" element={<StudentsPage />} />
         <Route path="/nonprofits" element={<NonprofitsPage />} />

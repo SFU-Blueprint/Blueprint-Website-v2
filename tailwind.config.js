@@ -23,16 +23,25 @@ module.exports = {
           linkHover: "#0146BE",
           linkActive: "#002F80",
           hoverBlue: "#00389B",
-          // Accent (button/icon hover surfaces)
+          // Accent (palette: bp-accent-*)
           accent: {
             lightBlue: "#A5C6FF",
             veryLightBlue: "#D3E3FF",
+            mediumBlue: "#5387E3",
+            purple: "#D2A6FB",
           },
-          // Neutrals (backgrounds, borders, muted text)
+          orange: "#F49F00",
+          // Neutrals / grey scale (palette: bp-light-grey, bp-grey, bp-dark-grey, bp-lightest-grey)
           gray: {
             dark: "#B8B8B8",
             light: "#F3F3F3",
+            lightest: "#F3F3F3",
           },
+          lightGrey: "#D9D9D9",
+          grey: "#AAAAAA",
+          darkGrey: "#777777",
+          // Text (body / secondary copy)
+          textGray: "#6A6A6A",
           neutral: {
             dark: "#2A2A2A",
             muted: "#D9D9D9",

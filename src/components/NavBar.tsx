@@ -35,22 +35,29 @@ const NavBar = () => {
   ];
 
   return (
-    <nav className="flex justify-center bg-blueprint-offwhite">
-      <div className="flex flex-col justify-between max-lg:flex-grow lg:flex-row lg:w-nav-container-max lg:px-nav-px-desktop">
-        <div className="flex justify-between items-center py-4 px-4 sm:px-0 sm:mx-4">
-          <div className="ml-2">
-            <Logo isDark={isDark} />
-          </div>
-
-          <div className="mr-2">
-            <MenuButton
-              isDark={isDark}
-              visibility="lg:hidden"
-              isMenuOpened={isMenuOpened}
-              toggleMenu={toggleMenu}
-            />
-          </div>
+    <nav className="w-full p-5 justify-center">
+      <div className="flex flex-col gap-4 max-lg:flex-grow lg:flex-row lg:gap-0 lg:items-stretch w-full max-w-full px-2 md:px-6 xl:px-32  mx-auto">
+      <div className={`flex justify-between items-center rounded-lg 
+                      ${isDark ? 'bg-blueprint-black' : 'bg-blueprint-white'}
+                      shadow-[0px_4px_15px_0px_rgba(0,0,0,0.07)] backdrop-blur-xl overflow-hidden max-lg:pr-4`}>
+                      
+        <div>
+          <Logo isDark={isDark} />
         </div>
+
+        <div>
+          <MenuButton
+            isDark={isDark}
+            visibility="lg:hidden"
+            isMenuOpened={isMenuOpened}
+            toggleMenu={toggleMenu}
+          />
+        </div>
+      </div>
+      <div className="hidden lg:block flex-1" aria-hidden />
+      <div className={`flex justify-between items-center rounded-lg 
+                        ${isDark ? 'bg-blueprint-neutral-dark' : 'bg-blueprint-white'}
+                      shadow-[0px_4px_15px_0px_rgba(0,0,0,0.07)] backdrop-blur-xl overflow-hidden max-lg:w-full`}>
         <NavLinks
           isMenuOpened={isMenuOpened}
           isDark={isDark}
@@ -58,6 +65,7 @@ const NavBar = () => {
           closeMenu={closeMenu}
           currentPath={currentPath}
         />
+        </div>
       </div>
       {/* Comment out button to test dark features */}
       {/* <button  
@@ -75,7 +83,7 @@ function MenuButton({ isMenuOpened, visibility, toggleMenu, isDark }) {
   return (
     <button
       className={`${visibility} w-10 h-10 rounded-[7.05px] p-[13px_11px] gap-[9px] flex items-center justify-center transition-colors ${
-        isDark ? 'bg-blueprint-neutral-dark' : 'bg-blueprint-gray-light'
+        isDark ? 'bg-blueprint-neutral-dark' : 'bg-blueprint-white'
       }`}
       onClick={toggleMenu}
       aria-label={isMenuOpened ? "Close menu" : "Open menu"}
@@ -94,7 +102,7 @@ function NavLinks({ routes, isMenuOpened, currentPath, closeMenu, isDark}) {
   return (
     // MENU BUTTON
     <div
-      className={`flex flex-col items-center font-poppins lg:flex-row lg:space-x-12 lg:flex ${
+      className={`flex flex-col max-lg:items-stretch max-lg:w-full items-center font-poppins lg:flex-row lg:space-x-12 lg:flex ${
         isMenuOpened ? "" : "max-lg:hidden"
       }`}
     >
@@ -116,9 +124,10 @@ function NavLinks({ routes, isMenuOpened, currentPath, closeMenu, isDark}) {
               max-lg:flex max-lg:items-center max-lg:justify-start
               max-lg:rounded-md max-lg:text-left 
               max-lg:active:text-white
-              ${isDark ? 'max-lg:active:bg-blueprint-neutral-mid max-lg:bg-blueprint-neutral-dark max-lg:text-white' : 
-                'max-lg:active:bg-blueprint-linkActive max-lg:bg-blueprint-gray-light max-lg:text-blueprint-black'}
-              ${route.path === currentPath ? 'max-lg:font-semibold' : ''}
+              max-lg:hover:text-white
+              ${isDark ? 'max-lg:active:bg-blueprint-neutral-mutedAlt max-lg:hover:bg-blueprint-neutral-mid max-lg:bg-blueprint-neutral-dark max-lg:text-white' : 
+                'max-lg:active:bg-blueprint-linkActive max-lg:hover:bg-blueprint-linkHover max-lg:bg-blueprint-gray-light max-lg:text-blueprint-black'}
+              ${route.path === currentPath ? 'max-lg:font-semibold max-lg:text-blueprint-blue' : ''}
                
               lg:relative lg:h-nav-desktop-h lg:px-nav-desktop-px lg:py-nav-desktop-py
               lg:flex lg:items-center lg:justify-between
@@ -126,7 +135,7 @@ function NavLinks({ routes, isMenuOpened, currentPath, closeMenu, isDark}) {
               ${isDark ? 'lg:text-white lg:hover:bg-blueprint-neutral-mid lg:active:bg-blueprint-neutral-mutedAlt' : 'lg:hover:bg-blueprint-linkHover lg:active:bg-blueprint-linkActive'}
               lg:rounded lg:transition-all
               
-              ${route.path === currentPath && "text-blueprint-blue underline font-semibold"}
+              ${route.path === currentPath && "text-blueprint-blue font-semibold"}
               ${index === 0 && "lg:hidden"}
               
               font-poppins text-nav-link uppercase

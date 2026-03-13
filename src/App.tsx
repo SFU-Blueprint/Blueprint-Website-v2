@@ -16,7 +16,9 @@ function App() {
   return (
     <div className="App flex flex-col min-h-screen">
       <ScrollToHashElement />
-      <NavBar />
+      <div className="absolute top-0 left-0 right-0 z-20">
+        <NavBar />
+      </div>
       <main className="flex-grow">
       <Routes>
         <Route path="/" element={<HomePage />} />

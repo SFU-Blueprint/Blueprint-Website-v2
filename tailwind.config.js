@@ -105,6 +105,10 @@ module.exports = {
         "nav-desktop-h": "60px",
         "nav-desktop-px": "36px",
         "nav-desktop-py": "12px",
+        "main-top": "60px",
+        ppcard:{
+           bottom: "111px",
+        }
       },
     },
   },

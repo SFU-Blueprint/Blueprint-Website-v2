@@ -2,7 +2,7 @@ import React from "react";
 import PageContainer from "../components/layout/PageContainer";
 import ProjectCard from "../components/projects-page/ProjectProjectCard";
 import Filters from "../components/shared/Filters";
-import StickyCTA from "../components/shared/StickyCTA";
+import ProjectsCTA from "../components/shared/ProjectsCTA";
 const ProjectsPage = () => {
   const filterNames = ["Web App", "Website", "Plugin"];
   return (
@@ -12,14 +12,14 @@ const ProjectsPage = () => {
                               max-md:bg-[url('/images/non-profit/mobile_partner_crosspoint.svg')] max-md:bg-[calc(100%+130px)_-132px]">
 
       {/* Main Container Flex Column */}
-      <div className="flex flex-col gap-4 items-center justify-center pb-[111px] pt-[60px]">
+      <div className="flex flex-col gap-4 items-center justify-center pb-ppcard-bottom pt-main-top">
           {/* Title */}
           <h1 className="text-center justify-start text-zinc-800 text-5xl font-normal font-['Poppins']">
               our projects
           </h1>
           
           {/* Filters Flex Row (Web app, Website, Plugin)*/}
-          <div className="flex flex-row gap-4 items-center justify-center">
+          <div className="flex flex-row gap-4 items-center justify-center pt-[42px] pb-[84px]">
             {filterNames.map((name) => (
               <Filters state="outlined" title={name} />
             ))}
@@ -31,17 +31,12 @@ const ProjectsPage = () => {
               <ProjectCard />
               <ProjectCard />
               <ProjectCard />
-              {/* 
-              <div className="flex flex-col gap-4 items-center justify-center">
-                <ProjectCard />
-                <ProjectCard />
-              </div> */}
           </div>
 
       </div>
-      {/* CTA - Sticky at bottom until footer */}
+      {/* CTA - Sticky at bottom until footer, no extra white space */}
       <div className="sticky bottom-0 left-0 right-0 z-20 flex justify-center pt-4 pb-4">
-        <StickyCTA /> {/* Using Other CTA for now as a Placeholder */}
+        <ProjectsCTA />
       </div>
     </PageContainer>
   );

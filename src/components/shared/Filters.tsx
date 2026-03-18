@@ -5,11 +5,11 @@ const Filters = ({state,title}: {state: 'outlined' | 'filled', title: string}) =
 
     if (state === 'outlined') {
         return(
-            // Outlined State
+            // Outlined State for dark background (changed text and bg to zinc-800 for now to see)
             <button
                 type="button"
-                className="w-fit text-zinc-800 text-sm font-medium font-['Poppins'] uppercase py-3 px-[18px]
-                md:py-[10px] md:px-[30px] md:rounded-[10px] rounded-[5px] border border-blueprint-zinc-300 bg-blueprint-white/20"
+                className="w-fit text-blueprint-black text-sm font-medium font-['Poppins'] uppercase py-3 px-[18px]
+                md:py-[10px] md:px-[30px] md:rounded-[10px] rounded-[5px] border border-blueprint-black bg-blueprint-white/20"
             >
                 {title}
             </button>

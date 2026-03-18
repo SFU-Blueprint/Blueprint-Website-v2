@@ -62,7 +62,7 @@ export default function FooterRevamp() {
   const linkGap = "gap-footer-gap-link";
 
   return (
-    <footer className="w-full bg-blueprint-neutral-dark text-white font-poppins">
+    <footer id="app-footer" className="w-full bg-blueprint-neutral-dark text-white font-poppins">
       <div className="hidden lg:block px-footer-px-desktop py-footer-py-desktop">
         <div className="flex flex-col gap-footer-gap-section">
           <div className="flex flex-col gap-footer-gap-block">

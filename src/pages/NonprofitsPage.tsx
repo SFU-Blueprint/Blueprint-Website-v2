@@ -1,5 +1,6 @@
 import React from "react";
 import PageContainer from "../components/layout/PageContainer";
+import Accordion from "../components/shared/Accordion";
 import EvaluationCard from "../components/shared/EvaluationCard";
 import PolaroidPhoto from "../components/shared/PolaroidPhoto";
 
@@ -79,14 +80,65 @@ const NonprofitsPage = () => {
         </ul>
       </section>
 
-      {/* BP Approach sections*/}
-      <section className="m-4">
-        <h2>our approach</h2>
-        <ol>
-          <li>1 Discover PLACEHOLDER</li>
-          <li>2 Build PLACEHOLDER</li>
-          <li>3 Clean Finish PLACEHOLDER</li>
-        </ol>
+      {/* BP Approach Section */}
+      <section>
+        <h2 className="text-blueprint-neutral-dark font-poppins font-[600] text-[36px]/[140%] tracking-[-0.72px] mb-[24px]
+                        max-md:text-[24px]/[110%] max-md:tracking-[-0.48px] max-md:mb-[18px]">
+          our approach
+        </h2>
+        <div className="flex flex-col gap-[16px] max-md:gap-[12px]">
+          <Accordion header="01. Discover">
+            <div className="flex flex-col gap-[24px] md:gap-[30px]">
+              <div className="flex flex-col gap-[6px]">
+                <p className="font-poppins font-[600] text-[14px] md:text-[16px]">Research and Discovery</p>
+                <p className="font-poppins font-[400] text-[14px] md:text-[16px]">
+                  We work closely with your organization to understand your needs, goals, and the community you serve.
+                </p>
+              </div>
+              <div className="flex flex-col gap-[6px]">
+                <p className="font-poppins font-[600] text-[14px] md:text-[16px]">Project Scoping</p>
+                <p className="font-poppins font-[400] text-[14px] md:text-[16px]">
+                  Our team defines the project scope, deliverables, and timeline to ensure alignment with your vision.
+                </p>
+              </div>
+              <p className="font-poppins font-[600] text-[14px] md:text-[16px]">Total Time: 2-3 Months</p>
+            </div>
+          </Accordion>
+          <Accordion header="02. Build">
+            <div className="flex flex-col gap-[24px] md:gap-[30px]">
+              <div className="flex flex-col gap-[6px]">
+                <p className="font-poppins font-[600] text-[14px] md:text-[16px]">Design and Validation</p>
+                <p className="font-poppins font-[400] text-[14px] md:text-[16px]">
+                  Our designers create design concepts and validate them early to ensure they address the problem effectively.
+                </p>
+              </div>
+              <div className="flex flex-col gap-[6px]">
+                <p className="font-poppins font-[600] text-[14px] md:text-[16px]">Development</p>
+                <p className="font-poppins font-[400] text-[14px] md:text-[16px]">
+                  Our developers bring the design to life with reliable, scaleable, and maintainable code tailored to your organization.
+                </p>
+              </div>
+              <p className="font-poppins font-[600] text-[14px] md:text-[16px]">Total Time: 6-8 Months</p>
+            </div>
+          </Accordion>
+          <Accordion header="03. Clean Finish">
+            <div className="flex flex-col gap-[24px] md:gap-[30px]">
+              <div className="flex flex-col gap-[6px]">
+                <p className="font-poppins font-[600] text-[14px] md:text-[16px]">Testing and QA</p>
+                <p className="font-poppins font-[400] text-[14px] md:text-[16px]">
+                  We rigorously test the product to ensure it meets quality standards and is ready for deployment.
+                </p>
+              </div>
+              <div className="flex flex-col gap-[6px]">
+                <p className="font-poppins font-[600] text-[14px] md:text-[16px]">Handoff and Support</p>
+                <p className="font-poppins font-[400] text-[14px] md:text-[16px]">
+                  We provide documentation, training, and a smooth handoff so your team can maintain the product independently.
+                </p>
+              </div>
+              <p className="font-poppins font-[600] text-[14px] md:text-[16px]">Total Time: 1-2 Months</p>
+            </div>
+          </Accordion>
+        </div>
       </section>
     </section>
 

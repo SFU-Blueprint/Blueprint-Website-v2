@@ -16,7 +16,7 @@ const Button = ({
   type = 'button',
 }: ButtonProps) => {
   const base =
-    'flex items-center justify-center rounded-[5px] font-poppins font-semibold leading-none px-[44px] h-[52px] text-[14px] md:h-[60px] md:text-[16px] transition-colors duration-150 cursor-pointer select-none';
+    'flex items-center justify-center rounded-[5px] font-poppins font-semibold leading-none px-[44px] h-[52px] text-[14px] md:h-[60px] md:text-[16px] transition-colors duration-150 cursor-pointer select-none whitespace-nowrap';
 
   const variants = {
     primary:

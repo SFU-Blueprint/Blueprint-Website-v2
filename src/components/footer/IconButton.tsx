@@ -24,13 +24,13 @@ const IconButton = ({ id }) => {
 
     switch (t(`${id}.name`)) {
         case t('discord.name'):
-            iconComponent = <DiscordIcon />;
+            iconComponent = <DiscordIcon style={{'fill':'white'}} />;
             break;
         case t('email.name'):
             iconComponent = <EmailIcon />;
             break;
         case t('linkedin.name'):
-            iconComponent = <LinkedinIcon />;
+            iconComponent = <LinkedinIcon style={{'fill':'white'}} />;
             break;
         case t('medium.name'):
             iconComponent = <MediumIcon />;

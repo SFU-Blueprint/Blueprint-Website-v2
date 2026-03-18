@@ -78,7 +78,7 @@ export default function OpenRoleCard({
 
   const className = [
     "w-full min-w-0 flex items-center rounded-[10px] border-2 transition-colors duration-150 font-poppins cursor-pointer",
-    "min-[520px]:w-[520px] min-[520px]:max-w-[520px] min-[520px]:h-[100px] min-[520px]:justify-between",
+    "min-[520px]:flex-1 min-[520px]:h-[100px] min-[520px]:justify-between",
     "p-6 pl-4 gap-3 min-[520px]:py-[30px] min-[520px]:px-9 min-[520px]:gap-0",
     usePressedFill ? "bg-black" : "bg-blueprint-darkestGrey",
     showAccentBorder ? "" : "border-transparent",

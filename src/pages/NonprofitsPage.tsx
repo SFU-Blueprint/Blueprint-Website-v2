@@ -25,8 +25,8 @@ const NonprofitsPage = () => {
           <p className="font-poppins font-[400] text-[30px]/[100%] text-black tracking-[-0.6px] 
                         min-[769px]:pr-[30px]
                         max-md:text-[20px]/[140%] max-md:text-blueprint-neutral-dark max-md:tracking-[-0.4px]">
-            by working with us, your organization will <div className={`bg-blueprint-orange ${colouredRectCSSBase} `} /> gain fresh perspectives of your business, <div className={`bg-[#71EC59] ${colouredRectCSSBase} `} /> increase community engagement with local students, 
-            and <div className={`bg-[#D2A6FB]  ${colouredRectCSSBase}`} />  bring your vision for social good to life through innovative ways, all free of charge.
+            by working with us, your organization will <span className={`bg-blueprint-orange ${colouredRectCSSBase} `} /> gain fresh perspectives of your business, <span className={`bg-[#71EC59] ${colouredRectCSSBase} `} /> increase community engagement with local students, 
+            and <span className={`bg-[#D2A6FB]  ${colouredRectCSSBase}`} />  bring your vision for social good to life through innovative ways, all free of charge.
           </p>
           {/* Polaroid Wrapper */}
           <div className="min-[1025px]:h-0

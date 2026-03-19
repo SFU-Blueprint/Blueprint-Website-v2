@@ -3,8 +3,41 @@ import PageContainer from "../components/layout/PageContainer";
 import ProjectCard from "../components/projects-page/ProjectProjectCard";
 import Filters from "../components/shared/Filters";
 import ProjectsCTA from "../components/shared/ProjectsCTA";
+import { Projects } from "../constants/projects";
+import { useState } from "react";
+
+// Map filter button labels to project tags they should match
+const FILTER_TO_TAGS: Record<string, string[]> = {
+  "Web App": ["Admin", "AI / Bot"],
+  "Website": ["Website"],
+  "Plug-in": ["Innovation"],
+  "Current": ["Current"],
+  "Complete": ["Complete"],
+};
+
 const ProjectsPage = () => {
-  const filterNames = ["Web App", "Website", "Plugin"];
+  const filterNames = ["Web App", "Website", "Plug-in", "Current", "Complete"];
+  const [selectedFilter, setSelectedFilter] = useState("All");
+
+  const handleFilterClick = (filterName: string) => {
+    setSelectedFilter((prev) => (prev === filterName ? "All" : filterName));
+  };
+
+  const filteredProjects = Projects.filter((project) => {
+    if (selectedFilter === "All") return true;
+    const matchTags = FILTER_TO_TAGS[selectedFilter] ?? [];
+    if(matchTags.includes("Complete")){
+      return project.status?.toLowerCase() === "completed";
+    }else if(matchTags.includes("Current")){
+      return project.status?.toLowerCase() === "current";
+    }else {
+      return project.tags?.some((tag) =>
+        matchTags.some((t) => t.toLowerCase() === tag.toLowerCase())
+      );
+    }
+  });
+
+  
   return (
     <PageContainer className="bg-[url('/images/non-profit/desktop_partner_crosspoint.svg')] bg-no-repeat bg-blueprint-gray-light 
                               min-[1280px]:bg-[calc(100%+585px)_-500px]
@@ -21,16 +54,30 @@ const ProjectsPage = () => {
           {/* Filters Flex Row (Web app, Website, Plugin)*/}
           <div className="flex flex-row gap-4 items-center justify-center pt-[42px] pb-[84px]">
             {filterNames.map((name) => (
-              <Filters state="outlined" title={name} />
+              <Filters
+                key={name}
+                title={name}
+                state={selectedFilter === name ? "active" : "outlined"}
+                onClick={() => handleFilterClick(name)}
+              />
             ))}
           </div>
           
           {/* Projects Grid: 1 column on mobile, 2 per row on larger screens */}
           <div className="grid grid-cols-1 min-[962px]:grid-cols-2 gap-x-[42px] gap-y-9 w-full max-w-[1280px]">
-              <ProjectCard />
-              <ProjectCard />
-              <ProjectCard />
-              <ProjectCard />
+              {filteredProjects.map((project) => (
+                <ProjectCard
+                key={project.slug}
+                project={{
+                  LOGO_PLACEHOLDER: project.image ? project.image : "https://placehold.co/76x76",
+                  COVER_PLACEHOLDER: project.popupimage ? project.popupimage : "https://placehold.co/517x354",
+                  TITLE_PLACEHOLDER: project.description,
+                  CLIENT_PLACEHOLDER: project.name,
+                  SERVICE_PLACEHOLDER: project.tags?.[0] ?? "Web App",
+                  SECTOR_PLACEHOLDER: project.tags?.[1] ?? project.tags?.[0] ?? "NPO",
+                }}
+              />
+              ))}
           </div>
 
       </div>

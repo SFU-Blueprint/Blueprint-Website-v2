@@ -19,6 +19,7 @@ const ProjectsPage = () => {
   const filterNames = ["Web App", "Website", "Plug-in", 
     // "Current", "Completed"
   ]; // Filter button labels - Displayed in UI
+
   const [selectedFilter, setSelectedFilter] = useState("All");
   
   const handleFilterClick = (filterName: string) => {
@@ -57,7 +58,7 @@ const ProjectsPage = () => {
           </h1>
           
           {/* Filters Flex Row (Web app, Website, Plugin)*/}
-          <div className="flex flex-row gap-4 items-center justify-center pt-[42px] pb-[84px] max-md:gap-[6px] max-md:pb-6 max-md:pt-8">
+          <div className="flex flex-row gap-4 items-center justify-center pt-10 pb-16 max-md:gap-[6px] max-md:pb-6 max-md:pt-8">
             {filterNames.map((name) => (
               <Filters
                 key={name}

@@ -159,16 +159,6 @@ const StudentsPage = () => {
                           max-[1279px]:bg-[calc(100%+689px)_-360px]
                           max-md:bg-[url('/images/non-profit/mobile_partner_crosspoint.svg')] max-md:bg-[calc(100%+130px)_-132px]">
 
-    {/* Blueprinter Trait sections*/}
-    <section className="m-4">
-      <p>Blueprint is right for you if you're:</p>
-      <ul>
-        <li>a post-secondary student in Greater Vancouver</li>
-        <li>passionate about creating meaningful impact in your community</li>
-        <li>nterested in tech, design, or project management and excited to grow through real, collaborative project work</li>
-      </ul>
-      <hr />
-    </section>
 
         <div className="relative z-10 w-full px-6 md:px-10 xl:px-36 pt-[142px] pb-[100px] max-md:pt-[90px] max-md:pb-[60px]">
           {/* Title + Button row */}

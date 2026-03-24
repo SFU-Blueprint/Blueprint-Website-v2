@@ -89,7 +89,7 @@ const ProjectsPage = () => {
       </div>
       {/* CTA - Sticky at bottom until footer, no extra white space */}
       <div className="sticky bottom-0 left-0 right-0 z-20 flex justify-center pt-4 pb-4
-      md:bottom-[300px]">
+      md:bottom-1/2">
         <ProjectsCTA />
       </div>
     </PageContainer>

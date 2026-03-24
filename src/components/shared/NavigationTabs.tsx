@@ -15,10 +15,10 @@ export default function NavigationTabs({ tabs, activeHref }: NavigationTabsProps
   const [underlineWidth, setUnderlineWidth] = useState(0);
 
   const activeIndex = activeHref != null ? tabs.findIndex((t) => t.href === activeHref) : -1;
-  const effectiveIndex = activeIndex >= 0 ? activeIndex : 0;
 
   useEffect(() => {
-    const textEl = textRefs.current[effectiveIndex];
+    if (activeIndex < 0) return;
+    const textEl = textRefs.current[activeIndex];
     const container = containerRef.current;
     if (textEl && container) {
       const containerRect = container.getBoundingClientRect();
@@ -26,7 +26,7 @@ export default function NavigationTabs({ tabs, activeHref }: NavigationTabsProps
       setUnderlineLeft(textRect.left - containerRect.left - UNDERLINE_EXTRA_PX);
       setUnderlineWidth(textRect.width + UNDERLINE_EXTRA_PX * 2);
     }
-  }, [effectiveIndex, tabs]);
+  }, [activeIndex, tabs]);
 
   return (
     <nav className="w-full font-poppins" aria-label="Section navigation">
@@ -40,13 +40,13 @@ export default function NavigationTabs({ tabs, activeHref }: NavigationTabsProps
             <Link
               key={tab.href}
               to={tab.href}
-              className={`group relative block shrink-0 py-3 px-4 text-sm leading-[100%] tracking-normal whitespace-nowrap transition-colors duration-150 ${
+              className={`group relative inline-flex shrink-0 w-fit max-w-fit py-3 px-4 text-sm leading-[100%] tracking-normal whitespace-nowrap transition-colors duration-150 ${
                 isActive ? "text-blueprint-linkHover" : "text-blueprint-neutral-dark"
               }`}
               aria-current={isActive ? "page" : undefined}
             >
               <span
-                className="relative inline-block"
+                className="relative inline-block w-max"
                 ref={(el) => {
                   textRefs.current[i] = el;
                 }}
@@ -55,7 +55,7 @@ export default function NavigationTabs({ tabs, activeHref }: NavigationTabsProps
                   {tab.label}
                 </span>
                 <span
-                  className={`absolute inset-0 flex items-center ${isActive ? "font-semibold" : "font-normal group-hover:font-semibold"}`}
+                  className={`absolute inset-0 flex items-center justify-center ${isActive ? "font-semibold" : "font-normal group-hover:font-semibold"}`}
                 >
                   {tab.label}
                 </span>

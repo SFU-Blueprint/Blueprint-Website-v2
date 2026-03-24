@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useLayoutEffect, useCallback } from "react";
 import CalloutCard from "../components/shared/CalloutCard";
 import Button from "../components/shared/Button";
 import OpenRoleCard from "../components/shared/OpenRoleCard";
@@ -418,32 +418,38 @@ const StudentsPage = () => {
   );
 };
 
+/** Reserve semibold width so tabs don’t shift when active/hover bolds the label. */
+const APPLICATION_TAB_UNDERLINE_EXTRA_PX = 8;
+
 function ApplicationProcessSection() {
   const [activeTab, setActiveTab] = useState<string>("MEET BLUEPRINT");
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 160 });
+  const indicatorContainerRef = useRef<HTMLDivElement | null>(null);
+  const tabsScrollRef = useRef<HTMLDivElement | null>(null);
+  const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
 
   const updateIndicator = useCallback(() => {
     const activeIndex = APPLICATION_TABS.indexOf(activeTab as typeof APPLICATION_TABS[number]);
     const tabEl = tabRefs.current[activeIndex];
-    if (tabEl) {
-      const parent = tabEl.parentElement;
-      if (parent) {
-        const parentRect = parent.getBoundingClientRect();
-        const tabRect = tabEl.getBoundingClientRect();
-        const tabCenter = tabRect.left - parentRect.left + tabRect.width / 2;
-        setIndicatorStyle({
-          left: tabCenter - 80,
-          width: 160,
-        });
-      }
-    }
+    const container = indicatorContainerRef.current;
+    if (!tabEl || !container) return;
+    const containerRect = container.getBoundingClientRect();
+    const tabRect = tabEl.getBoundingClientRect();
+    setIndicatorStyle({
+      left: tabRect.left - containerRect.left - APPLICATION_TAB_UNDERLINE_EXTRA_PX,
+      width: tabRect.width + APPLICATION_TAB_UNDERLINE_EXTRA_PX * 2,
+    });
   }, [activeTab]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     updateIndicator();
     window.addEventListener("resize", updateIndicator);
-    return () => window.removeEventListener("resize", updateIndicator);
+    const scrollEl = tabsScrollRef.current;
+    scrollEl?.addEventListener("scroll", updateIndicator, { passive: true });
+    return () => {
+      window.removeEventListener("resize", updateIndicator);
+      scrollEl?.removeEventListener("scroll", updateIndicator);
+    };
   }, [updateIndicator]);
 
   const renderTabContent = () => {
@@ -494,30 +500,48 @@ function ApplicationProcessSection() {
       <div className="flex flex-col gap-[21px]">
         {/* Tab bar */}
         <div className="flex flex-col gap-[8px]">
-          <div className="flex gap-[60px] max-md:gap-[24px] pl-[16px] overflow-x-auto">
-            {APPLICATION_TABS.map((tab, i) => (
-              <button
-                key={tab}
-                ref={(el) => { tabRefs.current[i] = el; }}
-                onClick={() => setActiveTab(tab)}
-                className={`font-poppins text-[16px] max-md:text-[14px] whitespace-nowrap cursor-pointer bg-transparent border-none p-0 ${
-                  activeTab === tab
-                    ? "font-semibold text-[#0146be]"
-                    : "font-normal text-[#2a2a2a]"
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
+          <div
+            ref={tabsScrollRef}
+            className="flex gap-[60px] max-md:gap-[24px] pl-[16px] overflow-x-auto"
+          >
+            {APPLICATION_TABS.map((tab, i) => {
+              const isSelected = activeTab === tab;
+              return (
+                <button
+                  key={tab}
+                  type="button"
+                  ref={(el) => {
+                    tabRefs.current[i] = el;
+                  }}
+                  onClick={() => setActiveTab(tab)}
+                  className="group relative inline-flex shrink-0 cursor-pointer border-none bg-transparent p-0 font-poppins text-[16px] max-md:text-[14px] whitespace-nowrap"
+                >
+                  <span className="relative inline-block w-max">
+                    <span className="font-semibold invisible select-none" aria-hidden>
+                      {tab}
+                    </span>
+                    <span
+                      className={`absolute inset-0 flex items-center justify-center ${
+                        isSelected
+                          ? "font-semibold text-[#0146be]"
+                          : "font-normal text-[#2a2a2a] group-hover:font-semibold"
+                      }`}
+                    >
+                      {tab}
+                    </span>
+                  </span>
+                </button>
+              );
+            })}
           </div>
           {/* Tab indicator line */}
-          <div className="relative w-full">
+          <div ref={indicatorContainerRef} className="relative w-full">
             <div
               className="absolute top-0 h-[5px] bg-[#0146be] rounded-t-[10px]"
               style={{
                 left: indicatorStyle.left,
                 width: indicatorStyle.width,
-                transition: "left 0.2s ease",
+                transition: "left 0.2s ease, width 0.2s ease",
               }}
             />
             <div className="w-full h-px bg-[#aaaaaa] mt-[5px]" />

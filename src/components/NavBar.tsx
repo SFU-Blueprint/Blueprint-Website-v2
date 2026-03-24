@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ReactComponent as MenuHamburgerIcon } from "../assets/icons/hamburger.svg";
 import { ReactComponent as MenuXIcon } from "../assets/icons/x.svg";
-import { ReactComponent as GrayMenuHamburgerIcon } from "../assets/icons/TEMP_hamburger_gray.svg" // TEMPORARY ICON FOR DARK
+import { ReactComponent as GrayMenuHamburgerIcon } from "../assets/icons/TEMP_hamburger_gray.svg"
 import { ReactComponent as GrayMenuXIcon } from "../assets/icons/x_gray.svg"
 import Logo from "./shared/Logo";
 
+interface NavBarProps {
+  isDark?: boolean;
+}
 
-const NavBar = () => {
+const NavBar = ({ isDark = false }: NavBarProps) => {
   const [isMenuOpened, setIsMenuOpened] = useState(false);
-  const [isDark, setDark] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpened((prev) => !prev);
@@ -18,10 +20,6 @@ const NavBar = () => {
   const closeMenu = () => {
     setIsMenuOpened(false);
   };
-
-  const toggleDark = () => {
-    setDark((prev) => !prev);
-  }
 
   const currentPath = useLocation().pathname;
 
@@ -36,11 +34,11 @@ const NavBar = () => {
 
   return (
     <nav className="w-full p-5 justify-center">
-      <div className="flex flex-col gap-4 max-lg:flex-grow lg:flex-row lg:gap-0 lg:items-stretch w-full max-w-full px-2 md:px-6 xl:px-32  mx-auto">
-      <div className={`flex justify-between items-center rounded-lg 
-                      ${isDark ? 'bg-blueprint-black' : 'bg-blueprint-white'}
-                      shadow-[0px_4px_15px_0px_rgba(0,0,0,0.07)] backdrop-blur-xl overflow-hidden max-lg:pr-4`}>
-                      
+      <div className="flex flex-col gap-4 max-lg:flex-grow lg:flex-row lg:gap-0 lg:items-stretch w-full max-w-full px-2 md:px-6 xl:px-32 mx-auto">
+      <div className={`flex justify-between items-center rounded-[5px]
+                      ${isDark ? 'bg-blueprint-black' : 'bg-blueprint-white shadow-[0px_4px_15px_0px_rgba(0,0,0,0.07)]'}
+                      backdrop-blur-xl overflow-hidden max-lg:pr-4`}>
+
         <div>
           <Logo isDark={isDark} />
         </div>
@@ -55,9 +53,9 @@ const NavBar = () => {
         </div>
       </div>
       <div className="hidden lg:block flex-1" aria-hidden />
-      <div className={`flex justify-between items-center rounded-lg 
-                        ${isDark ? 'bg-blueprint-neutral-dark' : 'bg-blueprint-white'}
-                      shadow-[0px_4px_15px_0px_rgba(0,0,0,0.07)] backdrop-blur-xl overflow-hidden max-lg:w-full`}>
+      <div className={`flex justify-between items-center
+                        ${isDark ? 'bg-blueprint-neutral-dark rounded-[10px]' : 'bg-blueprint-white rounded-lg shadow-[0px_4px_15px_0px_rgba(0,0,0,0.07)]'}
+                      backdrop-blur-xl overflow-hidden max-lg:w-full`}>
         <NavLinks
           isMenuOpened={isMenuOpened}
           isDark={isDark}
@@ -67,14 +65,6 @@ const NavBar = () => {
         />
         </div>
       </div>
-      {/* Comment out button to test dark features */}
-      {/* <button  
-        onClick={toggleDark}
-        className="ml-4 px-3 py-2 rounded transition-colors bg-blueprint-blue text-white hover:bg-blueprint-linkHover active:bg-blueprint-linkActive"
-        aria-label="Toggle dark mode"
-      >
-        {isDark ? "Light Mode" : "Dark Mode"}
-      </button> */}
     </nav>
   );
 };
@@ -108,9 +98,9 @@ function NavLinks({ routes, isMenuOpened, currentPath, closeMenu, isDark}) {
     >
       {/* MOBILE WRAPPER */}
       <div className={`
-        max-lg:w-full max-lg:py-2 max-lg:px-4 max-lg:space-y-2
-        ${isDark ? 'max-lg:bg-blueprint-neutral-dark' : 'max-lg:bg-white'}
-        lg:contents 
+        max-lg:w-full max-lg:px-4
+        ${isDark ? 'max-lg:bg-blueprint-neutral-dark max-lg:py-3 max-lg:pb-6 max-lg:space-y-1' : 'max-lg:bg-white max-lg:py-2 max-lg:space-y-2'}
+        lg:contents
       `}>
         {routes.map((route, index) => (
           <Link
@@ -125,7 +115,7 @@ function NavLinks({ routes, isMenuOpened, currentPath, closeMenu, isDark}) {
               max-lg:rounded-md max-lg:text-left 
               max-lg:active:text-white
               max-lg:hover:text-white
-              ${isDark ? 'max-lg:active:bg-blueprint-neutral-mutedAlt max-lg:hover:bg-blueprint-neutral-mid max-lg:bg-blueprint-neutral-dark max-lg:text-white' : 
+              ${isDark ? 'max-lg:active:bg-blueprint-neutral-mutedAlt max-lg:hover:bg-blueprint-neutral-mid max-lg:bg-blueprint-neutral-dark max-lg:text-blueprint-gray-lightest' :
                 'max-lg:active:bg-blueprint-linkActive max-lg:hover:bg-blueprint-linkHover max-lg:bg-blueprint-gray-light max-lg:text-blueprint-black'}
               ${route.path === currentPath ? 'max-lg:font-semibold max-lg:text-blueprint-blue' : ''}
                

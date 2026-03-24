@@ -1,5 +1,6 @@
 import React from "react";
 import PageContainer from "../components/layout/PageContainer";
+import Accordion from "../components/shared/Accordion";
 import EvaluationCard from "../components/shared/EvaluationCard";
 import PolaroidPhoto from "../components/shared/PolaroidPhoto";
 
@@ -19,14 +20,21 @@ const NonprofitsPage = () => {
                         max-[400px]:w-[200px]">
         <strong>partner</strong> with us
         </h1>
+
+      
         {/* Img & Desc container*/}
         <div className="flex flex-row w-[100%] 
                         max-[900px]:flex-col"> 
           <p className="font-poppins font-[400] text-[30px]/[100%] text-black tracking-[-0.6px] 
                         min-[769px]:pr-[30px]
                         max-md:text-[20px]/[140%] max-md:text-blueprint-neutral-dark max-md:tracking-[-0.4px]">
-            by working with us, your organization will <div className={`bg-blueprint-orange ${colouredRectCSSBase} `} /> gain fresh perspectives of your business, <div className={`bg-[#71EC59] ${colouredRectCSSBase} `} /> increase community engagement with local students, 
-            and <div className={`bg-[#D2A6FB]  ${colouredRectCSSBase}`} />  bring your vision for social good to life through innovative ways, all free of charge.
+            by working with us, your organization will{" "}
+            <span className={`bg-blueprint-orange ${colouredRectCSSBase}`} /> gain fresh
+            perspectives of your business,{" "}
+            <span className={`bg-[#71EC59] ${colouredRectCSSBase}`} /> increase community
+            engagement with local students, and{" "}
+            <span className={`bg-[#D2A6FB] ${colouredRectCSSBase}`} /> bring your vision
+            for social good to life through innovative ways, all free of charge.
           </p>
           {/* Polaroid Wrapper */}
           <div className="min-[1025px]:h-0
@@ -43,7 +51,7 @@ const NonprofitsPage = () => {
       {/* Project Traits Section*/}
       <section className="mb-[60px]
                           max-md:mb-[18px]">
-        <div className="flex flex-col gap-6px mb-[30px]"> {/* Text Div */}
+        <div className="flex flex-col gap-[6px] mb-[30px]"> {/* Text Div */}
           <h2 className="text-blueprint-neutral-dark font-poppins font-[600] text-[36px]/[140%] tracking-[-0.72px]
                           max-md:text-[24px]/[110%] max-md:tracking-[-0.48px] max-md:mb-[12px]">
             can your idea become a project?
@@ -72,14 +80,65 @@ const NonprofitsPage = () => {
         </ul>
       </section>
 
-      {/* BP Approach sections*/}
-      <section className="m-4">
-        <h2>our approach</h2>
-        <ol>
-          <li>1 Discover PLACEHOLDER</li>
-          <li>2 Build PLACEHOLDER</li>
-          <li>3 Clean Finish PLACEHOLDER</li>
-        </ol>
+      {/* BP Approach Section */}
+      <section>
+        <h2 className="text-blueprint-neutral-dark font-poppins font-[600] text-[36px]/[140%] tracking-[-0.72px] mb-[24px]
+                        max-md:text-[24px]/[110%] max-md:tracking-[-0.48px] max-md:mb-[18px]">
+          our approach
+        </h2>
+        <div className="flex flex-col gap-[16px] max-md:gap-[12px]">
+          <Accordion header="01. Discover">
+            <div className="flex flex-col gap-[24px] md:gap-[30px]">
+              <div className="flex flex-col gap-[6px]">
+                <p className="font-poppins font-[600] text-[14px] md:text-[16px]">Research and Discovery</p>
+                <p className="font-poppins font-[400] text-[14px] md:text-[16px]">
+                  We work closely with your organization to understand your needs, goals, and the community you serve.
+                </p>
+              </div>
+              <div className="flex flex-col gap-[6px]">
+                <p className="font-poppins font-[600] text-[14px] md:text-[16px]">Project Scoping</p>
+                <p className="font-poppins font-[400] text-[14px] md:text-[16px]">
+                  Our team defines the project scope, deliverables, and timeline to ensure alignment with your vision.
+                </p>
+              </div>
+              <p className="font-poppins font-[600] text-[14px] md:text-[16px]">Total Time: 2-3 Months</p>
+            </div>
+          </Accordion>
+          <Accordion header="02. Build">
+            <div className="flex flex-col gap-[24px] md:gap-[30px]">
+              <div className="flex flex-col gap-[6px]">
+                <p className="font-poppins font-[600] text-[14px] md:text-[16px]">Design and Validation</p>
+                <p className="font-poppins font-[400] text-[14px] md:text-[16px]">
+                  Our designers create design concepts and validate them early to ensure they address the problem effectively.
+                </p>
+              </div>
+              <div className="flex flex-col gap-[6px]">
+                <p className="font-poppins font-[600] text-[14px] md:text-[16px]">Development</p>
+                <p className="font-poppins font-[400] text-[14px] md:text-[16px]">
+                  Our developers bring the design to life with reliable, scaleable, and maintainable code tailored to your organization.
+                </p>
+              </div>
+              <p className="font-poppins font-[600] text-[14px] md:text-[16px]">Total Time: 6-8 Months</p>
+            </div>
+          </Accordion>
+          <Accordion header="03. Clean Finish">
+            <div className="flex flex-col gap-[24px] md:gap-[30px]">
+              <div className="flex flex-col gap-[6px]">
+                <p className="font-poppins font-[600] text-[14px] md:text-[16px]">Testing and QA</p>
+                <p className="font-poppins font-[400] text-[14px] md:text-[16px]">
+                  We rigorously test the product to ensure it meets quality standards and is ready for deployment.
+                </p>
+              </div>
+              <div className="flex flex-col gap-[6px]">
+                <p className="font-poppins font-[600] text-[14px] md:text-[16px]">Handoff and Support</p>
+                <p className="font-poppins font-[400] text-[14px] md:text-[16px]">
+                  We provide documentation, training, and a smooth handoff so your team can maintain the product independently.
+                </p>
+              </div>
+              <p className="font-poppins font-[600] text-[14px] md:text-[16px]">Total Time: 1-2 Months</p>
+            </div>
+          </Accordion>
+        </div>
       </section>
     </section>
 
@@ -131,6 +190,38 @@ const NonprofitsPage = () => {
            
         </div>
       </div>
+    {/* What our partners say */}
+    <section className="m-4 mb-[60px]
+                        max-md:mb-[40px]">
+      <h2 className="text-blueprint-neutral-dark font-poppins font-[600] text-[36px]/[140%] tracking-[-0.72px]
+                      max-md:text-[24px]/[110%] max-md:tracking-[-0.48px]">
+        what our partners say
+      </h2>
+
+      <p className="text-black font-caveat font-[400] text-[34px]/[100%] mt-[24px] mb-[24px]
+                    max-md:text-[24px]/[120%] max-md:mt-[18px] max-md:mb-[18px]">
+        [The work SFU Blueprint has done] is much appreciated and there is a lot of thanks that cannot really be simply put into words... Volunteers at OCB put in thousands of hours of work behind the scene to make everything happen. 
+        The tool that you have created for us will streamline our process to better support and facilitate all the volunteers at OCB. Time is a very valuable and finite resource for us at a small non-profit organization and it will allow us to 
+        manage it better and more efficiently.
+      </p>
+
+      <div>
+        <p className="text-black font-poppins font-[400] text-[14px]/[100%] uppercase">
+          CAVAN HUA
+        </p>
+        <p className="text-black font-poppins font-[400] text-[14px]/[100%] uppercase mt-[2px]">
+          VOLUNTEER COORDINATOR AT OCB
+        </p>
+      </div>
+    </section>
+
+    {/* NPO project proposal */}
+    <section className="m-4">
+      <h2>are you part of an NPO with a project idea in mind?</h2>
+      <hr/>
+      <h3>submit yout project proposal through the form!</h3>
+      <p>additional info PLACEHOLER</p>
+      <button>PROPOSAL FORM BTN PLACEHOLDER</button>
     </section>
     </PageContainer>
   );

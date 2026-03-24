@@ -30,7 +30,11 @@ module.exports = {
             mediumBlue: "#5387E3",
             purple: "#D2A6FB",
           },
-          orange: "#F49F00",
+          // Filter pills on white/light surfaces (Figma: default border + translucent gray fill)
+          filterOnWhite: {
+            border: "#CACACA",
+            bgDefault: "rgba(213, 213, 213, 0.30)",
+          },
           // Neutrals / grey scale (palette: bp-light-grey, bp-grey, bp-dark-grey, bp-lightest-grey)
           gray: {
             dark: "#B8B8B8",
@@ -42,6 +46,8 @@ module.exports = {
           darkGrey: "#777777",
           // Text (body / secondary copy)
           textGray: "#6A6A6A",
+          /** Desktop heading / m-reg (Figma) */
+          heading: "#2E2E2E",
           neutral: {
             dark: "#2A2A2A",
             muted: "#D9D9D9",
@@ -73,6 +79,9 @@ module.exports = {
         "footer-section-title-mobile": ["18px", { lineHeight: "1.3", letterSpacing: "-0.36px" }],
         "footer-headline": ["48px", { lineHeight: "1.2", letterSpacing: "-0.96px", fontWeight: "700" }],
         "footer-headline-mobile": ["28px", { lineHeight: "1.2", letterSpacing: "-0.56px", fontWeight: "700" }],
+        /** Projects & pages — desktop/heading/m-reg */
+        "heading-m-reg": ["48px", { lineHeight: "1.2", letterSpacing: "-0.96px", fontWeight: "400" }],
+        "heading-m-reg-mobile": ["28px", { lineHeight: "1.2", letterSpacing: "-0.56px", fontWeight: "400" }],
         "footer-logo-desktop": ["24.35px", { letterSpacing: "-0.24px", fontWeight: "500" }],
         "footer-logo-mobile": ["18px", { letterSpacing: "-0.18px", fontWeight: "500" }],
         "nav-link": ["14px", { lineHeight: "100%", fontWeight: "500" }],

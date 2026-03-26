@@ -151,7 +151,7 @@ const StudentsPage = () => {
   };
 
   return (
-    <div className="w-full overflow-x-hidden">
+    <div className="w-full overflow-x-hidden bg-blueprint-gray-light">
       {/* Hero Section - Dark Background */}
       <section className="relative bg-blueprint-black z-5
                           bg-[url('/images/non-profit/desktop_partner_crosspoint.svg')] bg-no-repeat
@@ -205,7 +205,7 @@ const StudentsPage = () => {
 
       <div>
       {/* Typical Experience Section */}
-      <section className="w-full px-6 md:px-10 xl:px-36 pt-[108px] max-md:pt-[60px]">
+      <section className="w-full px-6 md:px-10 xl:px-36 pt-[108px] max-md:pt-[60px] bg-blueprint-gray-light">
         {/* Section Intro */}
         <div className="max-w-[852px] mb-[90px] max-md:mb-[50px]">
           <h2
@@ -263,7 +263,7 @@ const StudentsPage = () => {
           </p>
 
           {/* Timeline image placeholder */}
-          <div className="mt-[36px] w-full h-[289px] max-md:h-[131px] bg-blueprint-gray-light rounded-lg flex items-center justify-center">
+          <div className="mt-[36px] w-full h-[289px] max-md:h-[131px] bg-blueprint-lightGrey rounded-lg flex items-center justify-center">
             <span className="font-poppins text-[16px] text-blueprint-darkGrey">
               Image placeholder
             </span>
@@ -271,12 +271,12 @@ const StudentsPage = () => {
         </div>
 
         {/* Go to Socials and Events */}
-        <div className="mb-[90px] max-md:mb-[50px]">
+        <div className="mb-[90px] max-md:mb-25 pb-[116px]">
           <div className="flex gap-[94px] items-start max-md:flex-col max-md:gap-[40px]">
             {/* Text content */}
             <div className="flex flex-col gap-[24px] shrink-0 max-w-[468px] max-md:max-w-full">
               <h3
-                className="font-poppins text-[36px] leading-[1.4] tracking-[-0.72px] text-blueprint-black font-semibold
+                className="font-poppins text-4xl leading-[1.4] tracking-[-0.72px] text-blueprint-black font-semibold
                            max-md:text-[22px] max-md:tracking-[-0.44px]"
               >
                 {SOCIALS_CONTENT.heading}
@@ -288,14 +288,14 @@ const StudentsPage = () => {
 
             {/* Polaroid photos */}
             <div className="relative flex-1 min-h-[343px] max-md:min-h-[300px] max-md:w-full">
-              <div className="absolute top-[50px] left-0 max-md:top-[30px] max-md:left-[-10px]">
+              <div className="absolute top-[70px] left-0 max-md:top-[150px]">
                 <PolaroidPhoto
                   imageSrc="/images/student/studentPage_header.webp"
                   caption="designer pottery painting"
                   className="rotate-[-5deg]"
                 />
               </div>
-              <div className="absolute top-0 left-[263px] max-md:top-0 max-md:left-[100px]">
+              <div className="absolute top-0 left-[263px] max-md:top-0 max-md:left-[60px] ">
                 <PolaroidPhoto
                   imageSrc="/images/student/studentPage_header.webp"
                   caption="post-co-working session dinner"
@@ -308,7 +308,7 @@ const StudentsPage = () => {
       </section>
 
       {/* The Application Process Section */}
-      <ApplicationProcessSection />
+      <ApplicationProcessSection/>
       </div>
 
       {/* Open Positions Section */}
@@ -481,13 +481,13 @@ function ApplicationProcessSection() {
   };
 
   return (
-    <section className="w-full px-6 md:px-10 xl:px-36 pb-[100px] max-md:pb-[60px]">
+    <section className="w-full px-6 md:px-10 xl:px-36 pb-[140px] max-md:pb-[60px] bg-blueprint-gray-light">
       {/* Section heading */}
       <h2
         className="font-poppins text-[48px] leading-[1.2] tracking-[-0.96px] text-[#2e2e2e] mb-[48px]
                    max-md:text-[28px] max-md:tracking-[-0.56px] max-md:mb-[24px]"
       >
-        the <strong className="font-bold italic">application</strong> process
+        the <strong className="font-bold">application</strong> process
       </h2>
 
       {/* Tabs */}
@@ -528,12 +528,12 @@ function ApplicationProcessSection() {
         <div className="flex flex-col gap-[38px]">
           {/* Info session card - only show on MEET BLUEPRINT tab */}
           {activeTab === "MEET BLUEPRINT" && (
-            <div className="bg-[#0146be] rounded-[10px] p-[48px] max-md:p-[24px] flex flex-col gap-[32px]">
+            <div className="bg-blueprint-gray-neutral rounded-[10px] p-[48px] max-md:p-[24px] flex flex-col gap-[32px]">
               {/* Top section */}
               <div className="flex flex-col gap-[12px]">
                 <div className="flex items-start justify-between max-md:flex-col max-md:gap-[16px]">
-                  <div className="flex flex-col gap-[4px] text-white w-[366px] max-md:w-full">
-                    <p className="font-poppins font-medium text-[14px] uppercase leading-normal">
+                  <div className="flex flex-col gap-[4px] text-blueprint-black w-[366px] max-md:w-full ">
+                    <p className="font-poppins font-medium text-[14px] uppercase leading-normal ">
                       upcoming event:
                     </p>
                     <p className="font-poppins text-[36px] leading-[1.4] tracking-[-0.72px] max-md:text-[24px]">
@@ -541,18 +541,18 @@ function ApplicationProcessSection() {
                     </p>
                   </div>
                   <Button
-                    variant="secondary"
+                    variant="tertiary"
                     className="shrink-0 w-[149px] max-md:w-full"
                   >
-                    RSVP
+                    <span className="font-light">RSVP</span>
                   </Button>
                 </div>
-                <div className="w-full h-px bg-white/30" />
+                <div className="w-full h-px bg-black/10" />
               </div>
 
               {/* Bottom section: date + location */}
-              <div className="flex gap-[52px] text-white max-md:flex-col max-md:gap-[24px]">
-                <div className="flex flex-col gap-[10px] w-[199px]">
+              <div className="flex gap-[52px] text-blueprint-black max-md:flex-col max-md:gap-[24px]">
+                <div className="flex flex-col gap-[10px] w-[199px] ">
                   <p className="font-poppins font-medium text-[14px] uppercase leading-normal">
                     DATE AND TIME:
                   </p>

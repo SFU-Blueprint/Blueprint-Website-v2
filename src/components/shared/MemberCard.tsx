@@ -36,12 +36,10 @@ export default function MemberCard({
   randomRotation,
 }: MemberCardProps) {
   const [isHovered, setIsHovered] = useState(false);
-
   const hoverBgClass = ROLE_HOVER_BG_CLASS[roleType];
   const showHoverStyle = isHovered && linkedinUrl;
-
+  // If randomRotation is true: selects a rotation degree between +/- 3-5 otherwise defaults to +5
   const rotationDegree: string = randomRotation ? String((Math.floor(Math.random() * 4)+2) * (-1)**(Math.floor(Math.random() * 2))) : '5';
-
   const handleClick = () => {
     if (linkedinUrl) window.open(linkedinUrl, "_blank", "noopener,noreferrer");
   };
@@ -80,7 +78,7 @@ export default function MemberCard({
         </span>
         {/* Name: phone 18px, 130%, -0.36px; tablet/desktop 24px, 130%, -0.48px; hidden on desktop when hovered */}
         <span
-          className={`font-poppins text-[18px] font-medium text-black leading-[130%] tracking-[-0.36px] self-stretch mt-0.5 tablet:mt-1.5 tablet:text-[24px] tablet:tracking-[-0.48px] ${
+          className={`font-poppins text-[18px] font-medium text-black leading-[130%] tracking-[-0.36px] self-stretch mt-0.5 tablet:mt-1.5 tablet:text-[24px] tablet:tracking-[-0.48px] whitespace-nowrap ${
             showHoverStyle ? "desktop:hidden" : ""
           }`}
         >
@@ -112,7 +110,7 @@ export default function MemberCard({
     "flex flex-col items-start rounded-[10px] font-poppins cursor-pointer transition-transform duration-200 ease-out";
   // Phone: 170×228, padding 10 9 10 8 | Tablet: 224×308, padding 12 10 26 12 | Desktop: 273×309, padding 14 13 30 13
   const sizeClassName =
-    `w-full min-w-[170px] max-[629px]:max-w-[230px] h-[228px] min-h-[228px] pt-[10px] pr-[9px] pb-[10px] pl-[8px] 
+    `w-full min-w-[170px] max-[629px]:max-w-[230px] h-[228px] min-h-[228px] pt-[10px] pr-[9px] pb-[10px] pl-[8px] max-w-[350px]
      tablet:min-w-[224px] tablet:w-full tablet:h-[308px] tablet:min-h-[308px] tablet:pt-3 tablet:pr-[10px] tablet:pb-[26px] tablet:pl-3 
      desktop:h-[309px] desktop:min-h-[309px] desktop:pt-[14px] desktop:pr-[13px] desktop:pb-[30px] desktop:pl-[13px]`;
   const wrapperStyle: React.CSSProperties = { borderRadius: BORDER_RADIUS };

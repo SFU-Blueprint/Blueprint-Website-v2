@@ -16,17 +16,9 @@ body {
 
 @layer components{
   .std-max{
-    @apply mx-auto w-full
+    @apply mx-auto w-full;
+    max-width: 100rem;
   }
-  @media (min-width: 630px) {
-    .std-max {
-      max-width: 50rem;
-    }
-  }
-  @media (min-width: 1025px) {
-    .std-max {
-      max-width: 100rem;
-    }
-  }
+
 }
 

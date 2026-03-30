@@ -338,7 +338,7 @@ const StudentsPage = () => {
                   window.open("https://discord.gg/sfublueprint", "_blank")
                 }
                 className="w-[200px] max-lg:hidden"
-              >
+              > 
                 JOIN OUR DISCORD
               </Button>
             </div>
@@ -375,7 +375,7 @@ const StudentsPage = () => {
       </div>
 
       {/* Stay Updated Section */}
-      <div className="overflow-x-hidden centralized">
+      <div className="overflow-x-hidden std-max">
       <section className="relative z-5
                           bg-[url('/images/non-profit/desktop_partner_crosspoint.svg')] bg-no-repeat
                           bg-[calc(50%-409px)_-360px]

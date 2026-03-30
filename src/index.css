@@ -14,3 +14,11 @@ body {
   background-color: #FCFCFC;
 }
 
+@layer components{
+  .std-max{
+    @apply mx-auto w-full;
+    max-width: 100rem;
+  }
+
+}
+

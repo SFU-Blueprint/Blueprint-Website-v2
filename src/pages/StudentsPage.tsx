@@ -155,12 +155,11 @@ const StudentsPage = () => {
       {/* Hero Section - Dark Background */}
       <section className="relative bg-blueprint-black z-5
                           bg-[url('/images/non-profit/desktop_partner_crosspoint.svg')] bg-no-repeat
-                          min-[1280px]:bg-[calc(100%+585px)_-360px]
+                          min-[1622.1px]:bg-[calc((50vw+800px)-1689px)_-360px]
+                          max-[1622px]:bg-[calc(100%+585px)_-360px]
                           max-[1279px]:bg-[calc(100%+689px)_-360px]
                           max-md:bg-[url('/images/non-profit/mobile_partner_crosspoint.svg')] max-md:bg-[calc(100%+130px)_-132px]">
-
-
-        <div className="relative z-10 w-full px-6 md:px-10 xl:px-36 pt-[142px] pb-[100px] max-md:pt-[90px] max-md:pb-[60px]">
+        <div className="relative z-10 w-full px-6 md:px-10 xl:px-36 pt-[142px] pb-[100px] max-md:pt-[90px] max-md:pb-[60px] std-max">
           {/* Title + Button row */}
           <div className="flex justify-between items-start gap-8 max-md:flex-col max-md:gap-6 mb-[60px] max-md:mb-[35px]">
             {/* Title Block */}
@@ -203,7 +202,7 @@ const StudentsPage = () => {
         </div>
       </section>
 
-      <div>
+      <div className="std-max">
       {/* Typical Experience Section */}
       <section className="w-full px-6 md:px-10 xl:px-36 pt-[108px] max-md:pt-[60px]">
         {/* Section Intro */}
@@ -312,69 +311,71 @@ const StudentsPage = () => {
       </div>
 
       {/* Open Positions Section */}
-      <section
-        id="open-positions"
-        className="bg-blueprint-black rounded-[20px] mx-[60px] flex flex-wrap items-start gap-[40px] xl:gap-[165px]
-                   pt-[94px] pr-[84px] pb-[94px] pl-[94px] overflow-hidden
-                   max-lg:flex-col max-lg:gap-[31px] max-lg:pt-[61px] max-lg:pb-[106px] max-lg:px-[19px] max-lg:mx-[16px] max-lg:rounded-[12px]"
-      >
-          {/* Left side: heading + description + button (desktop) */}
-          {/* On mobile/tablet, this becomes just the heading (order-1) */}
-          <div className="flex flex-col gap-[48px] w-[376px] min-w-0 max-lg:w-full max-lg:gap-0 max-lg:order-1">
-            <div className="flex flex-col gap-[24px] text-white">
-              <h2
-                className="font-poppins text-[48px] leading-[1.2] tracking-[-0.96px]
-                           max-lg:text-[28px] max-lg:tracking-[-0.56px]"
-              >
-                open positions
-              </h2>
-              <p className="font-poppins text-[16px] leading-normal max-w-[356px] max-lg:hidden">
+      <div className="std-max">
+        <section
+          id="open-positions"
+          className="bg-blueprint-black rounded-[20px] mx-[60px] flex flex-wrap items-start gap-[40px] xl:gap-[165px]
+                    pt-[94px] pr-[84px] pb-[94px] pl-[94px] overflow-hidden
+                    max-lg:flex-col max-lg:gap-[31px] max-lg:pt-[61px] max-lg:pb-[106px] max-lg:px-[19px] max-lg:mx-[16px] max-lg:rounded-[12px]"
+        >
+            {/* Left side: heading + description + button (desktop) */}
+            {/* On mobile/tablet, this becomes just the heading (order-1) */}
+            <div className="flex flex-col gap-[48px] w-[376px] min-w-0 max-lg:w-full max-lg:gap-0 max-lg:order-1">
+              <div className="flex flex-col gap-[24px] text-white">
+                <h2
+                  className="font-poppins text-[48px] leading-[1.2] tracking-[-0.96px]
+                            max-lg:text-[28px] max-lg:tracking-[-0.56px]"
+                >
+                  open positions
+                </h2>
+                <p className="font-poppins text-[16px] leading-normal max-w-[356px] max-lg:hidden">
+                  Join our discord for hiring announcements and the opportunity to
+                  ask any question in our #questions channel
+                </p>
+              </div>
+              <Button
+                onClick={() =>
+                  window.open("https://discord.gg/sfublueprint", "_blank")
+                }
+                className="w-[200px] max-lg:hidden"
+              > 
+                JOIN OUR DISCORD
+              </Button>
+            </div>
+
+            {/* Role cards */}
+            <div className="flex flex-col gap-[25px] flex-1 min-w-0 max-lg:w-full max-lg:order-2 max-lg:gap-[13px]">
+              {OPEN_POSITIONS.map((position) => (
+                <OpenRoleCard
+                  key={position.title}
+                  title={position.title}
+                  count={position.count}
+                  roleType={position.roleType}
+                  href={position.href}
+                />
+              ))}
+            </div>
+
+            {/* Mobile/tablet: description + button below cards */}
+            <div className="hidden max-lg:flex flex-col gap-[24px] items-start w-full max-lg:order-3">
+              <p className="font-poppins text-[14px] leading-normal text-white w-full">
                 Join our discord for hiring announcements and the opportunity to
                 ask any question in our #questions channel
               </p>
+              <Button
+                onClick={() =>
+                  window.open("https://discord.gg/sfublueprint", "_blank")
+                }
+                className="w-full"
+              >
+                JOIN OUR DISCORD
+              </Button>
             </div>
-            <Button
-              onClick={() =>
-                window.open("https://discord.gg/sfublueprint", "_blank")
-              }
-              className="w-[200px] max-lg:hidden"
-            >
-              JOIN OUR DISCORD
-            </Button>
-          </div>
-
-          {/* Role cards */}
-          <div className="flex flex-col gap-[25px] flex-1 min-w-0 max-lg:w-full max-lg:order-2 max-lg:gap-[13px]">
-            {OPEN_POSITIONS.map((position) => (
-              <OpenRoleCard
-                key={position.title}
-                title={position.title}
-                count={position.count}
-                roleType={position.roleType}
-                href={position.href}
-              />
-            ))}
-          </div>
-
-          {/* Mobile/tablet: description + button below cards */}
-          <div className="hidden max-lg:flex flex-col gap-[24px] items-start w-full max-lg:order-3">
-            <p className="font-poppins text-[14px] leading-normal text-white w-full">
-              Join our discord for hiring announcements and the opportunity to
-              ask any question in our #questions channel
-            </p>
-            <Button
-              onClick={() =>
-                window.open("https://discord.gg/sfublueprint", "_blank")
-              }
-              className="w-full"
-            >
-              JOIN OUR DISCORD
-            </Button>
-          </div>
-      </section>
+        </section>
+      </div>
 
       {/* Stay Updated Section */}
-      <div className="overflow-x-hidden">
+      <div className="overflow-x-hidden std-max">
       <section className="relative z-5
                           bg-[url('/images/non-profit/desktop_partner_crosspoint.svg')] bg-no-repeat
                           bg-[calc(50%-409px)_-360px]

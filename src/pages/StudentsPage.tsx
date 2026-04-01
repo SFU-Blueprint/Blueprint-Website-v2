@@ -271,7 +271,7 @@ const StudentsPage = () => {
         </div>
 
         {/* Go to Socials and Events */}
-        <div className="mb-[90px] max-md:mb-25 pb-[116px]">
+        <div className="mb-[90px] max-md:mb-25 max-md:pb-content-mobile pb-content-desktop">
           <div className="flex gap-[94px] items-start max-md:flex-col max-md:gap-[40px]">
             {/* Text content */}
             <div className="flex flex-col gap-[24px] shrink-0 max-w-[468px] max-md:max-w-full">
@@ -288,14 +288,14 @@ const StudentsPage = () => {
 
             {/* Polaroid photos */}
             <div className="relative flex-1 min-h-[343px] max-md:min-h-[300px] max-md:w-full">
-              <div className="absolute top-[70px] left-0 max-md:top-[150px]">
+              <div className="absolute top-[100px] left-0 max-md:top-[150px]">
                 <PolaroidPhoto
                   imageSrc="/images/student/studentPage_header.webp"
                   caption="designer pottery painting"
                   className="rotate-[-5deg]"
                 />
               </div>
-              <div className="absolute top-0 left-[263px] max-md:top-0 max-md:left-[60px] ">
+              <div className="absolute top-10 left-[263px] max-md:top-0 max-md:left-[60px] ">
                 <PolaroidPhoto
                   imageSrc="/images/student/studentPage_header.webp"
                   caption="post-co-working session dinner"
@@ -314,8 +314,8 @@ const StudentsPage = () => {
       {/* Open Positions Section */}
       <section
         id="open-positions"
-        className="bg-blueprint-black rounded-[20px] mx-[60px] flex flex-wrap items-start gap-[40px] xl:gap-[165px]
-                   pt-[94px] pr-[84px] pb-[94px] pl-[94px] overflow-hidden
+        className="bg-blueprint-black rounded-[20px] mx-[71px] flex flex-wrap items-start md:gap-[40px] xl:gap-[127px]
+                   py-[117px] px-[115px] overflow-hidden
                    max-lg:flex-col max-lg:gap-[31px] max-lg:pt-[61px] max-lg:pb-[106px] max-lg:px-[19px] max-lg:mx-[16px] max-lg:rounded-[12px]"
       >
           {/* Left side: heading + description + button (desktop) */}
@@ -323,21 +323,22 @@ const StudentsPage = () => {
           <div className="flex flex-col gap-[48px] w-[376px] min-w-0 max-lg:w-full max-lg:gap-0 max-lg:order-1">
             <div className="flex flex-col gap-[24px] text-white">
               <h2
-                className="font-poppins text-[48px] leading-[1.2] tracking-[-0.96px]
-                           max-lg:text-[28px] max-lg:tracking-[-0.56px]"
+                className="font-poppins text-heading-s-reg leading-[1.2] tracking-[-0.96px]
+                            max-lg:tracking-[-0.56px]"
               >
                 open positions
               </h2>
-              <p className="font-poppins text-[16px] leading-normal max-w-[356px] max-lg:hidden">
+              <p className="font-poppins text-body-s-reg font-light leading-normal max-w-[311px] max-lg:hidden">
                 Join our discord for hiring announcements and the opportunity to
                 ask any question in our #questions channel
               </p>
             </div>
             <Button
+              variant="secondary"
               onClick={() =>
                 window.open("https://discord.gg/sfublueprint", "_blank")
               }
-              className="w-[200px] max-lg:hidden"
+              className="w-[200px] max-lg:hidden !text-blueprint-black"
             >
               JOIN OUR DISCORD
             </Button>
@@ -385,7 +386,7 @@ const StudentsPage = () => {
           {/* Header */}
           <div className="text-center mb-[48px] max-md:mb-[32px]">
             <h2
-              className="font-caveat text-[48px] leading-[1.2] tracking-[-0.96px] text-blueprint-black mb-[12px]
+              className="font-caveat text-7xl leading-[1.2] tracking-[-0.96px] text-blueprint-black mb-[12px]
                          max-md:text-[32px] max-md:tracking-[-0.64px]"
             >
               stay updated

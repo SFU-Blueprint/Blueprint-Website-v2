@@ -159,6 +159,8 @@ module.exports = {
         "nav-desktop-py": "12px",
         "main-desktop-top": "40px",
         "main-mobile-top": "28px",
+        "content-desktop": "148px",
+        "content-mobile": "96px",
         ppcard:{
            bottom: "111px",
         },

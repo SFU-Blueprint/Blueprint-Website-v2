@@ -228,13 +228,13 @@ const StudentsPage = () => {
         <div className="mb-[90px] max-md:mb-[50px]">
         <h3
                 className="font-poppins text-[36px] leading-[1.4] tracking-[-0.72px] text-blueprint-black font-semibold
-                           max-md:text-[22px] max-md:tracking-[-0.44px]"
+                           max-md:text-[22px] max-md:tracking-[-0.44px] max-md:pb-6"
               >
             <span>work with a team</span>
               </h3>
 
           {/* Role Cards */}
-          <div className="flex flex-wrap justify-center items-start gap-6 max-[1024px]:flex-col max-[1024px]:items-stretch">
+          <div className="flex flex-wrap justify-center items-start gap-6 max-[1024px]:flex-col max-[1024px]:items-stretch max-md:gap-12">
             {ROLES.map((role, index) => (
               <RoleCard
                 key={role.title}
@@ -387,13 +387,13 @@ const StudentsPage = () => {
           <div className="text-center mb-[48px] max-md:mb-[32px]">
             <h2
               className="font-caveat text-7xl leading-[1.2] tracking-[-0.96px] text-blueprint-black mb-[12px]
-                         max-md:text-[32px] max-md:tracking-[-0.64px]"
+                         max-md:text-5xl max-md:tracking-[-0.64px]"
             >
               stay updated
             </h2>
             <p
-              className="font-poppins text-[36px] leading-[1.4] tracking-[-0.72px] text-blueprint-black
-                         max-md:text-[28px] max-md:tracking-[-0.56px]"
+              className="font-poppins text-4xl leading-[1.4] tracking-[-0.72px] text-blueprint-black
+                         max-md:text-2xl max-md:tracking-[-0.56px] max-md:leading-10"
             >
               @sfublueprint
             </p>
@@ -623,7 +623,7 @@ function RoleCard({ title, description, color, offset }: RoleCardProps) {
         : "max-[1024px]:self-end max-[1024px]:-mt-[30px]";
 
   return (
-    <div
+    <div 
       className={`w-[276px] max-[1024px]:w-[75%] bg-white rounded-[16px] flex flex-col p-[12px] gap-[65px] ${desktopOffset} ${mobileAlign}`}
     >
       {/* Colored header */}

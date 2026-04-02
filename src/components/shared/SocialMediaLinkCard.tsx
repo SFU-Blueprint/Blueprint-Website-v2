@@ -79,7 +79,8 @@ export default function SocialMediaLinkCard({
             <span className="shrink-0 flex items-center justify-center w-[20px] h-[20px] tablet:w-[30px] tablet:h-[30px]" aria-hidden>
               {icon}
             </span>
-            <span className="font-poppins font-normal text-blueprint-black text-[24px] leading-[1.4] tracking-[-0.48px] tablet:text-[36px] tablet:leading-[1.4] tablet:tracking-[-0.72px] whitespace-nowrap">
+            <span className="font-poppins font-normal text-blueprint-black text-[24px] leading-[1.4] tracking-[-0.48px] 
+                            tablet:text-heading-xs-reg tablet:leading-[1.4] tablet:tracking-[-0.72px] whitespace-nowrap">
               {platform}
             </span>
           </div>

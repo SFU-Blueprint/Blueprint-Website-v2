@@ -76,7 +76,7 @@ export default function SocialMediaLinkCard({
         {/* Top row: icon + name + arrow */}
         <div className="flex items-center justify-between w-full">
           <div className="flex items-center gap-[12px] tablet:gap-[18px]">
-            <span className="shrink-0 flex items-center justify-center w-[26px] h-[26px] tablet:w-[35px] tablet:h-[35px]" aria-hidden>
+            <span className="shrink-0 flex items-center justify-center w-[20px] h-[20px] tablet:w-[30px] tablet:h-[30px]" aria-hidden>
               {icon}
             </span>
             <span className="font-poppins font-normal text-blueprint-black text-[24px] leading-[1.4] tracking-[-0.48px] tablet:text-[36px] tablet:leading-[1.4] tablet:tracking-[-0.72px] whitespace-nowrap">

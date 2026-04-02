@@ -14,6 +14,7 @@ export type FiltersLightProps = {
   title: string;
   state: "default" | "selected";
   variant: "light";
+  onClick?: () => void;
 } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "type" | "children">;
 
 export type FiltersProps = FiltersDarkProps | FiltersLightProps;
@@ -26,7 +27,8 @@ const baseTypography =
  * Previously dark omitted `min-h-[42px]` below desktop, so it looked shorter than light on tablet/mobile.
  */
 const pillLayout =
-  "inline-flex min-h-[42px] justify-center items-center gap-[10px] rounded-[10px] px-[18px] py-3 desktop:h-[42px] desktop:min-h-0 desktop:px-[30px] desktop:py-[10px]";
+  `inline-flex min-h-[42px] justify-center items-center gap-[10px] rounded-[10px] px-[18px] py-3 desktop:h-[42px] desktop:min-h-0 desktop:px-[30px] desktop:py-[10px] 
+    hover:bg-blueprint-lightGrey hover:border-blueprint-grey`;
 
 function Filters(props: FiltersProps) {
   if (props.variant === "light") {

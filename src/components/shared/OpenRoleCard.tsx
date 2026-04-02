@@ -24,13 +24,14 @@ export type OpenRoleCardProps = {
 };
 
 const ROLE_ACCENT: Record<NonNullable<OpenRoleCardProps["roleType"]>, string> = {
-  dev: "#71EC59",
-  pm: "#F59E0B",
-  designer: "#A855F7",
-  executive: "#38BDF8",
+  dev: "#71EC59", // green
+  pm: "#F49F00", // orange
+  designer: "#D2A6FB", // purple
+  executive: "#9CC0FF", // blue
 };
 
-const ACCENT_SQUARE_SIZE_PX = 24;
+const ACCENT_SQUARE_SIZE_MOBILE_PX = 12;
+const ACCENT_SQUARE_SIZE_DESKTOP_PX = 20;
 const BORDER_WIDTH_PX = 2;
 
 export default function OpenRoleCard({
@@ -45,6 +46,9 @@ export default function OpenRoleCard({
   const [isHovered, setIsHovered] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
   const isDesktopOrTablet = useMinWidth(520);
+  const accentSquareSizePx = isDesktopOrTablet
+    ? ACCENT_SQUARE_SIZE_DESKTOP_PX
+    : ACCENT_SQUARE_SIZE_MOBILE_PX;
 
   const effectiveAccent = accentColor ?? ROLE_ACCENT[roleType];
   const showAccentBorder = selected || isPressed || (isHovered && isDesktopOrTablet);
@@ -59,10 +63,14 @@ export default function OpenRoleCard({
       <div className="flex items-center gap-3 min-w-0 flex-1">
         <div
           className="shrink-0 rounded-sm"
-          style={{ width: ACCENT_SQUARE_SIZE_PX, height: ACCENT_SQUARE_SIZE_PX, backgroundColor: effectiveAccent }}
+          style={{
+            width: accentSquareSizePx,
+            height: accentSquareSizePx,
+            backgroundColor: effectiveAccent,
+          }}
           aria-hidden
         />
-        <span className="min-w-0 truncate font-poppins font-medium text-base text-white">
+        <span className="min-w-0 truncate font-poppins text-body-l-reg font-light text-white">
           {title}
           {count != null && (
             <span className="text-white ml-1">({count})</span>

@@ -215,7 +215,7 @@ const NonprofitsPage = () => {
         </h2>
 
         <p
-          className="m-0 mt-12 max-w-[1160px] w-full min-w-0 self-stretch text-blueprint-black font-caveat text-heading-hand mb-9"
+          className="m-0 mt-12 max-w-[1160px] w-full min-w-0 self-stretch text-blueprint-black font-caveat text-heading-hand leading-[140%] mb-9"
         >
           [The work SFU Blueprint has done] is much appreciated and there is a lot
           of thanks that cannot really be simply put into words... Volunteers at OCB

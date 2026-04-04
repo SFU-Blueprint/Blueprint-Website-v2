@@ -12,7 +12,7 @@ module.exports = {
       colors: {
         blueprint: {
           // Brand
-          blue: "#0177E8",
+          blue: "#0146BE",
           black: "#2A2A2A",
           white: "#FFFFFF",
           offwhite: "#FCFCFC",
@@ -54,6 +54,8 @@ module.exports = {
             mutedAlt: "#AAAAAA",
             mid: "#777777",
           },
+          /** NPO / partner page muted section (Figma; not in legacy palette) */
+          npoSection: "#E8E8E8",
           // Open Role Card: bp-darkest-grey (default/hover fill), bp-black (pressed fill)
           darkestGrey: "#383838",
           // Role accent colors: dev green, pm orange, designer purple, executive light blue
@@ -101,7 +103,7 @@ module.exports = {
 
         // Desktop body (desktop/body/*)
         "body-l-reg": ["24px", { lineHeight: "1.3", letterSpacing: "-0.48px", fontWeight: "400" }],
-        "body-l-bold": ["24px", { lineHeight: "1.3", letterSpacing: "0", fontWeight: "500" }],
+        "body-l-bold": ["24px", { lineHeight: "1.3", letterSpacing: "-0.48px", fontWeight: "500" }],
         "body-m-reg": ["16px", { lineHeight: "1.5", letterSpacing: "0", fontWeight: "400" }],
         "body-m-bold": ["16px", { lineHeight: "1.5", letterSpacing: "0", fontWeight: "600" }],
         "body-m-bold-link": ["16px", { lineHeight: "1.5", letterSpacing: "0", fontWeight: "500" }],
@@ -122,7 +124,7 @@ module.exports = {
 
         // Mobile body (mobile/body/*)
         "mobile-body-l-reg": ["18px", { lineHeight: "1.3", letterSpacing: "-0.36px", fontWeight: "400" }],
-        "mobile-body-l-bold": ["18px", { lineHeight: "1.3", letterSpacing: "0", fontWeight: "500" }],
+        "mobile-body-l-bold": ["18px", { lineHeight: "1.3", letterSpacing: "-0.36px", fontWeight: "500" }],
         "mobile-body-m-reg": ["14px", { lineHeight: "1.5", letterSpacing: "0", fontWeight: "400" }],
         "mobile-body-m-bold": ["14px", { lineHeight: "1.5", letterSpacing: "0", fontWeight: "600" }],
         "mobile-body-m-bold-link": ["14px", { lineHeight: "1.5", letterSpacing: "0", fontWeight: "500" }],

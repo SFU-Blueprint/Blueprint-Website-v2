@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@rive-app/react-webgl2": "^4.27.3",
     "autoprefixer": "^10.4.16",
     "i18next": "^23.8.2",
     "i18next-browser-languagedetector": "^7.2.0",

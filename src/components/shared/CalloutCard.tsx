@@ -19,7 +19,7 @@ export type CalloutCardProps = {
 };
 
 const STRIPE_WIDTH_PX = 8;
-const defaultStripeColor = "#0177E8"; // blueprint-blue
+const defaultStripeColor = "#0146BE"; // bp-blue
 
 export default function CalloutCard({
   title,
@@ -40,17 +40,17 @@ export default function CalloutCard({
     isWhite
       ? "bg-white"
       : isDark
-        ? "bg-blueprint-neutral-dark"
-        : "bg-blueprint-gray-light";
+        ? "bg-bp-black"
+        : "bg-bp-lightest-grey";
   const useCustomBg = backgroundColor != null;
   const bgClass = useCustomBg ? "" : defaultBgClass;
 
   const defaultTitleClass = isDark
-    ? "text-blueprint-neutral-muted font-bold text-[24px] uppercase tracking-tight"
-    : "text-blueprint-black font-bold text-[24px] uppercase tracking-tight";
+    ? "text-bp-light-grey font-bold text-[24px] uppercase tracking-tight"
+    : "text-bp-black font-bold text-[24px] uppercase tracking-tight";
   const defaultBodyClass = isDark
-    ? "text-blueprint-neutral-muted text-[16px] font-normal leading-relaxed m-0 whitespace-pre-line"
-    : "text-blueprint-black text-[16px] font-normal leading-relaxed m-0";
+    ? "text-bp-light-grey text-[16px] font-normal leading-relaxed m-0 whitespace-pre-line"
+    : "text-bp-black text-[16px] font-normal leading-relaxed m-0";
 
   const effectiveShowBorder = showBorder ?? isWhite;
   const effectiveBorderColor = borderColor ?? stripeColor;
@@ -86,7 +86,7 @@ export default function CalloutCard({
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
           <h2
             id="callout-card-title"
-            className={titleColor == null ? defaultTitleClass : "font-bold text-[24px] uppercase tracking-tight"}
+            className={titleColor == null ? defaultTitleClass : "font-medium text-[24px] uppercase tracking-tight"}
             style={titleColor != null ? { color: titleColor } : undefined}
           >
             {title}

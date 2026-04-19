@@ -2,7 +2,7 @@ export const GroupImages = [
     {
         id: 1,
         image: "/images/about/polaroid-photos/image 87.png",
-        caption: "serenading",
+        caption: "serenaders",
     },
     {
         id: 2,
@@ -12,12 +12,12 @@ export const GroupImages = [
     {
         id: 3,
         image: "/images/about/polaroid-photos/image 89.png",
-        caption: "cafe hopping",
+        caption: "cafe workers",
     },
     {
         id: 4,
         image: "/images/about/polaroid-photos/image 91.png",
-        caption: "nature moment",
+        caption: "barbecue pros",
     },
     {
         id: 5,
@@ -27,7 +27,7 @@ export const GroupImages = [
     {
         id: 6,
         image: "/images/about/polaroid-photos/image 95.png",
-        caption: "hiking buddies",
+        caption: "life long friends",
     },
     {
         id: 7,
@@ -42,7 +42,7 @@ export const GroupImages = [
     {
         id: 9,
         image: "/images/about/polaroid-photos/image86.png",
-        caption: "life long friends",
+        caption: "pottery painters",
     },
     {
         id: 10,

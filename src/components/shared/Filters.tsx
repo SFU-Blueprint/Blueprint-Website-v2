@@ -28,7 +28,7 @@ const baseTypography =
  */
 const pillLayout =
   `inline-flex min-h-[42px] justify-center items-center gap-[10px] rounded-[10px] px-[18px] py-3 desktop:h-[42px] desktop:min-h-0 desktop:px-[30px] desktop:py-[10px] 
-    hover:bg-blueprint-lightGrey hover:border-blueprint-grey`;
+    hover:bg-bp-light-grey hover:border-bp-grey`;
 
 function Filters(props: FiltersProps) {
   if (props.variant === "light") {
@@ -43,8 +43,8 @@ function Filters(props: FiltersProps) {
           baseTypography,
           "border",
           isSelected
-            ? "border-blueprint-accent-lightBlue bg-blueprint-accent-veryLightBlue text-blueprint-black"
-            : "border-blueprint-filterOnWhite-border bg-blueprint-filterOnWhite-bgDefault text-blueprint-black",
+            ? "border-bp-accent-light-blue bg-bp-accent-very-light-blue text-bp-black"
+            : "border-bp-grey bg-bp-light-grey/30 text-bp-black",
           className,
         ]
           .filter(Boolean)
@@ -64,9 +64,9 @@ function Filters(props: FiltersProps) {
       className={[
         pillLayout,
         baseTypography,
-        state === "outlined"
-          ? "border border-blueprint-white bg-blueprint-white/20 text-blueprint-white"
-          : "border border-transparent bg-blueprint-white text-blueprint-neutral-dark",
+          state === "outlined"
+          ? "border border-bp-white bg-bp-white/20 text-bp-white"
+          : "border border-transparent bg-bp-white text-bp-black",
         className,
       ]
         .filter(Boolean)

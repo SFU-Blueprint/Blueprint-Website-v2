@@ -16,7 +16,7 @@ const CardGrid = (props) => {
 
   return (
     <div>
-      <ParagraphTitle className="!text-blueprint-black !font-bold mb-2">
+      <ParagraphTitle className="!text-bp-black !font-bold mb-2">
         {props.gridName}
       </ParagraphTitle>
 

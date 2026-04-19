@@ -24,7 +24,7 @@ const ProjectCard = ({project=ProjectInfo}) => { // Change Placeholder Project I
     // Placeholders for images and text
     
     return (
-    <div className="w-80 md:max-w-[865px] min-w-72 md:w-auto md:min-w-[624px] px-6 pt-6 pb-9 md:px-9 md:pt-9 md:pb-12 bg-white rounded-[5px] inline-flex flex-col justify-start items-start gap-2.5 overflow-hidden [@media(hover:hover)]:hover:ring-1 [@media(hover:hover)]:hover:ring-blueprint-neutral-mutedAlt [@media(hover:hover)]:hover:bg-blueprint-gray-light group">
+    <div className="w-80 md:max-w-[865px] min-w-72 md:w-auto md:min-w-[624px] px-6 pt-6 pb-9 md:px-9 md:pt-9 md:pb-12 bg-white rounded-[5px] inline-flex flex-col justify-start items-start gap-2.5 overflow-hidden [@media(hover:hover)]:hover:ring-1 [@media(hover:hover)]:hover:ring-bp-grey [@media(hover:hover)]:hover:bg-bp-lightest-grey group">
         <div className="self-stretch flex flex-col justify-start items-start gap-4 md:gap-5">
            {/*  Hero Image  */}
             <div className="self-stretch h-40 flex flex-col justify-end items-center bg-amber-500 rounded-[5px] overflow-hidden pt-[37px] md:h-80">

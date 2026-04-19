@@ -44,7 +44,7 @@ const CardItem = React.memo((props) => {
         )}
 
         {props.lastPosition !== "" && (
-          <ParagraphText className="font-poppins text-blueprint-gray-dark flex justify-center">
+          <ParagraphText className="font-poppins text-bp-grey flex justify-center">
             {props.lastPosition}
           </ParagraphText>
         )}

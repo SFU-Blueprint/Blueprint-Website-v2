@@ -10,61 +10,23 @@ module.exports = {
     darkMode: "false",
     extend: {
       colors: {
-        blueprint: {
-          // Brand
-          blue: "#0177E8",
-          black: "#2A2A2A",
-          white: "#FFFFFF",
-          offwhite: "#FCFCFC",
-          deepblue: "#0D579F",
-          navyblue: "#0146BE",
-          orange: "#F49F00",
-          // Link states (nav, footer, buttons)
-          linkHover: "#0146BE",
-          linkActive: "#002F80",
-          hoverBlue: "#00389B",
-          // Accent (palette: bp-accent-*)
-          accent: {
-            lightBlue: "#A5C6FF",
-            veryLightBlue: "#D3E3FF",
-            mediumBlue: "#5387E3",
-            purple: "#D2A6FB",
-          },
-          // Filter pills on white/light surfaces (Figma: default border + translucent gray fill)
-          filterOnWhite: {
-            border: "#CACACA",
-            bgDefault: "rgba(213, 213, 213, 0.30)",
-          },
-          // Neutrals / grey scale (palette: bp-light-grey, bp-grey, bp-dark-grey, bp-lightest-grey)
-          gray: {
-            dark: "#B8B8B8",
-            light: "#F3F3F3",
-            lightest: "#F3F3F3",
-            neutral: "#E8E8E8",
-          },
-          lightGrey: "#D9D9D9",
-          grey: "#AAAAAA",
-          darkGrey: "#777777",
-          // Text (body / secondary copy)
-          textGray: "#6A6A6A",
-          /** Desktop heading / m-reg (Figma) */
-          heading: "#2E2E2E",
-          neutral: {
-            dark: "#2A2A2A",
-            muted: "#D9D9D9",
-            mutedAlt: "#AAAAAA",
-            mid: "#777777",
-          },
-          // Open Role Card: bp-darkest-grey (default/hover fill), bp-black (pressed fill)
-          darkestGrey: "#383838",
-          // Role accent colors: dev green, pm orange, designer purple, executive light blue
-          roleAccent: {
-            dev: "#71EC59",
-            pm: "#F59E0B",
-            designer: "#A855F7",
-            executive: "#38BDF8",
-          },
-        },
+        // Core brand palette
+        "bp-black": "#2A2A2A",
+        "bp-darkest-grey": "#383838",
+        "bp-dark-grey": "#777777",
+        "bp-grey": "#AAAAAA",
+        "bp-light-grey": "#D9D9D9",
+        "bp-lighter-grey": "#E8E8E8",
+        "bp-lightest-grey": "#F3F3F3",
+        "bp-white": "#FFFFFF",
+        "bp-orange": "#F49F00",
+        "bp-blue": "#0146BE",
+        "bp-hover-blue": "#00389B",
+        "bp-pressed-blue": "#002F80",
+        "bp-accent-medium-blue": "#5387E3",
+        "bp-accent-light-blue": "#A5C6FF",
+        "bp-accent-very-light-blue": "#D3E3FF",
+        "bp-accent-purple": "#D2A6FB",
       },
       fontFamily: {
         caveat: ['Caveat', 'cursive'],

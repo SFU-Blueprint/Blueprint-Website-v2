@@ -32,7 +32,7 @@ const ProjectsPage = () => {
 
   return (
     <PageContainer
-      className="bg-[url('/images/non-profit/desktop_partner_crosspoint.svg')] bg-no-repeat bg-blueprint-gray-light 
+      className="bg-[url('/images/non-profit/desktop_partner_crosspoint.svg')] bg-no-repeat bg-bp-lightest-grey 
                  min-[1280px]:bg-[calc(100%+585px)_-500px]
                  max-[1279px]:bg-[calc(100%+689px)_-500px]
                  max-md:bg-[url('/images/non-profit/mobile_partner_crosspoint.svg')] max-md:bg-[calc(100%+130px)_-45px]"

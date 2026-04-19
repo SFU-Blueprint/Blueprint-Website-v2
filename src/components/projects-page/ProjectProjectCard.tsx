@@ -25,7 +25,7 @@ const ProjectCard = ({project=ProjectInfo}) => { // Change Placeholder Project I
     
     return (
     <div className="px-9 pt-9 pb-12 bg-white rounded-[5px] inline-flex flex-col justify-start items-start gap-2.5 overflow-hidden 
-                    [@media(hover:hover)]:hover:ring-1 [@media(hover:hover)]:hover:ring-blueprint-neutral-mutedAlt [@media(hover:hover)]:hover:bg-blueprint-gray-light group
+                    [@media(hover:hover)]:hover:ring-1 [@media(hover:hover)]:hover:ring-bp-grey [@media(hover:hover)]:hover:bg-bp-lightest-grey group
                     md:w-auto md:max-w-[865px] md:min-w-[460px] md:px-9 md:pt-9 md:pb-12 md:h-[640px]
                     max-[767px]:min-w-[276px] max-[767px]:max-w-[623px]">
         <div className="self-stretch flex flex-col justify-start items-start gap-4 md:gap-5 ">

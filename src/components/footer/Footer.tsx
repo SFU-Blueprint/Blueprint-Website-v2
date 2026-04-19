@@ -9,7 +9,7 @@ const Footer = () => {
   const { t } = useTranslation();
 
   return (
-    <footer className="inset-x-0 bottom-0 h-fit p-14 bg-blueprint-blue text-blueprint-white font-poppins">
+    <footer className="inset-x-0 bottom-0 h-fit p-14 bg-bp-blue text-bp-white font-poppins">
       {/* Render page links */}
       <div className="page-links">
         {t("pages").map(

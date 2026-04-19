@@ -12,7 +12,7 @@ import { ParagraphText } from "../Common";
 const AlumniCard = (props) => {
   return (
     <div>
-      <ParagraphTitle className="!text-blueprint-black !font-bold mb-5">
+      <ParagraphTitle className="!text-bp-black !font-bold mb-5">
         {props.gridName}
       </ParagraphTitle>
 
@@ -29,7 +29,7 @@ const AlumniCard = (props) => {
 					</ParagraphText>
 				</div>
 
-				<ParagraphText className="!text-blueprint-blue underline">
+				<ParagraphText className="!text-bp-blue underline">
 					<a
 						href={card.linkedin}
 						target="_blank"

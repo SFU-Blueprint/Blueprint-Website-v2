@@ -10,89 +10,91 @@ const NonprofitsPage = () => {
 
   return (
     <PageContainer
-      className="bg-[url('/images/non-profit/desktop_partner_crosspoint.svg')] bg-no-repeat 
-                              min-[1280px]:bg-[calc(100%+585px)_-500px]
-                              max-[1279px]:bg-[calc(100%+689px)_-500px]
-                              max-md:bg-[url('/images/non-profit/mobile_partner_crosspoint.svg')] max-md:bg-[calc(100%+130px)_-132px]"
+      className="!pt-[148px] lg:!pt-[132px] overflow-x-hidden bg-bp-lightest-grey bg-[url('/images/non-profit/desktop_partner_crosspoint.svg')] bg-no-repeat
+                              min-[1280px]:bg-[calc(100%+585px)_-360px]
+                              max-[1279px]:bg-[calc(100%+689px)_-360px]
+                              max-md:bg-[url('/images/non-profit/mobile_partner_crosspoint.svg')] max-md:bg-[calc(100%+130px)_14.5px]"
     >
       {/* Hero Section */}
       <section
         className="mb-[180px]
                         max-[1024px]:mb-[30px]"
       >
-        <h1
-          className="text-blueprint-neutral-dark text-[96px]/[100%] font-[400] font-poppins tracking-[-1.92px] text-left mb-[24px] whitespace-pre-wrap
-                        max-md:text-[56px] max-md:tracking-[-1.12px] max-md:mb-[12px]
-                        max-[400px]:w-[200px]"
-        >
-          <strong>partner</strong> with us
-        </h1>
-
-        {/* Img & Desc container*/}
+        {/* Text column & body: width = viewport × (939|693.5)/1422; ref 1422px-wide screen */}
         <div
-          className="flex flex-row w-[100%] 
-                        max-[900px]:flex-col"
+          className="flex w-full flex-row gap-0 max-[900px]:flex-col max-[900px]:gap-8"
         >
-          <p
-            className="font-poppins font-[400] text-[30px]/[100%] text-black tracking-[-0.6px] 
-                        min-[769px]:pr-[30px]
-                        max-md:text-[20px]/[140%] max-md:text-blueprint-neutral-dark max-md:tracking-[-0.4px]"
-          >
-            by working with us, your organization will{" "}
-            <span className={`bg-blueprint-orange ${colouredRectCSSBase}`} /> gain fresh
-            perspectives of your business,{" "}
-            <span className={`bg-[#71EC59] ${colouredRectCSSBase}`} /> increase community
-            engagement with local students, and{" "}
-            <span className={`bg-[#D2A6FB] ${colouredRectCSSBase}`} /> bring your vision
-            for social good to life through innovative ways, all free of charge.
-          </p>
-
-          {/* Polaroid Wrapper */}
           <div
-            className="min-[1025px]:h-0
-                          max-[1024px]:mt-[32px]"
+            className="flex min-w-0 w-full max-w-full flex-col md:shrink-0 md:max-w-[min(100%,calc(100vw*939/1422))] md:w-[min(100%,calc(100vw*939/1422))]"
+          >
+            <h1
+              className="m-0 whitespace-pre-wrap text-left font-poppins text-bp-black text-[72px] tracking-[-1.44px] leading-none mb-[24px]
+                        max-md:max-w-[233px] max-md:text-[46px] max-md:tracking-[-0.92px] max-md:leading-none max-md:mb-[12px]
+                        md:max-w-none"
+            >
+              <span className="font-bold leading-[1] max-md:leading-none">partner</span>{" "}
+              <span className="font-normal leading-[normal] max-md:font-normal max-md:leading-none">
+                with us
+              </span>
+            </h1>
+
+            <p
+              className="m-0 min-w-0 self-stretch font-poppins text-black text-heading-xs-reg
+                        max-md:max-w-[351px] max-md:text-bp-black max-md:text-mobile-heading-xs-reg
+                        md:max-w-[min(100%,calc(100vw*693.5/1422))]"
+            >
+              by working with us, your organization will{" "}
+              <span className={`bg-[#D2A6FB] ${colouredRectCSSBase}`} /> gain fresh
+              perspectives of your business,{" "}
+              <span className={`bg-[#71EC59] ${colouredRectCSSBase}`} /> increase community
+              engagement with local students, and{" "}
+              <span className={`bg-[#F49F00] ${colouredRectCSSBase}`} /> bring your
+              vision for social good to life through innovative ways, all free of charge.
+            </p>
+          </div>
+
+          <div
+            className="min-w-0 shrink-0 min-[1025px]:h-0 md:-ml-[120px] md:mt-[108px] max-[900px]:ml-0 max-[900px]:mt-[20px]"
           >
             <PolaroidPhoto
               imageSrc="https://placehold.co/398x298"
               caption="placeholder"
               alt="placeholder"
-              className="ml-auto rotate-[7deg]
-                       max-[1024px]:mr-auto "
+              className="rotate-[7deg] max-[1024px]:mx-auto"
             />
           </div>
         </div>
       </section>
 
       {/* Project Trait and BP approach grouping */}
-      <section className="mb-[80px]">
+      <section className="mb-[120px] max-md:mb-[80px]">
         {/* Project Traits Section*/}
         <section
-          className="mb-[60px]
-                          max-md:mb-[18px]"
+          className="mb-[148px] max-md:mb-[80px]"
         >
-          <div className="flex flex-col gap-[6px] mb-[30px]">
+          <div className="flex flex-col gap-3 mb-12 max-md:mb-10">
             <h2
-              className="text-blueprint-neutral-dark font-poppins font-[600] text-[36px]/[140%] tracking-[-0.72px]
-                          max-md:text-[24px]/[110%] max-md:tracking-[-0.48px] max-md:mb-[12px]"
+              className="text-bp-black font-poppins font-normal text-[36px]/[140%] tracking-[-0.72px]
+                          max-md:max-w-[253px] max-md:text-bp-black max-md:text-mobile-heading-s-bold max-md:mb-[12px]"
             >
-              can your idea become a project?
+              can <span className="md:font-semibold">your idea</span> become a project?
             </h2>
             <p
               className="text-black font-poppins text-[24px]/[130%] font-[400] tracking-[-0.48px]
-                        max-md:text-[18px] max-md:tracking-[-0.36px]"
+                        max-md:max-w-[305px] max-md:text-mobile-body-l-reg"
             >
-              We consider the following aspects when evaluating potential projects.
+              We consider the following aspects when evaluating potential projects:
             </p>
           </div>
 
           {/* Eval Card list */}
           <ul
-            className="flex flex-row gap-x-[6px] max-w-[100%]
-                       max-[1076px]:flex-col max-[1076px]:gap-y-[18px]"
+            className="flex flex-row gap-x-6 max-w-[100%]
+                       max-[1076px]:flex-col max-[1076px]:gap-y-6"
           >
             <li>
               <EvaluationCard
-                colour="blueprint-navyblue"
+                colour="bp-blue"
                 title="Organizational Need"
                 body="What measurable improvements would this product deliver to current operations? 
             How does it align with long-term organizational goals? How urgent is its development?"
@@ -100,16 +102,16 @@ const NonprofitsPage = () => {
             </li>
             <li>
               <EvaluationCard
-                colour="blueprint-orange"
+                colour="bp-accent-purple"
                 title="Technical Feasibility"
                 body="Are the desired features commonly found in other software products? Example solutions include mobile apps, websites, browser-based games, databases, and AI/ML systems."
               />
             </li>
             <li>
               <EvaluationCard
-                colour="blueprint-blue"
+                colour="bp-accent-medium-blue"
                 title="Community Impact"
-                body="Does the non-profit understand the challenges encountered by the community it serves? How would the product would align with solving those problems?"
+                body="Does the non-profit understand the challenges encountered by the community it serves? How would the product align with solving those problems?"
               />
             </li>
           </ul>
@@ -118,13 +120,13 @@ const NonprofitsPage = () => {
         {/* BP Approach Section */}
         <section>
           <h2
-            className="text-blueprint-neutral-dark font-poppins font-[600] text-[36px]/[140%] tracking-[-0.72px] mb-[24px]
+            className="text-bp-black font-poppins font-normal text-[36px]/[140%] tracking-[-0.72px] mb-12
                         max-md:text-[24px]/[110%] max-md:tracking-[-0.48px] max-md:mb-[18px]"
           >
-            our approach
+            our <span className="font-semibold">approach</span>
           </h2>
 
-          <div className="flex flex-col gap-[16px] max-md:gap-[12px]">
+          <div className="flex flex-col gap-4 max-md:gap-3">
             <Accordion header="01. Discover">
               <div className="flex flex-col gap-[24px] md:gap-[30px]">
                 <div className="flex flex-col gap-[6px]">
@@ -206,88 +208,102 @@ const NonprofitsPage = () => {
         </section>
       </section>
 
-      {/* What our partners say */}
-      <section
-        className="m-4 mb-[60px]
-                        max-md:mb-[40px]"
-      >
-        <h2
-          className="text-blueprint-neutral-dark font-poppins font-[600] text-[36px]/[140%] tracking-[-0.72px]
-                      max-md:text-[24px]/[110%] max-md:tracking-[-0.48px]"
-        >
-          what our partners say
-        </h2>
+      {/* What our partners say — hidden on mobile; width ∝ viewport (1160px at 1422px ref) */}
+      <section className="mb-0 max-md:hidden">
+        <div className="w-full min-w-0 max-w-[min(100%,calc(100vw*1160/1422))]">
+          <h2
+            className="text-bp-black font-poppins font-normal text-[36px]/[140%] tracking-[-0.72px]
+                        max-md:text-[24px]/[110%] max-md:tracking-[-0.48px]"
+          >
+            what <span className="font-semibold">our partners</span> say
+          </h2>
 
-        <p
-          className="text-black font-caveat font-[400] text-[34px]/[100%] mt-[24px] mb-[24px]
-                    max-md:text-[24px]/[120%] max-md:mt-[18px] max-md:mb-[18px]"
-        >
-          [The work SFU Blueprint has done] is much appreciated and there is a lot
-          of thanks that cannot really be simply put into words... Volunteers at OCB
-          put in thousands of hours of work behind the scene to make everything
-          happen. The tool that you have created for us will streamline our process
-          to better support and facilitate all the volunteers at OCB. Time is a very
-          valuable and finite resource for us at a small non-profit organization and
-          it will allow us to manage it better and more efficiently.
-        </p>
+          <p
+            className="m-0 mt-12 w-full min-w-0 text-bp-black font-caveat text-heading-hand leading-[140%] mb-9"
+          >
+            [The work SFU Blueprint has done] is much appreciated and there is a lot
+            of thanks that cannot really be simply put into words... Volunteers at OCB
+            put in thousands of hours of work behind the scene to make everything
+            happen. The tool that you have created for us will streamline our process
+            to better support and facilitate all the volunteers at OCB. Time is a very
+            valuable and finite resource for us at a small non-profit organization and
+            it will allow us to manage it better and more efficiently.
+          </p>
 
-        <div>
-          <p className="text-black font-poppins font-[400] text-[14px]/[100%] uppercase">
-            CAVAN HUA
-          </p>
-          <p className="text-black font-poppins font-[400] text-[14px]/[100%] uppercase mt-[2px]">
-            VOLUNTEER COORDINATOR AT OCB
-          </p>
+          <div className="w-full min-w-0 max-w-[min(100%,calc(100vw*241/1422))]">
+            <p className="m-0 text-bp-black font-poppins text-body-s-reg uppercase">
+              CAVAN HUA
+            </p>
+            <p className="m-0 text-bp-black font-poppins text-body-s-reg uppercase">
+              VOLUNTEER COORDINATOR AT OCB
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* NPO project proposal - full viewport width, breaks out of PageContainer padding */}
+      {/* NPO project proposal — mobile: full-bleed #0146BE, white type, white CTA; md+: gray card */}
       <section
-        className="-mx-6 bg-blueprint-navyblue overflow-hidden px-6 pt-[45px] pb-[68px] pl-[23px] pr-[21px] flex min-w-96 
-                sm:mx-10% sm:px-[103px] sm:pt-[60px] sm:pb-[80px] sm:rounded-2xl sm:mb-[52px]"
+        className="mt-[148px] max-md:mt-16 mb-12 md:mb-16
+                -mx-6 min-w-0 md:-mx-10 xl:-mx-36
+                max-md:bg-bp-blue max-md:py-12 max-md:!px-6
+                px-3 sm:px-4 md:px-5 xl:px-6 md:bg-transparent"
       >
-        <div className="flex flex-col justify-start items-start gap-6 sm:gap-12 w-full">
-          <h2
-            className="w-full text-white text-3xl font-light font-poppins leading-8
-            sm:text-heading-m-reg sm:leading-[57.60px] lg:max-w-[655px]"
-          >
-            are you part of an NPO with a project idea in mind?
-          </h2>
-
-          <div className="self-stretch h-px bg-white scale-y-[0.5] origin-center" />
-
-          <div
-            className="flex flex-col justify-start items-start gap-3 w-full 
-          sm:flex-row sm:justify-between sm:items-start sm:gap-6 lg:justify-between"
-          >
-            <div className="flex flex-col justify-start items-start gap-6 w-full sm:max-w-[588px] max-sm:mb-10">
-              <p
-                className="text-white text-lg font-normal font-poppins leading-6 pr-24
-               sm:self-stretch sm:text-2xl sm:font-normal sm:leading-8 sm:pr-0 sm:gap-6"
+        <div
+          className="w-full box-border shrink-0 flex flex-col justify-center items-stretch
+                max-md:bg-transparent max-md:p-0 max-md:min-h-0
+                md:bg-bp-lighter-grey rounded-[20px]
+                pt-[72px] pb-[96px] px-6 sm:px-10 md:px-[103px]
+                md:min-h-[560px]"
+        >
+          <div className="flex flex-col w-full max-w-[931px] mx-auto justify-center items-stretch">
+            <div className="mb-8 flex w-full items-start gap-[26px] max-md:mb-10 md:mb-12 max-md:gap-0">
+              <span
+                className="mt-4 hidden shrink-0 w-[22px] h-[22px] rounded-[5px] bg-bp-blue md:block"
+                aria-hidden
+              />
+              <h2
+                className="m-0 min-h-0 w-full min-w-0 max-md:max-w-[280px] text-left font-poppins text-white text-mobile-heading-m-reg md:max-w-[483px] md:font-normal md:text-bp-black md:text-heading-s-reg"
               >
-                Submit your project proposal through the form!
-              </p>
-              <p className="text-white text-base font-light font-poppins leading-6 max-w-100% max-h-100%">
-                If you have any questions, or haven&apos;t heard back from us within a
-                week of submitting a proposal, feel free to reach out to{" "}
-                <a
-                  href="mailto:sfublueprint@gmail.com"
-                  className="text-white font-normal underline hover:opacity-90"
-                >
-                  sfublueprint@gmail.com
-                </a>
-              </p>
+                are you part of an NPO with{" "}
+                <span className="font-normal md:font-semibold">a project idea</span> in mind?
+              </h2>
             </div>
 
-            <a
-              href="/nonprofits/proposal"
-              className="w-full h-[52px] px-11 py-3.5 bg-white rounded-[5px] flex flex-row justify-center items-center 
-              gap-2.5 hover:bg-blueprint-offwhite transition-colors flex-shrink-0 sm:w-[200px] sm:h-[60px]"
-            >
-              <span className="text-blue-800 text-sm sm:text-base font-semibold font-poppins whitespace-nowrap">
-                PROPOSAL FORM
-              </span>
-            </a>
+            <div
+              className="mb-8 h-[0.5px] w-full min-w-0 shrink-0 self-stretch bg-white/35 max-md:mb-10 md:mb-12 md:max-w-[931px] md:bg-bp-grey"
+              aria-hidden
+            />
+
+            <div className="flex w-full flex-col md:flex-row md:items-start md:justify-between md:gap-12 max-md:gap-0">
+              <div className="flex w-full max-w-full min-w-0 flex-col gap-6 self-start md:w-[588px] md:max-w-[588px] md:shrink-0">
+                <div className="w-full min-w-0 self-stretch overflow-x-auto sm:overflow-visible max-md:max-w-[253px] max-md:overflow-visible md:max-w-none">
+                  <p className="text-left font-poppins whitespace-normal text-mobile-body-l-bold text-bp-white md:whitespace-nowrap md:text-body-l-bold md:text-bp-black">
+                    Submit your project proposal through the form!
+                  </p>
+                </div>
+                <p className="w-full min-w-0 max-w-full self-stretch text-left font-poppins leading-[normal] text-body-m-reg text-bp-white max-md:max-w-[346px] max-md:flex-1 max-md:basis-0 max-md:shrink-0 md:max-w-none md:flex-none md:basis-auto md:text-bp-black">
+                  If you have any questions, or haven&apos;t heard back from us within a
+                  week of submitting a proposal, feel free to reach out to{" "}
+                  <a
+                    href="mailto:sfublueprint@gmail.com"
+                    className="font-poppins text-body-m-bold-link leading-[normal] text-bp-white underline decoration-solid [text-decoration-skip-ink:auto] underline-offset-auto hover:opacity-90 md:text-body-m-bold-link md:text-bp-black md:hover:opacity-80"
+                  >
+                    sfublueprint@gmail.com
+                  </a>
+                </p>
+              </div>
+
+              <a
+                href="/nonprofits/proposal"
+                className="inline-flex w-full shrink-0 items-center justify-center gap-[10px] rounded-[5px] transition-colors
+                max-md:mt-10 max-md:min-h-[52px] max-md:px-6 max-md:py-3.5 max-md:bg-white max-md:hover:bg-bp-lightest-grey
+                md:mt-0 md:box-border md:h-[60px] md:w-[200px] md:max-w-full md:self-start md:px-[44px] md:py-[14px] md:bg-bp-black md:hover:bg-bp-darkest-grey md:active:bg-bp-dark-grey"
+              >
+                <span className="whitespace-nowrap text-center font-poppins uppercase leading-[normal] text-mobile-body-m-bold text-bp-blue md:text-body-m-bold md:text-bp-white">
+                  PROPOSAL FORM
+                </span>
+              </a>
+            </div>
           </div>
         </div>
       </section>

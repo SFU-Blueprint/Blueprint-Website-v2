@@ -1,7 +1,7 @@
 @import "GearSection.css";
 
 .gear-section .mobile-value-title {
-  @apply font-poppins font-medium text-xl text-blueprint-blue mt-6;
+  @apply font-poppins font-medium text-xl text-bp-blue mt-6;
 }
 
 .gear-section .mobile-value-body {

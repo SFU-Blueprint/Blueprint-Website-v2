@@ -16,7 +16,7 @@ const OutlineButton = (
 ) => {
     return (
       <button
-        className={`${className} btn flex-nowrap hover:bg-blueprint-blue hover:text-white text-blueprint-blue outline-blueprint-blue p-4 rounded-md border-2 font-poppins font-bold tracking-tight
+        className={`${className} btn flex-nowrap hover:bg-bp-blue hover:text-white text-bp-blue outline-bp-blue p-4 rounded-md border-2 font-poppins font-bold tracking-tight
         sm:w-[50] md:w-200 md:min-w-[200px] `}
         onClick={onClick}
       >

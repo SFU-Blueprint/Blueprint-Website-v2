@@ -79,15 +79,16 @@ export default function SocialMediaLinkCard({
             <span className="shrink-0 flex items-center justify-center w-[20px] h-[20px] tablet:w-[30px] tablet:h-[30px]" aria-hidden>
               {icon}
             </span>
-            <span className="font-poppins font-normal text-blueprint-black text-[24px] leading-[1.4] tracking-[-0.48px] tablet:text-[36px] tablet:leading-[1.4] tablet:tracking-[-0.72px] whitespace-nowrap">
+            <span className="font-poppins font-normal text-bp-black text-[24px] leading-[1.4] tracking-[-0.48px] 
+                            tablet:text-heading-xs-reg tablet:leading-[1.4] tablet:tracking-[-0.72px] whitespace-nowrap">
               {platform}
             </span>
           </div>
-          <ArrowUpRight className="shrink-0 text-blueprint-black w-[35px] h-[35px] tablet:w-[46px] tablet:h-[46px]" />
+          <ArrowUpRight className="shrink-0 text-bp-black w-[35px] h-[35px] tablet:w-[46px] tablet:h-[46px]" />
         </div>
 
         {/* Description */}
-        <p className="font-poppins font-normal text-blueprint-black text-[14px] tablet:text-[16px] leading-normal m-0 tablet:max-w-[400px]">
+        <p className="font-poppins font-normal text-bp-black text-[14px] tablet:text-[16px] leading-normal m-0 tablet:max-w-[400px]">
           {description}
         </p>
       </div>

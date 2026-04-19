@@ -2,22 +2,26 @@ import React, { useState } from "react";
 import linkedinIcon from "../../assets/icons/linkedin2.png";
 import { ReactComponent as ArrowUpRightIcon } from "../../assets/icons/ArrowUpRight.svg";
 
+export type memberRoleType = "designer" | "pm" | "dev" | "exec" | "techLead"
+
 export type MemberCardProps = {
   name: string;
   role: string;
-  roleType?: "designer" | "pm" | "dev" | "exec";
+  roleType?: memberRoleType;
   photoUrl?: string;
   linkedinUrl?: string;
+  randomRotation?: boolean;
 };
 
 // Role-based hover/click background (solid brand colors per palette)
 const ROLE_HOVER_BG_CLASS: Record<NonNullable<MemberCardProps["roleType"]>, string> = {
-  designer: "bg-blueprint-accent-purple",
-  pm: "bg-blueprint-orange",
-  dev: "bg-blueprint-accent-lightBlue",
-  exec: "bg-blueprint-accent-veryLightBlue",
+  designer: "bg-bp-accent-purple",
+  pm: "bg-bp-orange",
+  dev: "bg-bp-accent-light-blue",
+  exec: "bg-bp-accent-very-light-blue",
+  techLead: "bg-bp-accent-medium-blue",
 };
-
+// [#71EC59]
 const BORDER_RADIUS = 10;
 // Phone: 170×228, padding 10 9 10 8 (top right bottom left)
 // Tablet: 224×308, padding 12 10 26 12
@@ -29,12 +33,13 @@ export default function MemberCard({
   roleType = "designer",
   photoUrl,
   linkedinUrl,
+  randomRotation,
 }: MemberCardProps) {
   const [isHovered, setIsHovered] = useState(false);
-
   const hoverBgClass = ROLE_HOVER_BG_CLASS[roleType];
   const showHoverStyle = isHovered && linkedinUrl;
-
+  // If randomRotation is true: selects a rotation degree between +/- 3-5 otherwise defaults to +5
+  const rotationDegree: string = randomRotation ? String((Math.floor(Math.random() * 4)+2) * (-1)**(Math.floor(Math.random() * 2))) : '5';
   const handleClick = () => {
     if (linkedinUrl) window.open(linkedinUrl, "_blank", "noopener,noreferrer");
   };
@@ -43,7 +48,7 @@ export default function MemberCard({
     <div className="flex flex-col items-start w-full flex-1 min-h-0">
       {/* Photo placeholder or image: phone 153×127; tablet/desktop full width, aspect-square */}
       <div
-        className="w-[153px] h-[127px] tablet:w-full tablet:aspect-square tablet:max-h-[180px] tablet:h-auto tablet:min-h-[120px] rounded-md bg-blueprint-gray-lightest overflow-hidden shrink-0"
+        className="w-min-[153px] h-[127px] w-full tablet:aspect-square tablet:max-h-[180px] tablet:h-auto tablet:min-h-[120px] rounded-md bg-bp-lightest-grey overflow-hidden shrink-0"
       >
         {photoUrl ? (
           <img
@@ -52,7 +57,7 @@ export default function MemberCard({
             className="w-full h-full object-cover"
           />
         ) : (
-          <div className="w-full h-full bg-blueprint-grey" aria-hidden />
+          <div className="w-full h-full bg-bp-grey" aria-hidden />
         )}
       </div>
 
@@ -73,7 +78,7 @@ export default function MemberCard({
         </span>
         {/* Name: phone 18px, 130%, -0.36px; tablet/desktop 24px, 130%, -0.48px; hidden on desktop when hovered */}
         <span
-          className={`font-poppins text-[18px] font-medium text-black leading-[130%] tracking-[-0.36px] self-stretch mt-0.5 tablet:mt-1.5 tablet:text-[24px] tablet:tracking-[-0.48px] ${
+          className={`font-poppins text-[18px] font-medium text-black leading-[130%] tracking-[-0.36px] self-stretch mt-0.5 tablet:mt-1.5 tablet:text-[24px] tablet:tracking-[-0.48px] whitespace-nowrap ${
             showHoverStyle ? "desktop:hidden" : ""
           }`}
         >
@@ -105,10 +110,13 @@ export default function MemberCard({
     "flex flex-col items-start rounded-[10px] font-poppins cursor-pointer transition-transform duration-200 ease-out";
   // Phone: 170×228, padding 10 9 10 8 | Tablet: 224×308, padding 12 10 26 12 | Desktop: 273×309, padding 14 13 30 13
   const sizeClassName =
-    "w-[170px] min-w-[170px] h-[228px] min-h-[228px] pt-[10px] pr-[9px] pb-[10px] pl-[8px] tablet:w-[224px] tablet:min-w-[224px] tablet:h-[308px] tablet:min-h-[308px] tablet:pt-3 tablet:pr-[10px] tablet:pb-[26px] tablet:pl-3 desktop:w-[273px] desktop:h-[309px] desktop:min-h-[309px] desktop:pt-[14px] desktop:pr-[13px] desktop:pb-[30px] desktop:pl-[13px]";
+    `w-full min-w-[170px] max-[629px]:max-w-[230px] h-[228px] min-h-[228px] pt-[10px] pr-[9px] pb-[10px] pl-[8px] max-w-[350px]
+     tablet:min-w-[224px] tablet:w-full tablet:h-[308px] tablet:min-h-[308px] tablet:pt-3 tablet:pr-[10px] tablet:pb-[26px] tablet:pl-3 
+     desktop:h-[309px] desktop:min-h-[309px] desktop:pt-[14px] desktop:pr-[13px] desktop:pb-[30px] desktop:pl-[13px]`;
   const wrapperStyle: React.CSSProperties = { borderRadius: BORDER_RADIUS };
+  const rotationStyle: React.CSSProperties = { "--customRot": `${rotationDegree}deg` } as React.CSSProperties;
   const wrapperBgClass = showHoverStyle ? hoverBgClass : "bg-white";
-  const rotationClass = showHoverStyle ? "desktop:rotate-[5deg]" : "";
+  const rotationClass = showHoverStyle ? "desktop:rotate-[--customRot]" : "";
 
   if (linkedinUrl) {
     return (
@@ -116,7 +124,7 @@ export default function MemberCard({
         role="button"
         tabIndex={0}
         className={`${baseClassName} ${sizeClassName} ${wrapperBgClass} ${rotationClass}`}
-        style={wrapperStyle}
+        style={{...wrapperStyle, ...rotationStyle}}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={handleClick}

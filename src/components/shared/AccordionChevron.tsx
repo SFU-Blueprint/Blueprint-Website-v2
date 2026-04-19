@@ -15,10 +15,10 @@ export default function AccordionChevron({
   const [pressed, setPressed] = useState(false);
 
   const bgClass = pressed
-    ? "bg-blueprint-gray-dark"
+    ? "bg-bp-grey"
     : hovered
-      ? "bg-blueprint-neutral-muted"
-      : "bg-blueprint-gray-light";
+      ? "bg-bp-light-grey"
+      : "bg-bp-lightest-grey";
 
   return (
     <button

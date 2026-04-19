@@ -2,7 +2,7 @@ import React from 'react';
 
 type ButtonProps = {
   variant?: 'primary' | 'secondary' | 'tertiary';
-  children: React.ReactNode;
+  children?: React.ReactNode;
   onClick?: () => void;
   className?: string;
   type?: 'button' | 'submit' | 'reset';
@@ -19,11 +19,11 @@ const Button = ({
     'flex items-center justify-center rounded-[5px] font-poppins font-semibold leading-none px-[44px] h-[52px] text-[14px] md:h-[60px] md:text-[16px] transition-colors duration-150 cursor-pointer select-none whitespace-nowrap';
   const variants = {
     primary:
-      'bg-blueprint-linkHover text-white hover:bg-blueprint-hoverBlue active:bg-blueprint-linkActive',
+      'bg-bp-blue text-white hover:bg-bp-hover-blue active:bg-bp-pressed-blue',
     secondary:
-      'bg-white text-blueprint-linkHover hover:bg-blueprint-neutral-muted active:bg-blueprint-neutral-mutedAlt',
+      'bg-white text-bp-blue hover:bg-bp-light-grey active:bg-bp-grey',
     tertiary:
-      'bg-blueprint-black text-white hover:bg-blueprint-darkGrey active:bg-blueprint-linkActive font',
+      'bg-bp-black text-white hover:bg-bp-dark-grey active:bg-bp-pressed-blue font',
   };
 
   return (

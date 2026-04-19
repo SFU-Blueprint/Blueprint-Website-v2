@@ -20,13 +20,13 @@ export type EvaluationCardProps = {
  * EvaluationCard: vertical layout when viewport is tall enough (min-h 32rem),
  * horizontal (tablet) layout when viewport height is below that.
  */
-const EvaluationCard = ({ title, body, colour="blueprint-navyblue" }: EvaluationCardProps) => {
+const EvaluationCard = ({ title, body, colour="bp-blue" }: EvaluationCardProps) => {
     const clipId = useId();
   
     return (
       <>
         {/* Consolidated Desktop/Mobile layout */}
-        <div className="inline-flex tablet:hidden desktop:inline-flex max-w-[630px] min-w-[328px] h-[341px] pb-[30px] pt-[42px] px-3 relative bg-white rounded-xl border-2 overflow-hidden flex-col items-start">
+        <div className="inline-flex tablet:hidden desktop:inline-flex max-w-[630px] min-w-[328px] h-[341px] pb-[30px] pt-[42px] px-3 relative bg-white rounded-xl overflow-hidden flex-col items-start">
           <svg className="absolute w-0 h-0" aria-hidden>
             <clipPath id={clipId} clipPathUnits="objectBoundingBox">
               <path d="M 1 0 L 1 0 Q 1 0 1 0 L 1 0.55 Q 1 0.77 0.95 0.78 L 0.06 1 Q 0 1 0 1 L 0 0 Q 0 0 0 0 Z" />
@@ -44,7 +44,7 @@ const EvaluationCard = ({ title, body, colour="blueprint-navyblue" }: Evaluation
         </div>
   
         {/* Tablet layout: shown when lg breakpoint >= width > sm breakpoint (630px - 1280px) */}
-        <div className="hidden max-w-[902px] min-w-[630px] min-h-[145px] pl-3 pr-12 py-3 bg-white rounded-xl overflow-hidden border-2 tablet:inline-flex desktop:hidden flex-col">
+        <div className="hidden max-w-[902px] min-w-[630px] min-h-[145px] pl-3 pr-12 py-3 bg-white rounded-xl overflow-hidden tablet:inline-flex desktop:hidden flex-col">
           <div className="self-stretch inline-flex justify-start items-center h-[121px] gap-2 my-2">
             <div className="relative w-64 h-32">
               <div

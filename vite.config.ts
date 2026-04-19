@@ -10,5 +10,6 @@ export default defineConfig({
       svgrOptions: { exportType: "named", namedExport: "ReactComponent" },
     }),
   ],
+  assetsInclude: ['**/*.riv'],
   server: { port: 3000, open: true },
 });

@@ -20,7 +20,7 @@ const AlumniGrid = (props) => {
                             <h1 className="font-poppins text-[14px] text-[#6C6B7A]">{items.position}</h1>
                         </div>
                         <div className="flex flex-row ml-5 mb-3 mr-5">
-                            <a className="font-poppins text-blueprint-blue text-[14px] underline" href="">LinkedIn </a>
+                            <a className="font-poppins text-bp-blue text-[14px] underline" href="">LinkedIn </a>
                             <img className="ml-[5%]" src="/share.svg" alt=""/>
                         </div>
                     </div>

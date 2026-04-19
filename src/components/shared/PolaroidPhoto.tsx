@@ -29,7 +29,7 @@ const PolaroidPhoto = ({imageSrc, caption, alt, className = "", style}: Polaroid
             <div className="h-[206px] overflow-hidden md:h-[267px]">
                 <img className="object-cover object-top w-full h-full block" src={imageSrc} alt={alt}/>
             </div>
-            <p className="decoration-blueprint-black text-center font-caveat text-[24px] md:text-3xl text-wrap">{caption}</p>
+            <p className="decoration-bp-black text-center font-caveat text-[24px] md:text-3xl text-wrap">{caption}</p>
         </div>  
     </div>
     );

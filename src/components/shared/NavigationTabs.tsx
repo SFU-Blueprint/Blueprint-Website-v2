@@ -32,7 +32,7 @@ export default function NavigationTabs({ tabs, activeHref }: NavigationTabsProps
     <nav className="w-full font-poppins" aria-label="Section navigation">
       <div
         ref={containerRef}
-        className="relative flex flex-nowrap gap-x-6 overflow-x-auto border-b border-blueprint-neutral-mutedAlt [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        className="relative flex flex-nowrap gap-x-6 overflow-x-auto border-b border-bp-grey [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       >
         {tabs.map((tab, i) => {
           const isActive = activeHref != null && tab.href === activeHref;
@@ -41,7 +41,7 @@ export default function NavigationTabs({ tabs, activeHref }: NavigationTabsProps
               key={tab.href}
               to={tab.href}
               className={`group relative inline-flex shrink-0 w-fit max-w-fit py-3 px-4 text-sm leading-[100%] tracking-normal whitespace-nowrap transition-colors duration-150 ${
-                isActive ? "text-blueprint-linkHover" : "text-blueprint-neutral-dark"
+                isActive ? "text-bp-blue" : "text-bp-black"
               }`}
               aria-current={isActive ? "page" : undefined}
             >
@@ -65,7 +65,7 @@ export default function NavigationTabs({ tabs, activeHref }: NavigationTabsProps
         })}
         {activeIndex >= 0 && (
           <span
-            className="absolute left-0 bottom-0 -mb-px h-[4px] bg-blueprint-linkHover rounded-t-full shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-150 ease-out"
+            className="absolute left-0 bottom-0 -mb-px h-[4px] bg-bp-blue rounded-t-full shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all duration-150 ease-out"
             style={{ left: underlineLeft, width: underlineWidth }}
             aria-hidden
           />

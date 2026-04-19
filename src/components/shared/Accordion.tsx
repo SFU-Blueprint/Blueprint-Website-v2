@@ -28,7 +28,7 @@ export default function Accordion({
       {/* Header row — always visible */}
       <div className="flex items-center justify-between w-full">
         <span
-          className="text-blueprint-neutral-dark font-medium leading-[1.3]
+          className="text-bp-black font-medium leading-[1.3]
             text-[18px] tracking-[-0.36px]
             md:text-[24px] md:tracking-normal"
         >
@@ -43,7 +43,7 @@ export default function Accordion({
       {/* Body — shown when open */}
       {isOpen && (
         <div className="w-full shrink-0 md:pr-[90px]">
-          <div className="text-blueprint-neutral-dark font-normal leading-normal text-[14px] md:text-[16px]">
+          <div className="text-bp-black font-normal leading-normal text-[14px] md:text-[16px]">
             {children}
           </div>
         </div>

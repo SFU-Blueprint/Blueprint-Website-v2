@@ -20,13 +20,13 @@ const CameraButton = ({
   const isDesktop = size === 'desktop';
   const dimension = isDesktop ? 'w-[120px] h-[120px]' : 'w-[72px] h-[72px]';
 
-  let bgClass = 'bg-blueprint-linkHover';
+  let bgClass = 'bg-bp-blue';
   let iconColor = 'white';
   if (pressed) {
-    bgClass = 'bg-blueprint-accent-lightBlue';
+    bgClass = 'bg-bp-accent-light-blue';
     iconColor = '#0146BE';
   } else if (hovered) {
-    bgClass = 'bg-blueprint-accent-veryLightBlue';
+    bgClass = 'bg-bp-accent-very-light-blue';
     iconColor = '#0146BE';
   }
 

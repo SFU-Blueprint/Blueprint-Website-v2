@@ -19,7 +19,7 @@ const ROUTES = [
 ] as const;
 
 export interface NavBarProps {
-  /** e.g. Students page — outer strip `bp-darkest-grey`, cards `bp-black` */
+  /** e.g. Students page — outer strip bp-black, cards bp-black */
   isDark?: boolean;
 }
 
@@ -29,7 +29,7 @@ const NavBar = ({ isDark = false }: NavBarProps) => {
   const closeMenu = () => setIsMenuOpened(false);
   const currentPath = useLocation().pathname;
 
-  const surfaceClass = isDark ? "bg-blueprint-black" : "bg-blueprint-white";
+  const surfaceClass = isDark ? "bg-bp-black" : "bg-bp-white";
 
   return (
     <nav className="w-full justify-center p-5" aria-label="Primary">
@@ -38,8 +38,8 @@ const NavBar = ({ isDark = false }: NavBarProps) => {
         <div
           className={`hidden items-center justify-between overflow-hidden rounded-[5px] backdrop-blur-xl lg:flex lg:shrink-0 ${
             isDark
-              ? "bg-blueprint-black"
-              : `bg-blueprint-white ${NAV_SURFACE_SHADOW}`
+              ? "bg-bp-black"
+              : `bg-bp-white ${NAV_SURFACE_SHADOW}`
           }`}
         >
           <Logo isDark={isDark} />
@@ -48,8 +48,8 @@ const NavBar = ({ isDark = false }: NavBarProps) => {
         <div
           className={`hidden items-center overflow-hidden backdrop-blur-xl lg:flex lg:shrink-0 lg:rounded-lg ${
             isDark
-              ? "rounded-[10px] bg-blueprint-neutral-dark"
-              : `bg-blueprint-white ${NAV_SURFACE_SHADOW}`
+              ? "rounded-[10px] bg-bp-black"
+              : `bg-bp-white ${NAV_SURFACE_SHADOW}`
           }`}
         >
           <DesktopNavLinks
@@ -111,7 +111,7 @@ function MenuButton({
     <button
       type="button"
       className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg p-2 transition-colors ${
-        isDark ? "bg-blueprint-darkestGrey" : "bg-blueprint-gray-light"
+        isDark ? "bg-bp-darkest-grey" : "bg-bp-lightest-grey"
       }`}
       onClick={toggleMenu}
       aria-expanded={isMenuOpened}
@@ -157,10 +157,10 @@ function DesktopNavLinks({
               "relative flex items-center whitespace-nowrap rounded font-poppins text-nav-link uppercase transition-all",
               "h-nav-desktop-h px-nav-desktop-px py-nav-desktop-py",
               isDark
-                ? "text-white hover:bg-blueprint-neutral-mid hover:text-white active:bg-blueprint-neutral-mutedAlt active:text-white"
-                : "text-blueprint-black hover:bg-blueprint-linkHover hover:text-white active:bg-blueprint-linkActive active:text-white",
+                ? "text-white hover:bg-bp-dark-grey hover:text-white active:bg-bp-grey active:text-white"
+                : "text-bp-black hover:bg-bp-blue hover:text-white active:bg-bp-pressed-blue active:text-white",
               isActive
-                ? "font-semibold text-blueprint-blue hover:text-white"
+                ? "font-semibold text-bp-blue hover:text-white"
                 : "",
             ]
               .filter(Boolean)
@@ -197,10 +197,10 @@ function MobileNavLinks({
             className={[
               "flex h-nav-mobile-h items-center justify-start rounded-md px-nav-mobile-px py-nav-mobile-py font-poppins text-nav-link uppercase transition-all",
               isDark
-                ? "bg-blueprint-darkestGrey text-white hover:bg-blueprint-neutral-mid hover:text-white active:bg-blueprint-neutral-mutedAlt active:text-white"
-                : "bg-blueprint-gray-light text-blueprint-black hover:bg-blueprint-linkHover hover:text-white active:bg-blueprint-linkActive active:text-white",
+                ? "bg-bp-darkest-grey text-white hover:bg-bp-dark-grey hover:text-white active:bg-bp-grey active:text-white"
+                : "bg-bp-lightest-grey text-bp-black hover:bg-bp-blue hover:text-white active:bg-bp-pressed-blue active:text-white",
               isActive
-                ? "font-semibold text-blueprint-blue hover:text-white"
+                ? "font-semibold text-bp-blue hover:text-white"
                 : "",
             ]
               .filter(Boolean)

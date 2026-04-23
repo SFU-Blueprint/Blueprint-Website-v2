@@ -6,20 +6,20 @@ import { GroupImages } from "../constants/about-us-media";
 import InfoCard from "../components/shared/InfoCard";
 import { useRive, Layout, Fit, Alignment } from "@rive-app/react-webgl2";
 import revisedRiv from "../assets/rive/Revised-Desktop.riv?url";
-import aboutValuesMobileRiv from "../assets/rive/about-values-mobile.riv?url";
+import aboutValuesMobileRiv from "../assets/rive/mobile-vers-rive.riv?url";
 
 const OUR_MEMBERS_CONTENT = {
   title: "Our members",
   heading: "Our talented members come from diverse cultures, professions, and social backgrounds.",
   body: "With a passion for social good and dedication to creating beautiful technology, our student project teams work alongside nonprofits to help them better serve their communities.",
-  color: "blueprint-navyblue",
+  color: "bp-blue",
 } as const;
 
 const BLUEPRINT_MULTINATIONAL_CONTENT = {
   title: "Blueprint Multinational",
   heading: "This chapter of Blueprint is part of a much larger multinational community, originally started at UC Berkeley.",
   body: "As the fifth established chapter in Canada, our team is based largely at Simon Fraser University, and operating as a registered non profit!",
-  color: "blueprint-roleAccent-pm",
+  color: "bp-orange",
 } as const
 
 /** Random tilt in degrees, roughly -maxDeg … +maxDeg (inclusive). */
@@ -51,10 +51,11 @@ function AboutValuesRiveDesktop() {
     autoBind: true,
     layout: new Layout({
       fit: Fit.FitHeight,
-      alignment: Alignment.BottomLeft,
+      alignment: Alignment.TopLeft,
+      layoutScaleFactor:1,
     }),
   });
-  return <RiveComponent className="h-full w-[2000px] translate-x-[-380px]" />;
+  return <RiveComponent className="h-[950px] w-[1200px] ml-[-400px] 2xl:ml-[-200px]" />;
 }
 
 function AboutValuesRiveMobile() {
@@ -205,7 +206,7 @@ const AboutPage = () => {
           
           {/* Info Cards Container*/}
         </div>
-          <div className="relative z-10 md:pt-[108px] flex flex-col items-center justify-center gap-2 pb-[148px] lg:flex-row">
+          <div className="relative z-10 md:pt-[108px] flex flex-col items-center justify-center gap-2 pb-[148px] lg:flex-row gap-6">
              {/* Our members  */}
             <InfoCard title={OUR_MEMBERS_CONTENT.title} heading={OUR_MEMBERS_CONTENT.heading} body={OUR_MEMBERS_CONTENT.body} color={OUR_MEMBERS_CONTENT.color} />
             
@@ -217,7 +218,7 @@ const AboutPage = () => {
           {/* Values Section — Rive needs a real URL from Vite (?url) and a sized box for the canvas */}
           <div className="relative w-full shrink-0 pb-[280px] md:pb-0">
             <div className="pointer-events-none relative z-10 flex flex-col md:gap-10 md:pb-[566px]">
-              <h2 className="pointer-events-auto flex flex-col max-md:justify-center max-md:items-center font-poppins text-5xl md:text-7xl">
+              <h2 className="pointer-events-auto flex flex-col max-md:justify-center max-md:items-center font-poppins text-5xl md:text-7xl md:ml-[-40px] 2xl:ml-[160px] 2xl:mx-48">
                 our <strong>values</strong>
               </h2>
             </div>

@@ -49,7 +49,7 @@ const CaseStudies: CaseStudyContent[] = [
         date: "Feb - Nov 2024",
         partnerContent: "Our Community Bikes (OCB) is a non-profit based in Vancouver, Canada dedicated to providing bikes to underserved communities, empowering people to fix their own bikes, and increasing diversity in the repair industry.",
         problemContent: "OCB was struggling to meet growing service demands. Many processes that should have been automated were consuming hours of coordinators' time each month—time that could have been spent running workshops and engaging directly with the community.",
-        logoURL: "/images/projects/our-community-bikes/logo.svg",
+        logoURL: "/images/projects/our-community-bikes/ocb-sticky-logo.svg",
         img1: {
           url: "/images/projects/our-community-bikes/fixing-bike.png",
           caption: "building bikes & community",

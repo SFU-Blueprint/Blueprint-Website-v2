@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import PageContainer from "../components/layout/PageContainer";
 import Button from "../components/shared/Button";
+import { ReactComponent as WindmillIcon } from "../assets/home/windmill.svg";
+import { ReactComponent as HandshakeIcon } from "../assets/home/handshake.svg";
+import { ReactComponent as GiftIcon } from "../assets/home/gift.svg";
 
 const HERO_SCROLLBAR_BG = "#2A2A2A";
 
@@ -28,6 +31,12 @@ const s = (designPx: number) => `calc(${designPx} * var(--tfg-scale))`;
 const st = (designPx: number) => `calc(${designPx} * var(--tfg-scale-tight))`;
 // Mobile equivalent: 390-base design pixel → scaled CSS length.
 const ms = (designPx: number) => `calc(${designPx} * var(--tfg-mscale))`;
+
+// Hero feature cards (windmill / handshake / gift). Figma: 378×407px on a
+// 1457px-wide desktop frame → normalized to the 1440 reference used by `s()`
+// so dimensions scale with `--tfg-scale` like the rest of this section.
+const HERO_FEATURE_CARD_W_DESIGN = (378 * 1440) / 1457;
+const HERO_FEATURE_CARD_H_DESIGN = (407 * 1440) / 1457;
 
 const PlayIcon = ({ className = "" }: { className?: string }) => (
   <svg
@@ -152,6 +161,89 @@ const VideoCardStack = () => (
   </div>
 );
 
+const HomeHeroFeatureCards = () => {
+  const cards: Array<{
+    Icon: React.FC<React.SVGProps<SVGSVGElement>>;
+    label: string;
+    squareClass: string;
+    /** Optional SVG-only tweaks (keeps asset markup unchanged). */
+    iconExtraClass?: string;
+  }> = [
+    { Icon: WindmillIcon, label: "all NPO sectors", squareClass: "bg-bp-orange" },
+    { Icon: HandshakeIcon, label: "local partnerships", squareClass: "bg-bp-pink" },
+    {
+      Icon: GiftIcon,
+      label: "100% pro bono",
+      squareClass: "bg-bp-green",
+      // Gift: viewBox reads larger on mobile than windmill/handshake — cap size; nudge down on desktop.
+      iconExtraClass:
+        "max-[779px]:translate-y-1 max-[779px]:!max-h-[64px] max-[779px]:!max-w-[36%] min-[780px]:translate-y-[calc(12px*var(--tfg-scale))]",
+    },
+  ];
+
+  return (
+    <div
+      className={[
+        "mt-[58px] flex w-full flex-col gap-[28px]",
+        "min-[780px]:flex-row min-[780px]:justify-center min-[780px]:gap-[28px]",
+      ].join(" ")}
+      style={
+        {
+          "--hero-fc-w": s(HERO_FEATURE_CARD_W_DESIGN),
+          "--hero-fc-h": s(HERO_FEATURE_CARD_H_DESIGN),
+        } as React.CSSProperties
+      }
+      aria-label="Blueprint highlights"
+    >
+      {cards.map(({ Icon, label, squareClass, iconExtraClass }) => (
+        <div
+          key={label}
+          className={[
+            "flex min-h-0 w-full min-w-0 rounded-[10px] bg-[#1F1F1F]",
+            // Mobile: row, indicator+label vs icon, space-between (Figma).
+            "max-[779px]:h-[124px] max-[779px]:flex-row max-[779px]:items-center max-[779px]:justify-between max-[779px]:gap-3 max-[779px]:px-5 max-[779px]:py-4",
+            // Desktop: fixed size from Figma (scaled via `s()`). Less pt / more pb so the icon
+            // + label sit higher; extra breathing room under the label (top felt too empty).
+            "min-[780px]:h-[var(--hero-fc-h)] min-[780px]:w-[var(--hero-fc-w)] min-[780px]:shrink-0 min-[780px]:flex-col min-[780px]:items-stretch min-[780px]:gap-2 min-[780px]:px-6 min-[780px]:pt-2 min-[780px]:pb-14",
+          ].join(" ")}
+        >
+          <div
+            className={[
+              "flex flex-wrap items-center gap-2",
+              "max-[779px]:min-w-0 max-[779px]:flex-1 max-[779px]:justify-start max-[779px]:text-left",
+              "min-[780px]:order-2 min-[780px]:shrink-0 min-[780px]:flex-nowrap min-[780px]:justify-center min-[780px]:text-center min-[780px]:-mt-2",
+            ].join(" ")}
+          >
+            <span
+              className={`size-3 shrink-0 rounded-[2px] ${squareClass}`}
+              aria-hidden
+            />
+            <span className="font-caveat text-[24px] leading-none text-bp-lightest-grey min-[630px]:text-[30px] min-[780px]:whitespace-nowrap min-[780px]:text-[36px]">
+              {label}
+            </span>
+          </div>
+          <div
+            className={[
+              "max-[779px]:contents",
+              "min-[780px]:flex min-[780px]:min-h-0 min-[780px]:flex-1 min-[780px]:items-center min-[780px]:justify-center min-[780px]:order-1",
+            ].join(" ")}
+          >
+            <Icon
+              aria-hidden
+              className={[
+                "h-auto shrink-0",
+                "max-[779px]:max-h-[76px] max-[779px]:w-auto max-[779px]:max-w-[42%]",
+                "min-[780px]:w-full min-[780px]:max-w-[186px]",
+                iconExtraClass ?? "",
+              ].join(" ")}
+            />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
 const TechForGoodSection = () => (
   // Full-bleed bp-black. We break out of PageContainer's padding by using the
   // `w-screen + left-1/2 + -translate-x-1/2` technique so the section always
@@ -164,6 +256,7 @@ const TechForGoodSection = () => (
     className="relative w-screen left-1/2 -translate-x-1/2 flex bg-bp-black -mt-[108px] pt-[108px] pb-24 px-[28px] md:px-[44px] xl:px-[148px] min-[780px]:justify-start"
     style={TFG_SCALE_STYLE}
   >
+    <div className="flex w-full flex-col">
     <div
       className={[
         "relative flex flex-col gap-10 w-full",
@@ -309,9 +402,9 @@ const TechForGoodSection = () => (
       >
         <VideoCardStack />
 
-        {/* Headline. Desktop specs:
-            "we build tech for" — Poppins 120/weight 500/lh 90%/ls -3.6px
-            "social good"       — Caveat 200/weight 700/lh 100%/ls -6px
+        {/* Headline. Desktop specs (20% smaller than original Figma):
+            "we build tech for" — Poppins 96/weight 500/lh 90%/ls -2.88px
+            "social good"       — Caveat 160/weight 700/lh 100%/ls -4.8px
             Both #F4F4F4 ≈ bp-lightest-grey. Sizes/tracking scale with vw via s().
 
             On desktop the headline sits ON TOP of the video card: relative +
@@ -319,12 +412,14 @@ const TechForGoodSection = () => (
             it back up so it overlaps the lower portion of the stack.
             whitespace-nowrap keeps each typographic line on its own row. */}
         {/* Headline typography specs:
+              Mobile: unchanged (15%-shrunk-from-Figma ms() values).
+              Desktop "we build tech for" / "social good": ×0.8 vs prior artboard.
               "we build tech for" — Poppins weight 500, line-height 90%
-                 Mobile @390:  47.23px / -1.417px letter-spacing
-                 Desktop@1440: 120px   / -3.6px   letter-spacing
+                 Mobile @390:  40.1455px / -1.20445px letter-spacing (ms)
+                 Desktop@1440: 96px    / -2.88px   letter-spacing
               "social good"        — Caveat weight 700, line-height 100%
-                 Mobile @390:  78.716px / -2.361px letter-spacing
-                 Desktop@1440: 200px    / -6px     letter-spacing
+                 Mobile @390:  66.9086px / -2.00685px letter-spacing (ms)
+                 Desktop@1440: 160px   / -4.8px    letter-spacing
             Color #F4F4F4 ≈ bp-lightest-grey.
 
             On desktop the headline sits ON TOP of the video card: relative +
@@ -335,24 +430,22 @@ const TechForGoodSection = () => (
           className="relative z-10 font-poppins font-medium text-bp-lightest-grey whitespace-nowrap leading-[0.9] text-[length:var(--tfg-h2-m)] tracking-[var(--tfg-h2-m-ls)] mt-[var(--tfg-h2-m-overlap)] max-[779px]:self-start min-[780px]:text-[length:var(--tfg-h2)] min-[780px]:tracking-[var(--tfg-h2-ls)] min-[780px]:mt-[var(--tfg-h2-overlap)] min-[780px]:ml-[var(--tfg-h2-ml)]"
           style={
             {
-              // Mobile headline shrunk 15% from the original Figma spec
-              // (47.23 → 40.1455, ls -1.417 → -1.20445) per design tweak.
+              // Mobile headline: original ms() sizing (not affected by desktop −20%).
               "--tfg-h2-m": ms(40.1455),
               "--tfg-h2-m-ls": ms(-1.20445),
               // Negative mobile margin-top so the headline overlays the lower
-              // portion of the card stack (same idea as desktop). Scaled by
-              // 0.85 to track the smaller mobile card / headline sizes.
+              // portion of the card stack (same idea as desktop).
               "--tfg-h2-m-overlap": `calc(-59.5 * var(--tfg-mscale))`,
               // Headline uses the tight scale so it shrinks in step with the
               // card stack (same scale → consistent overlay relationship)
               // and doesn't overflow the section at narrow desktop widths.
-              "--tfg-h2": st(120),
-              "--tfg-h2-ls": st(-3.6),
+              "--tfg-h2": st(120 * 0.8),
+              "--tfg-h2-ls": st(-3.6 * 0.8),
               // Negative desktop margin-top to pull the headline up so it
               // overlays the lower portion of the video card stack.
-              "--tfg-h2-overlap": `calc(-360 * var(--tfg-scale-tight))`,
+              "--tfg-h2-overlap": `calc(${-360 * 0.8} * var(--tfg-scale-tight))`,
               // Nudge the headline left of the card-frame's left edge.
-              "--tfg-h2-ml": `calc(-120 * var(--tfg-scale-tight))`,
+              "--tfg-h2-ml": `calc(${-120 * 0.8} * var(--tfg-scale-tight))`,
             } as React.CSSProperties
           }
         >
@@ -367,24 +460,17 @@ const TechForGoodSection = () => (
             className="block font-caveat font-bold leading-none text-[length:var(--tfg-sg-m)] tracking-[var(--tfg-sg-m-ls)] mt-[var(--tfg-sg-m-mt)] ml-[var(--tfg-sg-m-ml)] min-[780px]:text-[length:var(--tfg-sg)] min-[780px]:tracking-[var(--tfg-sg-ls)] min-[780px]:mt-[var(--tfg-sg-mt)] min-[780px]:ml-[var(--tfg-sg-ml)]"
             style={
               {
-                // Mobile "social good" shrunk 15% from the original Figma
-                // spec (78.716 → 66.9086, ls -2.361 → -2.00685).
+                // Mobile "social good": original ms() sizing (unchanged vs desktop −20%).
                 "--tfg-sg-m": ms(66.9086),
                 "--tfg-sg-m-ls": ms(-2.00685),
-                // Mobile equivalent of the desktop -60px pull-up, scaled for
-                // the smaller Caveat font-size so the line sits flush under
-                // the Poppins line above (closes the ascender-gap). 0.85x the
-                // original value to match the smaller headline.
                 "--tfg-sg-m-mt": `calc(-20.4 * var(--tfg-mscale))`,
-                // Slight leftward nudge on mobile (mirrors the desktop ml).
-                // Also scaled 0.85x to track the smaller headline.
                 "--tfg-sg-m-ml": `calc(-4.25 * var(--tfg-mscale))`,
                 // "social good" tracks the headline (tight scale) so the
                 // two lines of the title shrink together.
-                "--tfg-sg": st(200),
-                "--tfg-sg-ls": st(-6),
-                "--tfg-sg-mt": `calc(-60 * var(--tfg-scale-tight))`,
-                "--tfg-sg-ml": `calc(-14 * var(--tfg-scale-tight))`,
+                "--tfg-sg": st(200 * 0.8),
+                "--tfg-sg-ls": st(-6 * 0.8),
+                "--tfg-sg-mt": `calc(${-60 * 0.8} * var(--tfg-scale-tight))`,
+                "--tfg-sg-ml": `calc(${-14 * 0.8} * var(--tfg-scale-tight))`,
               } as React.CSSProperties
             }
           >
@@ -392,6 +478,8 @@ const TechForGoodSection = () => (
           </span>
         </h2>
       </div>
+    </div>
+    <HomeHeroFeatureCards />
     </div>
   </section>
 );
@@ -416,11 +504,6 @@ const HomePage = () => {
       {/* Mission Statement */}
       <section className="m-4">
         <p>Introduction paragraph placeholder</p>
-        <ul>
-          <li>ALL NGO sectors Placeholder</li>
-          <li>Local partnerships Placeholder</li>
-          <li>Pro-bono Placeholder</li>
-        </ul>
         <hr />
       </section>
 

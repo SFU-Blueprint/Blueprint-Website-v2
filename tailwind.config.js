@@ -20,6 +20,8 @@ module.exports = {
         "bp-lightest-grey": "#F3F3F3",
         "bp-white": "#FFFFFF",
         "bp-orange": "#F49F00",
+        "bp-pink": "#FFC3E8",
+        "bp-green": "#89F574",
         "bp-blue": "#0146BE",
         "bp-hover-blue": "#00389B",
         "bp-pressed-blue": "#002F80",

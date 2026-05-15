@@ -8,6 +8,7 @@ import { createPortal } from "react-dom";
 
 const HERO_SCROLLBAR_BG = "#2A2A2A";
 const WHO_WE_ARE_VIDEO_SRC = "/videos/who-we-are.mp4";
+const WHO_WE_ARE_TEASER_SRC = "/videos/who-we-are-teaser.mp4";
 
 const TFG_SCALE_STYLE = {
   // Desktop / tablet reference: 1440px — scales linearly between 780-1440,
@@ -157,12 +158,16 @@ const VideoCardStack = () => {
               "min-[780px]:group-hover:rotate-[3.5deg]",
             ].join(" ")}
           >
-            {/* Dark preview surface. Replace this later with a thumbnail if design provides one. */}
-            <div
+            <video
               aria-hidden="true"
-              className="absolute inset-0 z-0 bg-bp-darkest-grey"
-            />
-
+              className="absolute inset-0 z-0 h-full w-full object-cover"
+              src={WHO_WE_ARE_TEASER_SRC}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+            />          
             {/* Pill lives on the card so it rotates with it. */}
             <div
               className="absolute z-10 max-[779px]:top-3 max-[779px]:left-3 min-[780px]:top-[var(--tfg-pill-inset)] min-[780px]:left-[var(--tfg-pill-inset)]"

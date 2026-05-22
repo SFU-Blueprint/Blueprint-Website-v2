@@ -7,7 +7,7 @@ import { GroupImages } from "../constants/about-us-media";
 import InfoCard from "../components/shared/InfoCard";
 import { useRive, Layout, Fit, Alignment } from "@rive-app/react-webgl2";
 import revisedRiv from "../assets/rive/Revised-Desktop.riv?url";
-import aboutValuesMobileRiv from "../assets/rive/about-values-mobile.riv?url";
+import aboutValuesMobileRiv from "../assets/rive/mobile-vers-rive.riv?url";
 import Button from "../components/shared/Button";
 import Filters from "../components/shared/Filters";
 import MemberCard, { memberRoleType } from "../components/shared/MemberCard";

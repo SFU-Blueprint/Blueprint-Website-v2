@@ -24,7 +24,7 @@ const ProjectCard = ({project=ProjectInfo}) => { // Change Placeholder Project I
     // Placeholders for images and text
     
     return (
-    <div className="w-80 md:max-w-[865px] min-w-72 md:w-auto md:min-w-[624px] px-6 pt-6 pb-9 md:px-9 md:pt-9 md:pb-12 bg-white rounded-[5px] inline-flex flex-col justify-start items-start gap-2.5 overflow-hidden [@media(hover:hover)]:hover:ring-1 [@media(hover:hover)]:hover:ring-bp-grey [@media(hover:hover)]:hover:bg-bp-lightest-grey group">
+    <div className="w-full min-w-0 max-w-[865px] px-6 pt-6 pb-9 md:px-9 md:pt-9 md:pb-12 bg-white rounded-[5px] flex flex-col justify-start items-start gap-2.5 overflow-hidden [@media(hover:hover)]:hover:ring-1 [@media(hover:hover)]:hover:ring-bp-grey [@media(hover:hover)]:hover:bg-bp-lightest-grey group">
         <div className="self-stretch flex flex-col justify-start items-start gap-4 md:gap-5">
            {/*  Hero Image  */}
             <div className="self-stretch h-40 flex flex-col justify-end items-center bg-amber-500 rounded-[5px] overflow-hidden pt-[37px] md:h-80">
@@ -37,16 +37,16 @@ const ProjectCard = ({project=ProjectInfo}) => { // Change Placeholder Project I
                 <div className="flex-1 max-w-96 md:max-w-none justify-start text-zinc-800 text-lg md:text-2xl font-normal font-['Poppins'] leading-6 md:leading-8">
                     {project.TITLE_PLACEHOLDER}
                     </div>
-                <div className="hidden md:block w-20 h-20 bg-zinc-800 rounded-full"></div>
-                <img className="hidden md:block w-20 h-20" src={project.LOGO_PLACEHOLDER} alt="Placeholder"/>
+                {/* <div className="hidden md:block w-20 h-20 bg-zinc-800 rounded-full"></div> */}
+                <img className="hidden md:block w-20 h-20" src={project ? project.LOGO_PLACEHOLDER : "https://placehold.co/76x76"} alt="Placeholder"/>
             </div>
             
             {/*  Divider */}
             <div className="self-stretch h-0 outline outline-1 outline-offset-[-0.50px] outline-zinc-300"></div>
             
             {/* Info Section */}
-            <div className="w-full max-w-[552px] md:inline-flex md:flex-row justify-start items-start gap-3 md:gap-6">
-                <div className="w-28 md:w-36 flex flex-col justify-start items-start gap-1.5 md:gap-3">
+            <div className="w-full max-w-[552px] md:inline-flex md:flex-row justify-start items-start gap-3 md:gap-6 flex flex-col">
+                <div className="min-w-28 md:w-36 flex flex-col justify-start items-start gap-1.5 md:gap-3">
                     <div className="w-36 justify-start text-neutral-500 text-[10px] md:text-sm font-medium font-['Poppins'] uppercase">
                         CLIENT
                     </div>

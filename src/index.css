@@ -22,3 +22,12 @@ body {
 
 }
 
+@layer utilities {
+  .scrollbar-hide-custom {
+    -ms-overflow-style: none;  /* IE, old Edge */
+    scrollbar-width: none;     /* Firefox */
+  }
+  .scrollbar-hide-custom::-webkit-scrollbar {
+    display: none;             /* Chrome, Safari, Opera */
+  }
+}

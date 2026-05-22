@@ -6,16 +6,6 @@ export type EvaluationCardProps = {
   colour?: string;
 };
 
-// <svg className="absolute w-0 h-0" aria-hidden>
-//           <clipPath id={clipId} clipPathUnits="objectBoundingBox">
-//             <path d="M 1 0 L 1 0 Q 1 0 1 0.04 L 1 0.55 Q 1 0.79 0.96 0.78 L 0.05 1 Q 0 0.95 0 0.78 L 0 0 Q 0 0 0 0 Z" />
-//           </clipPath>
-//         </svg>
-//         <div
-//           className="absolute left-0 right-0 top-0 h-[119px] max-w-[605px] bg-blueprint-navyblue rounded-xl m-3"
-//           style={{ clipPath: `url(#${clipId})` }}
-//           aria-hidden
-//         />
 /**
  * EvaluationCard: vertical layout when viewport is tall enough (min-h 32rem),
  * horizontal (tablet) layout when viewport height is below that.

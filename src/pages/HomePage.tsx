@@ -1,12 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import PageContainer from "../components/layout/PageContainer";
 import Button from "../components/shared/Button";
+import Carousel from "../components/shared/Carousel";
+import InteractiveCarousel from "../components/shared/Carousel-Interactive";
+import { blueprintTestimonials, bpLogos } from "../constants/homepage-media";
+import TestimonialCard from "../components/shared/TestimonialCard.tsx";
+import { Link } from "react-router-dom";
+import ProjectCard from "../components/home-page/HomeProjectCard";
+import { Projects } from "../constants/projects";
 import { ReactComponent as WindmillIcon } from "../assets/home/windmill.svg";
 import { ReactComponent as HandshakeIcon } from "../assets/home/handshake.svg";
 import { ReactComponent as GiftIcon } from "../assets/home/gift.svg";
 import { createPortal } from "react-dom";
 
 const HERO_SCROLLBAR_BG = "#2A2A2A";
+const impactPoints = [
+  {color: "bp-blue", text: "Reducing administrative workflows"},
+  {color: "bp-accent-medium-blue", text: "Improving access to help and resources"},
+  {color: "bp-accent-light-blue", text: "Increasing volunteer engagement"},
+];
 const WHO_WE_ARE_VIDEO_SRC = "/videos/who-we-are.mp4";
 const WHO_WE_ARE_TEASER_SRC = "/videos/who-we-are-teaser.mp4";
 
@@ -542,6 +554,123 @@ const TechForGoodSection = () => (
   </section>
 );
 
+/** Mosaic + Our Community Bikes (was `Projects[5]` — out of range; only 0–4 exist). */
+const featuredProjects = Projects.filter((p) =>
+  ["mosaic", "our-community-bikes", "reel-youth"].includes(p.slug)
+);
+
+const PROJECTS_CARD_STICKY_TOP = 40;
+const PROJECTS_CARD_GAP = 16;
+/** Visible strip of each buried card above the card in front (2 strips = 2 cards behind the last). */
+const PROJECTS_CARD_PEEK_HEIGHT = 20;
+
+const getProjectsCardStickyTop = (index: number) =>
+  PROJECTS_CARD_STICKY_TOP + index * PROJECTS_CARD_PEEK_HEIGHT;
+
+const PROJECTS_CARD_SCROLL_ANIMATIONS = [
+  { minScale: 0.7, minBrightness: 0.7 },
+  { minScale: 0.8, minBrightness: 0.8 },
+] as const;
+
+const ProjectsCardStack = () => {
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  const updateCardTransforms = useCallback(() => {
+    const lastIndex = featuredProjects.length - 1;
+    const lastCard = cardRefs.current[lastIndex];
+    const lastStickyTop = getProjectsCardStickyTop(lastIndex);
+    const isStackComplete =
+      lastCard != null &&
+      lastCard.getBoundingClientRect().top <= lastStickyTop + 1;
+
+    cardRefs.current.forEach((card, index) => {
+      if (!card) return;
+
+      const cardStickyTop = getProjectsCardStickyTop(index);
+      const config = PROJECTS_CARD_SCROLL_ANIMATIONS[index];
+
+      if (!config) {
+        card.style.transform = "scale3d(1, 1, 1)";
+        card.style.filter = "brightness(1)";
+        return;
+      }
+
+      const nextCard = cardRefs.current[index + 1];
+      if (!nextCard) {
+        card.style.transform = "scale3d(1, 1, 1)";
+        card.style.filter = "brightness(1)";
+        return;
+      }
+
+      const nextTop = nextCard.getBoundingClientRect().top;
+      const scrollDistance = card.offsetHeight + PROJECTS_CARD_GAP;
+      let progress = Math.min(
+        Math.max(1 - (nextTop - cardStickyTop) / scrollDistance, 0),
+        1
+      );
+
+      if (isStackComplete) {
+        progress = 1;
+      }
+
+      const scale = 1 - progress * (1 - config.minScale);
+      const brightness = 1 - progress * (1 - config.minBrightness);
+
+      card.style.transform = `scale3d(${scale}, ${scale}, 1)`;
+      card.style.filter = `brightness(${brightness})`;
+    });
+  }, []);
+
+  useLayoutEffect(() => {
+    updateCardTransforms();
+    window.addEventListener("scroll", updateCardTransforms, { passive: true });
+    window.addEventListener("resize", updateCardTransforms);
+    return () => {
+      window.removeEventListener("scroll", updateCardTransforms);
+      window.removeEventListener("resize", updateCardTransforms);
+    };
+  }, [updateCardTransforms]);
+
+  return (
+    <section className="w-full min-w-0">
+      <div className="flex w-full min-w-0 flex-col gap-4">
+        {featuredProjects.map((project, index) => (
+          <div
+            key={project.slug}
+            ref={(el) => {
+              cardRefs.current[index] = el;
+            }}
+            className={`sticky z-[10 + ${index}] origin-top`}
+            style={{
+              top: getProjectsCardStickyTop(index),
+              willChange:
+                index < PROJECTS_CARD_SCROLL_ANIMATIONS.length
+                  ? "transform, filter"
+                  : undefined,
+            }}
+          >
+            <ProjectCard
+              project={{
+                LOGO_PLACEHOLDER: project.image
+                  ? project.image
+                  : "https://placehold.co/76x76",
+                COVER_PLACEHOLDER: project.popupimage
+                  ? project.popupimage
+                  : "https://placehold.co/517x354",
+                TITLE_PLACEHOLDER: project.description,
+                CLIENT_PLACEHOLDER: project.name,
+                SERVICE_PLACEHOLDER: project.tags?.[0] ?? "Web App",
+                SECTOR_PLACEHOLDER:
+                  project.tags?.[1] ?? project.tags?.[0] ?? "NPO",
+              }}
+            />
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
 const HomePage = () => {
   // Only tint <html> (not <body>) so the scrollbar gutter matches the hero
   // while the rest of the page still renders on the light body background.
@@ -553,43 +682,192 @@ const HomePage = () => {
       html.style.backgroundColor = prev;
     };
   }, []);
-
   return (
     <PageContainer>
       {/* Hero: "tech for good" section */}
       <TechForGoodSection />
 
-      {/* Mission Statement */}
-      <section className="m-4">
-        <p>Introduction paragraph placeholder</p>
-        <hr />
+
+      {/* Impact + projects: mx-auto wrapper so centering works at every breakpoint */}
+      <section className="w-full pt-[120px] max-md:pt-[75px]">
+        <div className="mx-auto flex w-full flex-col items-center gap-12 xl:gap-24 xl:flex-row xl:items-start 
+        w-full justify-between"> {/* max-w-[1196px] xl:justify-center */}
+        {/* Left side Heading and logos */}
+        <div className="w-full max-w-[440px] shrink-0 max-md:max-w-[90vw] xl:sticky xl:top-[25%] z-[10] xl:pl-[1.5vw]">
+          {/* Bullet points and logos */}
+          <div className="flex w-full flex-col gap-9 md:gap-12">
+            <span className="text-bp-black text-mobile-heading-m-reg font-normal font-['Poppins'] 
+            md:w-72 justify-start md:text-heading-s-reg leading-8 md:leading-[50.40px]">
+              <h2>
+                impact that 
+              </h2>
+                <strong className="font-semibold">speaks for itself</strong>
+            </span>
+              {/* bullet points */}
+              <div className="flex flex-col justify-start items-start gap-[9px]">
+
+              {impactPoints.map((point) => (
+                <div className="flex flex-row gap-[18px] justify-center items-center font-poppins 
+                md:justify-start">
+                  <div className={`w-4 h-4 bg-${point.color} rounded-[3px] shrink-0`}/>
+                  {point.text}
+                </div>
+              ))}
+              </div>
+
+              {/* logos */}
+              <div className="relative w-full">
+                
+                <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-16 md:w-36 bg-gradient-to-r from-bp-lightest-grey to-transparent" />
+                
+                <Carousel>
+                {bpLogos.map((logo) => (
+                  <img className="h-full w-full object-contain" key={logo.id} src={logo.image} alt={logo.id.toString()} />
+                ))}
+                </Carousel>
+                
+                <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 md:w-36 bg-gradient-to-l from-bp-lightest-grey to-transparent" />
+              </div>
+          </div>
+
+          <div className="pt-10 w-full max-md:hidden">
+            <Link to="/projectspage">
+            <Button variant="tertiary" className="!font-light uppercase max-xl:!basis-auto max-xl:!w-full !w-52 max-md:!w-full !h-15">see all projects</Button>
+            </Link>
+          </div>
+
+            
+        </div>
+          
+
+        {/* Projects preview */}
+        <div className="flex flex-1 w-full max-w-[708px] min-w-0 shrink-0 justify-center max-md:pt-[30px] xl:sticky xl:top-[40px]">
+          <ProjectsCardStack />
+        </div>
+        </div>
+        <div className="mx-auto w-full max-w-[440px] pt-[73px] max-md:max-w-[90vw] md:hidden">
+            <Link to="/projectspage">
+            <Button variant="tertiary" className="!font-normal uppercase !w-52 max-md:!w-full !h-15">see all projects</Button>
+            </Link>
+        </div>
       </section>
 
-      {/* Projects preview */}
-      <section className="m-4">
-        <h2>our partnerships</h2>
-        <ul>
-          <li>partnership card placeholder</li>
-          <li>partnership card placeholder</li>
-        </ul>
-        <p>See all our projects placeholder</p>
-      </section>
+      {/* Students / testimonials */}
+        {/* Students: turn real projects into real opportunities */}
+        <div className="flex flex-row w-full min-w-0 justify-between pt-[73px] md:pt-[120px] md:pb-[60px] font-['Poppins'] justify-between gap-12">
+              <div className="flex flex-1 w-full min-w-0 flex-col gap-6 max-w-[660px] text-zinc-800 max-md:min-w-[345px]">
+                  <div className="text-heading-s-reg max-md:text-mobile-heading-m-reg md:min-w-[518px] max-w-[400px]">students: turn real projects into 
+                  <span className="font-semibold "> real opportunities. </span>
+                  </div>
+                  <div className="flex flex-1 text-body-m-reg leading-8 max-md:text-mobile-body-m-reg">By working with a passionate interdisciplinary team and making a real impact in their community, our members have gained invaluable skills,
+                    allowing them to pursue successful careers in tech. Join us to see the Blueprint difference. 
+                   </div>
+                </div>
+              {/* button */}
+              <div className="max-md:hidden justify-end shrink-0">
+                <Button variant="tertiary" className="uppercase !font-light !w-48 !h-16">join us</Button>             
+              </div>
+        </div>
 
-      {/* Partner info */}
-      <section className="m-4">
-        <h2>launch a project for your non profit</h2>
-        <p>Blueprint partner description placeholder</p>
-        <button>Learn more placeholder</button>
-        <hr />
-      </section>
+        {/* testimonials */}
+        <div className="relative left-1/2 right-1/2 ml-[-50vw] mr-[-50vw] h-[390px] w-screen pt-[60px] max-md:pt-[52px]">
+              <InteractiveCarousel autoScrollSpeed={1}>
+                {blueprintTestimonials.map((testimonial) => (
+                  <TestimonialCard key={testimonial.id} name={testimonial.name} role={testimonial.role} picture={testimonial.image} caption={testimonial.caption} />
+                ))}
+              </InteractiveCarousel>
+              
+        </div>
 
-      {/* Blueprint Events */}
-      <section className="m-4">
-        <h2>for students: turn real projects into real opportunities.</h2>
-        <p>blueprinters internship stats placeholder</p>
-        <button>Join us placeholder</button>
-        <p>upcoming events placeholder</p>
-      </section>
+        <div className="md:hidden pb-10">
+          <Button variant="tertiary" className="uppercase !font-normal !w-full !h-16">join us</Button>          
+        </div>
+
+
+    {/* Upcoming Events Section*/}
+    {/* Upcoming Events Image */}
+    <div className="md:min-w-[82vw] h-full overflow-hidden rounded-[5px] max-md:pt-[54px] md:pt-[120px] max-md:pb-6 md:pr-[2vw] xl:pr-[6vw] 2xl:pr-[2vw]">
+        <img
+          className="w-full h-full"
+          src="/images/home/photos/group.png"
+          alt="Group Photo"
+        />
+    </div>
+
+    {/* Upcoming Event Card */}
+    {/* desktop height is 346 - 96 = 250px. the additional slant top is 96px.*/}
+    <div className="flex justify-end max-md:justify-center justify-end items-end">
+
+
+      <div className="bg-bp-blue rounded-[5px] text-bp-white relative flex w-full md:max-w-[737px] pl-12 pr-[50px] pb-[72px] h-[350px] 
+      max-md:pl-[26px] pr-[22px] max-md:pb-[61px] max-md:pt-[34px] flex flex-col gap-[32px] min-w-[347px] max-md:h-[336px] md:translate-y-[-50%]"
+      style={{ 
+        clipPath: 'url(#clip-slant)',
+        borderRadius: '5px'
+      }}>
+        
+        <svg className="max-md:hidden" aria-hidden>
+        <defs>
+          <clipPath id="clip-slant" clipPathUnits="objectBoundingBox">
+          <path d=" M 0,0 Q 0,0 0,0.13
+          C 0.02,0.05 0.1,0.4 0.008,0.117
+          L 1,0 L 1,1 L 0,1 Z" />
+          </clipPath>
+        </defs>
+      </svg>
+    
+          {/* Top section */}
+          <div className="flex flex-col gap-[25px]">
+            <div className="flex justify-between items-end max-md:flex-col max-md:items-stretch max-md:gap-[26px]">
+              <div className="flex flex-col gap-[16px] w-[366px] max-md:w-full ">
+                <p className=" max-md:font-normal  
+                md:text-body-s-reg  text-[10px] uppercase leading-normal ">
+                  upcoming event: 
+                </p>
+                <p className="font-poppins max-md:font-normal max-md:leading-8 text-[36px] leading-8 tracking-[-0.72px] max-md:text-2xl">
+                  blueprint info session
+                </p>
+              </div>
+              
+              <div>
+                <Button
+                  variant="secondary"
+                  className="shrink-0 max-md:w-full w-[200px]"
+                >
+                  <span className="font-semibold text-sm !font-normal">RSVP</span>
+                </Button>
+              </div>
+
+            </div>
+            
+            <div className="w-full h-px bg-white/30 " />
+          </div>
+
+          {/* Bottom section: date + location */}
+          <div className="flex flex-row gap-[52px] max-md:gap-[24px] font-poppins w-full justify-start">
+            <div className="flex flex-col max-md:w-full md:gap-[10px] gap-[6px] md:font-medium max-md:font-normal text-[10px] leading-normal">
+              <p className=" md:text-[14px] uppercase leading-normal font-normal">
+                DATE AND TIME:
+              </p>
+              <p className="flex flex-col md:flex-row gap-1 text-body-s-reg font-light">
+                September 10, {/* date */}
+                <span>2026, 7 PM</span> {/* time */}
+                  
+              </p>
+            </div>
+            <div className="flex flex-col max-md:w-full md:gap-[10px] gap-[6px] md:font-medium max-md:font-normal text-[10px] uppercase leading-normal ">
+              <p className=" md:text-[14px] uppercase leading-normal font-normal">
+                LOCATION:
+              </p>
+              <p className="font-poppins leading-normal flex flex-col md:flex-row gap-1 text-body-s-reg font-light">
+                SFU Burnaby {/* location */}
+                <span>Campus, ASB 9720</span> {/* location */}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </PageContainer>
   );
 };

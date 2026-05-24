@@ -25,7 +25,7 @@ export const Projects = [
     slug: "mosaic",
     status: "completed",
     description: "Improving access to immigration resources with a chatbot and admin ",
-    date: "November 2023 - Current",
+    date: "APRIL 2024 – APRIL 2025",
     tags: ["Immigration", "AI / Bot"],
     image: "/images/projects/mosaic/mosaic-logo.svg",
     popupimage: "/images/projects/mosaic/mosaic-card-cover.png",

@@ -31,7 +31,7 @@ const CameraButton = ({ onClick }: { onClick: () => void }) => {
   const handleClick = () => {
     playCameraSound();
     onClick();
-    void trigger(200);
+    void trigger("nudge");
   };
 
   return (

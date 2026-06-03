@@ -80,7 +80,6 @@ const CameraButton = ({ onClick }: { onClick: () => void }) => {
       className={`w-20 h-18 md:w-28 md:h-24 flex flex-col text-bp-white rounded-[10px] cursor-pointer
       bg-bp-black hover:bg-bp-darkest-grey active:bg-bp-dark-grey`}
     >
-      <input type="switch"></input>
       {/* CONTENT */}
       <div className="flex flex-col items-center justify-center gap-[5px] md:gap-[7px] 
         px-[21px] pt-[14px] pb-[9px] md:px-[30px] md:pb-[12px] md:pt-[19px]">

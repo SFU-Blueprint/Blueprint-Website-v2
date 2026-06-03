@@ -13,7 +13,6 @@
 /dist
 
 # misc
-*.exe
 .DS_Store
 .env
 .env.local

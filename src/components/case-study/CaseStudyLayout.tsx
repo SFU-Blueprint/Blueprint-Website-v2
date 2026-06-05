@@ -18,6 +18,8 @@ export type CaseStudyLayoutProps = CaseStudyContent & {
  */
 const CaseStudyLayout = ({backNav, hero, solution, testemonial, team}:CaseStudyLayoutProps) => {
   const enableRandomRotation = true;
+  const polaroid1ClassName = hero.img1.polaroidComponentClassName ? hero.img1.polaroidComponentClassName : "z-10 desktop:translate-x-0 desktop:translate-y-0 tablet:rotate-[9deg] tablet:translate-x-[30px] rotate-[-4deg] translate-x-[-60px]";
+  const polaroid2ClassName = hero.img2.polaroidComponentClassName ? hero.img2.polaroidComponentClassName : "desktop:mt-[-160px] desktop:translate-x-[-100px] desktop:translate-y-0 tablet:rotate-[-7deg] tablet:translate-x-[-30px] tablet:translate-y-[50px] tablet:mt-0 mt-[-40px] rotate-[7deg] translate-x-[50px]"
 
   const heroCategory = (title: string, body: ReactNode): ReactElement => {
     return(
@@ -28,7 +30,13 @@ const CaseStudyLayout = ({backNav, hero, solution, testemonial, team}:CaseStudyL
     );
   }
 
-  const heroImagePile: ReactElement = (
+  // Determines whether to use custom image pile format or default one
+  const heroImagePile: ReactElement = 
+  hero.imgPileFormat ? hero.imgPileFormat(
+    hero.logoURL, 
+    <PolaroidPhoto imageSrc={hero.img1.url} caption={hero.img1.caption} alt={hero.img1.alt} imageCropClassName={hero.img1.polaroidImgClassName} className={polaroid1ClassName}/>, 
+    <PolaroidPhoto imageSrc={hero.img2.url} caption={hero.img2.caption} alt={hero.img2.alt} imageCropClassName={hero.img2.polaroidImgClassName} className={polaroid2ClassName}/>
+  ) : (
     <div className="flex desktop:flex-row desktop:ml-auto desktop:mb-0 items-center tablet:mb-[70px] flex-col mb-[20px] desktop:self-start">
         <img className="z-20 
                         desktop:translate-x-[30px] desktop:translate-y-[-90px] desktop:m-[-10px] desktop:mt-0 desktop:self-auto
@@ -36,8 +44,8 @@ const CaseStudyLayout = ({backNav, hero, solution, testemonial, team}:CaseStudyL
                         max-w-[197px] max-h-[184px] rotate-[13deg] translate-x-[100px]" 
                         src={hero.logoURL}/>
         <div className="flex desktop:flex-col desktop:translate-y-[30px] tablet:flex-row tablet:mt-0 mt-[-150px] flex-col">
-            <PolaroidPhoto imageSrc={hero.img1.url} caption={hero.img1.caption} alt={hero.img1.alt} imageCropClassName={hero.img1.polaroidImgClassName} className="z-10 desktop:translate-x-0 desktop:translate-y-0 tablet:rotate-[9deg] tablet:translate-x-[30px] rotate-[-4deg] translate-x-[-60px]"/>
-            <PolaroidPhoto imageSrc={hero.img2.url} caption={hero.img2.caption} alt={hero.img2.alt} imageCropClassName={hero.img2.polaroidImgClassName} className="desktop:mt-[-160px] desktop:translate-x-[-100px] desktop:translate-y-0 tablet:rotate-[-7deg] tablet:translate-x-[-30px] tablet:translate-y-[50px] tablet:mt-0 mt-[-40px] rotate-[7deg] translate-x-[50px]"/>
+            <PolaroidPhoto imageSrc={hero.img1.url} caption={hero.img1.caption} alt={hero.img1.alt} imageCropClassName={hero.img1.polaroidImgClassName} className={polaroid1ClassName}/>
+            <PolaroidPhoto imageSrc={hero.img2.url} caption={hero.img2.caption} alt={hero.img2.alt} imageCropClassName={hero.img2.polaroidImgClassName} className={polaroid2ClassName}/>
         </div>
     </div>
   );

@@ -121,8 +121,8 @@ export default function MemberCard({
      desktop:h-[309px] desktop:min-h-[309px] desktop:pt-[14px] desktop:pr-[13px] desktop:pb-[30px] desktop:pl-[13px]`;
   const wrapperStyle: React.CSSProperties = { borderRadius: BORDER_RADIUS };
   const rotationStyle: React.CSSProperties = { "--customRot": `${rotationDegree}deg` } as React.CSSProperties;
-  const wrapperBgClass = showHoverStyle ? hoverBgClass : "bg-white";
-  const rotationClass = showHoverStyle ? "desktop:rotate-[--customRot]" : "";
+  const wrapperBgClass = isHovered ? hoverBgClass : "bg-white";
+  const rotationClass = isHovered ? "desktop:rotate-[--customRot]" : "";
 
   if (name.length >= 15) {
     console.error(`name attribute exceeds 15 chars. '${name}' is ${name.length} chars long. Abandoning.`);
@@ -154,8 +154,10 @@ export default function MemberCard({
 
   return (
     <div
-      className={`${baseClassName} ${sizeClassName} bg-white`}
-      style={{ borderRadius: BORDER_RADIUS }}
+      className={`${baseClassName} ${sizeClassName} ${wrapperBgClass} ${rotationClass}`}
+      style={{ ...wrapperStyle, ...rotationStyle }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       aria-label={`${name}, ${role}`}
     >
       {cardContent}

@@ -20,7 +20,7 @@ function ScrollToTop() {
   return null;
 }
 
-const DARK_NAV_ROUTES = ["/", "/students"];
+const DARK_NAV_ROUTES = ["/"];
 
 function App() {
   const { pathname } = useLocation();
@@ -41,6 +41,7 @@ function App() {
         <Route path="/projectspage" element={<ProjectsPage />} />
         <Route path="/students" element={<StudentsPage />} />
         <Route path="/nonprofits" element={<NonprofitsPage />} />
+        <Route path="/join-us" element={<StudentsPage />} />
         <Route path="/projects/:slug" element={<IndividualProject />} />
       </Routes>
       </main>

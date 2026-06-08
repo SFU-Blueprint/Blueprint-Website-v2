@@ -39,9 +39,9 @@ function FooterLink({ name, path }: { name: string; path: string }) {
 
 export default function FooterRevamp() {
   return (
-    <footer id="app-footer" className="w-full font-poppins">
+    <footer id="app-footer" className="w-full bg-bp-lightest-grey font-poppins">
       {/* Desktop */}
-      <div className="hidden lg:block px-footer-px-desktop py-footer-py-desktop">
+      <div className="hidden lg:block px-footer-px-desktop pt-footer-py-desktop pb-[233px]">
         <div className="rounded-[20px] px-[80px] pt-[60px] pb-[100px] bg-white">
           <div className="flex flex-col gap-[70px]">
             {/* Top section */}
@@ -104,7 +104,7 @@ export default function FooterRevamp() {
       </div>
 
       {/* Tablet */}
-      <div className="hidden md:block lg:hidden px-footer-px-tablet py-footer-py-desktop">
+      <div className="hidden md:block lg:hidden px-footer-px-tablet pt-footer-py-desktop pb-[160px]">
         <div className="rounded-[20px] px-[60px] pt-[48px] pb-[60px] bg-white">
           <div className="flex flex-col gap-[48px]">
             {/* Logo */}
@@ -165,7 +165,7 @@ export default function FooterRevamp() {
       </div>
 
       {/* Mobile */}
-      <div className="block md:hidden px-footer-px-mobile py-footer-py-mobile">
+      <div className="block md:hidden px-footer-px-mobile pt-footer-py-mobile pb-[96px]">
         <div className="rounded-[16px] px-[28px] pt-[36px] pb-[48px] bg-white">
           <div className="flex flex-col gap-[36px]">
             {/* Logo */}

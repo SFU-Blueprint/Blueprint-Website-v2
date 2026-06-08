@@ -7,8 +7,8 @@ This repo is in an active redesign. We are intentionally rebuilding pages to mat
 2. Clone the repo and install dependencies:
    - `npm install`
 3. Start the dev server:
-   - `npm start`
-4. Open: `http://localhost:3000`
+   - `npm run dev`
+4. Open: `http://localhost:5173`
 
 ## Sourcing: Wireframes
 - Figma/wireframes are the source of truth for layout, spacing, typography, and content placement.

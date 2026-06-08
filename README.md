@@ -1,3 +1,16 @@
+# Blueprint Website v2
+
+Official website for SFU Blueprint showcasing our projects, team, and mission.
+
+## 📚 Documentation
+
+- **[Quick Setup Guide](SETUP_GUIDE.md)** - Get started in 5 minutes
+- **[Contributing Guide](CONTRIBUTING.md)** - Development workflow and best practices
+- **[Technical Handover](TECHNICAL_HANDOVER.md)** - Comprehensive technical documentation
+- **[Dependencies](DEPENDENCIES.md)** - Full dependency list and management
+
+---
+
 ## Getting Started
 
 ### Prerequisites
@@ -5,7 +18,9 @@
 - npm 10.x or higher
 
 ### Setup
-Run `npm ci`
+```bash
+npm install
+```
 
 ## Available Scripts
 
@@ -14,7 +29,7 @@ In the project directory, you can run:
 ### `npm run dev`
 
 Runs the app in development mode with Vite's dev server.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Open [http://localhost:5173](http://localhost:5173) to view it in your browser.
 
 The page will reload when you make changes using hot module replacement (HMR).
 

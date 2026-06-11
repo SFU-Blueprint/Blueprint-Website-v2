@@ -26,11 +26,41 @@ const FUNDING_CARDS = [
   },
 ] as const;
 
+const SPONSORSHIP_TIERS = [
+  {
+    title: 'supporter',
+    color: 'bp-orange',
+    amount: '$500',
+    desc1: 'Sponsor feature post on Instagram',
+    desc2: 'Named acknowledgement at Blueprint events',
+    desc3: 'End of year impact report',
+  },
+  {
+    title: 'partner',
+    color: 'bp-accent-medium-blue',
+    amount: '$1000',
+    desc1: 'Everything in Supporter',
+    desc2: 'One recruiting info session with members (tech talk/info session/workshop)',
+    desc3: 'Full member resume database access',
+  },
+  {
+    title: 'lead sponsor',
+    color: 'bp-accent-purple',
+    amount: '$1500',
+    desc1: 'Everything in Partner',
+    desc2: 'Named event sponsorship (your brand on the event itself)',
+    desc3: 'Dedicated point of contact on exec team',
+  }
+] as const;
+
 function ReachOutButton({ className = "" }: { className?: string }) {
   return (
     <a
       href="mailto:sfublueprint@gmail.com"
-      className={`inline-flex h-[52px] w-[200px] items-center justify-center rounded-[5px] bg-bp-blue px-[44px] font-poppins text-[14px] font-semibold leading-none text-white transition-colors duration-150 hover:bg-bp-hover-blue active:bg-bp-pressed-blue md:h-[60px] md:text-[16px] ${className}`}
+      className={`inline-flex h-[52px] w-[200px] items-center justify-center rounded-[5px] 
+        bg-bp-white px-[44px] font-poppins text-[14px] font-semibold leading-none text-bp-black
+        transition-colors duration-150 hover:bg-bp-lightest-grey active:bg-bp-light-grey
+        md:h-[60px] md:text-[16px] ${className}`}
     >
       REACH OUT
     </a>
@@ -61,6 +91,61 @@ function TestimonialCard() {
   );
 }
 
+function SponsorshipCalloutCard(
+  {
+    // Tier Title
+    title,
+    color,
+    amount,
+    desc1,
+    desc2,
+    desc3,
+  }: {
+    title: string;
+    color: string;
+    amount: string;
+    desc1: string;
+    desc2: string;
+    desc3: string;
+  },
+) {
+  return (
+  <div className='flex flex-col justify-start px-[48px] pb-[60px] pt-[36px] text-bp-white 
+    bg-bp-darkest-grey rounded-[5px] w-[355px] h-[460px] font-poppins'>
+    {/* Tier Title */}
+    <div className='flex flex-col gap-[24px]'>
+      <div className='inline-flex justify-center items-center gap-3 rounded-[5px] bg-bp-black px-[15px] py-[10px] 
+      w-fit max-md:gap-2 max-md:px-3 max-md:py-2'>
+      <span className={`size-4 rounded-[3px] bg-${color} max-md:size-3 max-md:bg-bp-blue`} aria-hidden />
+      <span className="font-poppins uppercase text-body-s-reg text-bp-white font-normal 
+      max-md:text-[10px]">
+                {title}
+      </span>
+      </div>
+
+      {/* Amount */}
+      <h2 className='text-heading-m-reg text-bp-white'>
+        {amount}
+      </h2>
+    </div>
+    {/* Descriptions */}
+    <div className='flex flex-col pt-[48px]'>
+      <p className='text-body-m-reg'>
+        {desc1}
+      </p >
+      <div className="w-full h-px bg-white/30 my-[12px]" />
+      <p className='text-body-m-reg'>
+        {desc2}
+      </p>
+      <div className="w-full h-px bg-white/30 my-[12px]" />
+      <p className='text-body-m-reg'>
+        {desc3}
+      </p>
+    </div>
+  </div>
+  )
+}
+
 function FundingCard({
   title,
   description,
@@ -86,6 +171,8 @@ function FundingCard({
     </li>
   );
 }
+
+
 
 export default function SponsorUsPage() {
   return (
@@ -117,6 +204,36 @@ export default function SponsorUsPage() {
               <FundingCard key={card.title} {...card} />
             ))}
           </ul>
+        </div>
+      </section>
+
+      <section className="flex flex-col bg-bp-black w-full max-w-[1298px] h-[1072px] mx-auto py-[102px] px-[97px] rounded-[20px] gap-[72px]">
+        {/* Title */}
+        <div className='text-bp-white font-poppins flex flex-col gap-[6px] items-center justify-center'>
+            <h2 className='text-heading-s-reg'>
+              sponsorship tiers
+            </h2>
+            <p className='text-body-s-reg font-normal'>
+              All sponsorships are a year-long commitment
+            </p>
+        </div>
+        {/* Callout Cards */}
+        <div className='flex flex-row gap-[19px]'>
+          {SPONSORSHIP_TIERS.map((tier) => (
+            <SponsorshipCalloutCard key={tier.title} {...tier} />
+          ))}
+        </div>
+
+        {/* CTA */}
+        <div className='flex flex-col justify-center items-center font-poppins text-bp-white'>
+          <h2 className='text-heading-xs-reg'>
+            interested in partnering with blueprint at SFU?
+          </h2>
+          <p className='text-body-m-reg mt-[12px]'>
+            Send us a message at sfublueprint@gmail.com, or click the link below:
+          </p>
+
+          <ReachOutButton className="mt-12 max-md:mt-8 " />
         </div>
       </section>
     </div>

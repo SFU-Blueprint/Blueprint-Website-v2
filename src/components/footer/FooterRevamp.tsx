@@ -10,6 +10,7 @@ const footerLinks = [
   { name: "partner with us", path: "/nonprofits" },
   { name: "join our team", path: "/students" },
   { name: "about us", path: "/about" },
+  { name: "sponsor us", path: "/sponsor-us" },
 ];
 
 const socialLinks = [

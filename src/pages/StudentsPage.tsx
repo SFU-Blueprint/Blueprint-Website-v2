@@ -589,7 +589,7 @@ function OpenPositionsSection() {
   return (
     <section
       id="open-positions"
-      className="mx-auto grid w-full max-w-[1298px] grid-cols-[318px_623px] justify-center gap-[127px] rounded-[20px] bg-bp-black px-[115px] py-[117px] max-lg:flex max-lg:flex-col max-lg:gap-[31px] max-lg:rounded-none max-lg:px-[19px] max-lg:pb-[76px] max-lg:pt-[61px]"
+      className="mx-auto relative z-10 grid w-full max-w-[1298px] grid-cols-[318px_623px] justify-center gap-[127px] rounded-[20px] bg-bp-black px-[115px] py-[117px] max-lg:flex max-lg:flex-col max-lg:gap-[31px] max-lg:rounded-none max-lg:px-[19px] max-lg:pb-[76px] max-lg:pt-[61px]"
     >
       <div className="flex flex-col gap-12 text-white max-lg:gap-0">
         <div className="flex flex-col gap-6">
@@ -667,8 +667,26 @@ function OpenPositionCard({
 
 function StayUpdatedSection() {
   return (
-    <section className="relative bg-bp-lightest-grey bg-[url('/images/non-profit/desktop_partner_crosspoint.svg')] bg-no-repeat bg-[calc(50%-409px)_-208px] py-[202px] max-md:bg-[url('/images/non-profit/mobile_partner_crosspoint.svg')] max-md:bg-[calc(50%-277px)_-132px] max-md:py-[122px]">
-      <div className="mx-auto flex w-full max-w-[1155px] flex-col items-center gap-[58px] px-5 max-md:gap-[38px]">
+    <section className="relative bg-bp-lightest-grey py-[202px] max-md:py-[122px]">
+        <div className="w-full h-0 ">
+          <div className="bg-bp-lightest-grey bg-[url('/images/crosspoint.png')] bg-no-repeat
+                    min-[768px]:bg-[calc(50%-399px)_-310px] 
+                    max-[767.9px]:bg-[calc(50%-190px)_-250px] max-[767.9px]:bg-[length:1100px_1100px]
+                    overflow-clip h-[900px] w-full mt-[-110px] absolute">
+          </div>
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="
+                      min-[768px]:w-[785px] min-[768px]:max-w-[785px] min-[768px]:right-[calc(50%-395px)] min-[768px]:top-[-8px]
+                      max-[767.9px]:w-[400px] max-[767.9px]:max-w-[370px] max-[767.9px]:right-[calc(50%-187px)] max-[767.9px]:top-[20px]
+                      absolute ">
+            <source src="videos/crosspoints/dotted-path-2.webm" type="video/webm"/>
+          </video>
+      </div>
+      <div className="mx-auto z-10 relative flex w-full max-w-[1155px] flex-col items-center gap-[58px] px-5 max-md:gap-[38px]">
         <div className="flex flex-col items-center gap-3 text-center max-md:gap-1.5">
           <h2 className="font-caveat text-[78px] font-normal leading-[1.2] tracking-[-1.56px] text-bp-black max-md:text-[32px] max-md:tracking-[-0.64px]">
             stay updated

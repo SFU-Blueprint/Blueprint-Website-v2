@@ -335,28 +335,36 @@ const AboutPage = () => {
           </div>
 
           {/* Drops new photos on top of existing photos */}
-          <div className="absolute grid h-[200px] md:h-[500px] grid-cols-7 grid-rows-1 translate-y-12 w-full justify-items-center z-20">
+          <div className="absolute grid h-[400px] md:h-[500px] md:max-w-[100vw] overflow-hidden grid-cols-7 grid-rows-1 md:translate-y-[-4rem] w-full justify-items-center z-20">
             {imagesToShow.map((image, index) => {
               const col = extraPlacements[index] ?? index % POLAROID_GRID_COLS;
               const rotation = rotations[baseVisible + index];
 
               return (
-                <PolaroidPhoto
-                  key={`${image.id}-${index}-${col}`}
-                  imageSrc={image.image}
-                  caption={image.caption}
-                  alt={image.caption}
-                  className="animate-popIn"
+                <div 
+                  key={`${image.id}-${index}-${col}`} 
+                  className=" translate-y-16"
                   style={
                     {
-                      gridColumn: col + 1,
-                      gridRow: 1,
-                      transform: `rotate(${rotation}deg)`,
-                      zIndex: index,
-                      "--rotation": `${rotation}deg`,
+                        gridColumn: col + 1,
+                        gridRow: 1,
                     } as React.CSSProperties
                   }
-                />
+                  >
+                  <PolaroidPhoto
+                    imageSrc={image.image}
+                    caption={image.caption}
+                    alt={image.caption}
+                    className="animate-popIn"
+                    style={
+                      {
+                        transform: `rotate(${rotation}deg)`,
+                        zIndex: index,
+                        "--rotation": `${rotation}deg`,
+                      } as React.CSSProperties
+                    }
+                  />
+              </div>
               );
             })}
           </div>
@@ -381,7 +389,7 @@ const AboutPage = () => {
 
         
   
-        <div ref={isComponentVisible} className="relative mb-[420px] md:left-1/2 md:translate-x-[calc(-50%+10vw)]">
+        <div ref={isComponentVisible} className="relative mb-[420px] md:left-1/2 md:translate-x-[calc(-50%+10vw)] ">
         {/* Header */}
           <div className="pointer-events-none relative z-30 flex flex-col md:gap-10 mb-[280p]">
               <h2 className="pointer-events-auto flex flex-col max-md:justify-center max-md:items-center font-poppins text-5xl 

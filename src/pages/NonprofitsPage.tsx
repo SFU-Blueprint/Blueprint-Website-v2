@@ -53,7 +53,7 @@ const NonprofitsPage = () => {
           </div>
 
           <div
-            className="min-w-0 shrink-0 max-[900px]:ml-0 min-[900px]:mb-5 max-[900px]:mt-5 min-[901px]:-ml-[120px] min-[901px]:mt-[158px]"
+            className="min-w-0 shrink-0 max-[900px]:ml-0 min-[900px]:mb-5 max-[900px]:mt-5 min-[901px]:-ml-[120px] min-[901px]:mt-[145px]"
           >
             <PolaroidPhoto
               imageSrc="https://placehold.co/398x298"

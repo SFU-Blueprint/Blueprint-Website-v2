@@ -81,7 +81,7 @@ const AlumniPage = () => {
   return (
   <PageContainer className="bg-bp-lightest-grey items-center flex-col flex">
     {/* Hero Section */}
-    <section className="flex items-center flex-col tablet:mt-[39px] tablet:mb-[69px] mt-[31px] mb-[44px]">
+    <section className="flex items-center flex-col pt-main-desktop-top max-md:pt-main-mobile-top tablet:mb-[69px]  mb-[44px]">
       <h1 className="decoration-[#2E2E2E] font-poppins text-center mb-[30px] tablet:text-heading-m-reg text-heading-m-reg-mobile">
         <span className="tablet:text-heading-m-bold text-mobile-heading-m-bold">thank you</span>, sfu blueprint alumni!
       </h1>

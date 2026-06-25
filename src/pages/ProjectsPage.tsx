@@ -33,7 +33,7 @@ const ProjectsPage = () => {
   });
 
   return (
-     <PageContainer className="bg-bp-lightest-grey relative z-0">
+     <PageContainer className="bg-bp-lightest-grey overflow-hidden relative z-0">
       <div className="w-full h-0 xl:ml-[-144px] max-[1279.9px]:ml-[-40px]">
         <div className="bg-[url('/images/crosspoint.png')] bg-no-repeat
                     min-[1600px]:bg-[calc(50%+270px)_-390px]

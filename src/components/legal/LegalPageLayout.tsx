@@ -42,7 +42,7 @@ export default function LegalPageLayout({
               }`}
             >
               {section.heading && (
-                <h2 className="m-0 font-poppins text-[30px] font-semibold leading-[100%] tracking-[-0.6px] text-bp-black">
+                <h2 className="m-0 font-poppins text-[24px] font-semibold leading-[130%] tracking-[-0.48px] text-bp-black max-md:text-[20px] max-md:tracking-[-0.4px]">
                   {section.heading}
                 </h2>
               )}
@@ -60,7 +60,7 @@ export default function LegalPageLayout({
           ))}
 
           <section className="mt-[50px] flex flex-col items-start self-stretch gap-[12px]">
-            <h2 className="m-0 font-poppins text-[78px] font-medium leading-[85%] tracking-[-1.56px] text-bp-black">
+            <h2 className="m-0 font-poppins text-[58px] font-medium leading-[85%] tracking-[-1.16px] text-bp-black max-md:text-[34px] max-md:tracking-[-0.68px]">
               {contactHeading}
             </h2>
 

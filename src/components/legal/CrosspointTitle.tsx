@@ -57,7 +57,7 @@ export default function CrosspointTitle({ lines }: CrosspointTitleProps) {
 
       <h1
         ref={titleRef}
-        className="relative z-10 m-0 text-left font-poppins text-[78px] font-medium leading-[85%] tracking-[-1.56px] text-bp-black max-md:text-[46px] max-md:tracking-[-0.92px]"
+        className="relative z-10 m-0 text-left font-poppins text-[58px] font-medium leading-[85%] tracking-[-1.16px] text-bp-black max-md:text-[34px] max-md:tracking-[-0.68px]"
       >
         <span className="block">
           {lines[0]}

@@ -1,28 +1,29 @@
+import ExpandableContentCards from "../components/shared/ExpandableContentCards";
 
 const FUNDING_CARDS = [
   {
     title: "Workshops & Learning",
-    description:
-      "So every Blueprint member leaves sessions more skilled than when they arrived.",
-    imageSrc: "/images/sponsor/workshops-learning.jpg",
+    body: "So every Blueprint member leaves sessions more skilled than when they arrived.",
+    image: "/images/sponsor/workshops-learning.jpg",
     imageAlt: "Blueprint members attending a workshop.",
-    imageClassName: "object-bottom",
+    imageClassName: "h-full w-full object-cover object-bottom",
+    accentColor: "#D2A6FB",
   },
   {
     title: "Project Maintenance",
-    description:
-      "Servers and hosting that make sure the software we build stays live for the NPOs who depend on it.",
-    imageSrc: "/images/sponsor/project-maintenance.jpg",
+    body: "Servers and hosting that make sure the software we build stays live for the NPOs who depend on it.",
+    image: "/images/sponsor/project-maintenance.jpg",
     imageAlt: "A Blueprint project repository dashboard.",
-    imageClassName: "object-left-top",
+    imageClassName: "h-full w-full object-cover object-left-top",
+    accentColor: "#F49F00",
   },
   {
     title: "Equipping our Team",
-    description:
-      "Tools and software that help our developers, designers, and PMs do their best work.",
-    imageSrc: "/images/sponsor/equipping-team.jpg",
+    body: "Tools and software that help our developers, designers, and PMs do their best work.",
+    image: "/images/sponsor/equipping-team.jpg",
     imageAlt: "Blueprint team members working together.",
-    imageClassName: "object-[center_28%]",
+    imageClassName: "h-full w-full object-cover object-[center_28%]",
+    accentColor: "#A5C6FF",
   },
 ] as const;
 
@@ -145,34 +146,6 @@ function SponsorshipCalloutCard(
   )
 }
 
-function FundingCard({
-  title,
-  description,
-  imageSrc,
-  imageAlt,
-  imageClassName,
-}: (typeof FUNDING_CARDS)[number]) {
-  return (
-    <li className="relative h-[470px] w-[351px] max-w-full shrink-0 overflow-hidden rounded-[10px] bg-white px-9 pb-[19px] pt-9 max-[390px]:h-auto max-[390px]:px-5 max-[390px]:pb-5">
-      <div className="flex max-w-[282px] flex-col gap-[10px]">
-        <h3 className="font-caveat text-[32px] leading-[1.3] tracking-[-0.64px] text-black max-[390px]:text-[28px]">
-          {title}
-        </h3>
-        <p className="font-poppins text-body-m-reg text-black">{description}</p>
-      </div>
-      <div className="absolute bottom-[19px] left-5 h-[252px] w-[312px] max-w-[calc(100%-40px)] overflow-hidden rounded-[10px] max-[390px]:relative max-[390px]:bottom-auto max-[390px]:left-auto max-[390px]:mt-8 max-[390px]:h-[220px] max-[390px]:w-full max-[390px]:max-w-none">
-        <img
-          src={imageSrc}
-          alt={imageAlt}
-          className={`h-full w-full object-cover ${imageClassName}`}
-        />
-      </div>
-    </li>
-  );
-}
-
-
-
 export default function SponsorUsPage() {
   return (
     <div className="w-full overflow-x-hidden bg-bp-lightest-grey font-poppins text-bp-black">
@@ -198,11 +171,7 @@ export default function SponsorUsPage() {
           <h2 className="text-center font-poppins text-heading-s-reg text-black max-md:text-mobile-heading-s-reg">
             what will we <span className="font-semibold">use funds</span> for?
           </h2>
-          <ul className="flex w-full justify-center gap-[23px] max-[1160px]:flex-col max-[1160px]:items-center">
-            {FUNDING_CARDS.map((card) => (
-              <FundingCard key={card.title} {...card} />
-            ))}
-          </ul>
+          <ExpandableContentCards cards={FUNDING_CARDS} />
         </div>
       </section>
 

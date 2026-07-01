@@ -6,6 +6,7 @@ import { ReactComponent as InstagramIcon } from "../assets/icons/instagram.svg";
 import { ReactComponent as YoutubeIcon } from "../assets/icons/youtube.svg";
 import { ReactComponent as DiscordIcon } from "../assets/icons/discord.svg";
 import { ReactComponent as LinkedinIcon } from "../assets/icons/linkedin.svg";
+import PageContainer from "../components/layout/PageContainer";
 
 const HERO_CONTENT = {
   subtitle:
@@ -137,25 +138,26 @@ const StudentsPage = () => {
   };
 
   return (
-    <div className="w-full overflow-x-hidden bg-bp-lightest-grey text-bp-black">
+    <PageContainer className="bg-bp-lightest-grey overflow-x-hidden relative">
       <HeroSection onOpenPositions={scrollToPositions} />
       <TypicalExperienceSection />
       <ApplicationProcessSection />
       <OpenPositionsSection />
       <StayUpdatedSection />
-    </div>
+    </PageContainer>
   );
 };
 
 function HeroSection({ onOpenPositions }: { onOpenPositions: () => void }) {
   return (
-    <section className="relative bg-bp-lightest-grey max-md:bg-none ">
+    <section className="bg-bp-lightest-grey max-md:bg-none ">
       <div className="w-full h-0 max-[767.9px]:hidden">
-        <div className="bg-[url('/images/crosspoint.png')] bg-no-repeat
-                  min-[1280px]:bg-[calc(50%+175px)_-218px]
-                  max-[1279.9px]:bg-[calc(100%+697px)_-218px]
-                  max-[767.9px]:bg-[calc(100%+683px)_-500px] max-[767.9px]:w-[calc(100%+17px)]
-                  overflow-clip w-full h-full mt-[-110px] absolute z-0">
+        <div className=" 
+                  bg-[url('/images/crosspoint.png')] bg-no-repeat
+                  min-[1280px]:bg-[calc(50%+35px)_-388px]
+                  max-[1279.9px]:bg-[calc(100%+615px)_-388px]
+                  max-[767.9px]:bg-[calc(100%+615px)_-500px] max-[767.9px]:w-[calc(100%+17px)]
+                  overflow-clip w-full h-full mt-[-110px] absolute z-10">
 
         </div>
         <video
@@ -164,16 +166,15 @@ function HeroSection({ onOpenPositions }: { onOpenPositions: () => void }) {
           loop
           playsInline
           className="
-                    min-[1280px]:right-[calc(50%-965px)] min-[1280px]:top-[-115px]
-                    max-[1279.9px]:right-[-363px] max-[1279.9px]:top-[-115px]
-                    max-[1023.9px]:right-[-335px] max-[1023.9px]:top-[-100px] min-[1024px]:w-[790px] max-[1023.9px]:w-[740px]
-                    max-[767.9px]:right-[-200px] max-[767.9px]:top-[-175px]
-                      max-[513.9px]:scale-[1] max-[513.9px]:right-[-101px] max-[513.9px]:top-[-46px]
+                    min-[1280px]:right-[calc(50%-965px)] min-[1280px]:top-[-185px]
+                    max-[1279.9px]:right-[-320px] max-[1279.9px]:top-[-185px]
+                    max-[1023.9px]:right-[-235px] max-[1023.9px]:top-[-100px] min-[1024px]:w-[790px] max-[1023.9px]:w-[620px]
+                    max-[767.9px]:right-[-200px] max-[767.9px]:top-[-285px]
                     absolute z-0">
           <source src="videos/crosspoints/dotted-path-2.webm" type="video/webm"/>
         </video>
       </div>
-      <div className="mx-auto relative z-10 flex w-full max-w-[1212px] flex-col px-5 pb-[154px] pt-[190px] md:px-10 lg:px-0 max-md:pb-[84px] max-md:pt-[116px]">
+      <div className="mx-auto relative z-10 flex w-full max-w-[1212px] flex-col pb-[154px] max-md:pb-[84px] pt-main-desktop-top max-md:pt-main-mobile-top">
         <div className="flex items-start justify-between gap-10 max-md:flex-col max-md:gap-12">
           <div className="max-w-[954px]">
             <h1 className="font-poppins text-[72px] font-bold leading-none tracking-[-1.44px] text-bp-black max-md:text-[46px] max-md:tracking-[-0.92px]">

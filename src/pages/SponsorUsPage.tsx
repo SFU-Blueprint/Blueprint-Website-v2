@@ -1,4 +1,5 @@
 import ExpandableContentCards from "../components/shared/ExpandableContentCards";
+import PageContainer from "../components/layout/PageContainer";
 
 const FUNDING_CARDS = [
   {
@@ -148,9 +149,9 @@ function SponsorshipCalloutCard(
 
 export default function SponsorUsPage() {
   return (
-    <div className="w-full overflow-x-hidden bg-bp-lightest-grey font-poppins text-bp-black">
-      <section className="relative bg-bp-lightest-grey bg-[url('/images/non-profit/desktop_partner_crosspoint.svg')] bg-no-repeat min-[1622.1px]:bg-[calc((50vw+800px)-1689px)_-321px] max-[1622px]:bg-[calc(100%+585px)_-321px] max-[1279px]:bg-[calc(100%+689px)_-369px] max-md:bg-[url('/images/non-profit/mobile_partner_crosspoint.svg')] max-md:bg-[calc(100%+130px)_-132px]">
-        <div className="mx-auto flex w-full max-w-[1440px] items-start justify-between gap-[80px] px-6 pb-[138px] pt-[190px] md:px-10 desktop:px-[114px] max-lg:flex-col max-lg:gap-10 max-lg:pb-24 max-lg:pt-[142px] max-md:pb-16 max-md:pt-28">
+    <PageContainer className="w-full overflow-x-hidden bg-bp-lightest-grey font-poppins text-bp-black bg-[url('/images/non-profit/desktop_partner_crosspoint.svg')] bg-no-repeat min-[1622.1px]:bg-[calc((50vw+800px)-1689px)_-371px] max-[1622px]:bg-[calc(100%+585px)_-321px] max-[1279px]:bg-[calc(100%+689px)_-369px] max-md:bg-[url('/images/non-profit/mobile_partner_crosspoint.svg')] max-md:bg-[calc(100%+100px)_60px]">
+      <section className="relative">
+        <div className="mx-auto flex w-full max-w-[1440px] items-start justify-between gap-[80px] pt-main-desktop-top max-md:pt-main-mobile-top max-lg:flex-col max-lg:gap-10 max-lg:pb-24  max-md:pb-16">
           <div className="flex max-w-[602px] flex-col items-start">
             <h1 className="font-poppins text-[72px] leading-none tracking-[-1.44px] text-bp-black max-md:text-mobile-heading-xl-reg max-md:tracking-[-1.12px]">
               <span className="font-bold">sponsor </span>
@@ -207,6 +208,6 @@ export default function SponsorUsPage() {
           hover:!bg-bp-light-grey active:!bg-bp-grey !text-bp-black bg-bp-white" />
         </div>
       </section>
-    </div>
+    </PageContainer>
   );
 }

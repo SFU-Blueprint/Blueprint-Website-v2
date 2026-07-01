@@ -33,14 +33,14 @@ const ProjectsPage = () => {
   });
 
   return (
-     <PageContainer className="bg-bp-lightest-grey overflow-hidden relative z-0">
-      <div className="w-full h-0 xl:ml-[-144px] max-[1279.9px]:ml-[-40px]">
+     <PageContainer className="bg-bp-lightest-grey relative z-0">
+      <div className="absolute w-full h-full xl:ml-[-144px] max-[1279.9px]:ml-[-40px] max-[767.9px]:ml-[-25px] overflow-x-hidden top-[0px]">
         <div className="bg-[url('/images/crosspoint.png')] bg-no-repeat
-                    min-[1600px]:bg-[calc(50%+270px)_-390px]
-                    max-[1599.9px]:bg-[calc(100%+610px)_-390px]
-                    max-[1279.9px]:bg-[calc(100%+715px)_-390px]
-                    max-[767.9px]:bg-[calc(100%+715px)_-500px] max-[767.9px]:w-[calc(100%+17px)]
-                    max-[580px]:bg-[calc(100%)_-500px]
+                    min-[1600px]:bg-[calc(50%+270px)_-280px]
+                    max-[1599.9px]:bg-[calc(100%+610px)_-280px]
+                    max-[1279.9px]:bg-[calc(100%+715px)_-280px]
+                    max-[767.9px]:bg-[calc(100%+670px)_-375px] max-[767.9px]:w-[calc(100%+17px)]
+                    max-[580px]:bg-[calc(100%+705px)_-375px]
                     overflow-clip w-full h-full mt-[-110px] absolute ">
         </div>
         <video
@@ -53,15 +53,15 @@ const ProjectsPage = () => {
                       max-[1599.9px]:right-[-127px] max-[1599.9px]:top-[-40px]
                       max-[1279.9px]:right-[-233px]
                       min-[768px]:w-[500px]
-                      max-[767.9px]:right-[-110px] max-[767.9px]:top-[-20px] max-[767.9px]:w-[250px]
-                      max-[580px]:right-[-150px] max-[580px]:top-[-20px]
+                      max-[767.9px]:right-[-80px] max-[767.9px]:top-[-3px] max-[767.9px]:w-[250px]
+                      max-[580px]:right-[-115px] max-[580px]:top-[-3px]
                       absolute  z-[-1]">
           <source src="videos/crosspoints/dotted-path-3.webm" type="video/webm"/>
         </video>
       </div>
-      <div className="flex relative z-10 flex-col gap-4 items-center justify-center pb-ppcard-bottom pt-main-desktop-top max-md:pt-main-mobile-top">
-        <h1 className="text-center justify-start text-zinc-800 max-md:text-3xl text-5xl font-normal font-['Poppins'] desktop:mb-[74px] md:mb-[50px] mb-[30px]">
-          <span className="max-md:hidden">our projects</span>
+      <div className="flex flex-col relative z-10 gap-4 items-center justify-center pb-ppcard-bottom pt-main-desktop-top max-md:pt-main-mobile-top">
+        <h1 className="text-left self-start justify-start desktop:mb-[74px] md:mb-[50px] mb-[30px] font-poppins text-5xl md:text-7xl leading-none tracking-[-0.96px] text-bp-black">
+          <span className="max-md:hidden"><strong>our</strong> projects</span>
           <span className="md:hidden">all our projects</span>
         </h1>
 
@@ -101,7 +101,7 @@ const ProjectsPage = () => {
               />
             ))}
           </div>
-          <div className="flex flex-col items-center pt-4 std-max md:mt-[15px] mt-[10px]">
+          <div className="flex flex-col sticky tablet:bottom-10 bottom-3 items-center pt-4 std-max md:mt-[15px] mt-[10px]">
             <ProjectsCTA />
           </div>
         </section>

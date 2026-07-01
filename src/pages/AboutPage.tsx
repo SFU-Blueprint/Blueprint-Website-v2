@@ -149,7 +149,7 @@ function AboutValuesRiveDesktop() {
   });
 
   return (
-    <RiveComponent className="h-[900px] lg:h-[950px] w-[1500px] ml-[-350px]" />
+    <RiveComponent className="h-[900px] lg:h-[950px] w-[1650px] ml-[-350px]" />
   );
 }
 
@@ -274,7 +274,7 @@ const AboutPage = () => {
   const imagesToShow = GroupImages.slice(baseVisible, visibleCount);
 
   return (
-    <PageContainer className="bg-bp-lightest-grey max-md:overflow-x-hidden">
+    <PageContainer className="bg-bp-lightest-grey overflow-x-hidden">
       {/* Main Container */}
       <div className="pt-main-mobile-top md:pt-main-desktop-top flex flex-col justify-between">
         {/* About us section */}
@@ -335,28 +335,36 @@ const AboutPage = () => {
           </div>
 
           {/* Drops new photos on top of existing photos */}
-          <div className="absolute grid h-[200px] md:h-[500px] grid-cols-7 grid-rows-1 translate-y-12 w-full justify-items-center z-20">
+          <div className="absolute grid h-[400px] md:h-[500px] md:max-w-[100vw] overflow-hidden grid-cols-7 grid-rows-1 md:translate-y-[-4rem] w-full justify-items-center z-20">
             {imagesToShow.map((image, index) => {
               const col = extraPlacements[index] ?? index % POLAROID_GRID_COLS;
               const rotation = rotations[baseVisible + index];
 
               return (
-                <PolaroidPhoto
-                  key={`${image.id}-${index}-${col}`}
-                  imageSrc={image.image}
-                  caption={image.caption}
-                  alt={image.caption}
-                  className="animate-popIn"
+                <div 
+                  key={`${image.id}-${index}-${col}`} 
+                  className=" translate-y-16"
                   style={
                     {
-                      gridColumn: col + 1,
-                      gridRow: 1,
-                      transform: `rotate(${rotation}deg)`,
-                      zIndex: index,
-                      "--rotation": `${rotation}deg`,
+                        gridColumn: col + 1,
+                        gridRow: 1,
                     } as React.CSSProperties
                   }
-                />
+                  >
+                  <PolaroidPhoto
+                    imageSrc={image.image}
+                    caption={image.caption}
+                    alt={image.caption}
+                    className="animate-popIn"
+                    style={
+                      {
+                        transform: `rotate(${rotation}deg)`,
+                        zIndex: index,
+                        "--rotation": `${rotation}deg`,
+                      } as React.CSSProperties
+                    }
+                  />
+              </div>
               );
             })}
           </div>
@@ -381,17 +389,17 @@ const AboutPage = () => {
 
         
   
-        <div ref={isComponentVisible} className="relative mb-[420px] md:left-1/2 md:translate-x-[calc(-50%+10vw)]">
+        <div ref={isComponentVisible} className="relative mb-[420px] max-[1479.9px]:left-[-20px] max-[1280px]:left-[10px] min-[1480px]:left-[calc(50%-500px)] max-[768px]:left-[0px]">
         {/* Header */}
           <div className="pointer-events-none relative z-30 flex flex-col md:gap-10 mb-[280p]">
               <h2 className="pointer-events-auto flex flex-col max-md:justify-center max-md:items-center font-poppins text-5xl 
-              md:text-7xl md:translate-x-[calc(-50%+35vw)] lg:translate-x-[calc(-50%+36vw)] 2xl:translate-x-[calc(-50%+51vw)] leading-10">
+              md:text-7xl leading-10">
                 our <strong>values</strong>
               </h2>
           </div>
           
           {/* Rive */}
-          <div className="absolute w-full h-full bottom-0 md:translate-x-[calc(-50%+35vw)] 2xl:translate-x-[calc(-50%+50vw)] md:translate-y-[-300px] lg:translate-y-[-325px] ">
+          <div className="absolute w-full h-full bottom-0 md:translate-y-[-300px] lg:translate-y-[-325px] ">
             {isVisible ? (isMdUp ? <AboutValuesRiveDesktop /> : <AboutValuesRiveMobile />) : null}
           </div>
         </div>

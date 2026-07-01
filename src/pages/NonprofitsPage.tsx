@@ -13,11 +13,11 @@ const NonprofitsPage = () => {
     >
       <div className="w-full h-0 xl:ml-[-144px] max-[1279.9px]:ml-[-40px]">
           <div className="bg-bp-lightest-grey bg-[url('/images/crosspoint.png')] bg-no-repeat z-[-10]
-                    min-[1340px]:bg-[calc(100%+600px)_-405px]
-                    max-[1339.9px]:bg-[calc(100%+670px)_-405px]
-                    max-[1279.9px]:bg-[calc(100%+630px)_-405px]
-                    max-[1023.9px]:bg-[calc(100%+700px)_-405px]
-                    max-[767.9px]:bg-[calc(100%+683px)_-500px] max-[767.9px]:w-[calc(100%+17px)]
+                    min-[1340px]:bg-[calc(100%+600px)_-390px]
+                    max-[1339.9px]:bg-[calc(100%+670px)_-390px]
+                    max-[1279.9px]:bg-[calc(100%+630px)_-390px]
+                    max-[1023.9px]:bg-[calc(100%+700px)_-390px]
+                    max-[767.9px]:bg-[calc(100%+683px)_-480px] max-[767.9px]:w-[calc(100%+17px)]
                     overflow-clip w-full h-full mt-[-110px] absolute ">
 
           </div>
@@ -28,11 +28,11 @@ const NonprofitsPage = () => {
             playsInline
             className="
                       min-[1340px]:right-[-117px] min-[1340px]:top-[-50px]
-                      max-[1339.9px]:right-[-187px] max-[1339.9px]:top-[-50px]
+                      max-[1339.9px]:right-[-187px] max-[1339.9px]:top-[-40px]
                       max-[1279.9px]:right-[-147px]
-                      max-[1023.9px]:right-[-217px]
-                      max-[767.9px]:scale-[0.6] max-[767.9px]:right-[-200px] max-[767.9px]:top-[-145px]
-                      min-[514px]:w-[500px] max-[513.9px]:w-[300px] max-[513.9px]:scale-[1] max-[513.9px]:right-[-101px] max-[513.9px]:top-[-46px]
+                      max-[1023.9px]:right-[-216px]
+                      max-[767.9px]:scale-[0.6] max-[767.9px]:right-[-202px] max-[767.9px]:top-[-125px]
+                      min-[514px]:w-[500px] max-[513.9px]:w-[300px] max-[513.9px]:scale-[1] max-[513.9px]:right-[-100px] max-[513.9px]:top-[-25px]
 
                       absolute  z-[-10]">
             <source src="videos/crosspoints/dotted-path-1.webm" type="video/webm"/>
@@ -52,9 +52,7 @@ const NonprofitsPage = () => {
             className="flex min-w-0 w-full max-w-full flex-col md:shrink-0 md:max-w-[min(100%,calc(100vw*939/1422))] md:w-[min(100%,calc(100vw*939/1422))]"
           >
             <h1
-              className="m-0 whitespace-pre-wrap text-left font-poppins text-bp-black text-heading-xl-bold leading-none mb-[24px]
-                        max-md:max-w-[233px] max-md:text-mobile-heading-xl-bold max-md:tracking-[-0.92px] max-md:mb-[12px]
-                        md:max-w-none"
+              className="text-left self-start justify-start desktop:mb-[74px] md:mb-[50px] mb-[30px] font-poppins text-5xl md:text-7xl leading-none tracking-[-0.96px] text-bp-black pt-main-desktop-top max-md:pt-main-mobile-top"
             >
               <span className="font-bold">partner</span>{" "}
               <span className="font-normal">with us</span>

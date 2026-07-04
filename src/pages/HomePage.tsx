@@ -671,29 +671,13 @@ const ProjectsCardStack = () => {
   );
 };
 
-const HomePage = () => {
-  // Only tint <html> (not <body>) so the scrollbar gutter matches the hero
-  // while the rest of the page still renders on the light body background.
-  useEffect(() => {
-    const html = document.documentElement;
-    const prev = html.style.backgroundColor;
-    html.style.backgroundColor = HERO_SCROLLBAR_BG;
-    return () => {
-      html.style.backgroundColor = prev;
-    };
-  }, []);
+const ImpactSection = () => {
   return (
-    <PageContainer>
-      {/* Hero: "tech for good" section */}
-      <TechForGoodSection />
-
-
-      {/* Impact + projects: mx-auto wrapper so centering works at every breakpoint */}
-      <section className="w-full pt-[120px] max-md:pt-[75px]">
+  <section className="w-full pt-[120px] max-md:pt-[75px]">
         <div className="mx-auto flex w-full flex-col items-center gap-12 xl:gap-24 xl:flex-row xl:items-start 
         w-full justify-between"> {/* max-w-[1196px] xl:justify-center */}
         {/* Left side Heading and logos */}
-        <div className="w-full max-w-[440px] shrink-0 max-md:max-w-[90vw] xl:sticky xl:top-[25%] z-[10] xl:pl-[1.5vw]">
+        <div className="w-full max-w-[440px] shrink-0 max-md:max-w-[90vw] xl:sticky xl:top-[25%] z-[10]">
           {/* Bullet points and logos */}
           <div className="flex w-full flex-col gap-9 md:gap-12">
             <span className="text-bp-black text-mobile-heading-m-reg font-normal font-['Poppins'] 
@@ -751,10 +735,32 @@ const HomePage = () => {
             </Link>
         </div>
       </section>
+    )
+  }
+
+const HomePage = () => {
+  // Only tint <html> (not <body>) so the scrollbar gutter matches the hero
+  // while the rest of the page still renders on the light body background.
+  useEffect(() => {
+    const html = document.documentElement;
+    const prev = html.style.backgroundColor;
+    html.style.backgroundColor = HERO_SCROLLBAR_BG;
+    return () => {
+      html.style.backgroundColor = prev;
+    };
+  }, []);
+  return (
+    <PageContainer>
+      {/* Hero: "tech for good" section */}
+      <TechForGoodSection />
+
+
+      {/* Impact + projects: mx-auto wrapper so centering works at every breakpoint */}
+      <ImpactSection />
 
       {/* Students / testimonials */}
         {/* Students: turn real projects into real opportunities */}
-        <div className="flex flex-row w-full min-w-0 justify-between pt-[73px] md:pt-[120px] md:pb-[60px] font-['Poppins'] justify-between gap-12">
+        <div className="flex flex-col w-full min-w-0 justify-between pt-[73px] md:pt-[120px] md:pb-[60px] font-['Poppins'] justify-between gap-12">
               <div className="flex flex-1 w-full min-w-0 flex-col gap-6 max-w-[660px] text-zinc-800 max-md:min-w-[345px]">
                   <div className="text-heading-s-reg max-md:text-mobile-heading-m-reg md:min-w-[518px] max-w-[400px]">students: turn real projects into 
                   <span className="font-semibold "> real opportunities. </span>
@@ -780,6 +786,7 @@ const HomePage = () => {
         </div>
 
         <div className="md:hidden pb-10">
+          <Link to="/joinus"/>
           <Button variant="tertiary" className="uppercase !font-normal !w-full !h-16">join us</Button>          
         </div>
 

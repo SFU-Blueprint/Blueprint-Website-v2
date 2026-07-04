@@ -771,7 +771,9 @@ const HomePage = () => {
                 </div>
               {/* button */}
               <div className="max-md:hidden justify-end shrink-0">
-                <Button variant="tertiary" className="uppercase !font-light !w-48 !h-16">join us</Button>             
+                <Link to="/students">
+                  <Button variant="tertiary" className="uppercase !font-light !w-48 !h-16">join us</Button>             
+                </Link>
               </div>
         </div>
 
@@ -786,8 +788,10 @@ const HomePage = () => {
         </div>
 
         <div className="md:hidden pb-10">
-          <Link to="/joinus"/>
-          <Button variant="tertiary" className="uppercase !font-normal !w-full !h-16">join us</Button>          
+          {/* Dummy Link */}
+          <Link to="/students"> 
+            <Button variant="tertiary" className="uppercase !font-normal !w-full !h-16">join us</Button>          
+          </Link>
         </div>
 
 

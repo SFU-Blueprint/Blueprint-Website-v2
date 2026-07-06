@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import PageContainer from "../components/layout/PageContainer";
 import Button from "../components/shared/Button";
 import Carousel from "../components/shared/Carousel";
@@ -179,7 +179,7 @@ const VideoCardStack = () => {
               loop
               playsInline
               preload="metadata"
-            />          
+            />
             {/* Pill lives on the card so it rotates with it. */}
             <div
               className="absolute z-10 max-[779px]:top-3 max-[779px]:left-3 min-[780px]:top-[var(--tfg-pill-inset)] min-[780px]:left-[var(--tfg-pill-inset)]"
@@ -192,40 +192,41 @@ const VideoCardStack = () => {
       </div>
 
       {isVideoOpen &&
-  createPortal(
-    <div
-      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 px-4 py-6"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Who we are video"
-      onClick={closeVideo}
-    >
-      <div
-        className="relative w-full max-w-[1000px]"
-        onClick={(event) => event.stopPropagation()}
-      >
-        <button
-          type="button"
-          aria-label="Close video"
-          onClick={closeVideo}
-          className="absolute right-0 top-[-48px] rounded-[5px] bg-bp-white px-4 py-2 font-poppins text-sm font-medium text-bp-black hover:bg-bp-light-grey"
-        >
-          Close
-        </button>
+        createPortal(
+          <>
+            <div
+              className="fixed inset-0 z-[9999] bg-black/80"
+              aria-hidden="true"
+              onClick={closeVideo}
+            />
 
-        <video
-          className="w-full rounded-[10px] bg-black shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
-          src={WHO_WE_ARE_VIDEO_SRC}
-          controls
-          autoPlay
-          playsInline
-        >
-          Sorry, your browser does not support embedded videos.
-        </video>
-      </div>
-    </div>,
-    document.body
-  )}
+            <button
+              type="button"
+              aria-label="Close video"
+              onClick={closeVideo}
+              className="fixed right-4 top-4 z-[10001] rounded-[5px] bg-bp-white/95 px-4 py-2 font-poppins text-sm font-medium text-bp-black transition-colors duration-150 hover:bg-bp-light-grey active:bg-bp-grey focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bp-white"
+            >
+              Close
+            </button>
+
+            <video
+              className="fixed inset-0 z-[10000] m-auto aspect-video bg-black object-contain"
+              style={{ width: "min(calc(100vw - 32px), 1000px)" }}
+              src={WHO_WE_ARE_VIDEO_SRC}
+              controls
+              controlsList="nodownload noplaybackrate noremoteplayback"
+              disablePictureInPicture
+              disableRemotePlayback
+              autoPlay
+              playsInline
+              preload="metadata"
+              aria-label="Who we are video"
+            >
+              Sorry, your browser does not support embedded videos.
+            </video>
+          </>,
+          document.body
+        )}
     </>
   );
 };
@@ -834,7 +835,7 @@ const HomePage = () => {
                   variant="secondary"
                   className="shrink-0 max-md:w-full w-[200px]"
                 >
-                  <span className="font-semibold text-sm !font-normal">RSVP</span>
+                  <span className="font-poppins text-sm font-semibold">Keep Updated</span>
                 </Button>
               </div>
 

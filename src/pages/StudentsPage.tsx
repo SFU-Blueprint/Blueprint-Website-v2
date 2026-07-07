@@ -184,13 +184,6 @@ function HeroSection({ onOpenPositions }: { onOpenPositions: () => void }) {
               {HERO_CONTENT.subtitle}
             </p>
           </div>
-          <Button
-            variant="tertiary"
-            onClick={onOpenPositions}
-            className="mt-[138px] mr-[34px] w-[200px] max-md:mr-0 max-md:mt-0 max-md:h-[52px] max-md:w-full max-md:text-[14px]"
-          >
-            OPEN POSITIONS
-          </Button>
         </div>
 
         <div className="mt-[60px] w-full max-w-[617px] rounded-[5px] bg-white p-9 max-md:mt-[67px] max-md:px-[30px] max-md:pb-12 max-md:pt-7">
@@ -208,6 +201,13 @@ function HeroSection({ onOpenPositions }: { onOpenPositions: () => void }) {
               <li key={bullet}>{bullet}</li>
             ))}
           </ul>
+          <Button
+            variant="primary"
+            onClick={onOpenPositions}
+            className="mt-12 mr-[34px] w-[200px] max-md:mr-0 max-md:mt-9 max-md:h-[52px] max-md:w-full max-md:text-[14px]"
+          >
+            SEE OPEN POSITIONS
+          </Button>
         </div>
       </div>
     </section>

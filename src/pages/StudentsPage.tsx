@@ -477,10 +477,10 @@ function ApplicationProcessSection() {
 
 function InfoSessionCard() {
   return (
-    <article className="flex min-h-[278px] flex-col gap-8 rounded-[10px] bg-bp-lighter-grey p-12 max-md:min-h-[390px] max-md:px-6 max-md:py-12">
-      <div className="flex flex-col gap-3 max-md:gap-[23px]">
-        <div className="flex items-start justify-between gap-8 max-md:flex-col max-md:gap-[23px]">
-          <div className="flex w-[366px] flex-col gap-1 text-bp-black max-md:w-full">
+    <article className="flex min-h-[278px] flex-col md:flex-row gap-8 rounded-[10px] bg-bp-lighter-grey p-12 max-md:min-h-[390px] max-md:px-6 max-md:py-12">
+      <div className="flex flex-col md:flex-row gap-3 max-md:gap-[23px] md:w-[clamp(1px,1000px,600px)]">
+        <div className="flex flex-col items-start max-md:justify-between gap-8 max-md:gap-[23px] md:mr-auto ">
+          <div className="flex max-w-[366px] flex-col gap-1 text-bp-black max-md:w-full">
             <p className="font-poppins text-[14px] font-medium uppercase leading-normal max-md:text-[10px]">
               upcoming event:
             </p>
@@ -492,10 +492,11 @@ function InfoSessionCard() {
             RSVP
           </Button>
         </div>
-        <div className="h-px w-full bg-black/10" />
+        <div className="w-full h-[1px] md:hidden bg-black/10"/>
+        <div className="w-[1px] h-100 max-md:hidden bg-black/10"/>
       </div>
 
-      <div className="flex gap-[52px] font-poppins text-bp-black max-md:flex-col max-md:gap-4">
+      <div className="flex flex-col md:justify-around  max-md:gap-4 font-poppins text-bp-black">
         <EventDetail label="DATE AND TIME:" value="September 10, 2026, 7 PM" />
         <EventDetail label="LOCATION:" value="SFU Burnaby Campus, ASB 9720" />
       </div>
@@ -506,8 +507,8 @@ function InfoSessionCard() {
 function EventDetail({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex w-[253px] flex-col gap-[10px] max-md:gap-1.5">
-      <p className="text-[14px] font-medium uppercase leading-normal max-md:text-[10px]">{label}</p>
-      <p className="text-[16px] font-normal leading-normal max-md:text-[14px]">{value}</p>
+      <p className="text-[14px] md:text-body-s-reg uppercase text-mobile-body-s-reg ">{label}</p>
+      <p className="text-[16px] md:text-body-m-reg text-mobile-body-m-reg">{value}</p>
     </div>
   );
 }

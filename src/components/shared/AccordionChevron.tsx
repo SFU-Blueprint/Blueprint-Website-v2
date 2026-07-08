@@ -2,7 +2,7 @@ import { useState } from "react";
 
 type AccordionChevronProps = {
   isOpen: boolean;
-  onClick: () => void;
+  onClick?: () => void;
   className?: string;
 };
 

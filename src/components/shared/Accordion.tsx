@@ -20,13 +20,19 @@ export default function Accordion({
     <div
       className={`bg-white rounded-[5px] overflow-hidden font-poppins w-full flex flex-col
         ${isOpen
-          ? "pt-[18px] px-[18px] pb-[30px] gap-[24px] md:pt-[24px] md:px-[36px] md:pb-[60px] md:gap-[30px]"
-          : "p-[18px] md:px-[36px] md:py-[24px]"
+          ? "gap-[6px] md:gap-[12px] pb-[30px] md:pb-[60px]"
+          : ""
         }
         ${className}`}
     >
       {/* Header row — always visible */}
-      <div className="flex items-center justify-between w-full">
+      <div 
+        className={`flex items-center justify-between w-full hover:bg-gray-50 
+          ${isOpen 
+            ? 'p-[18px] md:pt-[24px] md:px-[36px] ' 
+            : 'p-[18px] md:px-[36px] md:py-[24px]'}`
+          }
+          onClick={() => setIsOpen((prev) => !prev)}>
         <span
           className="text-bp-black font-medium leading-[1.3]
             text-[18px] tracking-[-0.36px]
@@ -36,13 +42,12 @@ export default function Accordion({
         </span>
         <AccordionChevron
           isOpen={isOpen}
-          onClick={() => setIsOpen((prev) => !prev)}
         />
       </div>
 
       {/* Body — shown when open */}
       {isOpen && (
-        <div className="w-full shrink-0 md:pr-[90px]">
+        <div className="w-full shrink-0 md:pr-[90px] md:px-[36px] px-[18px]">
           <div className="text-bp-black font-normal leading-normal text-[14px] md:text-[16px]">
             {children}
           </div>

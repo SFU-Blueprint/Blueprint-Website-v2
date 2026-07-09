@@ -134,8 +134,25 @@ function pickRandomGridColumn(occupiedColumns: number[]): number {
 }
 
 const RIVE_VALUES_STATE_MACHINE = "MainStateMachine";
+
+function usePreloadRiveFiles() {
+  useEffect(() => {
+    const preloadFiles = async () => {
+      try {
+        await Promise.all([
+          fetch(revisedRiv),
+          fetch(aboutValuesMobileRiv),
+        ]);
+      } catch (error) {
+        console.warn("Rive files preload failed:", error);
+      }
+    };
+    void preloadFiles();
+  }, []);
+}
 /** Own hook instance + canvas; mount only one at a time so hidden WebGL canvases don’t break Rive. */
-function AboutValuesRiveDesktop() {
+function AboutValuesRiveDesktop({ isVisible }: { isVisible: boolean }) {
+  const [isLoaded, setIsLoaded] = useState(false);
   const { RiveComponent } = useRive({
     src: revisedRiv,
     stateMachines: RIVE_VALUES_STATE_MACHINE,
@@ -146,14 +163,26 @@ function AboutValuesRiveDesktop() {
       alignment: Alignment.TopLeft,
       layoutScaleFactor: 1,
     }),
+    onLoad: () => {
+      setIsLoaded(true);
+    },
   });
 
+  const shouldShow = isVisible && isLoaded;
+
   return (
-    <RiveComponent className="h-[900px] lg:h-[950px] w-[1650px] ml-[-350px]" />
+    <div
+      className={`h-[900px] lg:h-[950px] w-[1650px] ml-[-350px] transition-opacity duration-700 ease-in-out ${
+        shouldShow ? "opacity-100" : "opacity-0"
+      }`}
+    >
+      <RiveComponent className="w-full h-full" />
+    </div>
   );
 }
 
-function AboutValuesRiveMobile() {
+function AboutValuesRiveMobile({ isVisible }: { isVisible: boolean }) {
+  const [isLoaded, setIsLoaded] = useState(false);
   const { RiveComponent } = useRive({
     src: aboutValuesMobileRiv,
     stateMachines: RIVE_VALUES_STATE_MACHINE,
@@ -163,13 +192,28 @@ function AboutValuesRiveMobile() {
       fit: Fit.Cover,
       alignment: Alignment.Center,
     }),
+    onLoad: () => {
+      setIsLoaded(true);
+    },
   });
 
-  return <RiveComponent className="h-[1100px] w-full translate-y-[-460px]" />;
+  const shouldShow = isVisible && isLoaded;
+
+  return (
+    <div
+      className={`h-[1100px] w-full translate-y-[-460px] transition-opacity duration-700 ease-in-out ${
+        shouldShow ? "opacity-100" : "opacity-0"
+      }`}
+    >
+      <RiveComponent className="w-full h-full" />
+    </div>
+  );
 }
 
 const AboutPage = () => {
   const navigate = useNavigate();
+
+  usePreloadRiveFiles();
 
   useEffect(() => {
     const images = GroupImages.map(({ image }) => {
@@ -400,7 +444,7 @@ const AboutPage = () => {
           
           {/* Rive */}
           <div className="absolute w-full h-full bottom-0 md:translate-y-[-300px] lg:translate-y-[-325px] ">
-            {isVisible ? (isMdUp ? <AboutValuesRiveDesktop /> : <AboutValuesRiveMobile />) : null}
+            {isMdUp ? <AboutValuesRiveDesktop isVisible={isVisible} /> : <AboutValuesRiveMobile isVisible={isVisible} />}
           </div>
         </div>
 

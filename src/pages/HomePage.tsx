@@ -672,29 +672,13 @@ const ProjectsCardStack = () => {
   );
 };
 
-const HomePage = () => {
-  // Only tint <html> (not <body>) so the scrollbar gutter matches the hero
-  // while the rest of the page still renders on the light body background.
-  useEffect(() => {
-    const html = document.documentElement;
-    const prev = html.style.backgroundColor;
-    html.style.backgroundColor = HERO_SCROLLBAR_BG;
-    return () => {
-      html.style.backgroundColor = prev;
-    };
-  }, []);
+const ImpactSection = () => {
   return (
-    <PageContainer>
-      {/* Hero: "tech for good" section */}
-      <TechForGoodSection />
-
-
-      {/* Impact + projects: mx-auto wrapper so centering works at every breakpoint */}
-      <section className="w-full pt-[120px] max-md:pt-[75px]">
+  <section className="w-full pt-[120px] max-md:pt-[75px]">
         <div className="mx-auto flex w-full flex-col items-center gap-12 xl:gap-24 xl:flex-row xl:items-start 
         w-full justify-between"> {/* max-w-[1196px] xl:justify-center */}
         {/* Left side Heading and logos */}
-        <div className="w-full max-w-[440px] shrink-0 max-md:max-w-[90vw] xl:sticky xl:top-[25%] z-[10] xl:pl-[1.5vw]">
+        <div className="w-full max-w-[440px] shrink-0 max-md:max-w-[90vw] xl:sticky xl:top-[25%] z-[10]">
           {/* Bullet points and logos */}
           <div className="flex w-full flex-col gap-9 md:gap-12">
             <span className="text-bp-black text-mobile-heading-m-reg font-normal font-['Poppins'] 
@@ -752,54 +736,12 @@ const HomePage = () => {
             </Link>
         </div>
       </section>
+    )
+  }
 
-      {/* Students / testimonials */}
-        {/* Students: turn real projects into real opportunities */}
-        <div className="flex flex-row w-full min-w-0 justify-between pt-[73px] md:pt-[120px] md:pb-[60px] font-['Poppins'] justify-between gap-12">
-              <div className="flex flex-1 w-full min-w-0 flex-col gap-6 max-w-[660px] text-zinc-800 max-md:min-w-[345px]">
-                  <div className="text-heading-s-reg max-md:text-mobile-heading-m-reg md:min-w-[518px] max-w-[400px]">students: turn real projects into 
-                  <span className="font-semibold "> real opportunities. </span>
-                  </div>
-                  <div className="flex flex-1 text-body-m-reg leading-8 max-md:text-mobile-body-m-reg">By working with a passionate interdisciplinary team and making a real impact in their community, our members have gained invaluable skills,
-                    allowing them to pursue successful careers in tech. Join us to see the Blueprint difference. 
-                   </div>
-                </div>
-              {/* button */}
-              <div className="max-md:hidden justify-end shrink-0">
-                <Button variant="tertiary" className="uppercase !font-light !w-48 !h-16">join us</Button>             
-              </div>
-        </div>
-
-        {/* testimonials */}
-        <div className="relative left-1/2 right-1/2 ml-[-50vw] mr-[-50vw] h-[390px] w-screen pt-[60px] max-md:pt-[52px]">
-              <InteractiveCarousel autoScrollSpeed={1}>
-                {blueprintTestimonials.map((testimonial) => (
-                  <TestimonialCard key={testimonial.id} name={testimonial.name} role={testimonial.role} picture={testimonial.image} caption={testimonial.caption} />
-                ))}
-              </InteractiveCarousel>
-              
-        </div>
-
-        <div className="md:hidden pb-10">
-          <Button variant="tertiary" className="uppercase !font-normal !w-full !h-16">join us</Button>          
-        </div>
-
-
-    {/* Upcoming Events Section*/}
-    {/* Upcoming Events Image */}
-    <div className="md:min-w-[82vw] h-full overflow-hidden rounded-[5px] max-md:pt-[54px] md:pt-[120px] max-md:pb-6 md:pr-[2vw] xl:pr-[6vw] 2xl:pr-[2vw]">
-        <img
-          className="w-full h-full"
-          src="/images/home/photos/group.png"
-          alt="Group Photo"
-        />
-    </div>
-
-    {/* Upcoming Event Card */}
-    {/* desktop height is 346 - 96 = 250px. the additional slant top is 96px.*/}
-    <div className="flex justify-end max-md:justify-center justify-end items-end">
-
-
+  const UpcomingEventsCard = () => {
+    return (
+      <div className="flex justify-end max-md:justify-center justify-end items-end">
       <div className="bg-bp-blue rounded-[5px] text-bp-white relative flex w-full md:max-w-[737px] pl-12 pr-[50px] pb-[72px] h-[350px] 
       max-md:pl-[26px] pr-[22px] max-md:pb-[61px] max-md:pt-[34px] flex flex-col gap-[32px] min-w-[347px] max-md:h-[336px] md:translate-y-[-50%]"
       style={{ 
@@ -868,7 +810,77 @@ const HomePage = () => {
           </div>
         </div>
       </div>
+    )
+  }
 
+const HomePage = () => {
+  // Only tint <html> (not <body>) so the scrollbar gutter matches the hero
+  // while the rest of the page still renders on the light body background.
+  useEffect(() => {
+    const html = document.documentElement;
+    const prev = html.style.backgroundColor;
+    html.style.backgroundColor = HERO_SCROLLBAR_BG;
+    return () => {
+      html.style.backgroundColor = prev;
+    };
+  }, []);
+  return (
+    <PageContainer>
+      {/* Hero: "tech for good" section */}
+      <TechForGoodSection />
+
+
+      {/* Impact + projects: mx-auto wrapper so centering works at every breakpoint */}
+      <ImpactSection />
+
+      {/* Students / testimonials */}
+        {/* Students: turn real projects into real opportunities */}
+        <div className="flex flex-col w-full min-w-0 justify-between pt-[73px] md:pt-[120px] md:pb-[60px] font-['Poppins'] justify-between gap-12">
+              <div className="flex flex-1 w-full min-w-0 flex-col gap-6 max-w-[660px] text-zinc-800 max-md:min-w-[345px]">
+                  <div className="text-heading-s-reg max-md:text-mobile-heading-m-reg md:min-w-[518px] max-w-[400px]">students: turn real projects into 
+                  <span className="font-semibold "> real opportunities. </span>
+                  </div>
+                  <div className="flex flex-1 text-body-m-reg leading-8 max-md:text-mobile-body-m-reg">By working with a passionate interdisciplinary team and making a real impact in their community, our members have gained invaluable skills,
+                    allowing them to pursue successful careers in tech. Join us to see the Blueprint difference. 
+                   </div>
+                </div>
+              {/* button */}
+              <div className="max-md:hidden justify-end shrink-0">
+                <Link to="/students">
+                  <Button variant="tertiary" className="uppercase !font-light !w-48 !h-16">join us</Button>             
+                </Link>
+              </div>
+        </div>
+
+        {/* testimonials */}
+        <div className="relative left-1/2 right-1/2 ml-[-50vw] mr-[-50vw] h-[390px] w-screen pt-[60px] max-md:pt-[52px]">
+              <InteractiveCarousel autoScrollSpeed={1}>
+                {blueprintTestimonials.map((testimonial) => (
+                  <TestimonialCard key={testimonial.id} name={testimonial.name} role={testimonial.role} picture={testimonial.image} caption={testimonial.caption} />
+                ))}
+              </InteractiveCarousel>
+              
+        </div>
+
+        <div className="md:hidden pb-10">
+          <Link to="/students"> 
+            <Button variant="tertiary" className="uppercase !font-normal !w-full !h-16">join us</Button>          
+          </Link>
+        </div>
+
+
+    {/* Upcoming Events Section*/}
+    {/* Upcoming Events Image */}
+    <div className="md:min-w-[82vw] h-full overflow-hidden rounded-[5px] max-md:pt-[54px] md:pt-[120px] max-md:pb-6 md:pr-[2vw] xl:pr-[6vw] 2xl:pr-[2vw]">
+        <img
+          className="w-full h-full"
+          src="/images/home/photos/group.png"
+          alt="Group Photo"
+        />
+    </div>
+
+    {/* Upcoming Event Card */}
+    <UpcomingEventsCard />
     </PageContainer>
   );
 };

@@ -33,7 +33,7 @@ const NonprofitsPage = () => {
                       max-[1279.9px]:right-[-217px]
                       max-[1023.9px]:right-[-216px]
                       max-[767.9px]:right-[-234px] max-[767.9px]:top-[-65px] md:scale-[1.6] max-md:scale-[0.8]                     min-[514px]:w-[500px] max-[513.9px]:w-[300px] max-[513.9px]:scale-[1] max-[513.9px]:right-[-100px] max-[513.9px]:top-[-25px]
-                      max-[513.9px]:scale-[0.9] max-[513.9px]:right-[-150px] max-[513.9px]:top-[50px]
+                      max-[513.9px]:scale-[0.9] max-[513.9px]:right-[-155px] max-[513.9px]:top-[50px]
                       absolute  z-[-10]">
             <source src="videos/crosspoints/dotted-path-1.webm" type="video/webm"/>
           </video>

@@ -15,6 +15,7 @@ const ROUTES = [
   { name: "Projects", path: "/projectspage" },
   { name: "For Non Profits", path: "/nonprofits" },
   { name: "For Students", path: "/students" },
+  { name: "Sponsor Us", path: "/sponsor-us" },
   { name: "About Us", path: "/about" },
 ] as const;
 
@@ -33,8 +34,8 @@ const NavBar = ({ isDark = false }: NavBarProps) => {
 
   return (
     <nav className="w-full justify-center p-5" aria-label="Primary">
-      <div className="mx-auto flex w-full max-w-full flex-col gap-4 max-lg:flex-grow px-2 md:px-6 xl:px-32 lg:flex-row lg:items-stretch lg:gap-0">
-        {/* Desktop (lg+): original layout — logo card, flex spacer, compact nav card (hugs links, not full width) */}
+      <div className="mx-auto flex w-full max-w-full flex-col gap-4 max-lg:flex-grow px-2 md:px-6 xl:px-16 2xl:px-32 lg:flex-row lg:items-stretch lg:gap-0">
+        {/* Desktop (lg+): logo card, flex spacer, compact nav card (hugs links, not full width) */}
         <div
           className={`hidden items-center justify-between overflow-hidden rounded-[5px] backdrop-blur-xl lg:flex lg:shrink-0 ${
             isDark
@@ -60,7 +61,7 @@ const NavBar = ({ isDark = false }: NavBarProps) => {
           />
         </div>
 
-        {/* Mobile (max-lg): single extended card — top row + stacked pills inside same surface */}
+        {/* Mobile / portrait tablet (max-lg): single extended card — top row + stacked pills */}
         <div className="lg:hidden">
           <div
             className={`overflow-hidden rounded-lg ${NAV_SURFACE_SHADOW} ${surfaceClass}`}
@@ -144,7 +145,7 @@ function DesktopNavLinks({
   isDark: boolean;
 }) {
   return (
-    <div className="flex flex-row flex-wrap items-center justify-end space-x-12">
+    <div className="flex flex-row flex-nowrap items-center justify-end gap-3 xl:gap-6 2xl:gap-12">
       {routes.map((route, index) => {
         if (index === 0) return null;
         const isActive = route.path === currentPath;
@@ -155,7 +156,8 @@ function DesktopNavLinks({
             onClick={closeMenu}
             className={[
               "relative flex items-center whitespace-nowrap rounded font-poppins text-nav-link uppercase transition-all",
-              "h-nav-desktop-h px-nav-desktop-px py-nav-desktop-py",
+              "h-nav-desktop-h px-4 py-nav-desktop-py xl:px-5 2xl:px-nav-desktop-px",
+              "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bp-blue",
               isDark
                 ? "text-white hover:bg-bp-dark-grey hover:text-white active:bg-bp-grey active:text-white"
                 : "text-bp-black hover:bg-bp-blue hover:text-white active:bg-bp-pressed-blue active:text-white",
@@ -196,6 +198,7 @@ function MobileNavLinks({
             onClick={closeMenu}
             className={[
               "flex items-center justify-start font-poppins text-nav-link uppercase transition-all",
+              "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bp-blue",
               // Light-mode keeps the original mobile-nav tokens
               !isDark
                 ? "h-nav-mobile-h rounded-md px-nav-mobile-px py-nav-mobile-py bg-bp-lightest-grey text-bp-black hover:bg-bp-blue hover:text-white active:bg-bp-pressed-blue active:text-white"

@@ -83,82 +83,89 @@ const CaseStudyLayout = ({backNav, hero, solution, testemonial, team}:CaseStudyL
         )
     );
 
-  return (
-    <PageContainer>
-        {/* Back link */}
-        {backNav}
+ 
 
-        {/* CONTENT COLUMN */}
-        <div className="flex flex-col std-max items-center tablet:max-w-[728px] ">
-            {/* HERO */}
-            <section className="text-center flex flex-col items-center mb-[173px]">
-                {/* Title */}
-                <div className="tablet:mb-[3.75rem] mb-9 font-poppins">
-                    <h1 className="tablet:text-heading-m-reg mb-3 text-mobile-heading-m-reg">{hero.title}</h1>
-                    <p className="text-body-s-reg ">{hero.date}</p>
-                </div>
-                { /* Image content */}
-                {heroImagePile}
-                <div className="flex desktop:flex-col desktop:gap-[37px] tablet:gap-[6%] mt-[50px] tablet:flex-row flex-col gap-10">
-                    {heroCategory( hero.partnerContent)}
-                </div> 
-            </section>
-       
-            {/* Solution */}
-            <section className="decoration-blueprint-black std-max">
-                {headerCard('the problem', hero.problemContent, 'grey')}
-                {/* Header section */}
-                <div className="tablet:gap-24 flex flex-col self-center font-poppins gap-[4.5rem] mt-[140px]">
-                    {headerCard('our solution', solution.summary, 'white')}
+    return (
+        <PageContainer>
+            {/* Back link */}
+            {backNav}
 
-                    {/* Maps content to formatted sections */}
-                    {solution.contentList.map((item, index) => {
-                        return(
-                            <div className="flex flex-col items-center w-[100%] decoration-blueprint-black" key={index}>
-                                <div className="flex flex-col justify-center text-center tablet:text-body-l-reg tablet:mb-12 tablet:max-w-[656px] text-mobile-body-l-reg mb-9">
-                                    {item.description}
+            {/* CONTENT COLUMN */}
+            <div className="flex flex-col std-max items-center tablet:max-w-[728px] mb-[129px]">
+                {/* HERO */}
+                <section className="text-center flex flex-col items-center mb-[173px]">
+                    {/* Title */}
+                    <div className="tablet:mb-[3.75rem] mb-9 font-poppins">
+                        <h1 className="tablet:text-heading-m-reg mb-3 text-mobile-heading-m-reg">{hero.title}</h1>
+                        <p className="text-body-s-reg ">{hero.date}</p>
+                    </div>
+                    { /* Image content */}
+                    {heroImagePile}
+                    <div className="flex desktop:flex-col desktop:gap-[37px] tablet:gap-[6%] mt-[50px] tablet:flex-row flex-col gap-10">
+                        {heroCategory( hero.partnerContent)}
+                    </div> 
+                    
+                </section>
+        
+                {/* Solution */}
+                <section className="decoration-blueprint-black std-max">
+                    {headerCard('the problem', hero.problemContent, 'grey')}
+                    
+                    {/* Header section */}
+                    <div className="tablet:gap-24 flex flex-col self-center font-poppins gap-[4.5rem] mt-[42px]">
+                        {headerCard('our solution', solution.summary, 'white')}
+
+                        {/* Maps content to formatted sections */}
+                        {solution.contentList.map((item, index) => {
+                            return(
+                                <div className="flex flex-col items-center w-[100%] decoration-blueprint-black" key={index}>
+                                    <div className="flex flex-col justify-center text-center tablet:text-body-l-reg tablet:mb-12 tablet:max-w-[656px] text-mobile-body-l-reg mb-9">
+                                        {item.description}
+                                    </div>
+                                    <img className="w-[100%] tablet:mb-[30px] mb-[18px]" src={item.imgURL} alt={item.alt} />
+                                    <div className="flex flex-col justify-center text-center tablet:text-body-m-reg tablet:max-w-[530px] text-mobile-body-m-reg">
+                                        {item.caption}
+                                    </div>
                                 </div>
-                                <img className="w-[100%] tablet:mb-[30px] mb-[18px]" src={item.imgURL} alt={item.alt} />
-                                <div className="flex flex-col justify-center text-center tablet:text-body-m-reg tablet:max-w-[530px] text-mobile-body-m-reg">
-                                    {item.caption}
-                                </div>
-                            </div>
-                        )
+                            )
+                        })}
+                    </div>
+                </section>
+            </div>
+
+            {/* Testimonial */}
+            <div className="mb-[140px]">
+                {testemonialContent}
+            </div>
+            
+
+            {/* Team */}
+            <section className="mb-[140px]">
+                <h2 className="decoration-black std-max font-poppins text-center tablet:text-heading-m-reg tablet:mb-[3.75rem] mb-9 text-mobile-heading-m-reg" >the team</h2>
+
+                {/* MemberCard Layout - Code duped from alumni page */}
+                <div className=
+                    {`grid gap-[10px] grid-cols-2 w-full self-center std-max justify-items-center
+                    min-[629.9px]:grid-cols-3
+                    tablet:gap-[20px] tablet:grid-cols-2 
+                    min-[825px]:grid-cols-3 
+                    min-[1056px]:grid-cols-4 `}>
+                    { team.map((member, index)=>{
+                        return (
+                            <MemberCard 
+                            key={index}
+                            name={member.name} 
+                            role={member.role} 
+                            roleType={member.roleType} 
+                            photoUrl={member.photoUrl} 
+                            linkedinUrl={member.linkedinUrl} 
+                            randomRotation={enableRandomRotation}/>
+                        );
                     })}
                 </div>
             </section>
-        </div>
+        </PageContainer>
 
-        {/* Testimonial */}
-        {testemonialContent}
-
-        {/* Team */}
-        <section>
-            <h2 className="decoration-black std-max font-poppins text-center tablet:text-heading-m-reg tablet:mb-[3.75rem] mb-9 text-mobile-heading-m-reg" >the team</h2>
-
-            {/* MemberCard Layout - Code duped from alumni page */}
-            <div className=
-                {`grid gap-[10px] grid-cols-2 w-full self-center std-max justify-items-center
-                min-[629.9px]:grid-cols-3
-                tablet:gap-[20px] tablet:grid-cols-2 
-                min-[825px]:grid-cols-3 
-                min-[1056px]:grid-cols-4 `}>
-                { team.map((member, index)=>{
-                    return (
-                        <MemberCard 
-                        key={index}
-                        name={member.name} 
-                        role={member.role} 
-                        roleType={member.roleType} 
-                        photoUrl={member.photoUrl} 
-                        linkedinUrl={member.linkedinUrl} 
-                        randomRotation={enableRandomRotation}/>
-                    );
-                })}
-            </div>
-        </section>
-    </PageContainer>
-    
-  );
+    );
 }
 export default CaseStudyLayout

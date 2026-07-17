@@ -40,7 +40,7 @@ const SOCIAL_EVENT_CARDS = [
     image: "/images/student/join-social-blueprint-wide.webp",
     imageClassName: "h-[166.67%] w-[179.49%] -left-[32.67%] -top-[66.67%]",
     accentColor: "#D2A6FB",
-    imageHoverClassName: "md:group-hover/expandable-card:left-[-17.35%] md:group-hover/expandable-card:w-[142.86%]",
+    imageHoverClassName: "lg:group-hover/expandable-card:left-[-17.35%] lg:group-hover/expandable-card:w-[142.86%]",
   },
   {
     title: "Team Socials",
@@ -550,7 +550,7 @@ function OpenPositionsSection() {
   return (
     <section
       id="open-positions"
-      className="mx-auto relative z-10 grid w-full max-w-[1298px] grid-cols-[318px_623px] justify-center gap-[127px] rounded-[20px] bg-bp-black px-[115px] py-[117px] max-lg:flex max-lg:flex-col max-lg:gap-[31px] max-lg:rounded-none max-lg:px-[19px] max-lg:pb-[76px] max-lg:pt-[61px]"
+      className="mx-auto relative z-10 grid w-full max-w-[1298px] grid-cols-[318px_minmax(0,623px)] justify-center gap-[127px] rounded-[20px] bg-bp-black px-[115px] py-[117px] max-xl:gap-[60px] max-xl:px-[60px] max-lg:flex max-lg:flex-col max-lg:gap-[31px] max-lg:rounded-none max-lg:px-[19px] max-lg:pb-[76px] max-lg:pt-[61px]"
     >
       <div className="flex flex-col gap-12 text-white max-lg:gap-0">
         <div className="flex flex-col gap-6">

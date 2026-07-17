@@ -157,7 +157,7 @@ function HeroSection({ onOpenPositions }: { onOpenPositions: () => void }) {
                   min-[1280px]:bg-[calc(50%+35px)_-388px]
                   max-[1279.9px]:bg-[calc(100%+615px)_-388px]
                   max-[767.9px]:bg-[calc(100%+615px)_-500px] max-[767.9px]:w-[calc(100%+17px)]
-                  overflow-clip w-full h-full mt-[-110px] absolute z-10">
+                  overflow-clip w-full h-full mt-[-110px] absolute z-10 pointer-events-none">
 
         </div>
         <video
@@ -170,7 +170,7 @@ function HeroSection({ onOpenPositions }: { onOpenPositions: () => void }) {
                     max-[1279.9px]:right-[-320px] max-[1279.9px]:top-[-185px]
                     max-[1023.9px]:right-[-235px] max-[1023.9px]:top-[-100px] min-[1024px]:w-[790px] max-[1023.9px]:w-[620px]
                     max-[767.9px]:right-[-200px] max-[767.9px]:top-[-285px]
-                    absolute z-0">
+                    absolute z-0 pointer-events-none">
           <source src="videos/crosspoints/dotted-path-2.webm" type="video/webm"/>
         </video>
       </div>
@@ -633,7 +633,7 @@ function StayUpdatedSection() {
           <div className="bg-bp-lightest-grey bg-[url('/images/crosspoint.png')] bg-no-repeat
                     min-[768px]:bg-[calc(50%-399px)_-310px] 
                     max-[767.9px]:bg-[calc(50%-190px)_-250px] max-[767.9px]:bg-[length:1100px_1100px]
-                    overflow-clip h-[900px] w-full mt-[-110px] absolute">
+                    overflow-clip h-[900px] w-full mt-[-110px] absolute pointer-events-none">
           </div>
           <video
             autoPlay
@@ -643,7 +643,7 @@ function StayUpdatedSection() {
             className="
                       min-[768px]:w-[785px] min-[768px]:max-w-[785px] min-[768px]:right-[calc(50%-395px)] min-[768px]:top-[-8px]
                       max-[767.9px]:w-[400px] max-[767.9px]:max-w-[370px] max-[767.9px]:right-[calc(50%-187px)] max-[767.9px]:top-[20px]
-                      absolute ">
+                      absolute pointer-events-none">
             <source src="videos/crosspoints/dotted-path-2.webm" type="video/webm"/>
           </video>
       </div>

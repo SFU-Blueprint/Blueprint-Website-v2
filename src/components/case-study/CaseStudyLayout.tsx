@@ -18,23 +18,23 @@ export type CaseStudyLayoutProps = CaseStudyContent & {
  */
 const CaseStudyLayout = ({backNav, hero, solution, testemonial, team}:CaseStudyLayoutProps) => {
   const enableRandomRotation = true;
-  const polaroid1ClassName = hero.img1.polaroidComponentClassName ? hero.img1.polaroidComponentClassName : "z-10 tablet:rotate-[9deg] tablet:translate-x-[30px] rotate-[-4deg] translate-x-[-60px]";
-  const polaroid2ClassName = hero.img2.polaroidComponentClassName ? hero.img2.polaroidComponentClassName : " tablet:rotate-[-7deg] tablet:translate-x-[-30px] tablet:translate-y-[50px] tablet:mt-0 mt-[-40px] rotate-[7deg] translate-x-[50px]"
+  const polaroid1ClassName = hero.img1.polaroidComponentClassName ? hero.img1.polaroidComponentClassName : "z-10 rotate-[9deg] translate-x-[30px]";
+  const polaroid2ClassName = hero.img2.polaroidComponentClassName ? hero.img2.polaroidComponentClassName : "rotate-[-7deg] translate-x-[-30px] translate-y-[50px] tablet:mt-0"
 
   const heroCategory = (body: ReactNode): ReactElement => {
     return(
-        <div className="font-poppins desktop:w-auto tablet:w-[47%]">
+        <div className="font-poppins text-center tablet:px-[45px] w-full">
             <div className="tablet:text-body-m-reg text-mobile-body-m-reg">{body}</div>
         </div>
     );
   }
 
   type problemCardBg = 'white' | 'grey'
-  const headerCard = (title: string, content: ReactNode, colour: problemCardBg) => {
+  const headerCard = (title: ReactNode, content: ReactNode, colour: problemCardBg) => {
     const bgColour = colour === 'white' ? 'bg-white' : 'bg-bp-lighter-grey'
     return (
         <div className={`
-               bg-bp flex flex-col text-center rounded-[10px] gap-[12px] pt-[36px] pb-[56px] px-[24px]
+               bg-bp flex flex-col text-center rounded-[10px] gap-[12px] pt-[36px] pb-[56px] px-[24px] font-poppins 
                tablet:mt-[11px] tablet:pt-[48px] tablet:pb-[90px] tablet:gap-[24px] tablet:px-[60px] ${bgColour}`}>
             <h2 className="flex items-center justify-center w-full tablet:text-heading-s-reg tablet:h-[93px] gap-[13px] text-mobile-heading-s-reg">{bpRectangle()} {title}</h2>
             <div className="tablet:text-body-l-reg text-mobile-body-l-reg">
@@ -51,12 +51,13 @@ const CaseStudyLayout = ({backNav, hero, solution, testemonial, team}:CaseStudyL
     <PolaroidPhoto imageSrc={hero.img1.url} caption={hero.img1.caption} alt={hero.img1.alt} imageCropClassName={hero.img1.polaroidImgClassName} className={polaroid1ClassName}/>, 
     <PolaroidPhoto imageSrc={hero.img2.url} caption={hero.img2.caption} alt={hero.img2.alt} imageCropClassName={hero.img2.polaroidImgClassName} className={polaroid2ClassName}/>
   ) : (
-    <div className="flex  items-center tablet:mb-[70px] flex-col mb-[20px] ">
+    <div className="flex items-center flex-col scale-50 
+                    tablet:scale-100 max-tablet:max-h-[250px]
+                    min-[450px]:mb-[70px] min-[450px]:scale-75">
         <img className="z-20 
-                        tablet:max-w-[229px] tablet:max-h-[201px] tablet:mt-[-170px] tablet:translate-x-[30px] tablet:translate-y-[170px] tablet:rotate-0 tablet:ml-0
-                        max-w-[197px] max-h-[184px] rotate-[13deg] translate-x-[100px]" 
+                        max-w-[229px] tablet:max-h-[201px] mt-[-170px] translate-x-[30px] translate-y-[170px] rotate-0 ml-0" 
                         src={hero.logoURL}/>
-        <div className="flex tablet:flex-row tablet:mt-0 mt-[-150px] flex-col">
+        <div className="flex flex-row mt-0">
             <PolaroidPhoto imageSrc={hero.img1.url} caption={hero.img1.caption} alt={hero.img1.alt} imageCropClassName={hero.img1.polaroidImgClassName} className={polaroid1ClassName}/>
             <PolaroidPhoto imageSrc={hero.img2.url} caption={hero.img2.caption} alt={hero.img2.alt} imageCropClassName={hero.img2.polaroidImgClassName} className={polaroid2ClassName}/>
         </div>
@@ -71,12 +72,17 @@ const CaseStudyLayout = ({backNav, hero, solution, testemonial, team}:CaseStudyL
 
   const testemonialContent: ReactElement = (
     testemonial ? (
-        <section className="bg-white std-max decoration-blueprint-black text-center tablet:px-20 tablet:py-[3.75rem] rounded-[10px] px-6 py-[42px]">
-            <p className="font-caveat tablet:text-heading-hand tablet:mb-[35px] mb-6 text-mobile-heading-hand">{testemonial.quote}</p>
-            <div className="font-poppins tablet:text-body-s-reg text-mobile-body-s-reg">
-                <p>{testemonial.name.toUpperCase()}</p>
-                <p>{testemonial.title.toUpperCase()}</p>
+        <section className="bg-white std-max decoration-blueprint-black tablet:px-20 tablet:pt-[70px] rounded-[10px] px-6 py-[60px] text-left border-t-[20px] text-bp-black border-[#A5C6FF]">
+            <div className="font-poppins mb-5 flex flex-row gap-5">
+                <div className=" tablet:size-[51px] size-[37px] rounded-[50px] overflow-hidden">
+                    <img src="https://placehold.co/51x51"/>
+                </div>
+                <div className="flex flex-col justify-between ">
+                    <p className="tablet:text-body-m-bold text-[12px] font-semibold">{testemonial.name.toUpperCase()}</p>
+                    <p className="tablet:text-body-s-reg text-[11px] text-[#5e5e5e] uppercase">{testemonial.title.toUpperCase()}</p>
+                </div>
             </div>
+            <p className="font-caveat text-bp-black tablet:text-[32px] text-[20px] tracking-normal leading-tight">{testemonial.quote}</p>
         </section>
         ) : (
             <></>
@@ -86,22 +92,22 @@ const CaseStudyLayout = ({backNav, hero, solution, testemonial, team}:CaseStudyL
  
 
     return (
-        <PageContainer>
+        <PageContainer className="overflow-hidden">
             {/* Back link */}
             {backNav}
 
             {/* CONTENT COLUMN */}
-            <div className="flex flex-col std-max items-center tablet:max-w-[728px] mb-[129px]">
+            <div className="flex flex-col std-max items-center tablet:max-w-[728px] w-full tablet:mb-[129px] mb-[135px] ">
                 {/* HERO */}
-                <section className="text-center flex flex-col items-center mb-[173px]">
+                <section className="text-center flex flex-col w-full items-center tablet:mb-[173px] mb-[96px]">
                     {/* Title */}
-                    <div className="tablet:mb-[3.75rem] mb-9 font-poppins">
+                    <div className="tablet:mb-[3.75rem] min-[450px]:mb-9 font-poppins">
                         <h1 className="tablet:text-heading-m-reg mb-3 text-mobile-heading-m-reg">{hero.title}</h1>
                         <p className="text-body-s-reg ">{hero.date}</p>
                     </div>
                     { /* Image content */}
                     {heroImagePile}
-                    <div className="flex desktop:flex-col desktop:gap-[37px] tablet:gap-[6%] mt-[50px] tablet:flex-row flex-col gap-10">
+                    <div className="flex desktop:flex-col desktop:gap-[37px] tablet:gap-[6%] mt-[50px] items-center tablet:flex-row flex-col gap-10">
                         {heroCategory( hero.partnerContent)}
                     </div> 
                     
@@ -112,7 +118,7 @@ const CaseStudyLayout = ({backNav, hero, solution, testemonial, team}:CaseStudyL
                     {headerCard('the problem', hero.problemContent, 'grey')}
                     
                     {/* Header section */}
-                    <div className="tablet:gap-24 flex flex-col self-center font-poppins gap-[4.5rem] mt-[42px]">
+                    <div className="tablet:gap-24 flex flex-col self-center font-poppins gap-[4.5rem] tablet:mt-[42px] mt-[69px]">
                         {headerCard('our solution', solution.summary, 'white')}
 
                         {/* Maps content to formatted sections */}
@@ -134,13 +140,13 @@ const CaseStudyLayout = ({backNav, hero, solution, testemonial, team}:CaseStudyL
             </div>
 
             {/* Testimonial */}
-            <div className="mb-[140px]">
+            <div className="tablet:mb-[140px] mb-[135px]">
                 {testemonialContent}
             </div>
             
 
             {/* Team */}
-            <section className="mb-[140px]">
+            <section className="tablet:mb-[140px]">
                 <h2 className="decoration-black std-max font-poppins text-center tablet:text-heading-m-reg tablet:mb-[3.75rem] mb-9 text-mobile-heading-m-reg" >the team</h2>
 
                 {/* MemberCard Layout - Code duped from alumni page */}

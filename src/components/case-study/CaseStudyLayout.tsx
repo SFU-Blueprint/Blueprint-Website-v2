@@ -154,11 +154,11 @@ const CaseStudyLayout = ({backNav, hero, solution, testemonial, team}:CaseStudyL
         
                 {/* Solution */}
                 <section className="decoration-blueprint-black std-max">
-                    {headerCard('the problem', hero.problemContent, 'grey')}
+                    {headerCard(<p>the <span className="font-semibold">problem</span></p>, hero.problemContent, 'grey')}
                     
                     {/* Header section */}
                     <div className="tablet:gap-24 flex flex-col self-center font-poppins gap-[4.5rem] tablet:mt-[42px] mt-[69px]">
-                        {headerCard('our solution', solution.summary, 'white')}
+                        {headerCard(<p>our <span className="font-semibold">solution</span></p>, solution.summary, 'white')}
 
                         {/* Maps content to formatted sections */}
                         {solution.contentList.map((item, index) => {

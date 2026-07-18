@@ -53,11 +53,11 @@ const CaseStudyLayout = ({backNav, hero, solution, testemonial, team}:CaseStudyL
   ) : (
     <div className="flex items-center flex-col scale-50 
                     tablet:scale-100 max-tablet:max-h-[250px]
-                    min-[450px]:mb-[70px] min-[450px]:scale-75">
+                    min-[500px]:mb-[70px] min-[500px]:scale-75">
         <img className="z-20 
                         max-w-[229px] tablet:max-h-[201px] mt-[-170px] translate-x-[30px] translate-y-[170px] rotate-0 ml-0" 
                         src={hero.logoURL}/>
-        <div className="flex flex-row mt-0">
+        <div className="flex flex-row gap-10 mt-0">
             <PolaroidPhoto imageSrc={hero.img1.url} caption={hero.img1.caption} alt={hero.img1.alt} imageCropClassName={hero.img1.polaroidImgClassName} className={polaroid1ClassName}/>
             <PolaroidPhoto imageSrc={hero.img2.url} caption={hero.img2.caption} alt={hero.img2.alt} imageCropClassName={hero.img2.polaroidImgClassName} className={polaroid2ClassName}/>
         </div>
@@ -92,7 +92,46 @@ const CaseStudyLayout = ({backNav, hero, solution, testemonial, team}:CaseStudyL
  
 
     return (
-        <PageContainer className="overflow-hidden">
+        <PageContainer className="overflow-hidden relative">
+            {/* BG Vid 1 */}
+            <div className="w-full h-0 xl:ml-[-144px] max-[1279.9px]:ml-[-40px] max-[850px]:hidden">
+                <div className="bg-[url('/images/crosspoint.png')] bg-no-repeat z-[-10]
+                            bg-[-1390px_-5px] 
+                            overflow-clip w-full h-full mt-[-110px] absolute ">
+                </div>
+                <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="
+                      top-[200px] left-[-260px] w-[800px]
+                      absolute z-[-10] overflow-clip">
+                    <source src="/videos/crosspoints/dotted-path-orange.webm" type="video/webm"/>
+                </video>
+            </div>
+            {/* BG Vid 2 */}
+            <div className="w-full h-0 xl:ml-[-144px] max-[1279.9px]:ml-[-40px] max-[850px]:hidden">
+                <div className="bg-[url('/images/crosspoint.png')] bg-no-repeat z-[-10]
+                    min-[1440px]:bg-[calc(100%+485px)_1100px]
+                    max-[1439.9px]:bg-[calc(100%+685px)_1100px]
+                    max-[950px]:bg-[calc(100%+785px)_1100px]
+                    overflow-clip w-full h-full mt-[-110px] absolute">
+                </div>
+                <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="
+                      min-[1440px]:right-[-150px] top-[1300px]
+                      max-[1439.9px]:right-[-350px]
+                      max-[950px]:right-[-450px]
+                      w-[800px]
+                      absolute z-[-10]">
+                    <source src="/videos/crosspoints/dotted-path-orange.webm" type="video/webm"/>
+                </video>
+            </div>
             {/* Back link */}
             {backNav}
 
@@ -101,7 +140,7 @@ const CaseStudyLayout = ({backNav, hero, solution, testemonial, team}:CaseStudyL
                 {/* HERO */}
                 <section className="text-center flex flex-col w-full items-center tablet:mb-[173px] mb-[96px]">
                     {/* Title */}
-                    <div className="tablet:mb-[3.75rem] min-[450px]:mb-9 font-poppins">
+                    <div className="tablet:mb-[3.75rem] min-[500px]:mb-9 font-poppins">
                         <h1 className="tablet:text-heading-m-reg mb-3 text-mobile-heading-m-reg">{hero.title}</h1>
                         <p className="text-body-s-reg ">{hero.date}</p>
                     </div>

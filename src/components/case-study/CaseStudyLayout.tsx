@@ -18,16 +18,30 @@ export type CaseStudyLayoutProps = CaseStudyContent & {
  */
 const CaseStudyLayout = ({backNav, hero, solution, testemonial, team}:CaseStudyLayoutProps) => {
   const enableRandomRotation = true;
-  const polaroid1ClassName = hero.img1.polaroidComponentClassName ? hero.img1.polaroidComponentClassName : "z-10 desktop:translate-x-0 desktop:translate-y-0 tablet:rotate-[9deg] tablet:translate-x-[30px] rotate-[-4deg] translate-x-[-60px]";
-  const polaroid2ClassName = hero.img2.polaroidComponentClassName ? hero.img2.polaroidComponentClassName : "desktop:mt-[-160px] desktop:translate-x-[-100px] desktop:translate-y-0 tablet:rotate-[-7deg] tablet:translate-x-[-30px] tablet:translate-y-[50px] tablet:mt-0 mt-[-40px] rotate-[7deg] translate-x-[50px]"
+  const polaroid1ClassName = hero.img1.polaroidComponentClassName ? hero.img1.polaroidComponentClassName : "z-10 rotate-[9deg] translate-x-[30px]";
+  const polaroid2ClassName = hero.img2.polaroidComponentClassName ? hero.img2.polaroidComponentClassName : "rotate-[-7deg] translate-x-[-30px] translate-y-[50px] tablet:mt-0"
 
-  const heroCategory = (title: string, body: ReactNode): ReactElement => {
+  const heroCategory = (body: ReactNode): ReactElement => {
     return(
-        <div className="font-poppins desktop:w-auto tablet:w-[47%]">
-            <h2 className="tablet:text-heading-xs-reg tablet:mb-[14px] text-mobile-heading-xs-reg mb-[12px]">{title}</h2>
+        <div className="font-poppins text-center tablet:px-[45px] w-full">
             <div className="tablet:text-body-m-reg text-mobile-body-m-reg">{body}</div>
         </div>
     );
+  }
+
+  type problemCardBg = 'white' | 'grey'
+  const headerCard = (title: ReactNode, content: ReactNode, colour: problemCardBg) => {
+    const bgColour = colour === 'white' ? 'bg-white' : 'bg-bp-lighter-grey'
+    return (
+        <div className={`
+               bg-bp flex flex-col text-center rounded-[10px] gap-[12px] pt-[36px] pb-[56px] px-[24px] font-poppins 
+               tablet:mt-[11px] tablet:pt-[48px] tablet:pb-[90px] tablet:gap-[24px] tablet:px-[60px] ${bgColour}`}>
+            <h2 className="flex items-center justify-center w-full tablet:text-heading-s-reg tablet:h-[93px] gap-[13px] text-mobile-heading-s-reg">{bpRectangle()} {title}</h2>
+            <div className="tablet:text-body-l-reg text-mobile-body-l-reg">
+                {content}
+            </div>
+        </div>
+        )
   }
 
   // Determines whether to use custom image pile format or default one
@@ -37,13 +51,13 @@ const CaseStudyLayout = ({backNav, hero, solution, testemonial, team}:CaseStudyL
     <PolaroidPhoto imageSrc={hero.img1.url} caption={hero.img1.caption} alt={hero.img1.alt} imageCropClassName={hero.img1.polaroidImgClassName} className={polaroid1ClassName}/>, 
     <PolaroidPhoto imageSrc={hero.img2.url} caption={hero.img2.caption} alt={hero.img2.alt} imageCropClassName={hero.img2.polaroidImgClassName} className={polaroid2ClassName}/>
   ) : (
-    <div className="flex desktop:flex-row desktop:ml-auto desktop:mb-0 items-center tablet:mb-[70px] flex-col mb-[20px] desktop:self-start">
+    <div className="flex items-center flex-col scale-50 
+                    tablet:scale-100 max-tablet:max-h-[250px]
+                    min-[500px]:mb-[70px] min-[500px]:scale-75">
         <img className="z-20 
-                        desktop:translate-x-[30px] desktop:translate-y-[-90px] desktop:m-[-10px] desktop:mt-0 desktop:self-auto
-                        tablet:max-w-[229px] tablet:max-h-[201px] tablet:mt-[-170px] tablet:translate-x-[30px] tablet:translate-y-[170px] tablet:rotate-0 tablet:ml-0
-                        max-w-[197px] max-h-[184px] rotate-[13deg] translate-x-[100px]" 
+                        max-w-[229px] tablet:max-h-[201px] mt-[-170px] translate-x-[30px] translate-y-[170px] rotate-0 ml-0" 
                         src={hero.logoURL}/>
-        <div className="flex desktop:flex-col desktop:translate-y-[30px] tablet:flex-row tablet:mt-0 mt-[-150px] flex-col">
+        <div className="flex flex-row gap-10 mt-0">
             <PolaroidPhoto imageSrc={hero.img1.url} caption={hero.img1.caption} alt={hero.img1.alt} imageCropClassName={hero.img1.polaroidImgClassName} className={polaroid1ClassName}/>
             <PolaroidPhoto imageSrc={hero.img2.url} caption={hero.img2.caption} alt={hero.img2.alt} imageCropClassName={hero.img2.polaroidImgClassName} className={polaroid2ClassName}/>
         </div>
@@ -56,85 +70,125 @@ const CaseStudyLayout = ({backNav, hero, solution, testemonial, team}:CaseStudyL
     );
   }
 
+  const testProfileImg = !!testemonial.imgUrl 
+    ? (<div className=" tablet:size-[51px] size-[37px] rounded-[50px] overflow-hidden">
+        <img src={testemonial.imgUrl }/>
+        </div>)
+    : <></>
   const testemonialContent: ReactElement = (
     testemonial ? (
-        <section className="bg-white std-max decoration-blueprint-black text-center tablet:px-20 tablet:py-[3.75rem] rounded-[10px] px-6 py-[42px]">
-            <p className="font-caveat tablet:text-heading-hand tablet:mb-[35px] mb-6 text-mobile-heading-hand">{testemonial.quote}</p>
-            <div className="font-poppins tablet:text-body-s-reg text-mobile-body-s-reg">
-                <p>{testemonial.name.toUpperCase()}</p>
-                <p>{testemonial.title.toUpperCase()}</p>
+        <section className="bg-white std-max decoration-blueprint-black tablet:px-20 tablet:pt-[70px] rounded-[10px] px-6 py-[60px] text-left border-t-[20px] text-bp-black border-[#A5C6FF]">
+            <div className="font-poppins tablet:mb-10 mb-6 flex flex-row gap-5">
+                {testProfileImg}
+                <div className="flex flex-col justify-between ">
+                    <p className="tablet:text-body-m-bold text-[12px] font-semibold">{testemonial.name.toUpperCase()}</p>
+                    <p className="tablet:text-body-s-reg text-[11px] text-[#5e5e5e] uppercase">{testemonial.title.toUpperCase()}</p>
+                </div>
             </div>
+            <p className="font-caveat text-bp-black tablet:text-[32px] text-[20px] tracking-normal leading-tight">{testemonial.quote}</p>
         </section>
         ) : (
             <></>
         )
     );
 
-  return (
-    <>
-        { /* Hero Section */}
-        <PageContainer className="flex flex-col gap-[90px] overflow-hidden decoration-black z-10
-                                  tablet:gap-[111px] tablet:bg-[#e8e8e8] tablet:pb-28
-                                  desktop:gap-[6.75rem] desktop:pb-[9.25rem]">
-            {/* Container */}
-            <div className="flex std-max desktop:flex-row flex-col desktop:mt-[7px] desktop:gap-[10px]">
-                {/* Text Content */}
-                <div className="desktop:max-w-[560px] desktop:mb-0 tablet:mb-[60px] mb-[64px]">
-                    {/* Back link */}
-                    {backNav}
+ 
 
-                    {/* Content */}
-                    <div className="tablet:mb-[3.75rem] mb-9 font-poppins">
+    return (
+        <PageContainer className="overflow-hidden relative">
+            {/* BG Vid 1 */}
+            <div className="w-full h-0 xl:ml-[-144px] max-[1279.9px]:ml-[-40px] max-[850px]:hidden">
+                <div className="bg-[url('/images/crosspoint.png')] bg-no-repeat z-[-10]
+                            bg-[-1390px_-5px] 
+                            overflow-clip w-full h-full mt-[-110px] absolute ">
+                </div>
+                <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="
+                      top-[200px] left-[-260px] w-[800px]
+                      absolute z-[-10] overflow-clip">
+                    <source src="/videos/crosspoints/dotted-path-orange.webm" type="video/webm"/>
+                </video>
+            </div>
+            {/* BG Vid 2 */}
+            <div className="w-full h-0 xl:ml-[-144px] max-[1279.9px]:ml-[-40px] max-[850px]:hidden">
+                <div className="bg-[url('/images/crosspoint.png')] bg-no-repeat z-[-10]
+                    min-[1440px]:bg-[calc(100%+485px)_1100px]
+                    max-[1439.9px]:bg-[calc(100%+685px)_1100px]
+                    max-[950px]:bg-[calc(100%+785px)_1100px]
+                    overflow-clip w-full h-full mt-[-110px] absolute">
+                </div>
+                <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="
+                      min-[1440px]:right-[-150px] top-[1300px]
+                      max-[1439.9px]:right-[-350px]
+                      max-[950px]:right-[-450px]
+                      w-[800px]
+                      absolute z-[-10]">
+                    <source src="/videos/crosspoints/dotted-path-orange.webm" type="video/webm"/>
+                </video>
+            </div>
+            {/* Back link */}
+            {backNav}
+
+            {/* CONTENT COLUMN */}
+            <div className="flex flex-col std-max items-center tablet:max-w-[728px] w-full tablet:mb-[129px] mb-[135px] ">
+                {/* HERO */}
+                <section className="text-center flex flex-col w-full items-center tablet:mb-[173px] mb-[96px]">
+                    {/* Title */}
+                    <div className="tablet:mb-[3.75rem] min-[500px]:mb-9 font-poppins">
                         <h1 className="tablet:text-heading-m-reg mb-3 text-mobile-heading-m-reg">{hero.title}</h1>
                         <p className="text-body-s-reg ">{hero.date}</p>
                     </div>
-                    <div className="flex desktop:flex-col desktop:gap-[37px] tablet:gap-[6%] tablet:flex-row flex-col gap-10">
-                        {heroCategory("our partner", hero.partnerContent)}
-                        {heroCategory("the problem", hero.problemContent)}
-                    </div>
-                </div>
+                    { /* Image content */}
+                    {heroImagePile}
+                    <div className="flex desktop:flex-col desktop:gap-[37px] tablet:gap-[6%] mt-[50px] items-center tablet:flex-row flex-col gap-10">
+                        {heroCategory( hero.partnerContent)}
+                    </div> 
+                    
+                </section>
+        
+                {/* Solution */}
+                <section className="decoration-blueprint-black std-max">
+                    {headerCard(<p>the <span className="font-semibold">problem</span></p>, hero.problemContent, 'grey')}
+                    
+                    {/* Header section */}
+                    <div className="tablet:gap-24 flex flex-col self-center font-poppins gap-[4.5rem] tablet:mt-[42px] mt-[69px]">
+                        {headerCard(<p>our <span className="font-semibold">solution</span></p>, solution.summary, 'white')}
 
-                { /* Image content */}
-                {heroImagePile}
+                        {/* Maps content to formatted sections */}
+                        {solution.contentList.map((item, index) => {
+                            return(
+                                <div className="flex flex-col items-center w-[100%] decoration-blueprint-black" key={index}>
+                                    <div className="flex flex-col justify-center text-center tablet:text-body-l-reg tablet:mb-12 tablet:max-w-[656px] text-mobile-body-l-reg mb-9">
+                                        {item.description}
+                                    </div>
+                                    <img className="w-[100%] tablet:mb-[30px] mb-[18px]" src={item.imgURL} alt={item.alt} />
+                                    <div className="flex flex-col justify-center text-center tablet:text-body-m-reg tablet:max-w-[530px] text-mobile-body-m-reg">
+                                        {item.caption}
+                                    </div>
+                                </div>
+                            )
+                        })}
+                    </div>
+                </section>
             </div>
-   
-        </PageContainer>
-        <PageContainer className="flex flex-col gap-[90px] tablet:gap-[6.75rem]
-                                  tablet:bg-[url('/images/individual-projects/crosspoint.svg')] bg-no-repeat
-                                  bg-[calc(50%-125px)_-437px] max-[629.9px]:pt-[98px]
-                                  max-[1024px]:pb-28">
-            {/* Solution */}
-            <section className="decoration-blueprint-black std-max tablet:max-w-[728px] tablet:gap-24 flex flex-col self-center font-poppins gap-[4.5rem]">
-
-                {/* Header section */}
-                <div className="bg-white flex flex-col text-center tablet:mt-[11px] tablet:pt-[48px] tablet:pb-[90px] tablet:gap-[24px] tablet:px-[60px] rounded-[10px] gap-[12px] pt-[36px] pb-[56px] px-[24px]">
-                    <h2 className="flex items-center justify-center w-full tablet:text-heading-s-reg tablet:h-[93px] gap-[13px] text-mobile-heading-s-reg">{bpRectangle()} our solution</h2>
-                    <div className="tablet:text-body-l-reg text-mobile-body-l-reg">
-                        {solution.summary}
-                    </div>
-                </div>
-
-                {/* Maps content to formatted sections */}
-                {solution.contentList.map((item, index) => {
-                    return(
-                        <div className="flex flex-col items-center w-[100%] decoration-blueprint-black" key={index}>
-                            <div className="flex flex-col justify-center text-center tablet:text-body-l-reg tablet:mb-12 tablet:max-w-[656px] text-mobile-body-l-reg mb-9">
-                                {item.description}
-                            </div>
-                            <img className="w-[100%] tablet:mb-[30px] mb-[18px]" src={item.imgURL} alt={item.alt} />
-                            <div className="flex flex-col justify-center text-center tablet:text-body-m-reg tablet:max-w-[530px] text-mobile-body-m-reg">
-                                {item.caption}
-                            </div>
-                        </div>
-                    )
-                })}
-            </section>
 
             {/* Testimonial */}
-            {testemonialContent}
+            <div className="tablet:mb-[140px] mb-[135px]">
+                {testemonialContent}
+            </div>
+            
 
             {/* Team */}
-            <section>
+            <section className="tablet:mb-[140px]">
                 <h2 className="decoration-black std-max font-poppins text-center tablet:text-heading-m-reg tablet:mb-[3.75rem] mb-9 text-mobile-heading-m-reg" >the team</h2>
 
                 {/* MemberCard Layout - Code duped from alumni page */}
@@ -159,7 +213,7 @@ const CaseStudyLayout = ({backNav, hero, solution, testemonial, team}:CaseStudyL
                 </div>
             </section>
         </PageContainer>
-    </>
-  );
+
+    );
 }
 export default CaseStudyLayout

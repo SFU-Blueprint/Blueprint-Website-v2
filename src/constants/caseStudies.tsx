@@ -118,7 +118,7 @@ const CaseStudies: CaseStudyContent[] = [
         quote: "[The work SFU Blueprint has done] is much appreciated and there is a lot of thanks that cannot really be simply put into words... Volunteers at OCB put in thousands of hours of work behind the scene to make everything happen. The tool that you have created for us will streamline our process to better support and facilitate all the volunteers at OCB. Time is a very valuable and finite resource for us at a small non-profit organization and it will allow us to manage it better and more efficiently.",
         name: "Cavan Hua",
         title: "volunteer coordinator at OCB",
-        imgUrl: "https://placehold.co/51x51"
+        imgUrl: "/images/projects/our-community-bikes/ocb-logo.svg"
       },
       team: [...OurCommunityBikes].sort((a, b) => a.name.localeCompare(b.name)),
     },

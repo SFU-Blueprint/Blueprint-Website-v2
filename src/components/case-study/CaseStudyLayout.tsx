@@ -78,7 +78,7 @@ const CaseStudyLayout = ({backNav, hero, solution, testemonial, team}:CaseStudyL
   const testemonialContent: ReactElement = (
     testemonial ? (
         <section className="bg-white std-max decoration-blueprint-black tablet:px-20 tablet:pt-[70px] rounded-[10px] px-6 py-[60px] text-left border-t-[20px] text-bp-black border-[#A5C6FF]">
-            <div className="font-poppins mb-5 flex flex-row gap-5">
+            <div className="font-poppins tablet:mb-10 mb-6 flex flex-row gap-5">
                 {testProfileImg}
                 <div className="flex flex-col justify-between ">
                     <p className="tablet:text-body-m-bold text-[12px] font-semibold">{testemonial.name.toUpperCase()}</p>

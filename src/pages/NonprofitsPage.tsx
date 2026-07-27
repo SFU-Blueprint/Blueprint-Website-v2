@@ -3,6 +3,8 @@ import PageContainer from "../components/layout/PageContainer";
 import Accordion from "../components/shared/Accordion";
 import EvaluationCard from "../components/shared/EvaluationCard";
 import PolaroidPhoto from "../components/shared/PolaroidPhoto";
+import TestimonialSection from "../components/sponsor-page/TestimonialSection";
+import NonprofitsCTASection from "../components/nonprofits-page/NonprofitsCTASection";
 
 const NonprofitsPage = () => {
   const colouredRectCSSBase: string =
@@ -228,110 +230,18 @@ const NonprofitsPage = () => {
         </section>
       </section>
 
-      {/* What our partners say — hidden on mobile; width ∝ viewport (1160px at 1422px ref) */}
-      <section className="mb-0 max-md:hidden">
-        <div className="w-full min-w-0 max-w-[min(100%,calc(100vw*1160/1422))]">
-          <h2
-            className="text-bp-black font-poppins font-normal text-[36px]/[140%] tracking-[-0.72px]
-                        max-md:text-[24px]/[110%] max-md:tracking-[-0.48px]"
-          >
-            what <span className="font-semibold">our partners</span> say
-          </h2>
-
-          <p
-            className="m-0 mt-12 w-full min-w-0 text-bp-black font-caveat text-heading-hand leading-[140%] mb-9"
-          >
-            [The work SFU Blueprint has done] is much appreciated and there is a lot
-            of thanks that cannot really be simply put into words... Volunteers at OCB
-            put in thousands of hours of work behind the scene to make everything
-            happen. The tool that you have created for us will streamline our process
-            to better support and facilitate all the volunteers at OCB. Time is a very
-            valuable and finite resource for us at a small non-profit organization and
-            it will allow us to manage it better and more efficiently.
-          </p>
-
-          <div className="w-full min-w-0 max-w-[min(100%,calc(100vw*241/1422))]">
-            <p className="m-0 text-bp-black font-poppins text-body-s-reg uppercase">
-              CAVAN HUA
-            </p>
-            <p className="m-0 text-bp-black font-poppins text-body-s-reg uppercase">
-              VOLUNTEER COORDINATOR AT OCB
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* NPO project proposal — mobile: full-bleed #0146BE, white type, white CTA; md+: gray card 
-      Update the section to better align with the site's grey and blue design language.
-      Improve consistency with surrounding sections.
-     
-      */}
-      <section
-        className="mt-[148px] max-md:mt-16 mb-12 md:mb-16 min-w-0
-                -mx-6 md:-mx-10 xl:-mx-36 max-md:pl-[23px] max-md:pr-[23px]
-                px-footer-px-mobile md:px-footer-px-tablet lg:px-footer-px-desktop
-                max-md:bg-bp-blue max-md:py-12 md:bg-transparent"
-      >
-        <div
-          className="w-full shrink-0 flex flex-col justify-center items-stretch
-                max-md:bg-transparent max-md:p-0 max-md:min-h-0
-                md:bg-bp-lighter-grey rounded-[20px]
-                pt-[72px] pb-[96px] px-6 sm:px-10 md:px-[103px]
-                md:min-h-[560px]"
-        >
-          <div className="flex flex-col w-full max-w-[931px] mx-auto justify-center items-stretch">
-            <div className="mb-8 flex w-full items-start gap-[26px] max-md:mb-10 md:mb-12 max-md:gap-0">
-              <span
-                className="mt-4 hidden shrink-0 w-[22px] h-[22px] rounded-[5px] bg-bp-blue md:block"
-                aria-hidden
-              />
-              <h2
-                className="m-0 min-h-0 w-full min-w-0 max-md:mr-32 max-md:min-w-[253px] text-left font-poppins text-white text-mobile-heading-m-reg md:max-w-[483px] md:font-normal md:text-bp-black md:text-heading-s-reg"
-              >
-                are you part of an NPO with{" "}
-                <span className="font-normal md:font-semibold">a project idea</span> in mind?
-              </h2>
-            </div>
-
-            <div
-              className="mb-8 h-[0.5px] w-full min-w-0 shrink-0 self-stretch bg-white/35 max-md:mb-10 md:mb-12 md:max-w-[931px] md:bg-bp-grey"
-              aria-hidden
-            />
-
-            <div className="flex w-full flex-col lg:flex-row md:items-start md:justify-between md:gap-12 max-md:gap-0">
-              <div className="flex w-full max-w-full min-w-0 flex-col gap-6 self-start md:max-w-[588px] md:shrink-0 flex-1">
-                <div className="w-full min-w-0 self-stretch overflow-x-auto sm:overflow-visible max-md:pr-36  max-md:overflow-visible md:max-w-none">
-                  <p className="text-left font-poppins whitespace-normal text-mobile-body-l-bold text-bp-white max-md:min-w-[253px]  md:text-body-l-bold md:text-bp-black">
-                    Submit your project proposal through the form!
-                  </p>
-                </div>
-                <p className="min-w-0 self-stretch text-left font-poppins leading-[normal] text-body-m-reg text-bp-white 
-                max-md:min-w-[346px] max-md:flex-1 max-md:basis-0 max-md:shrink-0 md:max-w-none md:flex-none md:basis-auto md:text-bp-black">
-                  If you have any questions, or haven&apos;t heard back from us within a
-                  week of submitting a proposal, feel free to reach out to{" "}
-                  <a
-                    href="mailto:sfublueprint@gmail.com"
-                    className="font-poppins text-body-m-bold-link leading-[normal] text-bp-white underline decoration-solid [text-decoration-skip-ink:auto] underline-offset-auto hover:opacity-90 md:text-body-m-bold-link md:text-bp-black md:hover:opacity-80"
-                  >
-                    sfublueprint@gmail.com
-                  </a>
-                </p>
-              </div>
-
-              <a
-                href="/nonprofits/proposal"
-                className="inline-flex w-full shrink-0 items-center justify-center gap-[10px] rounded-[5px] transition-colors
-                max-md:mt-10 max-md:min-h-[52px] max-md:px-6 max-md:py-3.5 max-md:bg-white max-md:hover:bg-bp-lightest-grey
-                md:mt-0 md:box-border md:h-[60px] md:w-full lg:w-[200px] md:max-w-full md:self-start md:px-[44px] md:py-[14px] md:bg-bp-blue md:hover:bg-bp-hover-blue md:active:bg-bp-pressed-blue"
-              >
-                <span className="whitespace-nowrap text-center font-poppins uppercase leading-[normal] text-mobile-body-m-bold text-bp-blue md:text-body-m-bold md:text-bp-white">
-                  PROPOSAL FORM
-                </span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
+      <div className="pt-20 max-md:pt-14">
+        <TestimonialSection
+          quote="Volunteers at OCB put in thousands of hours of work behind the scene to make everything happen. The tool that you have created for us will streamline our process to better support and facilitate all the volunteers at OCB."
+          authorName="Cavan Hua"
+          authorRole="VOLUNTEER COORDINATOR AT OCB"
+          polaroidCaption="description here"
+          caseStudyLink="/projects/our-community-bikes"
+        />
+      </div>
+      <div className="pt-16 max-md:pt-12">
+        <NonprofitsCTASection proposalFormLink="/nonprofits/proposal" />
+      </div>
     </PageContainer>
   );
 };

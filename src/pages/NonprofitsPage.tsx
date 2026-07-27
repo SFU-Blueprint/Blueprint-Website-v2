@@ -7,9 +7,6 @@ import TestimonialSection from "../components/sponsor-page/TestimonialSection";
 import NonprofitsCTASection from "../components/nonprofits-page/NonprofitsCTASection";
 
 const NonprofitsPage = () => {
-  const colouredRectCSSBase: string =
-    "w-[22px] h-[22px] inline-block rounded-[5px] max-md:w-[16px] max-md:h-[16px] max-md:rounded-[3px]";
-
   return (
     <PageContainer className="overflow-hidden relative"
     >
@@ -44,46 +41,65 @@ const NonprofitsPage = () => {
       {/* Hero Section */}
       <section
         className="mb-[180px]
-                        max-[1024px]:mb-[30px]"
+                        max-[1024px]:mb-[80px] max-[480px]:mb-[64px]"
       >
-        {/* Text column & body: width = viewport × (939|693.5)/1422; ref 1422px-wide screen */}
-        <div
-          className="flex w-full flex-row gap-0 max-[900px]:flex-col max-[900px]:gap-8"
-        >
-          <div
-            className="flex min-w-0 w-full max-w-full flex-col md:shrink-0 md:max-w-[min(100%,calc(100vw*939/1422))] md:w-[min(100%,calc(100vw*939/1422))]"
+        <div className="flex items-end gap-6 max-[900px]:flex-col max-[900px]:items-start max-[900px]:gap-0">
+          <div className="pointer-events-none absolute bottom-[14px] left-0 right-0 hidden h-px bg-bp-light-grey min-[901px]:block" aria-hidden="true" />
+          <h1
+            className="relative z-10 text-left self-start justify-start font-poppins text-5xl leading-none tracking-[-0.96px] text-bp-black pt-main-desktop-top max-md:pt-main-mobile-top md:text-7xl"
           >
-            <h1
-              className="text-left self-start justify-start desktop:mb-[74px] md:mb-[50px] mb-[30px] font-poppins text-5xl md:text-7xl leading-none tracking-[-0.96px] text-bp-black pt-main-desktop-top max-md:pt-main-mobile-top"
-            >
-              <span className="font-bold">partner</span>{" "}
-              <span className="font-normal">with us</span>
-            </h1>
+            <span className="font-bold">partner</span>{" "}
+            <span className="font-normal">with us</span>
+          </h1>
+        </div>
 
-            <p
-              className="m-0 min-w-0 self-stretch font-poppins text-black text-heading-xs-reg
-                        max-md:max-w-[351px] max-md:text-bp-black max-md:text-mobile-heading-xs-reg
-                        md:max-w-[min(100%,calc(100vw*693.5/1422))] min-[901px]:mb-[120px]"
-            >
-              by working with us, your organization will{" "}
-              <span className={`bg-[#D2A6FB] ${colouredRectCSSBase}`} /> gain fresh
-              perspectives of your business,{" "}
-              <span className={`bg-[#71EC59] ${colouredRectCSSBase}`} /> increase community
-              engagement with local students, and{" "}
-              <span className={`bg-[#F49F00] ${colouredRectCSSBase}`} /> bring your
-              vision for social good to life through innovative ways, all free of charge.
+        <div className="mt-[22px] flex w-full items-start gap-[38px] max-[900px]:mt-[18px] max-[900px]:flex-col max-[900px]:gap-[28px]">
+          <div className="min-w-0 flex-1 max-w-[592px]">
+            <p className="m-0 font-poppins text-[24px] font-normal leading-[1.35] tracking-[-0.48px] text-bp-black max-md:text-[18px] max-md:leading-[1.4] max-md:tracking-[-0.36px]">
+              by working with us, your organization will:
             </p>
+
+            <ul className="mt-[38px] flex list-none flex-col gap-[22px] p-0 max-md:mt-[24px] max-md:gap-[18px]">
+              <li className="flex items-start gap-[16px] max-md:gap-[12px]">
+                <span className="mt-[8px] h-[19px] w-[19px] shrink-0 rounded-[5px] bg-[#F49F00] max-md:mt-[5px] max-md:h-[16px] max-md:w-[16px] max-md:rounded-[3px]" aria-hidden="true" />
+                <span className="font-poppins text-[24px] font-normal leading-[1.35] tracking-[-0.48px] text-bp-black max-md:text-[18px] max-md:leading-[1.4] max-md:tracking-[-0.36px]">
+                  gain fresh perspectives of your business
+                </span>
+              </li>
+              <li className="flex items-start gap-[16px] max-md:gap-[12px]">
+                <span className="mt-[8px] h-[19px] w-[19px] shrink-0 rounded-[5px] bg-[#D2A6FB] max-md:mt-[5px] max-md:h-[16px] max-md:w-[16px] max-md:rounded-[3px]" aria-hidden="true" />
+                <span className="font-poppins text-[24px] font-normal leading-[1.35] tracking-[-0.48px] text-bp-black max-md:text-[18px] max-md:leading-[1.4] max-md:tracking-[-0.36px]">
+                  increase community engagement with local students
+                </span>
+              </li>
+              <li className="flex items-start gap-[16px] max-md:gap-[12px]">
+                <span className="mt-[8px] h-[19px] w-[19px] shrink-0 rounded-[5px] bg-[#71EC59] max-md:mt-[5px] max-md:h-[16px] max-md:w-[16px] max-md:rounded-[3px]" aria-hidden="true" />
+                <span className="font-poppins text-[24px] font-normal leading-[1.35] tracking-[-0.48px] text-bp-black max-md:text-[18px] max-md:leading-[1.4] max-md:tracking-[-0.36px]">
+                  bring your vision for social good to life through innovative ways, all free of charge
+                </span>
+              </li>
+            </ul>
           </div>
 
-          <div
-            className="min-w-0 shrink-0 max-[900px]:ml-0 min-[900px]:mb-5 max-[900px]:mt-5 min-[901px]:-ml-[120px] min-[901px]:mt-[145px]"
-          >
-            <PolaroidPhoto
-              imageSrc="/images/parter-with-us/OCB_project_handoff.png"
-              caption="project handoff"
-              alt="Our Community Bikes project handoff"
-              className="rotate-[7deg] max-[1024px]:mx-auto"
-            />
+          <div className="relative h-[382px] w-full max-w-[324px] shrink-0 self-center md:h-[500px] md:max-w-[460px] min-[901px]:ml-auto min-[901px]:self-start">
+            <div className="absolute left-0 top-[108px] md:left-[10px] md:top-[152px]">
+              <PolaroidPhoto
+                imageSrc="/images/parter-with-us/OCB_project_handoff.png"
+                caption="project handoff @OCB"
+                alt=""
+                className="origin-top-left rotate-[-4deg] scale-[0.88] md:scale-[0.84]"
+                imageCropClassName="object-center scale-[1.04]"
+              />
+            </div>
+            <div className="absolute right-0 top-0 z-10">
+              <PolaroidPhoto
+                imageSrc="/images/parter-with-us/OCB_project_handoff.png"
+                caption="project handoff @OCB"
+                alt="Our Community Bikes project handoff"
+                className="origin-top-right rotate-[6deg] scale-[0.88] md:scale-[0.84]"
+                imageCropClassName="object-center scale-[1.04]"
+              />
+            </div>
           </div>
         </div>
       </section>

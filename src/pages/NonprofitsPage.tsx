@@ -44,7 +44,6 @@ const NonprofitsPage = () => {
                         max-[1024px]:mb-[80px] max-[480px]:mb-[64px]"
       >
         <div className="flex items-end gap-6 max-[900px]:flex-col max-[900px]:items-start max-[900px]:gap-0">
-          <div className="pointer-events-none absolute bottom-[14px] left-0 right-0 hidden h-px bg-bp-light-grey min-[901px]:block" aria-hidden="true" />
           <h1
             className="relative z-10 text-left self-start justify-start font-poppins text-5xl leading-none tracking-[-0.96px] text-bp-black pt-main-desktop-top max-md:pt-main-mobile-top md:text-7xl"
           >

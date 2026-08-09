@@ -844,9 +844,9 @@ const HomePage = () => {
         <ImpactSection />
       </PageContainer>
 
-      {/* Students block — one crosspoint only, always behind cards (ImpactSection is z-20).
-          Horizontal line centered in the gap between JOIN US and the carousel. */}
-      <div className="relative z-0 overflow-x-clip bg-bp-lightest-grey">
+      {/* Students block — sits above ImpactSection so sticky white project cards
+          cannot cover the JOIN US crosspoints as the sections overlap. */}
+      <div className="relative z-30 overflow-x-clip bg-bp-lightest-grey">
         <PageContainer className="relative z-10 !pt-0">
           <div className="relative pt-[140px] font-['Poppins'] md:pt-[220px]">
             <div className="relative z-10 flex w-full min-w-0 flex-col justify-between gap-12">
@@ -871,15 +871,17 @@ const HomePage = () => {
             </div>
 
             {/* Gap band between JOIN US and carousel — horizontal line at mid-gap.
-                Crosspoint stacks under carousel (z-0); cards stay on top (z-10). */}
+                Full-bleed breakout so PageContainer padding cannot clip the graphic. */}
             <div className="relative z-0 h-[120px] w-full max-md:h-[104px]">
-              <HeroCrosspoint
-                videoSrc="/videos/crosspoints/dotted-path-1.webm"
-                className="pointer-events-none absolute inset-x-0 top-0 z-0 h-full"
-                anchorClassName="absolute top-1/2 right-[-96px] max-md:right-[-80px] lg:right-[-72px] xl:right-[-40px]"
-                videoClassName="w-[640px] max-md:w-[280px]"
-                imageClassName="w-[2260px] max-md:w-[1200px]"
-              />
+              <div className="pointer-events-none absolute left-1/2 top-0 z-0 h-full w-screen -translate-x-1/2">
+                <HeroCrosspoint
+                  videoSrc="/videos/crosspoints/dotted-path-1.webm"
+                  className="pointer-events-none absolute inset-x-0 top-0 z-0 h-full"
+                  anchorClassName="absolute top-1/2 right-[clamp(24px,8vw,120px)] max-md:right-[24px]"
+                  videoClassName="w-[640px] max-md:w-[280px]"
+                  imageClassName="w-[2260px] max-md:w-[1200px]"
+                />
+              </div>
             </div>
           </div>
 

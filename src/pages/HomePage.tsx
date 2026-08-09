@@ -849,23 +849,27 @@ const HomePage = () => {
       <div className="relative z-30 overflow-x-clip bg-bp-lightest-grey">
         <PageContainer className="relative z-10 !pt-0">
           <div className="relative pt-[140px] font-['Poppins'] md:pt-[220px]">
-            <div className="relative z-10 flex w-full min-w-0 flex-col justify-between gap-12">
-              <div className="flex w-full min-w-0 max-w-[660px] flex-1 flex-col gap-6 bg-bp-lightest-grey text-zinc-800 max-md:min-w-[345px]">
+            {/* self-start + inline-flex keep the /students Link button-sized.
+                A stretched full-width CTA row was covering the crosspoint curves
+                and making that area navigate to Join Our Team. */}
+            <div className="relative z-10 flex w-full min-w-0 flex-col gap-12">
+              <div className="flex w-full min-w-0 max-w-[660px] flex-col gap-6 text-zinc-800 max-md:min-w-[345px]">
                 <div className="max-w-[400px] text-heading-s-reg max-md:text-mobile-heading-m-reg md:min-w-[518px]">
                   students: turn real projects into
                   <span className="font-semibold"> real opportunities. </span>
                 </div>
-                <div className="flex flex-1 text-body-m-reg leading-8 max-md:text-mobile-body-m-reg">
+                <div className="text-body-m-reg leading-8 max-md:text-mobile-body-m-reg">
                   By working with a passionate interdisciplinary team and making a real impact in
                   their community, our members have gained invaluable skills, allowing them to pursue
                   successful careers in tech. Join us to see the Blueprint difference.
                 </div>
               </div>
-              <div className="relative z-10 max-md:hidden shrink-0 justify-end bg-bp-lightest-grey">
-                <Link to="/students">
-                  <Button variant="tertiary" className="uppercase !h-16 !w-48 !font-light">
-                    join us
-                  </Button>
+              <div className="relative z-10 max-md:hidden self-start">
+                <Link
+                  to="/students"
+                  className="inline-flex h-16 w-48 items-center justify-center rounded-[5px] bg-bp-black px-[44px] font-poppins text-[16px] font-light uppercase leading-none text-white transition-colors duration-150 hover:bg-bp-dark-grey active:bg-bp-pressed-blue"
+                >
+                  join us
                 </Link>
               </div>
             </div>
@@ -873,7 +877,7 @@ const HomePage = () => {
             {/* Gap band between JOIN US and carousel — horizontal line at mid-gap.
                 Full-bleed breakout so PageContainer padding cannot clip the graphic. */}
             <div className="relative z-0 h-[120px] w-full max-md:h-[104px]">
-              <div className="pointer-events-none absolute left-1/2 top-0 z-0 h-full w-screen -translate-x-1/2">
+              <div className="pointer-events-none absolute left-1/2 top-0 z-0 h-full w-screen max-w-none -translate-x-1/2">
                 <HeroCrosspoint
                   videoSrc="/videos/crosspoints/dotted-path-1.webm"
                   className="pointer-events-none absolute inset-x-0 top-0 z-0 h-full"
@@ -901,10 +905,11 @@ const HomePage = () => {
           </div>
 
           <div className="pb-10 md:hidden">
-            <Link to="/students">
-              <Button variant="tertiary" className="uppercase !h-16 !w-full !font-normal">
-                join us
-              </Button>
+            <Link
+              to="/students"
+              className="inline-flex h-16 w-full items-center justify-center rounded-[5px] bg-bp-black px-[44px] font-poppins text-[16px] font-normal uppercase leading-none text-white transition-colors duration-150 hover:bg-bp-dark-grey active:bg-bp-pressed-blue"
+            >
+              join us
             </Link>
           </div>
 

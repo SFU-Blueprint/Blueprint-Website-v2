@@ -1,4 +1,4 @@
-import { useCallback, useLayoutEffect, useRef, useState, type ComponentType, type CSSProperties, type SVGProps } from "react";
+import { useCallback, useLayoutEffect, useRef, useState, type ComponentType, type CSSProperties, type ReactNode, type SVGProps } from "react";
 import Button from "../components/shared/Button";
 import ExpandableContentCards from "../components/shared/ExpandableContentCards";
 import { ReactComponent as ArrowUpRightIcon } from "../assets/icons/ArrowUpRight.svg";
@@ -7,6 +7,8 @@ import { ReactComponent as YoutubeIcon } from "../assets/icons/youtube.svg";
 import { ReactComponent as DiscordIcon } from "../assets/icons/discord.svg";
 import { ReactComponent as LinkedinIcon } from "../assets/icons/linkedin.svg";
 import PageContainer from "../components/layout/PageContainer";
+import HeroCrosspoint from "../components/shared/HeroCrosspoint";
+import Accordion from "../components/shared/Accordion";
 
 const HERO_CONTENT = {
   subtitle:
@@ -20,11 +22,11 @@ const HERO_CONTENT = {
 
 const ROLE_DESCRIPTIONS = {
   Developer:
-    "In a team of 6-8, work together to build the project based on the project and design requirements, guided by the tech lead in each project.",
+    "In a team of 6-8, bring behavioural and technical skills to build the product. You'll work through project-specific technical challenges—concepts and design approaches—alongside your tech lead, developers, and designers.",
   Designer:
-    "In a team of 6-8, work together to build the project based on the project and design requirements, guided by the tech lead in each project.",
+    "In a team of 6-8, shape the product experience through research, UI/UX, and visual design. You'll collaborate closely with the project manager and developers so designs stay aligned with user needs and technical constraints.",
   "Project Manager":
-    "In a team of 6-8, work together to build the project based on the project and design requirements, guided by the tech lead in each project.",
+    "In a team of 6-8, lead initiatives end-to-end: communicate with stakeholders, align priorities across design and engineering, and keep the project on track for our nonprofit partner.",
 } as const;
 
 const TRIAD_ASSETS = {
@@ -52,8 +54,8 @@ const SOCIAL_EVENT_CARDS = [
   {
     title: "Career Events",
     body: "Attend our career knowledge-sharing events to learn how to best set yourself up for success!",
-    image: "/images/student/join-social-team.webp",
-    imageClassName: "h-full w-full object-cover object-bottom grayscale",
+    image: "/images/student/blueprint-to-career.png",
+    imageClassName: "h-full w-full object-cover object-center",
     accentColor: "#A5C6FF",
   },
 ];
@@ -70,14 +72,8 @@ const APPLICATION_TAB_CONTENT: Record<(typeof APPLICATION_TABS)[number], string[
   "MEET BLUEPRINT": [
     "We host info session events once a semester; join us to have fun and hear directly from our team members about the Blueprint experience!",
   ],
-  APPLY: [
-    "Submit your application through the form linked in our hiring announcements. We'll ask about your experience, interests, and why you want to join Blueprint.",
-    "Applications are typically open for 1-2 weeks at the start of each semester.",
-  ],
-  INTERVIEW: [
-    "If your application moves forward, we'll invite you to an interview with current Blueprint members. This is a chance for us to get to know you and for you to learn more about our team.",
-    "Interviews are casual and conversational — no trick questions!",
-  ],
+  APPLY: [],
+  INTERVIEW: [],
   "FINAL DECISION": [
     "After interviews, our team reviews all candidates and makes final decisions. We aim to notify everyone within a week of completing interviews.",
     "We value diverse perspectives and look for candidates who are passionate about social good and collaborative work.",
@@ -87,6 +83,169 @@ const APPLICATION_TAB_CONTENT: Record<(typeof APPLICATION_TABS)[number], string[
     "You'll be paired with experienced members who can help you get up to speed quickly.",
   ],
 };
+
+type RoleAccordionItem = {
+  title: string;
+  body: ReactNode;
+};
+
+const INTERVIEW_ROLE_ACCORDIONS: RoleAccordionItem[] = [
+  {
+    title: "Developers",
+    body: (
+      <>
+        <p>
+          We interview for two levels of developers — Junior Developers joining a project team to
+          grow their skills, and Senior Developers who take on more ownership of technical work and
+          mentoring within the team.
+        </p>
+        <p>
+          For all developer roles, the interview process will focus on both behavioural and technical
+          abilities. The technical portion will begin with a few light questions as a warm-up,
+          followed by 2-3 project-specific questions. Depending on the hiring timeline, these
+          questions may focus on technical concepts and design approaches rather than coding
+          exercises. Senior Developer interviews may also explore how you guide technical decisions
+          and support other developers on the team.
+        </p>
+      </>
+    ),
+  },
+  {
+    title: "Designer",
+    body: (
+      <>
+        <p>
+          We interview for two types of designers — Product/UX designers for our project teams, and
+          Graphic/Motion designers for our marketing team.
+        </p>
+        <p>
+          Designer interviews will include behavioural questions and a walkthrough of your portfolio
+          or case studies. We’ll focus on your design process, how you iterate on a challenge, and
+          how you collaborate with developers and product managers. Be prepared to discuss at least
+          one complete case study in depth.
+        </p>
+      </>
+    ),
+  },
+  {
+    title: "Tech Lead",
+    body: (
+      <p>
+        Tech Lead interviews will include both behavioural and technical questions. Candidates will
+        also be evaluated on their leadership capabilities, including experience leading teams,
+        communicating with stakeholders, and guiding technical decisions. The technical portion will
+        consist of a few light questions, followed by project-specific questions.
+      </p>
+    ),
+  },
+  {
+    title: "Product and Project Manager",
+    body: (
+      <p>
+        Product or Project Manager interviews will consist of behavioural questions and a
+        project-specific case study. Questions will focus on your experience leading initiatives,
+        communicating with multiple stakeholders, and aligning priorities across teams.
+      </p>
+    ),
+  },
+  {
+    title: "Executive Member",
+    body: (
+      <p>
+        Executive member interviews will include both behavioural and role-specific situational or
+        case study questions. These questions are designed to understand your motivation for joining,
+        your approach to decision-making, and your ability to collaborate with others.
+      </p>
+    ),
+  },
+];
+
+const APPLY_ROLE_ACCORDIONS: RoleAccordionItem[] = [
+  {
+    title: "Developers",
+    body: (
+      <>
+        <p>
+          We hire for two levels of developers — Junior Developers for our project teams who are
+          building foundational experience, and Senior Developers who take on more ownership of
+          technical direction within a project. Typically, we hire both junior and senior developers
+          each semester depending on project needs.
+        </p>
+        <p>
+          For all developer applications, we look for evidence of both behavioural and technical
+          ability. Share projects that show how you approach technical concepts and design decisions.
+          (GitHub links, project write-ups, or portfolios are welcome!){" "}
+          <strong className="font-semibold">
+            We are looking for at least one project that clearly demonstrates your problem-solving
+            process, your contributions, and the outcome.
+          </strong>
+        </p>
+        <p>
+          If your project is a group effort, make sure it is very clear how your personal
+          contributions shaped the final product. If we can’t easily differentiate your work from
+          those of your team, your application will likely be rejected.
+        </p>
+      </>
+    ),
+  },
+  {
+    title: "Designer",
+    body: (
+      <>
+        <p>
+          We hire for two types of designers - Product/UX designers for one of our project teams, and
+          Graphic/Motion designers for our marketing team. Typically, we will only hire 6-8
+          Product/UX designers and 2 Graphic/Motion designers throughout the year.
+        </p>
+        <p>
+          For all designer applications, a portfolio is required to show evidence of basic knowledge
+          of design principles and your experience with the design process. (PDF/Slide Decks are
+          accepted!){" "}
+          <strong className="font-semibold">
+            We are looking for at least one complete case study showing a design challenge, your
+            iterations, and a final product.
+          </strong>
+        </p>
+        <p>
+          If your case study is showing a group project, make sure it is very clear how your personal
+          contributions shaped the final product. If we can’t easily differentiate your work from
+          those of your team, your application will likely be rejected.
+        </p>
+      </>
+    ),
+  },
+  {
+    title: "Tech Lead",
+    body: (
+      <p>
+        Tech Lead applications should speak to leadership as well as technical depth. Share
+        experience leading teams, communicating with stakeholders, and guiding technical decisions.
+        We want to see how you mentor others and drive project direction, not only your individual
+        coding work.
+      </p>
+    ),
+  },
+  {
+    title: "Product and Project Manager",
+    body: (
+      <p>
+        Product or Project Manager applications should emphasize how you lead initiatives, work with
+        multiple stakeholders, and align priorities across teams. Use concrete examples of planning,
+        communication, and trade-offs you’ve made to move a project forward.
+      </p>
+    ),
+  },
+  {
+    title: "Executive Member",
+    body: (
+      <p>
+        Executive Member applications should convey your motivation for joining Blueprint, how you
+        approach decision-making, and how you collaborate with others. Situational examples that show
+        judgment and teamwork help us understand how you’d contribute at the org level.
+      </p>
+    ),
+  },
+];
 
 const OPEN_POSITIONS = [
   { title: "senior developer", count: 3, accent: "#71EC59", href: "#" },
@@ -128,8 +287,6 @@ const SOCIAL_LINKS = [
   },
 ];
 
-const APPLICATION_TAB_UNDERLINE_EXTRA_PX = 8;
-
 const StudentsPage = () => {
   const scrollToPositions = () => {
     document
@@ -138,42 +295,22 @@ const StudentsPage = () => {
   };
 
   return (
-    <PageContainer className="bg-bp-lightest-grey overflow-x-hidden relative">
-      <HeroSection onOpenPositions={scrollToPositions} />
-      <TypicalExperienceSection />
-      <ApplicationProcessSection />
-      <OpenPositionsSection />
-      <StayUpdatedSection />
-    </PageContainer>
+    <div className="relative overflow-x-clip bg-bp-lightest-grey">
+      <HeroCrosspoint videoSrc="/videos/crosspoints/dotted-path-2.webm" />
+      <PageContainer className="relative z-10">
+        <HeroSection onOpenPositions={scrollToPositions} />
+        <TypicalExperienceSection />
+        <ApplicationProcessSection />
+        <OpenPositionsSection />
+        <StayUpdatedSection />
+      </PageContainer>
+    </div>
   );
 };
 
 function HeroSection({ onOpenPositions }: { onOpenPositions: () => void }) {
   return (
-    <section className="bg-bp-lightest-grey max-md:bg-none ">
-      <div className="w-full h-0 max-[767.9px]:hidden">
-        <div className=" 
-                  bg-[url('/images/crosspoint.png')] bg-no-repeat
-                  min-[1280px]:bg-[calc(50%+35px)_-388px]
-                  max-[1279.9px]:bg-[calc(100%+615px)_-388px]
-                  max-[767.9px]:bg-[calc(100%+615px)_-500px] max-[767.9px]:w-[calc(100%+17px)]
-                  overflow-clip w-full h-full mt-[-110px] absolute z-10 pointer-events-none">
-
-        </div>
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="
-                    min-[1280px]:right-[calc(50%-965px)] min-[1280px]:top-[-185px]
-                    max-[1279.9px]:right-[-320px] max-[1279.9px]:top-[-185px]
-                    max-[1023.9px]:right-[-235px] max-[1023.9px]:top-[-100px] min-[1024px]:w-[790px] max-[1023.9px]:w-[620px]
-                    max-[767.9px]:right-[-200px] max-[767.9px]:top-[-285px]
-                    absolute z-0 pointer-events-none">
-          <source src="videos/crosspoints/dotted-path-2.webm" type="video/webm"/>
-        </video>
-      </div>
+    <section className="relative z-10">
       <div className="mx-auto relative z-10 flex w-full max-w-[1212px] flex-col pb-[154px] max-md:pb-[84px] pt-main-desktop-top max-md:pt-main-mobile-top">
         <div className="flex items-start justify-between gap-10 max-md:flex-col max-md:gap-12">
           <div className="max-w-[954px]">
@@ -186,7 +323,7 @@ function HeroSection({ onOpenPositions }: { onOpenPositions: () => void }) {
           </div>
         </div>
 
-        <div className="mt-[60px] w-full max-w-[617px] rounded-[5px] bg-white p-9 max-md:mt-[67px] max-md:px-[30px] max-md:pb-12 max-md:pt-7">
+        <div className="mx-auto mt-[60px] w-full max-w-[617px] rounded-[5px] bg-white p-9 max-md:mt-[67px] max-md:px-[30px] max-md:pb-12 max-md:pt-7">
           <div className="inline-flex items-center gap-3 rounded-[5px] bg-bp-lightest-grey px-[14px] py-[10px] max-md:gap-2 max-md:px-3 max-md:py-2">
             <span className="size-4 rounded-[3px] bg-bp-orange max-md:size-3 max-md:bg-bp-blue" aria-hidden />
             <span className="font-poppins text-[14px] font-medium uppercase leading-none text-bp-black max-md:text-[10px]">
@@ -303,7 +440,7 @@ function TriadDiagram() {
         />
       </div>
 
-      <div className="h-[198px] w-[520px] overflow-hidden rounded-[10px] bg-bp-lighter-grey px-[38px] py-[35px] max-md:h-auto max-md:w-[355px] max-md:px-6 max-md:py-[30px]">
+      <div className="w-[520px] rounded-[10px] bg-bp-lighter-grey px-[38px] pb-12 pt-[35px] max-md:w-[355px] max-md:px-6 max-md:pb-10 max-md:pt-[30px]">
         <h3 className="font-poppins text-[24px] font-normal leading-[1.3] tracking-[-0.48px] text-bp-black max-md:text-[18px] max-md:tracking-[-0.36px]">
           {activeRole}:
         </h3>
@@ -409,8 +546,8 @@ function ApplicationProcessSection() {
     const containerRect = container.getBoundingClientRect();
     const tabRect = tabEl.getBoundingClientRect();
     setIndicatorStyle({
-      left: tabRect.left - containerRect.left - APPLICATION_TAB_UNDERLINE_EXTRA_PX,
-      width: tabRect.width + APPLICATION_TAB_UNDERLINE_EXTRA_PX * 2,
+      left: tabRect.left - containerRect.left,
+      width: tabRect.width,
     });
   }, [activeTab]);
 
@@ -432,10 +569,10 @@ function ApplicationProcessSection() {
       </h2>
 
       <div className="flex flex-col gap-12 max-md:gap-[30px]">
-        <div className="flex flex-col gap-2">
+        <div ref={indicatorContainerRef} className="relative">
           <div
             ref={tabsScrollRef}
-            className="scrollbar-hide-custom flex gap-[60px] overflow-x-auto pl-4 font-poppins text-[16px] leading-normal max-md:gap-[30px] max-md:pl-[26px] max-md:text-[14px]"
+            className="scrollbar-hide-custom flex items-end gap-[60px] overflow-x-auto pb-3 font-poppins text-[16px] leading-normal max-md:gap-[30px] max-md:text-[14px]"
           >
             {APPLICATION_TABS.map((tab, index) => (
               <button
@@ -453,17 +590,17 @@ function ApplicationProcessSection() {
               </button>
             ))}
           </div>
-          <div ref={indicatorContainerRef} className="relative">
-            <div
-              className="absolute top-0 h-[5px] rounded-t-[10px] bg-bp-blue max-md:h-[3px]"
-              style={{
-                left: indicatorStyle.left,
-                width: indicatorStyle.width,
-                transition: "left 0.2s ease, width 0.2s ease",
-              }}
-            />
-            <div className="h-px w-full bg-bp-grey pt-[5px] max-md:w-[598px] max-md:pt-[3px]" />
-          </div>
+          {/* Full-width baseline flush with heading; blue bar meets the left edge when first tab is active */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-bp-grey" aria-hidden />
+          <div
+            className="pointer-events-none absolute bottom-0 h-[5px] rounded-t-[10px] bg-bp-blue max-md:h-[3px]"
+            style={{
+              left: indicatorStyle.left,
+              width: indicatorStyle.width,
+              transition: "left 0.2s ease, width 0.2s ease",
+            }}
+            aria-hidden
+          />
         </div>
 
         <div className="flex flex-col gap-12 max-md:gap-[30px]">
@@ -513,6 +650,18 @@ function EventDetail({ label, value }: { label: string; value: string }) {
   );
 }
 
+function RoleAccordions({ roles }: { roles: RoleAccordionItem[] }) {
+  return (
+    <div className="flex w-full flex-col gap-3 max-md:gap-2.5">
+      {roles.map((role) => (
+        <Accordion key={role.title} header={role.title}>
+          <div className="flex flex-col gap-3">{role.body}</div>
+        </Accordion>
+      ))}
+    </div>
+  );
+}
+
 function ApplicationTabBody({ activeTab }: { activeTab: (typeof APPLICATION_TABS)[number] }) {
   if (activeTab === "MEET BLUEPRINT") {
     return (
@@ -533,6 +682,54 @@ function ApplicationTabBody({ activeTab }: { activeTab: (typeof APPLICATION_TABS
           </a>{" "}
           community. (On Discord, we have a channel where you can ask our team questions!)
         </p>
+      </div>
+    );
+  }
+
+  if (activeTab === "APPLY") {
+    return (
+      <div className="flex w-full flex-col gap-10 max-md:gap-8">
+        <div className="flex flex-col gap-6">
+          <div className="flex items-start justify-between gap-8 max-md:flex-col max-md:gap-5">
+            <h3 className="max-w-[621px] font-poppins text-[24px] font-medium leading-[1.3] tracking-[-0.48px] text-bp-black max-md:text-[18px] max-md:tracking-[-0.36px]">
+              We hire each semester for new and ongoing projects, for various roles.
+            </h3>
+            <Button
+              variant="primary"
+              className="h-[54px] shrink-0 px-6 max-md:h-[52px] max-md:w-full"
+              onClick={() =>
+                document.getElementById("open-positions")?.scrollIntoView({ behavior: "smooth" })
+              }
+            >
+              SEE OPEN ROLES
+            </Button>
+          </div>
+          <div className="flex max-w-[621px] flex-col gap-3 font-poppins text-[16px] font-normal leading-normal text-black max-md:text-[14px]">
+            <p>
+              We carefully review every application we receive. Depending on the role and volume of
+              applicants, this process typically takes 1–2 weeks. Successful applicants will be
+              contacted via email to schedule an interview.
+            </p>
+            <p>Learn about what we would like to see in your application based on your desired role:</p>
+          </div>
+        </div>
+        <RoleAccordions roles={APPLY_ROLE_ACCORDIONS} />
+      </div>
+    );
+  }
+
+  if (activeTab === "INTERVIEW") {
+    return (
+      <div className="flex w-full flex-col gap-10 max-md:gap-8">
+        <div className="flex max-w-[621px] flex-col gap-3 font-poppins text-[16px] font-normal leading-normal text-black max-md:text-[14px]">
+          <p>
+            Once your application is accepted, you will be contacted by our Talent team to schedule
+            an interview. Interviews usually last 30–45 minutes and include a mix of behavioural and
+            project-specific questions.
+          </p>
+          <p>Learn more about what to expect in your interview based on your desired role:</p>
+        </div>
+        <RoleAccordions roles={INTERVIEW_ROLE_ACCORDIONS} />
       </div>
     );
   }
@@ -628,25 +825,14 @@ function OpenPositionCard({
 
 function StayUpdatedSection() {
   return (
-    <section className="relative bg-bp-lightest-grey py-[202px] max-md:py-[122px]">
-        <div className="w-full h-0 ">
-          <div className="bg-bp-lightest-grey bg-[url('/images/crosspoint.png')] bg-no-repeat
-                    min-[768px]:bg-[calc(50%-399px)_-310px] 
-                    max-[767.9px]:bg-[calc(50%-190px)_-250px] max-[767.9px]:bg-[length:1100px_1100px]
-                    overflow-clip h-[900px] w-full mt-[-110px] absolute pointer-events-none">
-          </div>
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="
-                      min-[768px]:w-[785px] min-[768px]:max-w-[785px] min-[768px]:right-[calc(50%-395px)] min-[768px]:top-[-8px]
-                      max-[767.9px]:w-[400px] max-[767.9px]:max-w-[370px] max-[767.9px]:right-[calc(50%-187px)] max-[767.9px]:top-[20px]
-                      absolute pointer-events-none">
-            <source src="videos/crosspoints/dotted-path-2.webm" type="video/webm"/>
-          </video>
-      </div>
+    <section className="relative overflow-hidden bg-bp-lightest-grey py-[202px] max-md:py-[122px]">
+      <HeroCrosspoint
+        videoSrc="/videos/crosspoints/dotted-path-2.webm"
+        className="h-full"
+        anchorClassName="absolute top-[220px] left-1/2 max-md:top-[160px]"
+        videoClassName="w-[720px] max-md:w-[300px]"
+        imageClassName="w-[2260px] max-md:w-[1200px]"
+      />
       <div className="mx-auto z-10 relative flex w-full max-w-[1155px] flex-col items-center gap-[58px] px-5 max-md:gap-[38px]">
         <div className="flex flex-col items-center gap-3 text-center max-md:gap-1.5">
           <h2 className="font-caveat text-[78px] font-normal leading-[1.2] tracking-[-1.56px] text-bp-black max-md:text-[32px] max-md:tracking-[-0.64px]">

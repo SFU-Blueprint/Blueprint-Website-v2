@@ -1,112 +1,68 @@
 import React, { useState } from "react";
 import PageContainer from "../components/layout/PageContainer";
 import ProjectCard from "../components/projects-page/ProjectProjectCard";
-import Filters from "../components/shared/Filters";
 import ProjectsCTA from "../components/shared/ProjectsCTA";
+import HeroCrosspoint from "../components/shared/HeroCrosspoint";
 import { Projects } from "../constants/projects";
 
-// Map filter button labels to project tags they should match
-const FILTER_TO_TAGS: Record<string, string[]> = {
-  "Web App": ["Admin", "AI / Bot"],
-  Website: ["Website"],
-  "Plug-in": ["Innovation"],
+/** Square / letterboxed covers that look over-cropped with object-cover */
+const CONTAIN_COVER_SLUGS = new Set(["pedals", "blueprint-website"]);
+const COVER_BG_BY_SLUG: Record<string, string> = {
+  pedals: "#F4F4F4",
+  "blueprint-website": "#2A2A2A",
 };
 
 const ProjectsPage = () => {
-  // const filterNames = ["Web App", "Website", "Plug-in"];
-  const [selectedFilter, setSelectedFilter] = useState("All");
-
-  /*
-  const handleFilterClick = (filterName: string) => {
-    setSelectedFilter((prev) => (prev === filterName ? "All" : filterName));
-  };
-  */
+  const [selectedFilter] = useState("All");
 
   const filteredProjects = Projects.filter((project) => {
     if (selectedFilter === "All") return true;
-
-    const matchTags = FILTER_TO_TAGS[selectedFilter] ?? [];
-
-    return project.tags?.some((tag) =>
-      matchTags.some((t) => t.toLowerCase() === tag.toLowerCase())
-    );
+    return true;
   });
 
   return (
-     <PageContainer className="bg-bp-lightest-grey relative z-0">
-      <div className="absolute w-full h-full xl:ml-[-144px] max-[1279.9px]:ml-[-40px] max-[767.9px]:ml-[-25px] overflow-x-hidden top-[0px]">
-        <div className="bg-[url('/images/crosspoint.png')] bg-no-repeat
-                    min-[1600px]:bg-[calc(50%+270px)_-280px]
-                    max-[1599.9px]:bg-[calc(100%+610px)_-280px]
-                    max-[1279.9px]:bg-[calc(100%+715px)_-280px]
-                    max-[767.9px]:bg-[calc(100%+670px)_-375px] max-[767.9px]:w-[calc(100%+17px)]
-                    max-[580px]:bg-[calc(100%+705px)_-375px]
-                    overflow-clip w-full h-full mt-[-110px] absolute ">
-        </div>
-        <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="
-                      min-[1600px]:right-[calc(50%-918px)] min-[1340px]:top-[-40px]
-                      max-[1599.9px]:right-[-127px] max-[1599.9px]:top-[-40px]
-                      max-[1279.9px]:right-[-233px]
-                      min-[768px]:w-[500px]
-                      max-[767.9px]:right-[-80px] max-[767.9px]:top-[-3px] max-[767.9px]:w-[250px]
-                      max-[580px]:right-[-115px] max-[580px]:top-[-3px]
-                      absolute  z-[-1]">
-          <source src="videos/crosspoints/dotted-path-3.webm" type="video/webm"/>
-        </video>
-      </div>
-      <div className="flex flex-col relative z-10 gap-4 items-center justify-center pb-ppcard-bottom pt-main-desktop-top max-md:pt-main-mobile-top">
-        <h1 className="text-left self-start justify-start desktop:mb-[74px] md:mb-[50px] mb-[30px] font-poppins text-5xl md:text-7xl leading-none tracking-[-0.96px] text-bp-black">
-          <span className="max-md:hidden"><strong>our</strong> projects</span>
-          <span className="md:hidden">all our projects</span>
-        </h1>
+    <div className="relative overflow-x-clip bg-bp-lightest-grey">
+      <HeroCrosspoint videoSrc="/videos/crosspoints/dotted-path-3.webm" />
+      <PageContainer className="relative z-10">
+        <div className="relative z-10 flex flex-col gap-4 items-center justify-center pb-ppcard-bottom pt-main-desktop-top max-md:pt-main-mobile-top">
+          <h1 className="text-left self-start justify-start desktop:mb-[74px] md:mb-[50px] mb-[30px] font-poppins text-[72px] font-normal leading-none tracking-[-1.44px] text-bp-black max-md:text-[46px] max-md:tracking-[-0.92px]">
+            <span className="max-md:hidden">
+              <strong>our</strong> projects
+            </span>
+            <span className="md:hidden">all our projects</span>
+          </h1>
 
-        {/* Filter component
-        <div
-          className="flex flex-row flex-wrap gap-[10px] items-center justify-center pt-10 pb-16 max-md:gap-[6px] max-md:pb-6 max-md:pt-8"
-          role="group"
-          aria-label="Project type filters"
-        >
-          {filterNames.map((name) => (
-            <Filters
-              key={name}
-              variant="light"
-              title={name}
-              state={selectedFilter === name ? "selected" : "default"}
-              onClick={() => handleFilterClick(name)}
-              aria-pressed={selectedFilter === name}
-            />
-          ))}
+          <section className="relative w-full max-w-[1280px]">
+            <div className="grid grid-cols-1 min-[962px]:grid-cols-2 gap-x-[42px] gap-y-9 w-full">
+              {filteredProjects.map((project) => {
+                const useContain = CONTAIN_COVER_SLUGS.has(project.slug);
+                return (
+                  <ProjectCard
+                    key={project.slug}
+                    logo_url={project.image ? project.image : "https://placehold.co/76x76"}
+                    card_cover_url={
+                      project.popupimage ? project.popupimage : "https://placehold.co/517x354"
+                    }
+                    description={project.description}
+                    client_name={project.name}
+                    service={project.tags?.[0] ?? "Web App"}
+                    sector={project.tags?.[1] ?? project.tags?.[0] ?? "Web-app"}
+                    href={`/projects/${project.slug}`}
+                    coverFit={useContain ? "contain" : "cover"}
+                    coverBg={COVER_BG_BY_SLUG[project.slug]}
+                  />
+                );
+              })}
+            </div>
+            <div className="pointer-events-none sticky bottom-3 z-20 flex flex-col items-center pt-4 tablet:bottom-10 md:mt-[15px] mt-[10px]">
+              <div className="pointer-events-auto">
+                <ProjectsCTA />
+              </div>
+            </div>
+          </section>
         </div>
-        */}
-
-        <section className="max-w-[1280px]">
-          <div className="grid grid-cols-1 min-[962px]:grid-cols-2 gap-x-[42px] gap-y-9 w-full ">
-            {filteredProjects.map((project) => (
-              <ProjectCard
-                key={project.slug}
-                logo_url={project.image ? project.image : "https://placehold.co/76x76"}
-                card_cover_url={
-                  project.popupimage ? project.popupimage : "https://placehold.co/517x354"
-                }
-                description={project.description}
-                client_name={project.name}
-                service={project.tags?.[0] ?? "Web App"}
-                sector={project.tags?.[1] ?? project.tags?.[0] ?? "Web-app"}
-                href={`/projects/${project.slug}`}
-              />
-            ))}
-          </div>
-          <div className="flex flex-col sticky tablet:bottom-10 bottom-3 items-center pt-4 std-max md:mt-[15px] mt-[10px]">
-            <ProjectsCTA />
-          </div>
-        </section>
-      </div>
-    </PageContainer>
+      </PageContainer>
+    </div>
   );
 };
 

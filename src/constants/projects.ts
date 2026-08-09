@@ -109,7 +109,7 @@ export const Projects = [
     date: "September 2023 - December 2023",
     tags: ["Website", "Innovation"],
     image: "logo_icon_blue.svg",
-    popupimage: "blueprint-popup.svg",
+    popupimage: "/images/projects/blueprint-website/blueprint-website-card-cover.png",
     nonProfitDescription:
       "The primary purpose of our website is to provide a platform to display the types of services and opportunities that we offer for both NPOs and students.  We aim to address the main questions that students have about Blueprint, whilst also conveying key messages about our culture, values and the essence of why we do what we do at SFU Blueprint.",
     projectDescription:

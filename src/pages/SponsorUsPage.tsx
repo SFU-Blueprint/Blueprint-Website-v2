@@ -1,5 +1,6 @@
 import ExpandableContentCards from "../components/shared/ExpandableContentCards";
 import PageContainer from "../components/layout/PageContainer";
+import HeroCrosspoint from "../components/shared/HeroCrosspoint";
 
 const FUNDING_CARDS = [
   {
@@ -112,34 +113,32 @@ function SponsorshipCalloutCard(
   },
 ) {
   return (
-  <div className='flex h-[460px] w-[355px] max-w-full shrink-0 flex-col justify-start px-[48px] pb-[60px] pt-[36px] font-poppins text-bp-white bg-bp-darkest-grey rounded-[5px] max-[1300px]:w-full max-[1300px]:shrink'>
+  <div className="flex h-[460px] w-[355px] max-w-full shrink-0 flex-col justify-start px-[48px] pb-[60px] pt-[36px] font-poppins text-bp-white bg-bp-darkest-grey rounded-[5px] max-[1300px]:w-full max-[1300px]:shrink max-md:h-auto max-md:px-6 max-md:py-8">
     {/* Tier Title */}
-    <div className='flex flex-col gap-[24px]'>
-      <div className='inline-flex justify-center items-center gap-3 rounded-[5px] bg-bp-black px-[15px] py-[10px] 
-      w-fit max-md:gap-2 max-md:px-3 max-md:py-2'>
+    <div className="flex flex-col gap-[24px] max-md:gap-4">
+      <div className="inline-flex justify-center items-center gap-3 rounded-[5px] bg-bp-black px-[15px] py-[10px] w-fit max-md:gap-2 max-md:px-3 max-md:py-2">
       <span className={`size-4 rounded-[3px] bg-${color} max-md:size-3`} aria-hidden />
-      <span className="font-poppins uppercase text-body-s-reg text-bp-white font-normal 
-      max-md:text-[10px]">
+      <span className="font-poppins uppercase text-body-s-reg text-bp-white font-normal max-md:text-[10px]">
                 {title}
       </span>
       </div>
 
       {/* Amount */}
-      <h2 className='text-heading-m-reg text-bp-white'>
+      <h2 className="text-heading-m-reg text-bp-white max-md:text-[36px] max-md:tracking-[-0.72px]">
         {amount}
       </h2>
     </div>
     {/* Descriptions */}
-    <div className='flex w-full flex-col pt-[48px]'>
-      <p className='text-body-m-reg'>
+    <div className="flex w-full flex-col pt-[48px] max-md:pt-6">
+      <p className="text-body-m-reg max-md:text-mobile-body-m-reg">
         {desc1}
-      </p >
+      </p>
       <div className="w-full h-px bg-white/30 my-[12px]" />
-      <p className='text-body-m-reg'>
+      <p className="text-body-m-reg max-md:text-mobile-body-m-reg">
         {desc2}
       </p>
       <div className="w-full h-px bg-white/30 my-[12px]" />
-      <p className='text-body-m-reg'>
+      <p className="text-body-m-reg max-md:text-mobile-body-m-reg">
         {desc3}
       </p>
     </div>
@@ -149,11 +148,13 @@ function SponsorshipCalloutCard(
 
 export default function SponsorUsPage() {
   return (
-    <PageContainer className="w-full overflow-x-hidden bg-bp-lightest-grey font-poppins text-bp-black bg-[url('/images/non-profit/desktop_partner_crosspoint.svg')] bg-no-repeat min-[1622.1px]:bg-[calc((50vw+800px)-1689px)_-371px] max-[1622px]:bg-[calc(100%+585px)_-321px] max-[1279px]:bg-[calc(100%+689px)_-369px] max-md:bg-[url('/images/non-profit/mobile_partner_crosspoint.svg')] max-md:bg-[calc(100%+100px)_60px]">
-      <section className="relative">
-        <div className="mx-auto flex w-full max-w-[1440px] items-start justify-between gap-[80px] pt-main-desktop-top max-md:pt-main-mobile-top max-lg:flex-col max-lg:gap-10 max-lg:pb-24  max-md:pb-16">
-          <div className="flex max-w-[602px] flex-col items-start">
-            <h1 className="font-poppins text-[72px] leading-none tracking-[-1.44px] text-bp-black max-md:text-mobile-heading-xl-reg max-md:tracking-[-1.12px]">
+    <div className="relative overflow-x-clip bg-bp-lightest-grey font-poppins text-bp-black">
+      <HeroCrosspoint videoSrc="/videos/crosspoints/dotted-path-1.webm" />
+      <PageContainer className="relative z-10">
+      <section className="relative z-10">
+        <div className="mx-auto flex w-full max-w-[1440px] items-start justify-between gap-[80px] pt-main-desktop-top pb-[116px] max-md:pt-main-mobile-top max-lg:flex-col max-lg:gap-10 max-md:pb-20">
+          <div className="relative z-10 flex max-w-[602px] flex-col items-start">
+            <h1 className="font-poppins text-[72px] font-normal leading-none tracking-[-1.44px] text-bp-black max-md:text-[46px] max-md:tracking-[-0.92px]">
               <span className="font-bold">sponsor </span>
               <span className="font-normal">us</span>
             </h1>
@@ -167,7 +168,7 @@ export default function SponsorUsPage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-[1440px] px-6 pb-[116px] md:px-10 desktop:px-[114px] max-md:pb-20">
+      <section className="relative z-10 mx-auto w-full max-w-[1440px] pb-[116px] max-md:pb-20">
         <div className="mx-auto flex max-w-[1090px] flex-col items-center gap-12">
           <h2 className="text-center font-poppins text-heading-s-reg text-black max-md:text-mobile-heading-s-reg">
             what will we <span className="font-semibold">use funds</span> for?
@@ -176,38 +177,37 @@ export default function SponsorUsPage() {
         </div>
       </section>
 
-      <section className="flex flex-col bg-bp-black w-full max-w-[1298px] mx-auto py-[102px] px-[97px] rounded-[20px] gap-[72px]">
-       
+      <section className="relative z-10 flex w-full max-w-[1298px] flex-col gap-[72px] rounded-[20px] bg-bp-black px-[97px] py-[102px] mx-auto max-lg:px-8 max-md:mx-0 max-md:max-w-none max-md:gap-10 max-md:rounded-[12px] max-md:px-5 max-md:py-12">
         {/* Title */}
-        <div className='text-bp-white font-poppins flex flex-col gap-[6px] items-center justify-center'>
-            <h2 className='text-heading-s-reg max-md:text-mobile-heading-s-reg'>
+        <div className="flex flex-col items-center justify-center gap-[6px] font-poppins text-bp-white text-center">
+            <h2 className="text-heading-s-reg max-md:text-mobile-heading-s-reg">
               sponsorship tiers
             </h2>
-            <p className='text-body-s-reg font-normal max-md:text-mobile-body-s-reg max-md:text-center'>
+            <p className="text-body-s-reg font-normal max-md:text-mobile-body-s-reg">
               All sponsorships are a year-long commitment
             </p>
         </div>
 
         {/* Callout Cards */}
-        <div className='flex w-full flex-row justify-center gap-[19px] max-[1300px]:flex-col max-[1300px]:items-stretch'>
+        <div className="flex w-full flex-row justify-center gap-[19px] max-[1300px]:flex-col max-[1300px]:items-stretch">
           {SPONSORSHIP_TIERS.map((tier) => (
             <SponsorshipCalloutCard key={tier.title} {...tier} />
           ))}
         </div>
 
         {/* CTA */}
-        <div className='flex flex-col justify-center items-center font-poppins text-bp-white'>
-          <h2 className='text-heading-xs-reg max-md:text-mobile-heading-xs-reg'>
+        <div className="flex flex-col items-center justify-center text-center font-poppins text-bp-white">
+          <h2 className="text-heading-xs-reg max-md:text-mobile-heading-xs-reg">
             interested in partnering with blueprint at SFU?
           </h2>
-          <p className='text-body-m-reg mt-[12px] max-md:text-mobile-body-m-reg'>
+          <p className="mt-[12px] text-body-m-reg max-md:text-mobile-body-m-reg">
             Send us a message at sfublueprint@gmail.com, or click the link below:
           </p>
 
-          <ReachOutButton className="mt-12 max-md:mt-8 
-          hover:!bg-bp-light-grey active:!bg-bp-grey !text-bp-black bg-bp-white" />
+          <ReachOutButton className="mt-12 max-md:mt-8 hover:!bg-bp-light-grey active:!bg-bp-grey !text-bp-black bg-bp-white" />
         </div>
       </section>
-    </PageContainer>
+      </PageContainer>
+    </div>
   );
 }

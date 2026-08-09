@@ -12,6 +12,7 @@ import { ReactComponent as WindmillIcon } from "../assets/home/windmill.svg";
 import { ReactComponent as HandshakeIcon } from "../assets/home/handshake.svg";
 import { ReactComponent as GiftIcon } from "../assets/home/gift.svg";
 import { createPortal } from "react-dom";
+import HeroCrosspoint from "../components/shared/HeroCrosspoint";
 
 const HERO_SCROLLBAR_BG = "#2A2A2A";
 const impactPoints = [
@@ -323,7 +324,7 @@ const TechForGoodSection = () => (
   // inner px-2 / md:px-6 / xl:px-32 → 28 / 44 / 148 px) so the content's
   // left edge is flush with the left edge of the logo card up top.
   <section
-    className="relative w-screen left-1/2 -translate-x-1/2 flex bg-bp-black -mt-[108px] pt-[108px] pb-24 px-[28px] md:px-[44px] xl:px-[148px] min-[780px]:justify-start"
+    className="relative w-screen left-1/2 -translate-x-1/2 flex bg-bp-black -mt-[116px] pt-[116px] pb-24 px-[28px] md:px-[44px] xl:px-[148px] min-[780px]:justify-start"
     style={TFG_SCALE_STYLE}
   >
     <div className="flex w-full flex-col">
@@ -556,6 +557,13 @@ const TechForGoodSection = () => (
 );
 
 /** Mosaic + Our Community Bikes (was `Projects[5]` — out of range; only 0–4 exist). */
+/** Matches the baked-in panel color of each project card-cover image */
+const PROJECT_COVER_BG: Record<string, string> = {
+  mosaic: "#5386E4",
+  "our-community-bikes": "#E5E5EB",
+  "reel-youth": "#F49F00",
+};
+
 const featuredProjects = Projects.filter((p) =>
   ["mosaic", "our-community-bikes", "reel-youth"].includes(p.slug)
 );
@@ -641,9 +649,10 @@ const ProjectsCardStack = () => {
             ref={(el) => {
               cardRefs.current[index] = el;
             }}
-            className={`sticky z-[10 + ${index}] origin-top`}
+            className="sticky origin-top"
             style={{
               top: getProjectsCardStickyTop(index),
+              zIndex: 20 + index,
               willChange:
                 index < PROJECTS_CARD_SCROLL_ANIMATIONS.length
                   ? "transform, filter"
@@ -658,6 +667,7 @@ const ProjectsCardStack = () => {
                 COVER_PLACEHOLDER: project.popupimage
                   ? project.popupimage
                   : "https://placehold.co/517x354",
+                COVER_BG: PROJECT_COVER_BG[project.slug] ?? "#5387E3",
                 TITLE_PLACEHOLDER: project.description,
                 CLIENT_PLACEHOLDER: project.name,
                 SERVICE_PLACEHOLDER: project.tags?.[0] ?? "Web App",
@@ -674,11 +684,11 @@ const ProjectsCardStack = () => {
 
 const ImpactSection = () => {
   return (
-  <section className="w-full pt-[120px] max-md:pt-[75px]">
+  <section className="relative z-20 w-full pt-[120px] max-md:pt-[75px]">
         <div className="mx-auto flex w-full flex-col items-center gap-12 xl:gap-24 xl:flex-row xl:items-start 
         w-full justify-between"> {/* max-w-[1196px] xl:justify-center */}
         {/* Left side Heading and logos */}
-        <div className="w-full max-w-[440px] shrink-0 max-md:max-w-[90vw] xl:sticky xl:top-[25%] z-[10]">
+        <div className="z-20 w-full max-w-[440px] shrink-0 max-md:max-w-[90vw] xl:sticky xl:top-[25%]">
           {/* Bullet points and logos */}
           <div className="flex w-full flex-col gap-9 md:gap-12">
             <span className="text-bp-black text-mobile-heading-m-reg font-normal font-['Poppins'] 
@@ -742,8 +752,8 @@ const ImpactSection = () => {
   const UpcomingEventsCard = () => {
     return (
       <div className="flex justify-end max-md:justify-center justify-end items-end">
-      <div className="bg-bp-blue rounded-[5px] text-bp-white relative flex w-full md:max-w-[737px] pl-12 pr-[50px] pb-[72px] h-[350px] 
-      max-md:pl-[26px] pr-[22px] max-md:pb-[61px] max-md:pt-[34px] flex flex-col gap-[32px] min-w-[347px] max-md:h-[336px] md:translate-y-[-50%]"
+      <div className="bg-bp-blue rounded-[5px] text-bp-white relative flex w-full md:max-w-[737px] md:pl-12 md:pr-[50px] md:pb-[72px] h-[350px] 
+      max-md:px-[26px] max-md:pb-[61px] max-md:pt-[34px] flex flex-col gap-[32px] min-w-[347px] max-md:h-[336px] md:translate-y-[-50%]"
       style={{ 
         clipPath: 'url(#clip-slant)',
         borderRadius: '5px'
@@ -777,7 +787,7 @@ const ImpactSection = () => {
                   variant="secondary"
                   className="shrink-0 max-md:w-full w-[200px]"
                 >
-                  <span className="font-poppins text-sm font-semibold">Keep Updated</span>
+                  <span className="font-poppins text-sm font-semibold">KEEP UPDATED</span>
                 </Button>
               </div>
 
@@ -825,63 +835,90 @@ const HomePage = () => {
     };
   }, []);
   return (
-    <PageContainer>
-      {/* Hero: "tech for good" section */}
-      <TechForGoodSection />
+    <>
+      <PageContainer>
+        {/* Hero: "tech for good" section */}
+        <TechForGoodSection />
 
+        {/* Impact + projects: mx-auto wrapper so centering works at every breakpoint */}
+        <ImpactSection />
+      </PageContainer>
 
-      {/* Impact + projects: mx-auto wrapper so centering works at every breakpoint */}
-      <ImpactSection />
-
-      {/* Students / testimonials */}
-        {/* Students: turn real projects into real opportunities */}
-        <div className="flex flex-col w-full min-w-0 justify-between pt-[73px] md:pt-[120px] md:pb-[60px] font-['Poppins'] justify-between gap-12">
-              <div className="flex flex-1 w-full min-w-0 flex-col gap-6 max-w-[660px] text-zinc-800 max-md:min-w-[345px]">
-                  <div className="text-heading-s-reg max-md:text-mobile-heading-m-reg md:min-w-[518px] max-w-[400px]">students: turn real projects into 
-                  <span className="font-semibold "> real opportunities. </span>
-                  </div>
-                  <div className="flex flex-1 text-body-m-reg leading-8 max-md:text-mobile-body-m-reg">By working with a passionate interdisciplinary team and making a real impact in their community, our members have gained invaluable skills,
-                    allowing them to pursue successful careers in tech. Join us to see the Blueprint difference. 
-                   </div>
+      {/* Students block — one crosspoint only, always behind cards (ImpactSection is z-20).
+          Horizontal line centered in the gap between JOIN US and the carousel. */}
+      <div className="relative z-0 overflow-x-clip bg-bp-lightest-grey">
+        <PageContainer className="relative z-10 !pt-0">
+          <div className="relative pt-[140px] font-['Poppins'] md:pt-[220px]">
+            <div className="relative z-10 flex w-full min-w-0 flex-col justify-between gap-12">
+              <div className="flex w-full min-w-0 max-w-[660px] flex-1 flex-col gap-6 bg-bp-lightest-grey text-zinc-800 max-md:min-w-[345px]">
+                <div className="max-w-[400px] text-heading-s-reg max-md:text-mobile-heading-m-reg md:min-w-[518px]">
+                  students: turn real projects into
+                  <span className="font-semibold"> real opportunities. </span>
                 </div>
-              {/* button */}
-              <div className="max-md:hidden justify-end shrink-0">
+                <div className="flex flex-1 text-body-m-reg leading-8 max-md:text-mobile-body-m-reg">
+                  By working with a passionate interdisciplinary team and making a real impact in
+                  their community, our members have gained invaluable skills, allowing them to pursue
+                  successful careers in tech. Join us to see the Blueprint difference.
+                </div>
+              </div>
+              <div className="relative z-10 max-md:hidden shrink-0 justify-end bg-bp-lightest-grey">
                 <Link to="/students">
-                  <Button variant="tertiary" className="uppercase !font-light !w-48 !h-16">join us</Button>             
+                  <Button variant="tertiary" className="uppercase !h-16 !w-48 !font-light">
+                    join us
+                  </Button>
                 </Link>
               </div>
-        </div>
+            </div>
 
-        {/* testimonials */}
-        <div className="relative left-1/2 right-1/2 ml-[-50vw] mr-[-50vw] h-[390px] w-screen pt-[60px] max-md:pt-[52px]">
-              <InteractiveCarousel autoScrollSpeed={1}>
-                {blueprintTestimonials.map((testimonial) => (
-                  <TestimonialCard key={testimonial.id} name={testimonial.name} role={testimonial.role} picture={testimonial.image} caption={testimonial.caption} />
-                ))}
-              </InteractiveCarousel>
-              
-        </div>
+            {/* Gap band between JOIN US and carousel — horizontal line at mid-gap.
+                Crosspoint stacks under carousel (z-0); cards stay on top (z-10). */}
+            <div className="relative z-0 h-[120px] w-full max-md:h-[104px]">
+              <HeroCrosspoint
+                videoSrc="/videos/crosspoints/dotted-path-1.webm"
+                className="pointer-events-none absolute inset-x-0 top-0 z-0 h-full"
+                anchorClassName="absolute top-1/2 right-[-96px] max-md:right-[-80px] lg:right-[-72px] xl:right-[-40px]"
+                videoClassName="w-[640px] max-md:w-[280px]"
+                imageClassName="w-[2260px] max-md:w-[1200px]"
+              />
+            </div>
+          </div>
 
-        <div className="md:hidden pb-10">
-          <Link to="/students"> 
-            <Button variant="tertiary" className="uppercase !font-normal !w-full !h-16">join us</Button>          
-          </Link>
-        </div>
+          {/* testimonials */}
+          <div className="relative z-10 left-1/2 right-1/2 ml-[-50vw] mr-[-50vw] h-[390px] w-screen">
+            <InteractiveCarousel autoScrollSpeed={1}>
+              {blueprintTestimonials.map((testimonial) => (
+                <TestimonialCard
+                  key={testimonial.id}
+                  name={testimonial.name}
+                  role={testimonial.role}
+                  picture={testimonial.image}
+                  caption={testimonial.caption}
+                />
+              ))}
+            </InteractiveCarousel>
+          </div>
 
+          <div className="pb-10 md:hidden">
+            <Link to="/students">
+              <Button variant="tertiary" className="uppercase !h-16 !w-full !font-normal">
+                join us
+              </Button>
+            </Link>
+          </div>
 
-    {/* Upcoming Events Section*/}
-    {/* Upcoming Events Image */}
-    <div className="md:min-w-[82vw] h-full overflow-hidden rounded-[5px] max-md:pt-[54px] md:pt-[120px] max-md:pb-6 md:pr-[2vw] xl:pr-[6vw] 2xl:pr-[2vw]">
-        <img
-          className="w-full h-full"
-          src="/images/home/photos/group.png"
-          alt="Group Photo"
-        />
-    </div>
+          {/* Upcoming Events Section*/}
+          <div className="h-full overflow-hidden rounded-[5px] max-md:pb-6 max-md:pt-[54px] md:min-w-[82vw] md:pt-[120px] md:pr-[2vw] xl:pr-[6vw] 2xl:pr-[2vw]">
+            <img
+              className="h-full w-full"
+              src="/images/home/photos/group.png"
+              alt="Group Photo"
+            />
+          </div>
 
-    {/* Upcoming Event Card */}
-    <UpcomingEventsCard />
-    </PageContainer>
+          <UpcomingEventsCard />
+        </PageContainer>
+      </div>
+    </>
   );
 };
 

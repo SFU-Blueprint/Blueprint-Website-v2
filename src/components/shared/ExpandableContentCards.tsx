@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from "react";
+
 export type ExpandableContentCard = {
   title: string;
   body: string;
@@ -17,9 +19,49 @@ export default function ExpandableContentCards({
   cards,
   showMobileIndicators = true,
 }: ExpandableContentCardsProps) {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const scroller = scrollerRef.current;
+    if (!scroller) return;
+
+    const updateActiveIndex = () => {
+      const cardEls = Array.from(scroller.children) as HTMLElement[];
+      if (cardEls.length === 0) return;
+
+      const scrollerCenter = scroller.scrollLeft + scroller.clientWidth / 2;
+      let closestIndex = 0;
+      let closestDistance = Number.POSITIVE_INFINITY;
+
+      cardEls.forEach((card, index) => {
+        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+        const distance = Math.abs(cardCenter - scrollerCenter);
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestIndex = index;
+        }
+      });
+
+      setActiveIndex(closestIndex);
+    };
+
+    updateActiveIndex();
+    scroller.addEventListener("scroll", updateActiveIndex, { passive: true });
+    window.addEventListener("resize", updateActiveIndex);
+
+    return () => {
+      scroller.removeEventListener("scroll", updateActiveIndex);
+      window.removeEventListener("resize", updateActiveIndex);
+    };
+  }, [cards.length]);
+
   return (
     <div className="w-full max-md:w-[351px]">
-      <div className="flex justify-center gap-[23px] max-lg:snap-x max-lg:justify-start max-lg:overflow-x-auto max-lg:scrollbar-hide-custom">
+      <div
+        ref={scrollerRef}
+        className="flex justify-center gap-[23px] max-lg:snap-x max-lg:justify-start max-lg:overflow-x-auto max-lg:scrollbar-hide-custom"
+      >
         {cards.map((card) => (
           <article
             key={card.title}
@@ -35,7 +77,7 @@ export default function ExpandableContentCards({
                 {card.title}
               </h3>
             </div>
-            <p className="mt-[10px] w-[282px] font-poppins text-[16px] font-normal leading-normal text-black transition-[width] duration-300 ease-out lg:group-hover/expandable-card:w-[275px] motion-reduce:transition-none">
+            <p className="mt-[10px] w-[282px] max-w-[282px] shrink-0 font-poppins text-[16px] font-normal leading-normal text-black">
               {card.body}
             </p>
             <div className="absolute left-5 top-[199px] h-[252px] w-[312px] overflow-hidden rounded-[10px] transition-[left,width] duration-300 ease-out lg:group-hover/expandable-card:left-[20.5px] lg:group-hover/expandable-card:w-[392px] motion-reduce:transition-none">
@@ -50,10 +92,25 @@ export default function ExpandableContentCards({
         ))}
       </div>
       {showMobileIndicators && (
-        <div className="mt-[22px] hidden justify-center gap-[8px] max-lg:flex" aria-hidden>
-          <span className="h-[11px] w-[30px] rounded-full bg-bp-blue" />
-          <span className="size-[11px] rounded-full bg-bp-grey" />
-          <span className="size-[11px] rounded-full bg-bp-grey" />
+        <div
+          className="mt-[22px] hidden justify-center gap-[8px] max-lg:flex"
+          role="tablist"
+          aria-label="Card position"
+        >
+          {cards.map((card, index) => {
+            const isActive = index === activeIndex;
+            return (
+              <span
+                key={card.title}
+                className={
+                  isActive
+                    ? "h-[11px] w-[30px] rounded-full bg-bp-blue transition-[width,background-color] duration-200"
+                    : "size-[11px] rounded-full bg-bp-grey transition-[width,background-color] duration-200"
+                }
+                aria-current={isActive ? "true" : undefined}
+              />
+            );
+          })}
         </div>
       )}
     </div>

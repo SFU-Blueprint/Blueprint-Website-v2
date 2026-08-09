@@ -27,3 +27,4 @@ yarn-error.log*
 # Internal scripts (not for team)
 /scripts
 /.windsurf
+.vercel

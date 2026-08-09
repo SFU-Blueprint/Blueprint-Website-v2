@@ -8,7 +8,10 @@ export default function NonprofitsCTASection({
   proposalFormLink = "/nonprofits/proposal",
 }: NonprofitsCTASectionProps) {
   return (
-    <section className="relative left-1/2 w-screen -translate-x-1/2 overflow-hidden bg-bp-lightest-grey">
+    <section
+      id="proposal-form"
+      className="relative left-1/2 w-screen -translate-x-1/2 overflow-hidden bg-bp-lightest-grey scroll-mt-28"
+    >
       <div className="relative mx-auto max-w-[1422px] px-6 py-16 sm:px-8 sm:py-20 md:px-10 lg:min-h-[523px] lg:px-0 lg:py-0">
         <div className="pointer-events-none absolute inset-0" aria-hidden="true">
           <div className="absolute left-[9%] top-[8%] h-[16px] w-[16px] rounded-[3px] bg-bp-blue sm:h-[18px] sm:w-[18px] lg:left-[130px] lg:top-[94px] lg:h-[23px] lg:w-[23px]" />

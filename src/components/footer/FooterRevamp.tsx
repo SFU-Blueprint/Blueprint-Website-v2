@@ -6,11 +6,11 @@ import { ReactComponent as LinkedinIcon } from "../../assets/icons/linkedin.svg"
 import { ReactComponent as YouTubeIcon } from "../../assets/icons/youtube.svg";
 
 const footerLinks = [
-  { name: "our projects", path: "/projectspage" },
-  { name: "partner with us", path: "/nonprofits" },
-  { name: "join our team", path: "/students" },
-  { name: "about us", path: "/about" },
-  { name: "sponsor us", path: "/sponsor-us" },
+  { name: "our projects", path: "/projectspage", accentClass: "bg-bp-blue" },
+  { name: "partner with us", path: "/nonprofits", accentClass: "bg-bp-orange" },
+  { name: "join our team", path: "/students", accentClass: "bg-bp-accent-purple" },
+  { name: "about us", path: "/about", accentClass: "bg-bp-green" },
+  { name: "sponsor us", path: "/sponsor-us", accentClass: "bg-bp-accent-light-blue" },
 ];
 
 const socialLinks = [
@@ -20,14 +20,22 @@ const socialLinks = [
   { name: "Discord", icon: DiscordIcon, url: "https://discord.gg/blueprint" },
 ];
 
-function FooterLink({ name, path }: { name: string; path: string }) {
+function FooterLink({
+  name,
+  path,
+  accentClass,
+}: {
+  name: string;
+  path: string;
+  accentClass: string;
+}) {
   return (
     <Link
       to={path}
       className="relative flex items-center group"
     >
       <div
-        className="absolute -left-[30px] w-[18px] h-[18px] rounded-[3px] bg-bp-accent-purple opacity-0 group-hover:opacity-100 transition-opacity"
+        className={`absolute -left-[30px] w-[18px] h-[18px] rounded-[3px] opacity-0 group-hover:opacity-100 transition-opacity ${accentClass}`}
       />
       <span
         className="font-poppins text-body-l-reg text-bp-dark-grey group-hover:text-bp-black transition-colors"
@@ -42,7 +50,7 @@ export default function FooterRevamp() {
   return (
     <footer id="app-footer" className="w-full bg-bp-lightest-grey font-poppins">
       {/* Desktop */}
-      <div className="hidden lg:block px-footer-px-desktop pt-footer-py-desktop pb-[233px]">
+      <div className="hidden lg:block px-footer-px-desktop pt-footer-py-desktop pb-8">
         <div className="rounded-[20px] px-[80px] pt-[60px] pb-[100px] bg-white">
           <div className="flex flex-col gap-[70px]">
             {/* Top section */}
@@ -83,7 +91,7 @@ export default function FooterRevamp() {
 
                 <div className="flex flex-col gap-[12px]">
                   {footerLinks.map((link, idx) => (
-                    <FooterLink key={idx} name={link.name} path={link.path} />
+                    <FooterLink key={idx} name={link.name} path={link.path} accentClass={link.accentClass} />
                   ))}
                 </div>
               </div>
@@ -105,7 +113,7 @@ export default function FooterRevamp() {
       </div>
 
       {/* Tablet */}
-      <div className="hidden md:block lg:hidden px-footer-px-tablet pt-footer-py-desktop pb-[160px]">
+      <div className="hidden md:block lg:hidden px-footer-px-tablet pt-footer-py-desktop pb-8">
         <div className="rounded-[20px] px-[60px] pt-[48px] pb-[60px] bg-white">
           <div className="flex flex-col gap-[48px]">
             {/* Logo */}
@@ -146,7 +154,7 @@ export default function FooterRevamp() {
             {/* Links */}
             <div className="flex flex-col gap-[12px]">
               {footerLinks.map((link, idx) => (
-                <FooterLink key={idx} name={link.name} path={link.path} />
+                <FooterLink key={idx} name={link.name} path={link.path} accentClass={link.accentClass} />
               ))}
             </div>
 
@@ -166,7 +174,7 @@ export default function FooterRevamp() {
       </div>
 
       {/* Mobile */}
-      <div className="block md:hidden px-footer-px-mobile pt-footer-py-mobile pb-[96px]">
+      <div className="block md:hidden px-footer-px-mobile pt-footer-py-mobile pb-8">
         <div className="rounded-[16px] px-[28px] pt-[36px] pb-[48px] bg-white">
           <div className="flex flex-col gap-[36px]">
             {/* Logo */}

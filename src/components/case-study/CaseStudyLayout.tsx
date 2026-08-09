@@ -4,6 +4,7 @@ import PageContainer from "../layout/PageContainer";
 import MemberCard from "../shared/MemberCard";
 import { CaseStudyContent } from "../../constants/caseStudies";
 import PolaroidPhoto from "../shared/PolaroidPhoto";
+import HeroCrosspoint from "../shared/HeroCrosspoint";
 
 export type CaseStudyLayoutProps = CaseStudyContent & {
     backNav: ReactElement;
@@ -70,76 +71,56 @@ const CaseStudyLayout = ({backNav, hero, solution, testemonial, team}:CaseStudyL
     );
   }
 
-  const testProfileImg = !!testemonial.imgUrl 
-    ? (<div className=" tablet:size-[51px] size-[37px] rounded-[50px] overflow-hidden">
-        <img src={testemonial.imgUrl }/>
-        </div>)
-    : <></>
-  const testemonialContent: ReactElement = (
-    testemonial ? (
-        <section className="bg-white std-max decoration-blueprint-black tablet:px-20 tablet:pt-[70px] rounded-[10px] px-6 py-[60px] text-left border-t-[20px] text-bp-black border-[#A5C6FF]">
-            <div className="font-poppins tablet:mb-10 mb-6 flex flex-row gap-5">
-                {testProfileImg}
-                <div className="flex flex-col justify-between ">
-                    <p className="tablet:text-body-m-bold text-[12px] font-semibold">{testemonial.name.toUpperCase()}</p>
-                    <p className="tablet:text-body-s-reg text-[11px] text-[#5e5e5e] uppercase">{testemonial.title.toUpperCase()}</p>
-                </div>
-            </div>
-            <p className="font-caveat text-bp-black tablet:text-[32px] text-[20px] tracking-normal leading-tight">{testemonial.quote}</p>
-        </section>
-        ) : (
-            <></>
-        )
-    );
+  const testProfileImg = testemonial?.imgUrl
+    ? (
+        <div className="tablet:size-[51px] size-[37px] rounded-[50px] overflow-hidden">
+          <img src={testemonial.imgUrl} alt="" />
+        </div>
+      )
+    : null;
+
+  const testemonialContent: ReactElement | null = testemonial ? (
+    <section className="bg-white std-max decoration-blueprint-black tablet:px-20 tablet:pt-[70px] rounded-[10px] px-6 py-[60px] text-left border-t-[20px] text-bp-black border-[#A5C6FF]">
+      <div className="font-poppins tablet:mb-10 mb-6 flex flex-row gap-5">
+        {testProfileImg}
+        <div className="flex flex-col justify-between">
+          <p className="tablet:text-body-m-bold text-[12px] font-semibold">
+            {testemonial.name.toUpperCase()}
+          </p>
+          <p className="tablet:text-body-s-reg text-[11px] text-[#5e5e5e] uppercase">
+            {testemonial.title.toUpperCase()}
+          </p>
+        </div>
+      </div>
+      <p className="font-caveat text-bp-black tablet:text-[32px] text-[20px] tracking-normal leading-tight">
+        {testemonial.quote}
+      </p>
+    </section>
+  ) : null;
 
  
 
     return (
-        <PageContainer className="overflow-hidden relative">
-            {/* BG Vid 1 */}
-            <div className="w-full h-0 xl:ml-[-144px] max-[1279.9px]:ml-[-40px] max-[850px]:hidden">
-                <div className="bg-[url('/images/crosspoint.png')] bg-no-repeat z-[-10]
-                            bg-[-1390px_-5px] 
-                            overflow-clip w-full h-full mt-[-110px] absolute ">
-                </div>
-                <video
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="
-                      top-[200px] left-[-260px] w-[800px]
-                      absolute z-[-10] overflow-clip">
-                    <source src="/videos/crosspoints/dotted-path-orange.webm" type="video/webm"/>
-                </video>
-            </div>
-            {/* BG Vid 2 */}
-            <div className="w-full h-0 xl:ml-[-144px] max-[1279.9px]:ml-[-40px] max-[850px]:hidden">
-                <div className="bg-[url('/images/crosspoint.png')] bg-no-repeat z-[-10]
-                    min-[1440px]:bg-[calc(100%+485px)_1100px]
-                    max-[1439.9px]:bg-[calc(100%+685px)_1100px]
-                    max-[950px]:bg-[calc(100%+785px)_1100px]
-                    overflow-clip w-full h-full mt-[-110px] absolute">
-                </div>
-                <video
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="
-                      min-[1440px]:right-[-150px] top-[1300px]
-                      max-[1439.9px]:right-[-350px]
-                      max-[950px]:right-[-450px]
-                      w-[800px]
-                      absolute z-[-10]">
-                    <source src="/videos/crosspoints/dotted-path-orange.webm" type="video/webm"/>
-                </video>
-            </div>
+        <PageContainer className="overflow-hidden relative bg-bp-lightest-grey">
+            <HeroCrosspoint
+              videoSrc="/videos/crosspoints/dotted-path-orange.webm"
+              className="h-[900px]"
+              anchorClassName="absolute top-[320px] right-[48px] max-[850px]:top-[150px] max-[850px]:right-[36px]"
+              videoClassName="w-[720px] max-[850px]:w-[280px]"
+              imageClassName="w-[2260px] max-[850px]:w-[1200px]"
+            />
+            <HeroCrosspoint
+              videoSrc="/videos/crosspoints/dotted-path-orange.webm"
+              className="h-[2000px] max-[850px]:hidden"
+              anchorClassName="absolute top-[1410px] left-[clamp(40px,8vw,150px)]"
+              videoClassName="w-[720px]"
+              imageClassName="w-[2260px]"
+            />
             {/* Back link */}
-            {backNav}
+            <div className="relative z-10">{backNav}</div>
 
             {/* CONTENT COLUMN */}
-            <div className="flex flex-col std-max items-center tablet:max-w-[728px] w-full tablet:mb-[129px] mb-[135px] ">
+            <div className="relative z-10 flex flex-col std-max items-center tablet:max-w-[728px] w-full tablet:mb-[129px] mb-[135px] ">
                 {/* HERO */}
                 <section className="text-center flex flex-col w-full items-center tablet:mb-[173px] mb-[96px]">
                     {/* Title */}
@@ -182,9 +163,11 @@ const CaseStudyLayout = ({backNav, hero, solution, testemonial, team}:CaseStudyL
             </div>
 
             {/* Testimonial */}
-            <div className="tablet:mb-[140px] mb-[135px]">
+            {testemonialContent && (
+              <div className="tablet:mb-[140px] mb-[135px]">
                 {testemonialContent}
-            </div>
+              </div>
+            )}
             
 
             {/* Team */}

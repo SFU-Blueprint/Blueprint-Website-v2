@@ -2,6 +2,8 @@ import { useState, useMemo, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import PageContainer from "../components/layout/PageContainer";
 import CameraButton from "../components/shared/CameraButton";
+import { ReactComponent as SnapAPicText } from "../assets/icons/snap-a-pic-text.svg";
+import { ReactComponent as SnapAPicArrow } from "../assets/icons/snap-a-pic-arrow.svg";
 import PolaroidPhoto from "../components/shared/PolaroidPhoto";
 import { GroupImages } from "../constants/about-us-media";
 import InfoCard from "../components/shared/InfoCard";
@@ -334,7 +336,12 @@ const AboutPage = () => {
             </p>
           </div>
 
-          <div className="flex items-center">
+          <div className="flex flex-row-reverse md:flex-row items-end gap-8 md:gap-10 self-start md:self-end max-md:mt-2">
+            {/* Desktop: text + arrow→camera | Mobile: camera←arrow + text */}
+            <div className="flex flex-col items-center gap-1" aria-hidden>
+              <SnapAPicText className="h-[40px] w-auto md:h-[53px]" />
+              <SnapAPicArrow className="h-[14px] w-auto -scale-x-100 md:h-[20px] md:scale-x-100 md:self-end md:mr-[-4px]" />
+            </div>
             <CameraButton onClick={handleCameraClick} />
           </div>
         </div>
@@ -415,7 +422,7 @@ const AboutPage = () => {
         </div>
 
         {/* Info Cards Container */}
-        <div className="relative z-10 md:pt-[108px] flex flex-col items-center justify-center gap-6 mb-[148px] md:flex-row">
+        <div className="relative z-10 md:pt-[116px] flex flex-col items-center justify-center gap-6 mb-[148px] md:flex-row">
           <InfoCard
             title={OUR_MEMBERS_CONTENT.title}
             heading={OUR_MEMBERS_CONTENT.heading}

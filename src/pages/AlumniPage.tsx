@@ -38,18 +38,19 @@ const AlumniPage = () => {
    * @returns {memberCardData[]} Organized member data as object array
    */
   const getMemberData = (): memberCardData[] => {
+    const placeholderPhotoUrl = "https://placehold.co/240x240";
     // Emulation of data storage
     const memberDataUnorganized: memberCardData[] = [
-      {name: "Steve B", role: "Designer", roleType: "designer", photoUrl: "https://placehold.co/153x127", linkedinUrl: "PLACEHOLDER-LINKEDIN"},
-      {name: "Chris T", role: "project manager", roleType: "pm", photoUrl: "https://placehold.co/153x127", linkedinUrl: "PLACEHOLDER-LINKEDIN"},
-      {name: "Sarah J", role: "developer", roleType: "dev", photoUrl: "https://placehold.co/153x127", linkedinUrl: "PLACEHOLDER-LINKEDIN"},
-      {name: "Langley L", role: "executive", roleType: "exec", photoUrl: "https://placehold.co/153x127", linkedinUrl: "PLACEHOLDER-LINKEDIN"},
-      {name: "Taylor S", role: "tech lead", roleType: "techLead", photoUrl: "https://placehold.co/153x127", linkedinUrl: "PLACEHOLDER-LINKEDIN"},
-      {name: "Osmosis J", role: "Designer", roleType: "designer", photoUrl: "https://placehold.co/153x127", linkedinUrl: "PLACEHOLDER-LINKEDIN"},
-      {name: "Cailey Z", role: "project manager", roleType: "pm", photoUrl: "https://placehold.co/153x127", linkedinUrl: "PLACEHOLDER-LINKEDIN"},
-      {name: "Amanda Y", role: "developer", roleType: "dev", photoUrl: "https://placehold.co/153x127", linkedinUrl: "PLACEHOLDER-LINKEDIN"},
-      {name: "Elliott S", role: "executive", roleType: "exec", photoUrl: "https://placehold.co/153x127", linkedinUrl: "PLACEHOLDER-LINKEDIN"},
-      {name: "LongNameJane D", role: "tech lead", roleType: "techLead", photoUrl: "https://placehold.co/153x127", linkedinUrl: "PLACEHOLDER-LINKEDIN"},
+      {name: "Steve B", role: "Designer", roleType: "designer", photoUrl: placeholderPhotoUrl, linkedinUrl: "PLACEHOLDER-LINKEDIN"},
+      {name: "Chris T", role: "project manager", roleType: "pm", photoUrl: placeholderPhotoUrl, linkedinUrl: "PLACEHOLDER-LINKEDIN"},
+      {name: "Sarah J", role: "developer", roleType: "dev", photoUrl: placeholderPhotoUrl, linkedinUrl: "PLACEHOLDER-LINKEDIN"},
+      {name: "Langley L", role: "executive", roleType: "exec", photoUrl: placeholderPhotoUrl, linkedinUrl: "PLACEHOLDER-LINKEDIN"},
+      {name: "Taylor S", role: "tech lead", roleType: "techLead", photoUrl: placeholderPhotoUrl, linkedinUrl: "PLACEHOLDER-LINKEDIN"},
+      {name: "Osmosis J", role: "Designer", roleType: "designer", photoUrl: placeholderPhotoUrl, linkedinUrl: "PLACEHOLDER-LINKEDIN"},
+      {name: "Cailey Z", role: "project manager", roleType: "pm", photoUrl: placeholderPhotoUrl, linkedinUrl: "PLACEHOLDER-LINKEDIN"},
+      {name: "Amanda Y", role: "developer", roleType: "dev", photoUrl: placeholderPhotoUrl, linkedinUrl: "PLACEHOLDER-LINKEDIN"},
+      {name: "Elliott S", role: "executive", roleType: "exec", photoUrl: placeholderPhotoUrl, linkedinUrl: "PLACEHOLDER-LINKEDIN"},
+      {name: "LongNameJane D", role: "tech lead", roleType: "techLead", photoUrl: placeholderPhotoUrl, linkedinUrl: "PLACEHOLDER-LINKEDIN"},
       //{name: "TEST_MEM_FOR_LONG_NAME_ERROR", role: "tech lead", roleType: "techLead", photoUrl: "https://placehold.co/153x127", linkedinUrl: "PLACEHOLDER-LINKEDIN"},
     ];
     // Sorts members alphabetically.
@@ -107,7 +108,7 @@ const AlumniPage = () => {
 
     {/* Alumni */}
     <section className=
-    {`grid gap-[10px] grid-cols-2 w-full self-center justify-items-center pb-[44px]
+    {`grid gap-[10px] grid-cols-2 w-full max-w-[1128px] self-center justify-items-center pb-[44px]
       min-[629.9px]:grid-cols-3
       tablet:gap-[20px] tablet:grid-cols-2 tablet:pb-[100px]
       min-[825px]:grid-cols-3 
@@ -127,7 +128,8 @@ const AlumniPage = () => {
                 roleType={member.roleType} 
                 photoUrl={member.photoUrl} 
                 linkedinUrl={member.linkedinUrl} 
-                randomRotation={enableRandomRotation}/>
+                randomRotation={enableRandomRotation}
+                layout="alumni"/>
             );
           }
           else{

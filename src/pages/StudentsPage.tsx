@@ -13,11 +13,6 @@ import Accordion from "../components/shared/Accordion";
 const HERO_CONTENT = {
   subtitle:
     "gain real-world experience in the tech industry and work with other passionate students, all while making a positive impact in your community.",
-  bullets: [
-    "A post-secondary student in Greater Vancouver.",
-    "Passionate about creating meaningful impact in your community.",
-    "Interested in tech, design, or project management and excited to grow through real, collaborative project work.",
-  ],
 };
 
 const ROLE_DESCRIPTIONS = {
@@ -323,25 +318,14 @@ function HeroSection({ onOpenPositions }: { onOpenPositions: () => void }) {
           </div>
         </div>
 
-        <div className="mx-auto mt-[60px] w-full max-w-[617px] rounded-[5px] bg-white p-9 max-md:mt-[67px] max-md:px-[30px] max-md:pb-12 max-md:pt-7">
-          <div className="inline-flex items-center gap-3 rounded-[5px] bg-bp-lightest-grey px-[14px] py-[10px] max-md:gap-2 max-md:px-3 max-md:py-2">
-            <span className="size-4 rounded-[3px] bg-bp-orange max-md:size-3 max-md:bg-bp-blue" aria-hidden />
-            <span className="font-poppins text-[14px] font-medium uppercase leading-none text-bp-black max-md:text-[10px]">
-              Is Blueprint for you?
-            </span>
-          </div>
-          <h2 className="mt-8 font-poppins text-[24px] font-normal leading-[1.3] tracking-[-0.48px] max-md:mt-6 max-md:text-[18px] max-md:tracking-[-0.36px]">
-            Blueprint is right for you if you are...
+        <div className="mx-auto mt-[60px] flex w-full max-w-[617px] flex-col items-center text-center max-md:mt-[67px]">
+          <h2 className="font-caveat text-heading-hand text-bp-black max-md:text-mobile-heading-hand">
+            Blueprint at SFU is right for you!
           </h2>
-          <ul className="mt-[18px] list-disc space-y-0 pl-5 font-poppins text-[16px] font-normal leading-normal text-bp-black max-md:mt-4 max-md:text-[14px]">
-            {HERO_CONTENT.bullets.map((bullet) => (
-              <li key={bullet}>{bullet}</li>
-            ))}
-          </ul>
           <Button
             variant="primary"
             onClick={onOpenPositions}
-            className="mt-12 mr-[34px] w-[200px] max-md:mr-0 max-md:mt-9 max-md:h-[52px] max-md:w-full max-md:text-[14px]"
+            className="mt-6 w-[200px] max-md:h-[52px] max-md:w-full max-md:max-w-[352px] max-md:text-[14px]"
           >
             SEE OPEN POSITIONS
           </Button>

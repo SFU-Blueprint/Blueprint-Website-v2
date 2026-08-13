@@ -9,9 +9,9 @@
  * Mobile: horizontal crosshair line rests above the page title.
  *
  * Safari/iOS paints <video> as an opaque black plate (alpha → black, mix-blend
- * ignored, opacity ignored). The video is parked off-screen and frames are
- * drawn to a canvas. WebKit uses `screen` to knock out that black fill;
- * other engines use `multiply` to knock out white.
+ * ignored, opacity ignored). The video is parked off-screen; frames are drawn
+ * to a *transparent* canvas (black/white keyed out) so the PNG crosshair and
+ * dotted path stay one combined graphic.
  */
 
 import { useEffect, useRef, useState } from "react";
@@ -20,9 +20,6 @@ const CROSSPOINT_IMG = "/images/crosspoint.png";
 /** Crosshair location inside crosspoint.png (2260 × 1496) */
 const CROSS_X_RATIO = 1529 / 2260;
 const CROSS_Y_RATIO = 607 / 1496;
-/** Matches `bp-lightest-grey`. */
-const PAGE_BG = "#F3F3F3";
-
 type HeroCrosspointProps = {
   videoSrc: string;
   /** Outer wrapper classes — only for non-hero placements (e.g. Stay Updated). */
@@ -87,7 +84,7 @@ export default function HeroCrosspoint({
     video.setAttribute("playsinline", "");
     video.setAttribute("webkit-playsinline", "");
 
-    const ctx = canvas.getContext("2d", { alpha: false });
+    const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
     const knockOutBlack = isWebKit();
@@ -96,6 +93,22 @@ export default function HeroCrosspoint({
 
     const tryPlay = () => {
       video.play().catch(() => {});
+    };
+
+    const keyFrame = (w: number, h: number) => {
+      const frame = ctx.getImageData(0, 0, w, h);
+      const d = frame.data;
+      if (knockOutBlack) {
+        for (let i = 0; i < d.length; i += 4) {
+          const l = (d[i] + d[i + 1] + d[i + 2]) / 3;
+          d[i + 3] = l < 28 ? 0 : d[i + 3];
+        }
+      } else {
+        for (let i = 0; i < d.length; i += 4) {
+          if (d[i] > 232 && d[i + 1] > 232 && d[i + 2] > 232) d[i + 3] = 0;
+        }
+      }
+      ctx.putImageData(frame, 0, 0);
     };
 
     const draw = () => {
@@ -107,13 +120,9 @@ export default function HeroCrosspoint({
           canvas.width = w;
           canvas.height = h;
         }
-        ctx.globalCompositeOperation = "source-over";
-        ctx.fillStyle = PAGE_BG;
-        ctx.fillRect(0, 0, w, h);
-        // Safari decodes WebM alpha as black — screen knocks that out.
-        // Chromium videos are white-on-color — multiply knocks white out.
-        ctx.globalCompositeOperation = knockOutBlack ? "screen" : "multiply";
+        ctx.clearRect(0, 0, w, h);
         ctx.drawImage(video, 0, 0, w, h);
+        keyFrame(w, h);
       }
       raf = requestAnimationFrame(draw);
     };
@@ -176,7 +185,7 @@ export default function HeroCrosspoint({
           className={`absolute left-0 top-0 max-w-none h-auto ${videoClassName} transition-opacity duration-200 ${
             videoReady ? "opacity-100" : "opacity-0"
           }`}
-          style={{ transform: "translate(-50%, -50%)" }}
+          style={{ transform: "translate(-50%, -50%)", mixBlendMode: "multiply" }}
         />
       </div>
     </div>

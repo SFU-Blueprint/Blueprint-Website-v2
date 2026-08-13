@@ -8,9 +8,9 @@
  * Desktop: horizontal crosshair line rests under the page title.
  * Mobile: horizontal crosshair line rests above the page title.
  *
- * Safari/iOS paints <video> as an opaque black plate (alpha → black, mix-blend
- * ignored, opacity ignored). The video is parked off-screen; frames are drawn
- * to a *transparent* canvas (black/white keyed out) so the PNG crosshair and
+ * Safari/iOS paints <video> as an opaque plate (alpha → black, mix-blend
+ * ignored). The video is parked off-screen; frames are drawn to a transparent
+ * canvas with near-black and near-white keyed out so the PNG crosshair and
  * dotted path stay one combined graphic.
  */
 
@@ -56,14 +56,6 @@ const LINE_END_FADE_MASK = {
   maskComposite: "intersect" as const,
 };
 
-function isWebKit() {
-  if (typeof navigator === "undefined") return false;
-  const ua = navigator.userAgent;
-  if (/iP(hone|ad|od)/i.test(ua)) return true;
-  if (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1) return true;
-  return /Safari/i.test(ua) && !/Chrome|Chromium|CriOS|FxiOS|Edg/i.test(ua);
-}
-
 export default function HeroCrosspoint({
   videoSrc,
   className = "h-[820px]",
@@ -87,7 +79,6 @@ export default function HeroCrosspoint({
     const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
-    const knockOutBlack = isWebKit();
     let raf = 0;
     let alive = true;
 
@@ -98,15 +89,10 @@ export default function HeroCrosspoint({
     const keyFrame = (w: number, h: number) => {
       const frame = ctx.getImageData(0, 0, w, h);
       const d = frame.data;
-      if (knockOutBlack) {
-        for (let i = 0; i < d.length; i += 4) {
-          const l = (d[i] + d[i + 1] + d[i + 2]) / 3;
-          d[i + 3] = l < 28 ? 0 : d[i + 3];
-        }
-      } else {
-        for (let i = 0; i < d.length; i += 4) {
-          if (d[i] > 232 && d[i + 1] > 232 && d[i + 2] > 232) d[i + 3] = 0;
-        }
+      for (let i = 0; i < d.length; i += 4) {
+        const l = (d[i] + d[i + 1] + d[i + 2]) / 3;
+        // Safari alpha → black; Chromium fill is white. Drop both so only the arcs remain.
+        if (l < 32 || l > 224) d[i + 3] = 0;
       }
       ctx.putImageData(frame, 0, 0);
     };
@@ -182,10 +168,10 @@ export default function HeroCrosspoint({
         </video>
         <canvas
           ref={canvasRef}
-          className={`absolute left-0 top-0 max-w-none h-auto ${videoClassName} transition-opacity duration-200 ${
+          className={`absolute left-0 top-0 max-w-none h-auto bg-transparent ${videoClassName} transition-opacity duration-200 ${
             videoReady ? "opacity-100" : "opacity-0"
           }`}
-          style={{ transform: "translate(-50%, -50%)", mixBlendMode: "multiply" }}
+          style={{ transform: "translate(-50%, -50%)" }}
         />
       </div>
     </div>

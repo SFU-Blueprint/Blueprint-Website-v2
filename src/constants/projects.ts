@@ -14,7 +14,6 @@
     },
 */
 import { Mosaic } from "./Team/Mosaic.ts";
-import { Pedals } from "./Team/Pedals.ts";
 import { Blueprint } from "./Team/Blueprint.ts";
 import { ReelYouth } from "./Team/ReelYouth.ts";
 import { OurCommunityBikes } from "./Team/OurCommunityBikes.ts";
@@ -35,22 +34,6 @@ export const Projects = [
       "Developing an AI chatbot that will help users find relevant programs and services. By offering personalised recommendations, facilitating registration, and communicating in multiple languages, the integration aims to improve the overall experience for MOSAIC's diverse audience, helping them successfully settle in Canada and access the services they need.",
     page: "https://mosaicbc.org/",
     team: Mosaic,
-  },
-  {
-    name: "Pedals",
-    slug: "pedals",
-    status: "completed",
-    description: "Empowering Communities Through Bicycles",
-    date: "January 2024 - Current",
-    tags: ["Admin", "Community"],
-    image: "Pedals.png",
-    popupimage: "pedals-popup.png",
-    nonProfitDescription:
-      "Our Community Bikes (transferred to PEDALS 6 years ago), has been offering bike repair workshops to help empower bike users to use their bikes more comfortably. They currently offer bike mechanic courses, host community bike clinics, and provide employment opportunities to people facing employment barriers. PEDALS regularly engages with around 3 dozen members of the community as volunteers weekly. ",
-    projectDescription:
-      "To streamline the tracking of volunteer hours and shift management, we are developing a responsive website for PEDALS. Accessible on both mobile and desktop devices, this site replaces the current manual paper log system. It allows volunteers to easily sign in and out of their shifts, enabling managers to maintain accurate records in real-time. This digital solution ensures PEDALS has consistent, up-to-date data available for grant applications and frees up time for PEDALS’ coordinators to focus on revenue-generating activities for the shop",
-    page: "https://ourcommunitybikes.org/",
-    team: Pedals,
   },
   {
     name: "Reel Youth",

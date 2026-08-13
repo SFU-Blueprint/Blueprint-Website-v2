@@ -1,6 +1,6 @@
 import React from 'react';
-// import { ParagraphTitle, ParagraphText } from "../Common";
-// import { useTranslation } from "react-i18next";
+import ProjectCardCover from "../shared/ProjectCardCover";
+import ProjectCardMeta from "../shared/ProjectCardMeta";
 
 /**
  * ProjectCard component to display a card representing a project.
@@ -28,13 +28,11 @@ const ProjectCard = ({project=ProjectInfo}) => { // Change Placeholder Project I
     <div className="w-full min-w-0 max-w-[865px] px-6 pt-6 pb-9 md:px-9 md:pt-9 md:pb-12 bg-white rounded-[5px] flex flex-col justify-start items-start gap-2.5 overflow-hidden [@media(hover:hover)]:hover:ring-1 [@media(hover:hover)]:hover:ring-bp-grey [@media(hover:hover)]:hover:bg-bp-lightest-grey group">
         <div className="self-stretch flex flex-col justify-start items-start gap-4 md:gap-5">
            {/*  Hero Image  */}
-            <div
-              className="self-stretch h-40 flex flex-col justify-end items-center rounded-[5px] overflow-hidden pt-[37px] md:h-80"
-              style={{ backgroundColor: project.COVER_BG ?? "#5387E3" }}
-            >
-                {/* max height of image calculated as (h_container - pt)*/}
-                <img className='transition-transform duration-150 [@media(hover:hover)]:group-hover:scale-105 md:max-h-[283px] max-[767px]:max-h-[126px]' src={project.COVER_PLACEHOLDER} alt="Placeholder"/>
-            </div>
+            <ProjectCardCover
+              src={project.COVER_PLACEHOLDER}
+              backgroundColor={project.COVER_BG ?? "#5387E3"}
+              scale={project.COVER_SCALE}
+            />
             
             {/*  Title and Icons */}
             <div className="self-stretch inline-flex justify-start items-start gap-3 md:gap-16">
@@ -48,33 +46,11 @@ const ProjectCard = ({project=ProjectInfo}) => { // Change Placeholder Project I
             {/*  Divider */}
             <div className="self-stretch h-0 outline outline-1 outline-offset-[-0.50px] outline-zinc-300"></div>
             
-            {/* Info Section */}
-            <div className="w-full max-w-[552px] md:inline-flex md:flex-row justify-start items-start gap-3 md:gap-6 flex flex-col">
-                <div className="min-w-28 md:w-36 flex flex-col justify-start items-start gap-1.5 md:gap-3">
-                    <div className="w-36 justify-start text-neutral-500 text-[10px] md:text-sm font-medium font-['Poppins'] uppercase">
-                        CLIENT
-                    </div>
-                    <div className="justify-start md:self-stretch md:inline-flex text-zinc-800 text-sm md:text-base font-normal font-['Poppins']">
-                        {project.CLIENT_PLACEHOLDER}
-                    </div>
-                    </div>
-                <div className="w-28 md:w-36 flex flex-col justify-start items-start gap-1.5 md:gap-3">
-                    <div className="self-stretch justify-start text-neutral-500 text-[10px] md:text-sm font-medium font-['Poppins'] uppercase">
-                        SERVICE
-                    </div>
-                    <div className="self-stretch justify-start md:inline-flex text-zinc-800 text-sm md:text-base font-normal font-['Poppins']">
-                        {project.SERVICE_PLACEHOLDER}
-                    </div>
-                </div>
-                <div className="w-28 md:w-36 flex flex-col justify-start items-start gap-1.5 md:gap-3">
-                    <div className="self-stretch justify-start text-neutral-500 text-[10px] md:text-sm font-medium font-['Poppins'] uppercase">
-                        SECTOR
-                    </div>
-                    <div className="justify-start md:self-stretch md:inline-flex text-zinc-800 text-sm md:text-base font-normal font-['Poppins']">
-                        {project.SECTOR_PLACEHOLDER}
-                    </div>
-                </div>
-            </div>
+            <ProjectCardMeta
+              client={project.CLIENT_PLACEHOLDER}
+              service={project.SERVICE_PLACEHOLDER}
+              sector={project.SECTOR_PLACEHOLDER}
+            />
         </div>
     </div>
     );

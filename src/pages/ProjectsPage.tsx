@@ -5,10 +5,11 @@ import ProjectsCTA from "../components/shared/ProjectsCTA";
 import HeroCrosspoint from "../components/shared/HeroCrosspoint";
 import { Projects } from "../constants/projects";
 
-/** Square / letterboxed covers that look over-cropped with object-cover */
-const CONTAIN_COVER_SLUGS = new Set(["pedals", "blueprint-website"]);
 const COVER_BG_BY_SLUG: Record<string, string> = {
-  pedals: "#F4F4F4",
+  mosaic: "#5386E4",
+  "our-community-bikes": "#E5E5EB",
+  "reel-youth": "#F49F00",
+  raps: "#FFC3E8",
   "blueprint-website": "#2A2A2A",
 };
 
@@ -35,7 +36,6 @@ const ProjectsPage = () => {
           <section className="relative w-full max-w-[1280px]">
             <div className="grid grid-cols-1 min-[962px]:grid-cols-2 gap-x-[42px] gap-y-9 w-full">
               {filteredProjects.map((project) => {
-                const useContain = CONTAIN_COVER_SLUGS.has(project.slug);
                 return (
                   <ProjectCard
                     key={project.slug}
@@ -48,8 +48,8 @@ const ProjectsPage = () => {
                     service={project.tags?.[0] ?? "Web App"}
                     sector={project.tags?.[1] ?? project.tags?.[0] ?? "Web-app"}
                     href={`/projects/${project.slug}`}
-                    coverFit={useContain ? "contain" : "cover"}
                     coverBg={COVER_BG_BY_SLUG[project.slug]}
+                    coverScale={project.slug === "mosaic" ? 1.28 : undefined}
                   />
                 );
               })}

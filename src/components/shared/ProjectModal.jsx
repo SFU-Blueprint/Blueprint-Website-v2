@@ -6,7 +6,6 @@ import { ParagraphTitle } from "../Common";
 // import { Link } from 'react-router-dom';
 import { Blueprint } from "../../constants/Team/Blueprint";
 import { Mosaic } from "../../constants/Team/Mosaic";
-import { Pedals } from "../../constants/Team/Pedals";
 import { ReelYouth } from "../../constants/Team/ReelYouth";
 // import PlaceholderImage from "../../assets/images/projects/aiForHealth.png";
 
@@ -42,8 +41,6 @@ function ProjectModal({ isOpen, onClose, project }) {
         return Blueprint;
       case "Mosaic":
         return Mosaic;
-      case "Pedals":
-        return Pedals;
       default:
         return []; // This will handle cases where the team is not found or the project is undefined
     }

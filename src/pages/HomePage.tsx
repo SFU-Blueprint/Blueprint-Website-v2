@@ -668,6 +668,7 @@ const ProjectsCardStack = () => {
                   ? project.popupimage
                   : "https://placehold.co/517x354",
                 COVER_BG: PROJECT_COVER_BG[project.slug] ?? "#5387E3",
+                COVER_SCALE: project.slug === "mosaic" ? 1.28 : undefined,
                 TITLE_PLACEHOLDER: project.description,
                 CLIENT_PLACEHOLDER: project.name,
                 SERVICE_PLACEHOLDER: project.tags?.[0] ?? "Web App",

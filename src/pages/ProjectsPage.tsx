@@ -5,12 +5,20 @@ import ProjectsCTA from "../components/shared/ProjectsCTA";
 import HeroCrosspoint from "../components/shared/HeroCrosspoint";
 import { Projects } from "../constants/projects";
 
+/** Square / letterboxed covers that look over-cropped with object-cover */
+const CONTAIN_COVER_SLUGS = new Set([
+  "pedals",
+  "original-blueprint-website",
+  "website-revamp-2026",
+]);
+
 const COVER_BG_BY_SLUG: Record<string, string> = {
   mosaic: "#5386E4",
   "our-community-bikes": "#E5E5EB",
   "reel-youth": "#F49F00",
   raps: "#FFC3E8",
-  "blueprint-website": "#0146BE",
+  "original-blueprint-website": "#0146BE",
+  "website-revamp-2026": "#2A2A2A",
 };
 
 const ProjectsPage = () => {

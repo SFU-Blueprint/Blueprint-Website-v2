@@ -27,7 +27,7 @@ const ROLE_HOVER_BG_CLASS: Record<NonNullable<MemberCardProps["roleType"]>, stri
 const BORDER_RADIUS = 10;
 // Phone: 170×228, padding 10 9 10 8 (top right bottom left)
 // Tablet: 224×308, padding 12 10 26 12
-// Desktop: 273×309, padding 14 13 30 13
+// Desktop: 299×332, padding 14 13 30 13
 
 /**
  * The name prop must be less than 15 chars in length. Preferred format is 'FirstName LastInitial'. e.g: Jonathan G
@@ -45,17 +45,44 @@ export default function MemberCard({
   layout = "default",
 }: MemberCardProps) {
   const [isHovered, setIsHovered] = useState(false);
+
+  // Names 15 characters or longer display the first name and initials of the remaining names
+  const getDisplayName = (fullName: string) => {
+    if (fullName.length < 15) return fullName;
+
+    const parts = fullName.trim().split(/\s+/);
+
+    if (parts.length === 1) return fullName;
+
+    return `${parts[0]} ${parts
+      .slice(1)
+      .map((part) => `${part.charAt(0).toUpperCase()}.`)
+      .join(" ")}`;
+  };
+
+  const displayName = getDisplayName(name);
+
   const hoverBgClass = ROLE_HOVER_BG_CLASS[roleType];
   const showHoverStyle = isHovered && linkedinUrl;
   const isAlumniLayout = layout === "alumni";
+
   // If randomRotation is true: selects a rotation degree between +/- 3-5 otherwise defaults to +5
-  const rotationDegree: string = randomRotation ? String((Math.floor(Math.random() * 4)+2) * (-1)**(Math.floor(Math.random() * 2))) : '5';
+  const rotationDegree: string = randomRotation
+    ? String(
+        (Math.floor(Math.random() * 4) + 2) *
+          (-1) ** Math.floor(Math.random() * 2)
+      )
+    : "5";
+
   const handleClick = () => {
-    if (linkedinUrl) window.open(linkedinUrl, "_blank", "noopener,noreferrer");
+    if (linkedinUrl) {
+      window.open(linkedinUrl, "_blank", "noopener,noreferrer");
+    }
   };
+
   const photoSizeClassName = isAlumniLayout
     ? "w-full h-[136px] tablet:aspect-square tablet:max-h-[196px] tablet:h-auto tablet:min-h-[120px] rounded-md bg-bp-lightest-grey overflow-hidden shrink-0"
-    : "w-min-[153px] h-[127px] w-full tablet:aspect-square tablet:max-h-[180px] tablet:h-auto tablet:min-h-[120px] rounded-md bg-bp-lightest-grey overflow-hidden shrink-0";
+    : "w-min-[153px] h-[127px] w-full tablet:h-[192px] tablet:min-h-[192px] tablet:max-h-[192px] desktop:h-[192px] desktop:min-h-[192px] desktop:max-h-[192px] rounded-md bg-bp-lightest-grey overflow-hidden shrink-0";
 
   const cardContent = (
     <div className="flex flex-col items-start w-full flex-1 min-h-0">
@@ -70,14 +97,19 @@ export default function MemberCard({
             className="w-full h-full object-cover"
           />
         ) : (
-          <div className="w-full h-full bg-bp-grey" aria-hidden />
+          <div
+            className="w-full h-full bg-bp-grey"
+            aria-hidden
+          />
         )}
       </div>
 
       {/* Lower section: fills space below photo; on desktop hover, centers LinkedIn vertically */}
       <div
         className={`flex flex-col items-start w-full flex-1 min-h-0 ${
-          showHoverStyle ? "desktop:justify-center" : "desktop:justify-start"
+          showHoverStyle
+            ? "desktop:justify-center"
+            : "desktop:justify-start"
         }`}
       >
         {/* Role: phone 10px; tablet/desktop 14px; hidden on desktop when hovered */}
@@ -89,30 +121,50 @@ export default function MemberCard({
         >
           {role}
         </span>
+
         {/* Name: phone 18px, 130%, -0.36px; tablet/desktop 24px, 130%, -0.48px; hidden on desktop when hovered */}
         <span
           className={`font-poppins text-[18px] font-medium text-black leading-[130%] tracking-[-0.36px] self-stretch mt-0.5 tablet:mt-1.5 tablet:text-[24px] tablet:tracking-[-0.48px] whitespace-nowrap ${
             showHoverStyle ? "desktop:hidden" : ""
           }`}
         >
-          {name.toLowerCase()}
+          {displayName.toLowerCase()}
         </span>
 
         {/* LinkedIn: phone/tablet = icon only; desktop = full row when hovered */}
         {linkedinUrl && (
           <span
             className={`flex items-center gap-1.5 font-poppins text-[24px] font-normal leading-[130%] tracking-[-0.48px] text-black mt-1.5 tablet:mt-[12px] -ml-0.5 desktop:ml-0 ${
-              showHoverStyle ? "desktop:flex desktop:mt-6" : "desktop:hidden"
+              showHoverStyle
+                ? "desktop:flex desktop:mt-6"
+                : "desktop:hidden"
             }`}
           >
             <img
               src={linkedinIcon}
               alt=""
-              className={`w-[17px] h-[17px] shrink-0 tablet:w-[24px] tablet:h-[24px] ${showHoverStyle ? "desktop:w-[40px] desktop:h-[40px]" : ""}`}
+              className={`w-[17px] h-[17px] shrink-0 tablet:w-[24px] tablet:h-[24px] ${
+                showHoverStyle
+                  ? "desktop:w-[40px] desktop:h-[40px]"
+                  : ""
+              }`}
               aria-hidden
             />
-            <span className={`hidden ${showHoverStyle ? "desktop:inline" : ""}`}>linkedin</span>
-            <ArrowUpRightIcon className={`w-6 h-6 shrink-0 [&_path]:fill-current hidden ${showHoverStyle ? "desktop:block" : ""}`} aria-hidden />
+
+            <span
+              className={`hidden ${
+                showHoverStyle ? "desktop:inline" : ""
+              }`}
+            >
+              linkedin
+            </span>
+
+            <ArrowUpRightIcon
+              className={`w-6 h-6 shrink-0 [&_path]:fill-current hidden ${
+                showHoverStyle ? "desktop:block" : ""
+              }`}
+              aria-hidden
+            />
           </span>
         )}
       </div>
@@ -121,24 +173,32 @@ export default function MemberCard({
 
   const baseClassName =
     "flex flex-col items-start rounded-[10px] font-poppins cursor-pointer transition-transform duration-200 ease-out";
-  // Phone: 170×228, padding 10 9 10 8 | Tablet: 224×308, padding 12 10 26 12 | Desktop: 273×309, padding 14 13 30 13
+
+  // Phone: 170×228, padding 10 9 10 8 | Tablet: 224×308, padding 12 10 26 12 | Desktop: 299×332, padding 14 13 30 13
   const sizeClassName =
     isAlumniLayout
       ? `w-full min-w-[170px] max-[629px]:max-w-[230px] min-h-[236px] pt-[10px] pr-[9px] pb-[10px] pl-[8px]
          tablet:w-full tablet:max-w-[248px] tablet:min-h-[324px] tablet:pt-3 tablet:pr-[10px] tablet:pb-[26px] tablet:pl-3 
          desktop:max-w-[252px] desktop:min-h-[316px] desktop:pt-[14px] desktop:pr-[13px] desktop:pb-[30px] desktop:pl-[13px]`
       : `w-full min-w-[170px] max-[629px]:max-w-[230px] h-[228px] min-h-[228px] pt-[10px] pr-[9px] pb-[10px] pl-[8px] max-w-[350px]
-         tablet:min-w-[224px] tablet:w-full tablet:h-[308px] tablet:min-h-[308px] tablet:pt-3 tablet:pr-[10px] tablet:pb-[26px] tablet:pl-3 
-         desktop:h-[309px] desktop:min-h-[309px] desktop:pt-[14px] desktop:pr-[13px] desktop:pb-[30px] desktop:pl-[13px]`;
-  const wrapperStyle: React.CSSProperties = { borderRadius: BORDER_RADIUS };
-  const rotationStyle: React.CSSProperties = { "--customRot": `${rotationDegree}deg` } as React.CSSProperties;
-  const wrapperBgClass = isHovered ? hoverBgClass : "bg-white";
-  const rotationClass = isHovered ? "desktop:rotate-[--customRot]" : "";
+         tablet:min-w-[224px] tablet:w-full tablet:h-[308px] tablet:min-h-[308px] tablet:pt-3 tablet:pr-[10px] tablet:pb-[26px] tablet:pl-3
+         desktop:w-[299px] desktop:min-w-[299px] desktop:max-w-[299px] desktop:h-[332px] desktop:min-h-[332px] desktop:pt-[14px] desktop:pr-[13px] desktop:pb-[30px] desktop:pl-[13px]`;
 
-  if (name.length >= 15) {
-    console.error(`name attribute exceeds 15 chars. '${name}' is ${name.length} chars long. Abandoning.`);
-    return <></>;
-  }
+  const wrapperStyle: React.CSSProperties = {
+    borderRadius: BORDER_RADIUS,
+  };
+
+  const rotationStyle: React.CSSProperties = {
+    "--customRot": `${rotationDegree}deg`,
+  } as React.CSSProperties;
+
+  const wrapperBgClass = isHovered
+    ? hoverBgClass
+    : "bg-white";
+
+  const rotationClass = isHovered
+    ? "desktop:rotate-[--customRot]"
+    : "";
 
   if (linkedinUrl) {
     return (
@@ -146,7 +206,10 @@ export default function MemberCard({
         role="button"
         tabIndex={0}
         className={`${baseClassName} ${sizeClassName} ${wrapperBgClass} ${rotationClass}`}
-        style={{...wrapperStyle, ...rotationStyle}}
+        style={{
+          ...wrapperStyle,
+          ...rotationStyle,
+        }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={handleClick}
@@ -156,7 +219,9 @@ export default function MemberCard({
             handleClick();
           }
         }}
-        aria-label={`${name}, ${role}. ${linkedinUrl ? "Open LinkedIn profile." : ""}`}
+        aria-label={`${name}, ${role}. ${
+          linkedinUrl ? "Open LinkedIn profile." : ""
+        }`}
       >
         {cardContent}
       </div>
@@ -166,7 +231,10 @@ export default function MemberCard({
   return (
     <div
       className={`${baseClassName} ${sizeClassName} ${wrapperBgClass} ${rotationClass}`}
-      style={{ ...wrapperStyle, ...rotationStyle }}
+      style={{
+        ...wrapperStyle,
+        ...rotationStyle,
+      }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       aria-label={`${name}, ${role}`}

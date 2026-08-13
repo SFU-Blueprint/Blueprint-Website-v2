@@ -460,24 +460,20 @@ const AboutPage = () => {
 
       {/* Meet the Team */}
       <section
-        className="meet-the-team relative z-0 w-full max-md:w-screen max-md:max-w-none max-md:ml-[calc(50%-50vw)] max-md:mr-[calc(50%-50vw)] max-w-[1328px] md:mx-auto rounded-[20px] bg-bp-lighter-grey max-md:rounded-none max-md:bg-bp-blue max-md:px-6 max-md:pt-16 max-md:pb-20 sm:px-8 md:px-10 md:pt-20 md:pb-24 xl:px-14"
+        className="meet-the-team relative z-0 w-full max-w-[1328px] mx-auto rounded-[20px] bg-bp-lighter-grey px-4 pt-14 pb-16 sm:px-8 md:px-10 md:pt-20 md:pb-24 xl:px-14"
         aria-labelledby="meet-the-team-heading"
       >
         <h2
           id="meet-the-team-heading"
-          className="mb-8 max-md:mb-6 max-md:text-left md:mb-10 md:text-center"
+          className="mb-8 text-center md:mb-10"
         >
-          <span className="font-poppins text-mobile-heading-l-bold text-bp-white md:hidden">
-            <span className="font-normal">our </span>
-            <span className="font-bold">team</span>
-          </span>
-          <span className="hidden font-caveat font-normal text-bp-black text-mobile-heading-hand tablet:text-heading-hand desktop:text-[78px] desktop:leading-none desktop:tracking-normal md:inline">
+          <span className="font-caveat font-normal text-bp-black text-mobile-heading-hand tablet:text-heading-hand desktop:text-[78px] desktop:leading-none desktop:tracking-normal">
             meet the team
           </span>
         </h2>
 
         <div
-          className="mb-8 flex max-md:mb-6 max-md:justify-start max-md:gap-2 md:mb-10 flex-wrap flex-row justify-center gap-x-3 gap-y-3 md:gap-x-[14px]"
+          className="mb-8 flex flex-wrap flex-row justify-center gap-x-2 gap-y-2 md:mb-10 md:gap-x-[14px] md:gap-y-3"
           role="toolbar"
           aria-label="Filter team by role"
         >
@@ -485,31 +481,19 @@ const AboutPage = () => {
             const selected = selectedRoles.includes(roleType);
 
             return (
-              <div key={roleType} className="contents">
-                <span className="max-md:contents md:hidden">
-                  <Filters
-                    title={label}
-                    state={selected ? "filled" : "outlined"}
-                    variant="dark"
-                    className="max-md:hover:!border-bp-white max-md:hover:!bg-bp-white/15"
-                    onClick={() => toggleRole(roleType)}
-                  />
-                </span>
-                <span className="hidden md:contents">
-                  <Filters
-                    title={label}
-                    variant="light"
-                    state={selected ? "selected" : "default"}
-                    onClick={() => toggleRole(roleType)}
-                  />
-                </span>
-              </div>
+              <Filters
+                key={roleType}
+                title={label}
+                variant="light"
+                state={selected ? "selected" : "default"}
+                onClick={() => toggleRole(roleType)}
+              />
             );
           })}
         </div>
 
         <div
-          className="grid w-full max-md:grid-cols-2 max-md:gap-3 max-md:justify-items-stretch justify-items-center gap-6 md:gap-8 md:[grid-template-columns:repeat(auto-fit,minmax(250px,1fr))]"
+          className="grid w-full grid-cols-2 gap-3 justify-items-stretch md:gap-8 md:[grid-template-columns:repeat(auto-fit,minmax(250px,1fr))] md:justify-items-center"
           role="list"
           aria-live="polite"
         >
@@ -531,20 +515,12 @@ const AboutPage = () => {
           ))}
         </div>
 
-        <div className="mt-10 flex w-full justify-center max-md:mt-8 md:mt-12">
-          <Button
-            type="button"
-            variant="secondary"
-            onClick={() => navigate("/alumni")}
-            className="w-full md:hidden"
-          >
-            ALUMNI
-          </Button>
+        <div className="mt-10 flex w-full justify-center md:mt-12">
           <Button
             type="button"
             variant="tertiary"
             onClick={() => navigate("/alumni")}
-            className="hidden w-full desktop:h-[60px] desktop:w-[200px] desktop:min-w-[200px] desktop:max-w-[200px] desktop:shrink-0 desktop:px-4 md:flex"
+            className="h-[52px] w-full max-w-[200px] md:h-[60px] md:w-[200px] md:min-w-[200px] md:max-w-[200px] md:shrink-0 md:px-4"
           >
             ALUMNI
           </Button>

@@ -374,7 +374,7 @@ const CaseStudies: CaseStudyContent[] = [
       logoAlt: "SFU Blueprint logo",
 
       img1: {
-        url: "https://placehold.co/600x450",
+        url: "/images/projects/original-blueprint-website/original-blueprint-homepage.png",
         caption: "where we started",
         alt: "Placeholder for the previous SFU Blueprint website",
       },
@@ -424,32 +424,32 @@ const CaseStudies: CaseStudyContent[] = [
           alt: "Redesigned SFU Blueprint website pages",
         },
 
-        {
-          description: (
-            <>
-              <p className="tablet:text-body-l-reg tablet:mb-[30px] mb-[12px] text-mobile-body-l-reg">
-                Our projects are at the heart of Blueprint, so we gave them more
-                room to tell their stories. The new project experience goes
-                beyond simply showing what we built, highlighting the problem,
-                solution, impact, and people behind each collaboration.
-              </p>
+        // {
+        //   description: (
+        //     <>
+        //       <p className="tablet:text-body-l-reg tablet:mb-[30px] mb-[12px] text-mobile-body-l-reg">
+        //         Our projects are at the heart of Blueprint, so we gave them more
+        //         room to tell their stories. The new project experience goes
+        //         beyond simply showing what we built, highlighting the problem,
+        //         solution, impact, and people behind each collaboration.
+        //       </p>
 
-              <p className="tablet:text-heading-xs-reg text-mobile-heading-xs-reg">
-                In fact,{" "}
-                <span className="tablet:text-heading-s-bold text-mobile-heading-s-bold">
-                  you&apos;re looking at it right now.
-                </span>
-              </p>
-            </>
-          ),
+        //       <p className="tablet:text-heading-xs-reg text-mobile-heading-xs-reg">
+        //         In fact,{" "}
+        //         <span className="tablet:text-heading-s-bold text-mobile-heading-s-bold">
+        //           you&apos;re looking at it right now.
+        //         </span>
+        //       </p>
+        //     </>
+        //   ),
 
-          imgURL: "https://placehold.co/1200x700",
+          // imgURL: "https://placehold.co/1200x700",
 
-          caption:
-            "The new case study experience brings together the story, solution, visuals, and team behind every Blueprint project.",
+          // caption:
+          //   "The new case study experience brings together the story, solution, visuals, and team behind every Blueprint project.",
 
-          alt: "The redesigned Blueprint project case study page",
-        },
+          // alt: "The redesigned Blueprint project case study page",
+        // },
 
         {
           description: (
@@ -470,7 +470,7 @@ const CaseStudies: CaseStudyContent[] = [
             </>
           ),
 
-          imgURL: "https://placehold.co/1200x700",
+          imgURL: "/images/student/join-social-team.webp",
 
           caption:
             "Design was at the heart of the revamp, shaping the visual system, interactions, and experience that our developers brought to life.",

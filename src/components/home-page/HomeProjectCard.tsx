@@ -15,6 +15,7 @@ const ProjectInfo = { // put project key infor here.
   TITLE_PLACEHOLDER: "reducing volunteer management time by 4 hours per month with a digital volunteer hour logbook",
   CLIENT_PLACEHOLDER: "Our Community Bikes",  
   SERVICE_PLACEHOLDER: "Web-app",
+  COVER_SCALE: 1.25,
   SECTOR_PLACEHOLDER: "Sustainable Transportation"
 }
 

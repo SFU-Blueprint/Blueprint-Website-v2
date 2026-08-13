@@ -61,7 +61,7 @@ function ReachOutButton({ className = "" }: { className?: string }) {
     <a
       href="mailto:sfublueprint@gmail.com"
       className={`inline-flex h-[52px] w-[200px] items-center justify-center rounded-[5px] 
-        bg-bp-blue px-[44px] font-poppins text-[14px] font-semibold leading-none text-bp-white
+        bg-bp-blue px-[44px] font-poppins text-[14px] font-bold leading-none text-bp-white
         transition-colors duration-150 hover:bg-bp-hover-blue active:bg-bp-pressed-blue
         md:h-[60px] md:text-[16px] ${className}`}
     >

@@ -23,7 +23,7 @@ const Button = ({
     secondary:
       'bg-white text-bp-blue hover:bg-bp-light-grey active:bg-bp-grey',
     tertiary:
-      'bg-bp-black text-white hover:bg-bp-dark-grey active:bg-bp-pressed-blue font',
+      'bg-bp-black text-white hover:bg-bp-dark-grey active:bg-bp-pressed-blue',
   };
 
   return (

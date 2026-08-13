@@ -685,7 +685,7 @@ const ProjectsCardStack = () => {
 const ImpactSection = () => {
   return (
   <section className="relative z-20 w-full pt-[120px] max-md:pt-[75px]">
-        <div className="mx-auto flex w-full flex-col items-center gap-12 xl:gap-24 xl:flex-row xl:items-start 
+        <div className="mx-auto flex flex-col items-center gap-12 xl:gap-24 xl:flex-row xl:items-start 
         w-full justify-between"> {/* max-w-[1196px] xl:justify-center */}
         {/* Left side Heading and logos */}
         <div className="z-20 w-full max-w-[440px] shrink-0 max-md:max-w-[90vw] xl:sticky xl:top-[25%]">
@@ -727,7 +727,7 @@ const ImpactSection = () => {
 
           <div className="pt-10 w-full max-md:hidden">
             <Link to="/projectspage">
-            <Button variant="tertiary" className="!font-light uppercase max-xl:!basis-auto max-xl:!w-full !w-52 max-md:!w-full !h-15">see all projects</Button>
+            <Button variant="tertiary" className="uppercase max-xl:!basis-auto max-xl:!w-full !w-52 max-md:!w-full !h-15">see all projects</Button>
             </Link>
           </div>
 
@@ -742,7 +742,7 @@ const ImpactSection = () => {
         </div>
         <div className="mx-auto w-full max-w-[440px] pt-[73px] max-md:max-w-[90vw] md:hidden">
             <Link to="/projectspage">
-            <Button variant="tertiary" className="!font-normal uppercase !w-52 max-md:!w-full !h-15">see all projects</Button>
+            <Button variant="tertiary" className=" uppercase !w-52 max-md:!w-full !h-15">see all projects</Button>
             </Link>
         </div>
       </section>
@@ -867,7 +867,7 @@ const HomePage = () => {
               <div className="relative z-10 max-md:hidden self-start">
                 <Link
                   to="/students"
-                  className="inline-flex h-16 w-48 items-center justify-center rounded-[5px] bg-bp-black px-[44px] font-poppins text-[16px] font-light uppercase leading-none text-white transition-colors duration-150 hover:bg-bp-dark-grey active:bg-bp-pressed-blue"
+                  className="inline-flex h-16 w-48 items-center justify-center rounded-[5px] bg-bp-black px-[44px] font-poppins text-[16px] font-semibold uppercase leading-none text-white transition-colors duration-150 hover:bg-bp-dark-grey active:bg-bp-pressed-blue"
                 >
                   join us
                 </Link>

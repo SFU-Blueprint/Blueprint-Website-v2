@@ -8,9 +8,10 @@
  * Desktop: horizontal crosshair line rests under the page title.
  * Mobile: horizontal crosshair line rests above the page title.
  *
- * Safari (macOS, iPad, iPhone) cannot mix-blend or CSS-mask <video> — it paints
- * a black plate. Every viewport draws the same video onto a canvas with multiply
- * so the animation plays without that black rectangle.
+ * Safari/iOS paints <video> as an opaque black plate (alpha → black, mix-blend
+ * ignored, opacity ignored). The video is parked off-screen and frames are
+ * drawn to a canvas. WebKit uses `screen` to knock out that black fill;
+ * other engines use `multiply` to knock out white.
  */
 
 import { useEffect, useRef, useState } from "react";
@@ -19,7 +20,7 @@ const CROSSPOINT_IMG = "/images/crosspoint.png";
 /** Crosshair location inside crosspoint.png (2260 × 1496) */
 const CROSS_X_RATIO = 1529 / 2260;
 const CROSS_Y_RATIO = 607 / 1496;
-/** Matches `bp-lightest-grey` — baked under multiply so the video fill never shows as black. */
+/** Matches `bp-lightest-grey`. */
 const PAGE_BG = "#F3F3F3";
 
 type HeroCrosspointProps = {
@@ -58,6 +59,14 @@ const LINE_END_FADE_MASK = {
   maskComposite: "intersect" as const,
 };
 
+function isWebKit() {
+  if (typeof navigator === "undefined") return false;
+  const ua = navigator.userAgent;
+  if (/iP(hone|ad|od)/i.test(ua)) return true;
+  if (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1) return true;
+  return /Safari/i.test(ua) && !/Chrome|Chromium|CriOS|FxiOS|Edg/i.test(ua);
+}
+
 export default function HeroCrosspoint({
   videoSrc,
   className = "h-[820px]",
@@ -75,9 +84,13 @@ export default function HeroCrosspoint({
     const canvas = canvasRef.current;
     if (!video || !canvas) return;
 
+    video.setAttribute("playsinline", "");
+    video.setAttribute("webkit-playsinline", "");
+
     const ctx = canvas.getContext("2d", { alpha: false });
     if (!ctx) return;
 
+    const knockOutBlack = isWebKit();
     let raf = 0;
     let alive = true;
 
@@ -97,7 +110,9 @@ export default function HeroCrosspoint({
         ctx.globalCompositeOperation = "source-over";
         ctx.fillStyle = PAGE_BG;
         ctx.fillRect(0, 0, w, h);
-        ctx.globalCompositeOperation = "multiply";
+        // Safari decodes WebM alpha as black — screen knocks that out.
+        // Chromium videos are white-on-color — multiply knocks white out.
+        ctx.globalCompositeOperation = knockOutBlack ? "screen" : "multiply";
         ctx.drawImage(video, 0, 0, w, h);
       }
       raf = requestAnimationFrame(draw);
@@ -123,8 +138,6 @@ export default function HeroCrosspoint({
     };
   }, [videoSrc]);
 
-  const mediaStyle = { transform: "translate(-50%, -50%)" } as const;
-
   return (
     <div
       className={`pointer-events-none absolute inset-x-0 top-0 z-0 ${className}`}
@@ -142,6 +155,8 @@ export default function HeroCrosspoint({
             }}
           />
         )}
+        {/* Keep decoding off-screen — Safari ignores opacity on <video> and
+            paints a hardware black plate over the page. */}
         <video
           ref={videoRef}
           autoPlay
@@ -150,8 +165,9 @@ export default function HeroCrosspoint({
           playsInline
           preload="auto"
           disablePictureInPicture
-          className={`absolute left-0 top-0 max-w-none bg-transparent opacity-0 ${videoClassName}`}
-          style={mediaStyle}
+          className="fixed top-0 h-px w-px opacity-0"
+          style={{ left: "-200vw" }}
+          tabIndex={-1}
         >
           <source src={videoSrc} type="video/webm" />
         </video>
@@ -160,7 +176,7 @@ export default function HeroCrosspoint({
           className={`absolute left-0 top-0 max-w-none h-auto ${videoClassName} transition-opacity duration-200 ${
             videoReady ? "opacity-100" : "opacity-0"
           }`}
-          style={mediaStyle}
+          style={{ transform: "translate(-50%, -50%)" }}
         />
       </div>
     </div>

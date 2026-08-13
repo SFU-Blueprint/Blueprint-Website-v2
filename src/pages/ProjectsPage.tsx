@@ -10,7 +10,7 @@ const COVER_BG_BY_SLUG: Record<string, string> = {
   "our-community-bikes": "#E5E5EB",
   "reel-youth": "#F49F00",
   raps: "#FFC3E8",
-  "blueprint-website": "#2A2A2A",
+  "blueprint-website": "#0146BE",
 };
 
 const ProjectsPage = () => {
@@ -50,6 +50,9 @@ const ProjectsPage = () => {
                     href={`/projects/${project.slug}`}
                     coverBg={COVER_BG_BY_SLUG[project.slug]}
                     coverScale={project.slug === "mosaic" ? 1.28 : undefined}
+                    coverMockup={
+                      project.slug === "blueprint-website" ? "macbook" : undefined
+                    }
                   />
                 );
               })}

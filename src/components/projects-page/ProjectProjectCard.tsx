@@ -23,6 +23,7 @@ export type ProjectCardProps = {
     href: string;
     coverBg?: string;
     coverScale?: number;
+    coverMockup?: "macbook";
 }
 
 const ProjectCard = ({
@@ -37,6 +38,7 @@ const ProjectCard = ({
     href,
     coverBg = "#F3F3F3",
     coverScale,
+    coverMockup,
 }: ProjectCardProps) => {
     const cardClassName = `w-full px-9 pt-9 pb-12 bg-white rounded-[5px] inline-flex flex-col justify-start items-start gap-2.5 overflow-hidden 
                         md:w-full md:max-w-[865px] md:min-w-[460px] md:px-9 md:pt-9 md:pb-12
@@ -51,6 +53,7 @@ const ProjectCard = ({
                   alt={card_cover_alt}
                   backgroundColor={coverBg}
                   scale={coverScale}
+                  mockup={coverMockup}
                 />
                 
                 {/*  Title and Icons */}

@@ -6,7 +6,7 @@ import InteractiveCarousel from "../components/shared/Carousel-Interactive";
 import { blueprintTestimonials, bpLogos } from "../constants/homepage-media";
 import TestimonialCard from "../components/shared/TestimonialCard.tsx";
 import { Link } from "react-router-dom";
-import ProjectCard from "../components/home-page/HomeProjectCard";
+import ProjectCard from "../components/shared/ProjectCard.tsx";
 import { Projects } from "../constants/projects";
 import { ReactComponent as WindmillIcon } from "../assets/home/windmill.svg";
 import { ReactComponent as HandshakeIcon } from "../assets/home/handshake.svg";
@@ -640,6 +640,13 @@ const ProjectsCardStack = () => {
     };
   }, [updateCardTransforms]);
 
+  /** Square / letterboxed covers that look over-cropped with object-cover */
+  const CONTAIN_COVER_SLUGS = new Set(["pedals", "blueprint-website"]);
+  const COVER_BG_BY_SLUG: Record<string, string> = {
+    pedals: "#F4F4F4",
+    "blueprint-website": "#2A2A2A",
+  };
+
   return (
     <section className="w-full min-w-0">
       <div className="flex w-full min-w-0 flex-col gap-4">
@@ -660,20 +667,18 @@ const ProjectsCardStack = () => {
             }}
           >
             <ProjectCard
-              project={{
-                LOGO_PLACEHOLDER: project.image
-                  ? project.image
-                  : "https://placehold.co/76x76",
-                COVER_PLACEHOLDER: project.popupimage
-                  ? project.popupimage
-                  : "https://placehold.co/517x354",
-                COVER_BG: PROJECT_COVER_BG[project.slug] ?? "#5387E3",
-                TITLE_PLACEHOLDER: project.description,
-                CLIENT_PLACEHOLDER: project.name,
-                SERVICE_PLACEHOLDER: project.tags?.[0] ?? "Web App",
-                SECTOR_PLACEHOLDER:
-                  project.tags?.[1] ?? project.tags?.[0] ?? "NPO",
-              }}
+              key={project.slug}
+              logo_url={project.image ?? "https://placehold.co/76x76"}
+              card_cover_url={
+                project.popupimage ? project.popupimage : "https://placehold.co/517x354"
+              }
+              description={project.description}
+              client_name={project.name}
+              service={project.tags?.[0] ?? "Web App"}
+              sector={project.tags?.[1] ?? project.tags?.[0] ?? "Web-app"}
+              href={`/projects/${project.slug}`}
+              coverFit={CONTAIN_COVER_SLUGS.has(project.slug) ? "contain" : "cover"}
+              coverBg={COVER_BG_BY_SLUG[project.slug]}
             />
           </div>
         ))}

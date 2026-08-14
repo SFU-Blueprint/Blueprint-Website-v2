@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PageContainer from "../components/layout/PageContainer";
-import ProjectCard from "../components/projects-page/ProjectProjectCard";
+import ProjectCard from "../components/shared/ProjectCard";
 import ProjectsCTA from "../components/shared/ProjectsCTA";
 import HeroCrosspoint from "../components/shared/HeroCrosspoint";
 import { Projects } from "../constants/projects";

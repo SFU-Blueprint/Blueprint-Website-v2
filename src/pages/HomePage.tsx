@@ -792,7 +792,7 @@ const ImpactSection = () => {
                   variant="secondary"
                   className="shrink-0 max-md:w-full w-[200px]"
                 >
-                  <span className="font-poppins text-sm font-semibold">KEEP UPDATED</span>
+                  <span className="font-poppins text-sm font-semibold">RSVP</span>
                 </Button>
               </div>
 

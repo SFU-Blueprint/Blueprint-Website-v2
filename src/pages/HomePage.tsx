@@ -689,7 +689,7 @@ const ProjectsCardStack = () => {
 
 const ImpactSection = () => {
   return (
-  <section className="relative z-20 w-full pt-[120px] max-md:pt-[75px]">
+  <section className="relative z-20 w-full pt-[80px] max-md:pt-[75px]">
         <div className="mx-auto flex flex-col items-center gap-12 xl:gap-24 xl:flex-row xl:items-start 
         w-full justify-between"> {/* max-w-[1196px] xl:justify-center */}
         {/* Left side Heading and logos */}
@@ -745,7 +745,7 @@ const ImpactSection = () => {
           <ProjectsCardStack />
         </div>
         </div>
-        <div className="mx-auto w-full max-w-[440px] pt-[73px] max-md:max-w-[90vw] md:hidden">
+        <div className="mx-auto w-full max-w-[440px] pt-[4rem] max-md:max-w-[90vw] md:hidden">
             <Link to="/projectspage">
             <Button variant="tertiary" className=" uppercase !w-52 max-md:!w-full !h-15">see all projects</Button>
             </Link>
@@ -853,7 +853,7 @@ const HomePage = () => {
           cannot cover the JOIN US crosspoints as the sections overlap. */}
       <div className="relative z-30 overflow-x-clip bg-bp-lightest-grey">
         <PageContainer className="relative z-10 !pt-0">
-          <div className="relative pt-[140px] font-['Poppins'] md:pt-[220px]">
+          <div className="relative pt-[100px] font-['Poppins'] md:pt-[100px]">
             {/* self-start + inline-flex keep the /students Link button-sized.
                 A stretched full-width CTA row was covering the crosspoint curves
                 and making that area navigate to Join Our Team. */}
@@ -881,17 +881,7 @@ const HomePage = () => {
 
             {/* Gap band between JOIN US and carousel — horizontal line at mid-gap.
                 Full-bleed breakout so PageContainer padding cannot clip the graphic. */}
-            <div className="relative z-0 h-[120px] w-full max-md:h-[104px]">
-              <div className="pointer-events-none absolute left-1/2 top-0 z-0 h-full w-screen max-w-none -translate-x-1/2">
-                <HeroCrosspoint
-                  videoSrc="/videos/crosspoints/dotted-path-1.webm"
-                  className="pointer-events-none absolute inset-x-0 top-0 z-0 h-full"
-                  anchorClassName="absolute top-1/2 right-[clamp(24px,8vw,120px)] max-md:right-[24px]"
-                  videoClassName="w-[640px] max-md:w-[280px]"
-                  imageClassName="w-[2260px] max-md:w-[1200px]"
-                />
-              </div>
-            </div>
+            <div className="relative z-0 h-[120px] w-full max-md:h-[60px]"/>
           </div>
 
           {/* testimonials */}
@@ -909,7 +899,7 @@ const HomePage = () => {
             </InteractiveCarousel>
           </div>
 
-          <div className="pb-10 md:hidden">
+          <div className="pb-10 md:hidden -mt-[4.5rem]">
             <Link
               to="/students"
               className="inline-flex h-16 w-full items-center justify-center rounded-[5px] bg-bp-black px-[44px] font-poppins text-[16px] font-normal uppercase leading-none text-white transition-colors duration-150 hover:bg-bp-dark-grey active:bg-bp-pressed-blue"
@@ -919,7 +909,7 @@ const HomePage = () => {
           </div>
 
           {/* Upcoming Events Section*/}
-          <div className="h-full overflow-hidden rounded-[5px] max-md:pb-6 max-md:pt-[54px] md:min-w-[82vw] md:pt-[120px] md:pr-[2vw] xl:pr-[6vw] 2xl:pr-[2vw]">
+          <div className="h-full overflow-hidden rounded-[5px] max-md:pb-6 max-md:pt-[54px] md:min-w-[82vw] md:pt-[60px] md:pr-[2vw] xl:pr-[6vw] 2xl:pr-[2vw]">
             <img
               className="h-full w-full"
               src="/images/home/photos/group.png"

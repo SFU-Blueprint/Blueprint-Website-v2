@@ -786,9 +786,14 @@ const ImpactSection = () => {
               <div>
                 <Button
                   variant="secondary"
-                  className="shrink-0 max-md:w-full w-[200px]"
+                  className="w-[200px] shrink-0 max-md:w-full"
+                  href="https://docs.google.com/forms/d/e/1FAIpQLSegkDsV6h21IHxVVwgo_ovTbJmlgJAFYcnN19M7qn0pYbXQYQ/viewform?usp=publish-editor"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <span className="font-poppins text-sm font-semibold">KEEP UPDATED</span>
+                  <span className="font-poppins text-sm font-semibold">
+                    KEEP UPDATED
+                  </span>
                 </Button>
               </div>
 

@@ -24,14 +24,14 @@ export const WebsiteRevamp2026: MemberCardProps[] = [
     photoUrl: Alfonso,
     linkedinUrl: "https://www.linkedin.com/in/alfonso-ocampo/",
     roleType: "dev",
-    role: "Junior Developer",
+    role: "Developer",
   },
   {
     name: "Teddy Malhan",
     photoUrl: Teddy,
     linkedinUrl: "https://www.linkedin.com/in/teddymalhan/",
     roleType: "dev",
-    role: "Senior Developer",
+    role: "Developer",
   },
   {
     name: "Caron McPherson",

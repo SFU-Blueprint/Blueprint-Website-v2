@@ -992,17 +992,17 @@ function OpenPositionCard({
 
 function StayUpdatedSection() {
   return (
-    <section className="relative overflow-hidden bg-bp-lightest-grey py-[202px] max-md:py-[122px]">
+    <section className="relative bg-bp-lightest-grey py-[165px] max-md:py-[122px] mx-auto max-w-[1155px]">
       <HeroCrosspoint
         videoSrc="/videos/crosspoints/dotted-path-2.webm"
         className="h-full"
-        anchorClassName="absolute top-[220px] left-1/2 max-md:top-[160px]"
-        videoClassName="w-[720px] max-md:w-[300px]"
+        anchorClassName="absolute top-[350px] left-[calc(100%-100px)] max-md:top-[160px]"
+        videoClassName="w-[900px] max-md:w-[300px]"
         imageClassName="w-[2260px] max-md:w-[1200px]"
       />
 
       <div className="mx-auto z-10 relative flex w-full max-w-[1155px] flex-col items-center gap-[58px] px-5 max-md:gap-[38px]">
-        <div className="flex flex-col items-center gap-3 text-center max-md:gap-1.5">
+        <div className="flex flex-col self-start gap-3 text-left max-md:gap-1.5">
           <h2 className="font-caveat text-[78px] font-normal leading-[1.2] tracking-[-1.56px] text-bp-black max-md:text-[32px] max-md:tracking-[-0.64px]">
             stay updated
           </h2>
@@ -1062,7 +1062,7 @@ function SocialLinkCard({
           </span>
 
           <ArrowUpRightIcon
-            className="size-[38px] shrink-0 text-bp-black max-md:size-[35px]"
+            className="size-[38px] shrink-0 text-bp-black max-md:size-[35px] brightness-0"
             aria-hidden
           />
         </span>

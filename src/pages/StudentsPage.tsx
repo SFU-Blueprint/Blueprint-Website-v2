@@ -881,7 +881,7 @@ function SocialLinkCard({
               {platform}
             </span>
           </span>
-          <ArrowUpRightIcon className="size-[38px] shrink-0 text-bp-black max-md:size-[35px]" aria-hidden />
+          <ArrowUpRightIcon className="size-[38px] shrink-0 brightness-0 text-bp-black max-md:size-[35px]" aria-hidden />
         </span>
         <span className="max-w-[400px] font-poppins text-[16px] font-normal leading-normal text-bp-black max-md:w-[264px] max-md:text-[14px]">
           {description}

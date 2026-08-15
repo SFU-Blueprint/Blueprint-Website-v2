@@ -157,7 +157,7 @@ function DesktopNavLinks({
             onClick={closeMenu}
             className={[
               "relative flex items-center whitespace-nowrap rounded font-poppins text-nav-link uppercase transition-all",
-              "h-nav-desktop-h px-4 py-nav-desktop-py xl:px-5 2xl:px-nav-desktop-px",
+              "h-nav-desktop-h py-nav-desktop-py px-[1.3rem] xl:px-[1.85rem] 2xl:px-[calc(36px+1.2rem)]",
               "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bp-blue",
               isDark
                 ? "text-white hover:bg-bp-dark-grey hover:text-white active:bg-bp-grey active:text-white"

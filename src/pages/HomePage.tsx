@@ -760,7 +760,7 @@ const ImpactSection = () => {
   const UpcomingEventsCard = () => {
     return (
       <div className="flex justify-end max-md:justify-center items-end md:-mb-10">
-      <div className="bg-bp-blue rounded-[5px] text-bp-white relative w-full md:max-w-[737px] md:pl-12 md:pr-[50px] md:pb-[72px] h-[350px] 
+      <div className="bg-bp-blue rounded-[5px] text-bp-white relative flex w-full md:max-w-[737px] md:pl-12 md:pr-[50px] md:pb-[72px] h-[350px] 
       max-md:px-[26px] max-md:pb-[61px] max-md:pt-[34px] flex flex-col gap-[32px] min-w-[347px] max-md:h-[336px] md:translate-y-[-50%]"
       style={{ 
         clipPath: 'url(#clip-slant)',

@@ -1002,7 +1002,7 @@ function StayUpdatedSection() {
       />
 
       <div className="mx-auto z-10 relative flex w-full max-w-[1155px] flex-col items-center gap-[58px] px-5 max-md:gap-[38px]">
-        <div className="flex flex-col items-center gap-3 text-center max-md:gap-1.5">
+        <div className="flex flex-col self-start gap-3 text-left max-md:gap-1.5">
           <h2 className="font-caveat text-[78px] font-normal leading-[1.2] tracking-[-1.56px] text-bp-black max-md:text-[32px] max-md:tracking-[-0.64px]">
             stay updated
           </h2>
@@ -1062,7 +1062,7 @@ function SocialLinkCard({
           </span>
 
           <ArrowUpRightIcon
-            className="size-[38px] shrink-0 text-bp-black max-md:size-[35px]"
+            className="size-[38px] shrink-0 text-bp-black max-md:size-[35px] brightness-0"
             aria-hidden
           />
         </span>

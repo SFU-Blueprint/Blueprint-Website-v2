@@ -145,10 +145,11 @@ function DesktopNavLinks({
   isDark: boolean;
 }) {
   return (
-    <div className="flex flex-row flex-nowrap items-center justify-end">
+    <div className="flex flex-row flex-nowrap items-center justify-end gap-0">
       {routes.map((route, index) => {
         if (index === 0) return null;
         const isActive = route.path === currentPath;
+
         return (
           <Link
             key={route.path}

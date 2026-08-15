@@ -7,13 +7,19 @@
  *
  * Desktop: horizontal crosshair line rests under the page title.
  * Mobile: horizontal crosshair line rests above the page title.
+ *
+ * Safari/iOS paints <video> as an opaque plate (alpha → black, mix-blend
+ * ignored). The video is parked off-screen; frames are drawn to a transparent
+ * canvas with near-black and near-white keyed out so the PNG crosshair and
+ * dotted path stay one combined graphic.
  */
+
+import { useEffect, useRef, useState } from "react";
 
 const CROSSPOINT_IMG = "/images/crosspoint.png";
 /** Crosshair location inside crosspoint.png (2260 × 1496) */
 const CROSS_X_RATIO = 1529 / 2260;
 const CROSS_Y_RATIO = 607 / 1496;
-
 type HeroCrosspointProps = {
   videoSrc: string;
   /** Outer wrapper classes — only for non-hero placements (e.g. Stay Updated). */
@@ -58,6 +64,75 @@ export default function HeroCrosspoint({
   imageClassName = HERO_CROSSPOINT_IMAGE,
   showImage = true,
 }: HeroCrosspointProps) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [videoReady, setVideoReady] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    const canvas = canvasRef.current;
+    if (!video || !canvas) return;
+
+    video.setAttribute("playsinline", "");
+    video.setAttribute("webkit-playsinline", "");
+
+    const ctx = canvas.getContext("2d", { alpha: true });
+    if (!ctx) return;
+
+    let raf = 0;
+    let alive = true;
+
+    const tryPlay = () => {
+      video.play().catch(() => {});
+    };
+
+    const keyFrame = (w: number, h: number) => {
+      const frame = ctx.getImageData(0, 0, w, h);
+      const d = frame.data;
+      for (let i = 0; i < d.length; i += 4) {
+        const l = (d[i] + d[i + 1] + d[i + 2]) / 3;
+        // Safari alpha → black; Chromium fill is white. Drop both so only the arcs remain.
+        if (l < 32 || l > 224) d[i + 3] = 0;
+      }
+      ctx.putImageData(frame, 0, 0);
+    };
+
+    const draw = () => {
+      if (!alive) return;
+      const w = video.videoWidth;
+      const h = video.videoHeight;
+      if (w > 0 && h > 0) {
+        if (canvas.width !== w || canvas.height !== h) {
+          canvas.width = w;
+          canvas.height = h;
+        }
+        ctx.clearRect(0, 0, w, h);
+        ctx.drawImage(video, 0, 0, w, h);
+        keyFrame(w, h);
+      }
+      raf = requestAnimationFrame(draw);
+    };
+
+    const onReady = () => {
+      setVideoReady(true);
+      tryPlay();
+      cancelAnimationFrame(raf);
+      draw();
+    };
+
+    tryPlay();
+    video.addEventListener("canplay", tryPlay);
+    if (video.readyState >= 2) onReady();
+    else video.addEventListener("loadeddata", onReady);
+
+    return () => {
+      alive = false;
+      cancelAnimationFrame(raf);
+      video.removeEventListener("canplay", tryPlay);
+      video.removeEventListener("loadeddata", onReady);
+    };
+  }, [videoSrc]);
+
   return (
     <div
       className={`pointer-events-none absolute inset-x-0 top-0 z-0 ${className}`}
@@ -75,19 +150,29 @@ export default function HeroCrosspoint({
             }}
           />
         )}
+        {/* Keep decoding off-screen — Safari ignores opacity on <video> and
+            paints a hardware black plate over the page. */}
         <video
+          ref={videoRef}
           autoPlay
           muted
           loop
           playsInline
-          className={`absolute left-0 top-0 max-w-none mix-blend-multiply ${videoClassName}`}
-          style={{
-            transform: "translate(-50%, -50%)",
-            ...LINE_END_FADE_MASK,
-          }}
+          preload="auto"
+          disablePictureInPicture
+          className="fixed top-0 h-px w-px opacity-0"
+          style={{ left: "-200vw" }}
+          tabIndex={-1}
         >
           <source src={videoSrc} type="video/webm" />
         </video>
+        <canvas
+          ref={canvasRef}
+          className={`absolute left-0 top-0 max-w-none h-auto bg-transparent ${videoClassName} transition-opacity duration-200 ${
+            videoReady ? "opacity-100" : "opacity-0"
+          }`}
+          style={{ transform: "translate(-50%, -50%)" }}
+        />
       </div>
     </div>
   );

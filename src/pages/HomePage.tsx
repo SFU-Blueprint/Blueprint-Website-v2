@@ -6,7 +6,7 @@ import InteractiveCarousel from "../components/shared/Carousel-Interactive";
 import { blueprintTestimonials, bpLogos } from "../constants/homepage-media";
 import TestimonialCard from "../components/shared/TestimonialCard.tsx";
 import { Link } from "react-router-dom";
-import ProjectCard from "../components/shared/ProjectCard.tsx";
+import ProjectCard from "../components/home-page/HomeProjectCard.tsx";
 import { Projects } from "../constants/projects";
 import { ReactComponent as WindmillIcon } from "../assets/home/windmill.svg";
 import { ReactComponent as HandshakeIcon } from "../assets/home/handshake.svg";
@@ -667,18 +667,21 @@ const ProjectsCardStack = () => {
             }}
           >
             <ProjectCard
-              key={project.slug}
-              logo_url={project.image ?? "https://placehold.co/76x76"}
-              card_cover_url={
-                project.popupimage ? project.popupimage : "https://placehold.co/517x354"
-              }
-              description={project.description}
-              client_name={project.name}
-              service={project.tags?.[0] ?? "Web App"}
-              sector={project.tags?.[1] ?? project.tags?.[0] ?? "Web-app"}
-              href={`/projects/${project.slug}`}
-              coverFit={CONTAIN_COVER_SLUGS.has(project.slug) ? "contain" : "cover"}
-              coverBg={COVER_BG_BY_SLUG[project.slug]}
+              project={{
+                LOGO_PLACEHOLDER: project.image
+                  ? project.image
+                  : "https://placehold.co/76x76",
+                COVER_PLACEHOLDER: project.popupimage
+                  ? project.popupimage
+                  : "https://placehold.co/517x354",
+                COVER_BG: PROJECT_COVER_BG[project.slug] ?? "#5387E3",
+                COVER_SCALE: project.slug === "mosaic" ? 1.28 : undefined,
+                TITLE_PLACEHOLDER: project.description,
+                CLIENT_PLACEHOLDER: project.name,
+                SERVICE_PLACEHOLDER: project.tags?.[0] ?? "Web App",
+                SECTOR_PLACEHOLDER:
+                  project.tags?.[1] ?? project.tags?.[0] ?? "NPO",
+              }}
             />
           </div>
         ))}
@@ -756,8 +759,8 @@ const ImpactSection = () => {
 
   const UpcomingEventsCard = () => {
     return (
-      <div className="flex justify-end max-md:justify-center justify-end items-end md:-mb-10">
-      <div className="bg-bp-blue rounded-[5px] text-bp-white relative flex w-full md:max-w-[737px] md:pl-12 md:pr-[50px] md:pb-[72px] h-[350px] 
+      <div className="flex justify-end max-md:justify-center items-end md:-mb-10">
+      <div className="bg-bp-blue rounded-[5px] text-bp-white relative w-full md:max-w-[737px] md:pl-12 md:pr-[50px] md:pb-[72px] h-[350px] 
       max-md:px-[26px] max-md:pb-[61px] max-md:pt-[34px] flex flex-col gap-[32px] min-w-[347px] max-md:h-[336px] md:translate-y-[-50%]"
       style={{ 
         clipPath: 'url(#clip-slant)',
@@ -790,7 +793,10 @@ const ImpactSection = () => {
               <div>
                 <Button
                   variant="secondary"
-                  className="shrink-0 max-md:w-full w-[200px]"
+                  className="w-[200px] shrink-0 max-md:w-full"
+                  href="https://docs.google.com/forms/d/e/1FAIpQLSegkDsV6h21IHxVVwgo_ovTbJmlgJAFYcnN19M7qn0pYbXQYQ/viewform?usp=publish-editor"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <span className="font-poppins text-sm font-semibold">RSVP</span>
                 </Button>

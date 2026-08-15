@@ -7,12 +7,21 @@ import { ReactComponent as SnapAPicArrow } from "../assets/icons/snap-a-pic-arro
 import PolaroidPhoto from "../components/shared/PolaroidPhoto";
 import { GroupImages } from "../constants/about-us-media";
 import InfoCard from "../components/shared/InfoCard";
-import { useRive, Layout, Fit, Alignment } from "@rive-app/react-webgl2";
+import {
+  useRive,
+  Layout,
+  Fit,
+  Alignment,
+} from "@rive-app/react-webgl2";
 import revisedRiv from "../assets/rive/Revised-Desktop.riv?url";
 import aboutValuesMobileRiv from "../assets/rive/mobile-vers-rive.riv?url";
 import Button from "../components/shared/Button";
 import Filters from "../components/shared/Filters";
-import MemberCard, { memberRoleType } from "../components/shared/MemberCard";
+import MemberCard, {
+  memberRoleType,
+} from "../components/shared/MemberCard";
+
+import { Members } from "../constants/Team/Members";
 
 const OUR_MEMBERS_CONTENT = {
   title: "Our members",
@@ -30,112 +39,143 @@ const BLUEPRINT_MULTINATIONAL_CONTENT = {
   color: "bp-orange",
 } as const;
 
+/* -------------------------------------------------------------------------- */
+/*                              TEAM MEMBER DATA                              */
+/* -------------------------------------------------------------------------- */
+
 type TeamMember = {
   name: string;
   role: string;
-  roleType: memberRoleType;
+  roleTypes: memberRoleType[];
   photoUrl?: string;
   linkedinUrl?: string;
 };
 
-/** Polaroid photo placeholder — solid fill until real headshots are wired */
-const POLAROID_PLACEHOLDER_PHOTO =
-  "data:image/svg+xml," +
-  encodeURIComponent(
-    '<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800"><rect width="100%" height="100%" fill="#686974"/></svg>'
-  );
-
-const FILTER_TABS: { label: string; roleType: memberRoleType }[] = [
-  { label: "Executives", roleType: "exec" },
-  { label: "Project Managers", roleType: "pm" },
-  { label: "Designers", roleType: "designer" },
-  { label: "Tech Leads", roleType: "techLead" },
-  { label: "Developers", roleType: "dev" },
-];
-
-/** Placeholder roster — replace with CMS or API when available */
-const TEAM_MEMBERS: TeamMember[] = [
+const FILTER_TABS: {
+  label: string;
+  roleType: memberRoleType;
+}[] = [
   {
-    name: "Alex Rivera",
-    role: "developer",
-    roleType: "dev",
-    photoUrl: POLAROID_PLACEHOLDER_PHOTO,
-    linkedinUrl: "https://www.linkedin.com/company/sfublueprint/",
-  },
-  {
-    name: "Casey Morgan",
-    role: "designer",
-    roleType: "designer",
-    photoUrl: POLAROID_PLACEHOLDER_PHOTO,
-    linkedinUrl: "https://www.linkedin.com/company/sfublueprint/",
-  },
-  {
-    name: "Dana Singh",
-    role: "project manager",
-    roleType: "pm",
-    photoUrl: POLAROID_PLACEHOLDER_PHOTO,
-    linkedinUrl: "https://www.linkedin.com/company/sfublueprint/",
-  },
-  {
-    name: "Elliot Park",
-    role: "tech lead",
-    roleType: "techLead",
-    photoUrl: POLAROID_PLACEHOLDER_PHOTO,
-    linkedinUrl: "https://www.linkedin.com/company/sfublueprint/",
-  },
-  {
-    name: "Jordan Lee",
-    role: "executive",
+    label: "Executives",
     roleType: "exec",
-    photoUrl: POLAROID_PLACEHOLDER_PHOTO,
-    linkedinUrl: "https://www.linkedin.com/company/sfublueprint/",
   },
   {
-    name: "Morgan Blake",
-    role: "developer",
-    roleType: "dev",
-    photoUrl: POLAROID_PLACEHOLDER_PHOTO,
-    linkedinUrl: "https://www.linkedin.com/company/sfublueprint/",
-  },
-  {
-    name: "Priya Nair",
-    role: "designer",
-    roleType: "designer",
-    photoUrl: POLAROID_PLACEHOLDER_PHOTO,
-    linkedinUrl: "https://www.linkedin.com/company/sfublueprint/",
-  },
-  {
-    name: "Riley Chen",
-    role: "project manager",
+    label: "Project Managers",
     roleType: "pm",
-    photoUrl: POLAROID_PLACEHOLDER_PHOTO,
-    linkedinUrl: "https://www.linkedin.com/company/sfublueprint/",
+  },
+  {
+    label: "Designers",
+    roleType: "designer",
+  },
+  {
+    label: "Tech Leads",
+    roleType: "techLead",
+  },
+  {
+    label: "Developers",
+    roleType: "dev",
   },
 ];
 
-/** Random tilt in degrees, roughly -maxDeg … +maxDeg inclusive. */
-function randomTiltDeg(maxDeg: number, minDeg: number) {
-  return Math.floor(Math.random() * (maxDeg - minDeg + 1)) + minDeg;
-}
+const VALID_ROLE_TYPES: memberRoleType[] = [
+  "exec",
+  "pm",
+  "designer",
+  "techLead",
+  "dev",
+];
 
-/** Slots in the camera-click overlay row, 0 = empty, 1 = polaroid. */
-const POLAROID_GRID_COLS = 7;
+const isMemberRoleType = (
+  roleType: string
+): roleType is memberRoleType => {
+  return VALID_ROLE_TYPES.includes(
+    roleType as memberRoleType
+  );
+};
 
-/** Pick a random free column; if all 7 are used, pick any column and stack. */
-function pickRandomGridColumn(occupiedColumns: number[]): number {
-  const used = new Set(occupiedColumns);
-  const available = Array.from({ length: POLAROID_GRID_COLS }, (_, i) => i).filter(
-    (c) => !used.has(c)
+/*
+ * Convert Members.js into the format MemberCard expects.
+ *
+ * Members.js now supports multiple roles:
+ *
+ * role: "Co-President & Project Manager"
+ * roleType: ["exec", "pm"]
+ *
+ * This lets one member appear under multiple filters
+ * while still only having one card.
+ */
+const TEAM_MEMBERS: TeamMember[] = Members.flatMap((member) => {
+  const validRoleTypes = member.roleType.filter(
+    (roleType): roleType is memberRoleType =>
+      isMemberRoleType(roleType)
   );
 
-  if (available.length > 0) {
-    return available[Math.floor(Math.random() * available.length)]!;
+  if (validRoleTypes.length === 0) {
+    console.warn(
+      `No valid roleTypes found for ${member.title}.`
+    );
+
+    return [];
   }
 
-  return Math.floor(Math.random() * POLAROID_GRID_COLS);
+  return [
+    {
+      name: member.title,
+      role: member.role,
+      roleTypes: validRoleTypes,
+      photoUrl: member.img,
+      linkedinUrl: member.linkedin || undefined,
+    },
+  ];
+});
+
+/*
+ * Desktop layout is 4 columns x 3 rows.
+ */
+const MEMBERS_PER_PAGE = 12;
+
+/* -------------------------------------------------------------------------- */
+/*                                  HELPERS                                   */
+/* -------------------------------------------------------------------------- */
+
+function randomTiltDeg(
+  maxDeg: number,
+  minDeg: number
+) {
+  return (
+    Math.floor(
+      Math.random() * (maxDeg - minDeg + 1)
+    ) + minDeg
+  );
 }
 
-const RIVE_VALUES_STATE_MACHINE = "MainStateMachine";
+const POLAROID_GRID_COLS = 7;
+
+function pickRandomGridColumn(
+  occupiedColumns: number[]
+): number {
+  const used = new Set(occupiedColumns);
+
+  const available = Array.from(
+    {
+      length: POLAROID_GRID_COLS,
+    },
+    (_, i) => i
+  ).filter((column) => !used.has(column));
+
+  if (available.length > 0) {
+    return available[
+      Math.floor(Math.random() * available.length)
+    ]!;
+  }
+
+  return Math.floor(
+    Math.random() * POLAROID_GRID_COLS
+  );
+}
+
+const RIVE_VALUES_STATE_MACHINE =
+  "MainStateMachine";
 
 function usePreloadRiveFiles() {
   useEffect(() => {
@@ -146,36 +186,55 @@ function usePreloadRiveFiles() {
           fetch(aboutValuesMobileRiv),
         ]);
       } catch (error) {
-        console.warn("Rive files preload failed:", error);
+        console.warn(
+          "Rive files preload failed:",
+          error
+        );
       }
     };
+
     void preloadFiles();
   }, []);
 }
-/** Own hook instance + canvas; mount only one at a time so hidden WebGL canvases don’t break Rive. */
-function AboutValuesRiveDesktop({ isVisible }: { isVisible: boolean }) {
-  const [isLoaded, setIsLoaded] = useState(false);
+
+/* -------------------------------------------------------------------------- */
+/*                                RIVE DESKTOP                                */
+/* -------------------------------------------------------------------------- */
+
+function AboutValuesRiveDesktop({
+  isVisible,
+}: {
+  isVisible: boolean;
+}) {
+  const [isLoaded, setIsLoaded] =
+    useState(false);
+
   const { RiveComponent } = useRive({
     src: revisedRiv,
     stateMachines: RIVE_VALUES_STATE_MACHINE,
     autoplay: true,
     autoBind: true,
+
     layout: new Layout({
       fit: Fit.FitHeight,
       alignment: Alignment.TopLeft,
       layoutScaleFactor: 1,
     }),
+
     onLoad: () => {
       setIsLoaded(true);
     },
   });
 
-  const shouldShow = isVisible && isLoaded;
+  const shouldShow =
+    isVisible && isLoaded;
 
   return (
     <div
       className={`h-[900px] lg:h-[950px] w-[1650px] ml-[-350px] transition-opacity duration-700 ease-in-out ${
-        shouldShow ? "opacity-100" : "opacity-0"
+        shouldShow
+          ? "opacity-100"
+          : "opacity-0"
       }`}
     >
       <RiveComponent className="w-full h-full" />
@@ -183,147 +242,359 @@ function AboutValuesRiveDesktop({ isVisible }: { isVisible: boolean }) {
   );
 }
 
-function AboutValuesRiveMobile({ isVisible }: { isVisible: boolean }) {
-  const [isLoaded, setIsLoaded] = useState(false);
+/* -------------------------------------------------------------------------- */
+/*                                 RIVE MOBILE                                */
+/* -------------------------------------------------------------------------- */
+
+function AboutValuesRiveMobile({
+  isVisible,
+}: {
+  isVisible: boolean;
+}) {
+  const [isLoaded, setIsLoaded] =
+    useState(false);
+
   const { RiveComponent } = useRive({
     src: aboutValuesMobileRiv,
     stateMachines: RIVE_VALUES_STATE_MACHINE,
     autoplay: true,
     autoBind: true,
+
     layout: new Layout({
       fit: Fit.Cover,
       alignment: Alignment.Center,
     }),
+
     onLoad: () => {
       setIsLoaded(true);
     },
   });
 
-  const shouldShow = isVisible && isLoaded;
+  const shouldShow =
+    isVisible && isLoaded;
 
   return (
     <div
       className={`h-[1100px] w-full translate-y-[-460px] transition-opacity duration-700 ease-in-out ${
-        shouldShow ? "opacity-100" : "opacity-0"
+        shouldShow
+          ? "opacity-100"
+          : "opacity-0"
       }`}
     >
       <RiveComponent className="w-full h-full" />
     </div>
   );
 }
+
+/* -------------------------------------------------------------------------- */
+/*                                ABOUT PAGE                                  */
+/* -------------------------------------------------------------------------- */
 
 const AboutPage = () => {
   const navigate = useNavigate();
 
   usePreloadRiveFiles();
 
+  /* ------------------------------------------------------------------------ */
+  /*                             PRELOAD PHOTOS                               */
+  /* ------------------------------------------------------------------------ */
+
   useEffect(() => {
-    const images = GroupImages.map(({ image }) => {
-      const img = new Image();
-      img.src = image;
-      return img.decode().catch(() => undefined);
-    });
+    const images = GroupImages.map(
+      ({ image }) => {
+        const img = new Image();
+
+        img.src = image;
+
+        return img
+          .decode()
+          .catch(() => undefined);
+      }
+    );
 
     void Promise.all(images);
   }, []);
 
-  function useIsVisible(ref: React.RefObject<HTMLDivElement>) {
-    const [isVisible, setIsVisible] = useState(false);
+  /* ------------------------------------------------------------------------ */
+  /*                          INTERSECTION OBSERVER                           */
+  /* ------------------------------------------------------------------------ */
+
+  function useIsVisible(
+    ref: React.RefObject<HTMLDivElement>
+  ) {
+    const [isVisible, setIsVisible] =
+      useState(false);
 
     useEffect(() => {
-      if (isVisible || !ref.current) return;
-      if (!ref.current) return;
+      if (isVisible || !ref.current) {
+        return;
+      }
 
-      const observer = new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      });
+      const observer =
+        new IntersectionObserver(([entry]) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.disconnect();
+          }
+        });
 
       observer.observe(ref.current);
+
       return () => observer.disconnect();
     }, [ref, isVisible]);
 
     return isVisible;
   }
-  
-  const isComponentVisible = useRef<HTMLDivElement>(null);
-  const isVisible = useIsVisible(isComponentVisible);
-  
+
+  const isComponentVisible =
+    useRef<HTMLDivElement>(null);
+
+  const isVisible = useIsVisible(
+    isComponentVisible
+  );
+
+  /* ------------------------------------------------------------------------ */
+  /*                              POLAROID STATE                              */
+  /* ------------------------------------------------------------------------ */
 
   const INITIAL_VISIBLE = 3;
   const INITIAL_VISIBLE_MOBILE = 2;
   const MAX_VISIBLE = 10;
 
-  /** Column index, 0 to POLAROID_GRID_COLS - 1, for each camera-added polaroid. */
-  const [extraPlacements, setExtraPlacements] = useState<number[]>([]);
-  const [selectedRoles, setSelectedRoles] = useState<memberRoleType[]>([]);
+  const [
+    extraPlacements,
+    setExtraPlacements,
+  ] = useState<number[]>([]);
 
   const rotations = useMemo(() => {
-    return GroupImages.map(() => randomTiltDeg(20, -20));
+    return GroupImages.map(() =>
+      randomTiltDeg(20, -20)
+    );
   }, []);
 
-  function useMinWidth(minWidthPx: number): boolean {
-    const [matches, setMatches] = useState(false);
+  /* ------------------------------------------------------------------------ */
+  /*                               TEAM STATE                                 */
+  /* ------------------------------------------------------------------------ */
+
+  const [
+    selectedRoles,
+    setSelectedRoles,
+  ] = useState<memberRoleType[]>([]);
+
+  const [
+    memberPage,
+    setMemberPage,
+  ] = useState(1);
+
+  /* ------------------------------------------------------------------------ */
+  /*                              MEDIA QUERY                                 */
+  /* ------------------------------------------------------------------------ */
+
+  function useMinWidth(
+    minWidthPx: number
+  ): boolean {
+    const [matches, setMatches] =
+      useState(false);
 
     useEffect(() => {
-      const m = window.matchMedia(`(min-width: ${minWidthPx}px)`);
-      setMatches(m.matches);
+      const mediaQuery =
+        window.matchMedia(
+          `(min-width: ${minWidthPx}px)`
+        );
 
-      const listener = () => setMatches(m.matches);
-      m.addEventListener("change", listener);
+      setMatches(mediaQuery.matches);
 
-      return () => m.removeEventListener("change", listener);
+      const listener = () =>
+        setMatches(mediaQuery.matches);
+
+      mediaQuery.addEventListener(
+        "change",
+        listener
+      );
+
+      return () =>
+        mediaQuery.removeEventListener(
+          "change",
+          listener
+        );
     }, [minWidthPx]);
 
     return matches;
   }
 
-  const isMinMobileWidth = useMinWidth(520);
+  const isMinMobileWidth =
+    useMinWidth(520);
 
-  /** Align with Tailwind md, 768px, so only one values Rive mounts. */
   const isMdUp = useMinWidth(768);
 
-  const baseVisible = isMinMobileWidth ? INITIAL_VISIBLE : INITIAL_VISIBLE_MOBILE;
-  const extraCount = extraPlacements.length;
-  const visibleCount = Math.min(MAX_VISIBLE, baseVisible + extraCount);
+  const baseVisible =
+    isMinMobileWidth
+      ? INITIAL_VISIBLE
+      : INITIAL_VISIBLE_MOBILE;
+
+  const extraCount =
+    extraPlacements.length;
+
+  const visibleCount = Math.min(
+    MAX_VISIBLE,
+    baseVisible + extraCount
+  );
+
+  /* ------------------------------------------------------------------------ */
+  /*                              CAMERA CLICK                                */
+  /* ------------------------------------------------------------------------ */
 
   const handleCameraClick = () => {
-    if (baseVisible + extraCount >= MAX_VISIBLE) {
+    if (
+      baseVisible + extraCount >=
+      MAX_VISIBLE
+    ) {
       setExtraPlacements([]);
     } else {
-      setExtraPlacements((prev) => [...prev, pickRandomGridColumn(prev)]);
+      setExtraPlacements((prev) => [
+        ...prev,
+        pickRandomGridColumn(prev),
+      ]);
     }
   };
 
-  const toggleRole = (roleType: memberRoleType) => {
+  /* ------------------------------------------------------------------------ */
+  /*                              TEAM FILTERS                                */
+  /* ------------------------------------------------------------------------ */
+
+  const toggleRole = (
+    roleType: memberRoleType
+  ) => {
     setSelectedRoles((prev) =>
       prev.includes(roleType)
-        ? prev.filter((r) => r !== roleType)
+        ? prev.filter(
+            (role) =>
+              role !== roleType
+          )
         : [...prev, roleType]
+    );
+
+    /*
+     * Whenever filters change,
+     * go back to page 1.
+     */
+    setMemberPage(1);
+  };
+
+  /*
+   * Filtering happens before pagination.
+   *
+   * No selected filters = show everyone.
+   *
+   * Multiple filters use OR logic:
+   *
+   * Executives + Project Managers means:
+   * - show executives
+   * - show project managers
+   * - show members who are both
+   *
+   * A member is still rendered only once.
+   */
+  const filteredMembers =
+    useMemo(() => {
+      const filtered =
+        selectedRoles.length === 0
+          ? TEAM_MEMBERS
+          : TEAM_MEMBERS.filter(
+              (member) =>
+                member.roleTypes.some(
+                  (roleType) =>
+                    selectedRoles.includes(
+                      roleType
+                    )
+                )
+            );
+
+      return [...filtered].sort(
+        (a, b) =>
+          a.name.localeCompare(
+            b.name,
+            undefined,
+            {
+              sensitivity: "base",
+            }
+          )
+      );
+    }, [selectedRoles]);
+
+  /* ------------------------------------------------------------------------ */
+  /*                               PAGINATION                                 */
+  /* ------------------------------------------------------------------------ */
+
+  const totalMemberPages =
+    Math.max(
+      1,
+      Math.ceil(
+        filteredMembers.length /
+          MEMBERS_PER_PAGE
+      )
+    );
+
+  const displayedMembers =
+    useMemo(() => {
+      const startIndex =
+        (memberPage - 1) *
+        MEMBERS_PER_PAGE;
+
+      const endIndex =
+        startIndex +
+        MEMBERS_PER_PAGE;
+
+      return filteredMembers.slice(
+        startIndex,
+        endIndex
+      );
+    }, [
+      filteredMembers,
+      memberPage,
+    ]);
+
+  const goToPreviousMemberPage =
+    () => {
+      setMemberPage((prev) =>
+        Math.max(1, prev - 1)
+      );
+    };
+
+  const goToNextMemberPage = () => {
+    setMemberPage((prev) =>
+      Math.min(
+        totalMemberPages,
+        prev + 1
+      )
     );
   };
 
-  const displayedMembers = useMemo(() => {
-    const base =
-      selectedRoles.length === 0
-        ? TEAM_MEMBERS
-        : TEAM_MEMBERS.filter((m) => selectedRoles.includes(m.roleType));
+  /* ------------------------------------------------------------------------ */
+  /*                            POLAROID IMAGES                               */
+  /* ------------------------------------------------------------------------ */
 
-    return [...base].sort((a, b) =>
-      a.name.localeCompare(b.name, undefined, { sensitivity: "base" })
+  const initialImages =
+    GroupImages.slice(
+      0,
+      baseVisible
     );
-  }, [selectedRoles]);
 
-  const initialImages = GroupImages.slice(0, baseVisible);
-  const imagesToShow = GroupImages.slice(baseVisible, visibleCount);
+  const imagesToShow =
+    GroupImages.slice(
+      baseVisible,
+      visibleCount
+    );
 
   return (
     <PageContainer className="bg-bp-lightest-grey overflow-x-hidden">
-      {/* Main Container */}
+      {/* ================================================================ */}
+      {/* MAIN CONTENT                                                     */}
+      {/* ================================================================ */}
+
       <div className="pt-main-mobile-top md:pt-main-desktop-top flex flex-col justify-between">
-        {/* About us section */}
+        {/* ABOUT US */}
+
         <div className="flex md:flex-row flex-col justify-between md:mb-[100px] md:gap-28">
           <div className="flex flex-col md:justify-between max-md:pb-[62px] gap-3 md:gap-6">
             <h1 className="font-poppins text-5xl md:text-7xl leading-none tracking-[-0.96px] text-bp-black">
@@ -331,220 +602,468 @@ const AboutPage = () => {
             </h1>
 
             <p className="font-poppins text-xl md:text-3xl leading-7 md:leading-10 text-bp-black w-90 md:max-w-[684px] md:flex md:flex-1 md:w-full">
-              building innovative, tech-based solutions for communities and public
-              welfare is the mission that brings us together.
+              building innovative, tech-based solutions for
+              communities and public welfare is the mission that
+              brings us together.
             </p>
           </div>
 
           <div className="flex flex-row-reverse md:flex-row items-end gap-8 md:gap-10 self-start md:self-end max-md:mt-2">
-            {/* Desktop: text + arrow→camera | Mobile: camera←arrow + text */}
-            <div className="flex flex-col items-center gap-1" aria-hidden>
+            <div
+              className="flex flex-col items-center gap-1"
+              aria-hidden
+            >
               <SnapAPicText className="h-[40px] w-auto md:h-[53px]" />
+
               <SnapAPicArrow className="h-[14px] w-auto -scale-x-100 md:h-[20px] md:scale-x-100 md:self-end md:mr-[-4px]" />
             </div>
-            <CameraButton onClick={handleCameraClick} />
+
+            <CameraButton
+              onClick={
+                handleCameraClick
+              }
+            />
           </div>
         </div>
 
-        {/* Photos Container */}
+        {/* ================================================================ */}
+        {/* PHOTOS                                                           */}
+        {/* ================================================================ */}
+
         <div className="flex justify-center">
-          {/* Desktop photos container */}
+          {/* Desktop */}
+
           <div className="max-md:hidden">
             <div className="relative md:grid md:grid-cols-3 md:justify-items-center flex flex-col max-w-[1160px] flex-wrap mb-[50px]">
-              {initialImages.map((image, index) => (
-                <PolaroidPhoto
-                  key={image.id}
-                  imageSrc={image.image}
-                  caption={image.caption}
-                  alt={image.caption}
-                  style={{ transform: `rotate(${rotations[index]}deg)` }}
-                />
-              ))}
+              {initialImages.map(
+                (image, index) => (
+                  <PolaroidPhoto
+                    key={image.id}
+                    imageSrc={
+                      image.image
+                    }
+                    caption={
+                      image.caption
+                    }
+                    alt={
+                      image.caption
+                    }
+                    style={{
+                      transform: `rotate(${rotations[index]}deg)`,
+                    }}
+                  />
+                )
+              )}
             </div>
           </div>
 
-          {/* Mobile photos container */}
+          {/* Mobile */}
+
           <div className="md:hidden mb-[-50px]">
             <div className="relative flex flex-col max-w-[306px]">
-              <span className="relative z-10 translate-x-24">
-                <PolaroidPhoto
-                  imageSrc={initialImages[0].image}
-                  caption={initialImages[0].caption}
-                  alt={initialImages[0].caption}
-                  style={{ transform: "rotate(10deg)" }}
-                />
-              </span>
-              <span className="relative z-0 -translate-x-20 translate-y-[-150px]">
-                <PolaroidPhoto
-                  imageSrc={initialImages[1].image}
-                  caption={initialImages[1].caption}
-                  alt={initialImages[1].caption}
-                  style={{ transform: "rotate(-8deg)" }}
-                />
-              </span>
+              {initialImages[0] && (
+                <span className="relative z-10 translate-x-24">
+                  <PolaroidPhoto
+                    imageSrc={
+                      initialImages[0]
+                        .image
+                    }
+                    caption={
+                      initialImages[0]
+                        .caption
+                    }
+                    alt={
+                      initialImages[0]
+                        .caption
+                    }
+                    style={{
+                      transform:
+                        "rotate(10deg)",
+                    }}
+                  />
+                </span>
+              )}
+
+              {initialImages[1] && (
+                <span className="relative z-0 -translate-x-20 translate-y-[-150px]">
+                  <PolaroidPhoto
+                    imageSrc={
+                      initialImages[1]
+                        .image
+                    }
+                    caption={
+                      initialImages[1]
+                        .caption
+                    }
+                    alt={
+                      initialImages[1]
+                        .caption
+                    }
+                    style={{
+                      transform:
+                        "rotate(-8deg)",
+                    }}
+                  />
+                </span>
+              )}
             </div>
           </div>
 
-          {/* Drops new photos on top of existing photos */}
-          <div className="absolute grid h-[400px] md:h-[500px] md:max-w-[100vw] overflow-hidden grid-cols-7 grid-rows-1 md:translate-y-[-4rem] w-full justify-items-center z-20">
-            {imagesToShow.map((image, index) => {
-              const col = extraPlacements[index] ?? index % POLAROID_GRID_COLS;
-              const rotation = rotations[baseVisible + index];
+          {/* Camera-added photos */}
 
-              return (
-                <div 
-                  key={`${image.id}-${index}-${col}`} 
-                  className=" translate-y-16"
-                  style={
-                    {
-                        gridColumn: col + 1,
-                        gridRow: 1,
-                    } as React.CSSProperties
-                  }
-                  >
-                  <PolaroidPhoto
-                    imageSrc={image.image}
-                    caption={image.caption}
-                    alt={image.caption}
-                    className="animate-popIn"
+          <div className="absolute grid h-[400px] md:h-[500px] md:max-w-[100vw] overflow-hidden grid-cols-7 grid-rows-1 md:translate-y-[-4rem] w-full justify-items-center z-20">
+            {imagesToShow.map(
+              (image, index) => {
+                const col =
+                  extraPlacements[
+                    index
+                  ] ??
+                  index %
+                    POLAROID_GRID_COLS;
+
+                const rotation =
+                  rotations[
+                    baseVisible +
+                      index
+                  ];
+
+                return (
+                  <div
+                    key={`${image.id}-${index}-${col}`}
+                    className="translate-y-16"
                     style={
                       {
-                        transform: `rotate(${rotation}deg)`,
-                        zIndex: index,
-                        "--rotation": `${rotation}deg`,
+                        gridColumn:
+                          col + 1,
+                        gridRow: 1,
                       } as React.CSSProperties
                     }
-                  />
-              </div>
-              );
-            })}
+                  >
+                    <PolaroidPhoto
+                      imageSrc={
+                        image.image
+                      }
+                      caption={
+                        image.caption
+                      }
+                      alt={
+                        image.caption
+                      }
+                      className="animate-popIn"
+                      style={
+                        {
+                          transform: `rotate(${rotation}deg)`,
+                          zIndex:
+                            index,
+                          "--rotation": `${rotation}deg`,
+                        } as React.CSSProperties
+                      }
+                    />
+                  </div>
+                );
+              }
+            )}
           </div>
         </div>
 
-        {/* Info Cards Container */}
+        {/* ================================================================ */}
+        {/* INFO CARDS                                                       */}
+        {/* ================================================================ */}
+
         <div className="relative z-10 md:pt-[116px] flex flex-col items-center justify-center gap-6 mb-[148px] md:flex-row">
           <InfoCard
-            title={OUR_MEMBERS_CONTENT.title}
-            heading={OUR_MEMBERS_CONTENT.heading}
-            body={OUR_MEMBERS_CONTENT.body}
-            color={OUR_MEMBERS_CONTENT.color}
+            title={
+              OUR_MEMBERS_CONTENT.title
+            }
+            heading={
+              OUR_MEMBERS_CONTENT.heading
+            }
+            body={
+              OUR_MEMBERS_CONTENT.body
+            }
+            color={
+              OUR_MEMBERS_CONTENT.color
+            }
           />
 
           <InfoCard
-            title={BLUEPRINT_MULTINATIONAL_CONTENT.title}
-            heading={BLUEPRINT_MULTINATIONAL_CONTENT.heading}
-            body={BLUEPRINT_MULTINATIONAL_CONTENT.body}
-            color={BLUEPRINT_MULTINATIONAL_CONTENT.color}
+            title={
+              BLUEPRINT_MULTINATIONAL_CONTENT.title
+            }
+            heading={
+              BLUEPRINT_MULTINATIONAL_CONTENT.heading
+            }
+            body={
+              BLUEPRINT_MULTINATIONAL_CONTENT.body
+            }
+            color={
+              BLUEPRINT_MULTINATIONAL_CONTENT.color
+            }
           />
         </div>
 
-        
-  
-        <div ref={isComponentVisible} className="relative mb-[420px] max-[1479.9px]:left-[-20px] max-[1280px]:left-[10px] min-[1480px]:left-[calc(50%-500px)] max-[768px]:left-[0px]">
-        {/* Header */}
+        {/* ================================================================ */}
+        {/* VALUES                                                           */}
+        {/* ================================================================ */}
+
+        <div
+          ref={isComponentVisible}
+          className="relative mb-[420px] max-[1479.9px]:left-[-20px] max-[1280px]:left-[10px] min-[1480px]:left-[calc(50%-500px)] max-[768px]:left-[0px]"
+        >
           <div className="pointer-events-none relative z-30 flex flex-col md:gap-10 mb-[280p]">
-              <h2 className="pointer-events-auto flex flex-col max-md:justify-center max-md:items-center font-poppins text-5xl 
-              md:text-7xl leading-10">
-                our <strong>values</strong>
-              </h2>
+            <h2 className="pointer-events-auto flex flex-col max-md:justify-center max-md:items-center font-poppins text-5xl md:text-7xl leading-10">
+              our{" "}
+              <strong>
+                values
+              </strong>
+            </h2>
           </div>
-          
-          {/* Rive */}
-          <div className="absolute w-full h-full bottom-0 md:translate-y-[-300px] lg:translate-y-[-325px] ">
-            {isMdUp ? <AboutValuesRiveDesktop isVisible={isVisible} /> : <AboutValuesRiveMobile isVisible={isVisible} />}
+
+          <div className="absolute w-full h-full bottom-0 md:translate-y-[-300px] lg:translate-y-[-325px]">
+            {isMdUp ? (
+              <AboutValuesRiveDesktop
+                isVisible={
+                  isVisible
+                }
+              />
+            ) : (
+              <AboutValuesRiveMobile
+                isVisible={
+                  isVisible
+                }
+              />
+            )}
           </div>
         </div>
-
-
       </div>
 
-      {/* Meet the Team */}
+      {/* ================================================================ */}
+      {/* MEET THE TEAM                                                    */}
+      {/* ================================================================ */}
+
       <section
-        className="meet-the-team relative z-0 w-full max-md:w-screen max-md:max-w-none max-md:ml-[calc(50%-50vw)] max-md:mr-[calc(50%-50vw)] max-w-[1328px] md:mx-auto rounded-[20px] bg-bp-lighter-grey max-md:rounded-none max-md:bg-bp-blue max-md:px-6 max-md:pt-16 max-md:pb-20 sm:px-8 md:px-10 md:pt-20 md:pb-24 xl:px-14"
+        className="meet-the-team relative z-0 w-full max-w-[1328px] mx-auto rounded-[20px] bg-bp-lighter-grey px-4 pt-14 pb-16 sm:px-8 md:px-10 md:pt-20 md:pb-24 xl:px-14"
         aria-labelledby="meet-the-team-heading"
       >
+        {/* TITLE */}
+
         <h2
           id="meet-the-team-heading"
-          className="mb-8 max-md:mb-6 max-md:text-left md:mb-10 md:text-center"
+          className="mb-8 text-center md:mb-10"
         >
-          <span className="font-poppins text-mobile-heading-l-bold text-bp-white md:hidden">
-            <span className="font-normal">our </span>
-            <span className="font-bold">team</span>
-          </span>
-          <span className="hidden font-caveat font-normal text-bp-black text-mobile-heading-hand tablet:text-heading-hand desktop:text-[78px] desktop:leading-none desktop:tracking-normal md:inline">
+          <span className="font-caveat font-normal text-bp-black text-mobile-heading-hand tablet:text-heading-hand desktop:text-[78px] desktop:leading-none desktop:tracking-normal">
             meet the team
           </span>
         </h2>
 
+        {/* ================================================================ */}
+        {/* FILTERS                                                          */}
+        {/* ================================================================ */}
+
         <div
-          className="mb-8 flex max-md:mb-6 max-md:justify-start max-md:gap-2 md:mb-10 flex-wrap flex-row justify-center gap-x-3 gap-y-3 md:gap-x-[14px]"
+          className="mb-8 flex flex-wrap flex-row justify-center gap-x-2 gap-y-2 md:mb-10 md:gap-x-[14px] md:gap-y-3"
           role="toolbar"
           aria-label="Filter team by role"
         >
-          {FILTER_TABS.map(({ label, roleType }) => {
-            const selected = selectedRoles.includes(roleType);
+          {FILTER_TABS.map(
+            ({
+              label,
+              roleType,
+            }) => {
+              const selected =
+                selectedRoles.includes(
+                  roleType
+                );
 
-            return (
-              <div key={roleType} className="contents">
-                <span className="max-md:contents md:hidden">
-                  <Filters
-                    title={label}
-                    state={selected ? "filled" : "outlined"}
-                    variant="dark"
-                    className="max-md:hover:!border-bp-white max-md:hover:!bg-bp-white/15"
-                    onClick={() => toggleRole(roleType)}
-                  />
-                </span>
-                <span className="hidden md:contents">
-                  <Filters
-                    title={label}
-                    variant="light"
-                    state={selected ? "selected" : "default"}
-                    onClick={() => toggleRole(roleType)}
-                  />
-                </span>
-              </div>
-            );
-          })}
+              return (
+                <Filters
+                  key={
+                    roleType
+                  }
+                  title={
+                    label
+                  }
+                  variant="light"
+                  state={
+                    selected
+                      ? "selected"
+                      : "default"
+                  }
+                  onClick={() =>
+                    toggleRole(
+                      roleType
+                    )
+                  }
+                />
+              );
+            }
+          )}
         </div>
 
+        {/* ================================================================ */}
+        {/* TEAM CARDS - 4 x 3 DESKTOP                                      */}
+        {/* ================================================================ */}
+
         <div
-          className="grid w-full max-md:grid-cols-2 max-md:gap-3 max-md:justify-items-stretch justify-items-center gap-6 md:gap-8 md:[grid-template-columns:repeat(auto-fit,minmax(250px,1fr))]"
+          className="
+            grid
+            w-full
+            grid-cols-2
+            gap-3
+            justify-items-center
+            md:grid-cols-3
+            md:gap-8
+            xl:grid-cols-4
+          "
           role="list"
           aria-live="polite"
         >
-          {displayedMembers.map((member) => (
-            <div
-              key={member.name}
-              className="flex w-full max-w-[350px] justify-center max-md:max-w-none"
-              role="listitem"
-            >
-              <MemberCard
-                name={member.name}
-                role={member.role}
-                roleType={member.roleType}
-                photoUrl={member.photoUrl}
-                linkedinUrl={member.linkedinUrl}
-                randomRotation
-              />
-            </div>
-          ))}
+          {displayedMembers.map(
+            (member) => (
+              <div
+                key={
+                  member.name
+                }
+                className="
+                  flex
+                  w-full
+                  max-w-[350px]
+                  justify-center
+                "
+                role="listitem"
+              >
+                <MemberCard
+                  name={
+                    member.name
+                  }
+                  role={
+                    member.role
+                  }
+
+                  /*
+                   * MemberCard itself only needs one roleType
+                   * for visual styling.
+                   *
+                   * Filtering uses ALL of member.roleTypes.
+                   */
+                  roleType={
+                    member.roleTypes[0]
+                  }
+
+                  photoUrl={
+                    member.photoUrl
+                  }
+                  linkedinUrl={
+                    member.linkedinUrl
+                  }
+                  randomRotation
+                />
+              </div>
+            )
+          )}
         </div>
 
-        <div className="mt-10 flex w-full justify-center max-md:mt-8 md:mt-12">
-          <Button
-            type="button"
-            variant="secondary"
-            onClick={() => navigate("/alumni")}
-            className="w-full md:hidden"
-          >
-            ALUMNI
-          </Button>
+        {/* ================================================================ */}
+        {/* NO RESULTS                                                       */}
+        {/* ================================================================ */}
+
+        {filteredMembers.length ===
+          0 && (
+          <p className="mt-8 text-center font-poppins text-bp-black">
+            No team members
+            found for the
+            selected filters.
+          </p>
+        )}
+
+        {/* ================================================================ */}
+        {/* PAGINATION                                                       */}
+        {/* ================================================================ */}
+
+        {totalMemberPages > 1 && (
+          <div className="mt-10 grid w-full grid-cols-[1fr_auto_1fr] items-center">
+            {/* Previous */}
+
+            <div className="flex justify-end pr-5 md:pr-8">
+              <button
+                type="button"
+                onClick={
+                  goToPreviousMemberPage
+                }
+                disabled={
+                  memberPage === 1
+                }
+                aria-label="Previous team members"
+                className="
+                  font-poppins
+                  text-[14px]
+                  font-semibold
+                  text-bp-blue
+                  transition-opacity
+                  duration-150
+                  hover:opacity-70
+                  disabled:cursor-not-allowed
+                  disabled:opacity-30
+                  md:text-[16px]
+                "
+              >
+                ← Previous
+              </button>
+            </div>
+
+            {/* Page number stays centered */}
+
+            <span className="whitespace-nowrap text-center font-poppins text-[14px] text-bp-black">
+              {memberPage} /{" "}
+              {totalMemberPages}
+            </span>
+
+            {/* Next */}
+
+            <div className="flex justify-start pl-5 md:pl-8">
+              <button
+                type="button"
+                onClick={
+                  goToNextMemberPage
+                }
+                disabled={
+                  memberPage ===
+                  totalMemberPages
+                }
+                aria-label="Next team members"
+                className="
+                  font-poppins
+                  text-[14px]
+                  font-semibold
+                  text-bp-blue
+                  transition-opacity
+                  duration-150
+                  hover:opacity-70
+                  disabled:cursor-not-allowed
+                  disabled:opacity-30
+                  md:text-[16px]
+                "
+              >
+                Next →
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* ================================================================ */}
+        {/* ALUMNI BUTTON                                                    */}
+        {/* ================================================================ */}
+
+        <div className="mt-10 flex w-full justify-center md:mt-12">
           <Button
             type="button"
             variant="tertiary"
-            onClick={() => navigate("/alumni")}
-            className="hidden w-full desktop:h-[60px] desktop:w-[200px] desktop:min-w-[200px] desktop:max-w-[200px] desktop:shrink-0 desktop:px-4 md:flex"
+            onClick={() =>
+              navigate(
+                "/alumni"
+              )
+            }
+            className="h-[52px] w-full max-w-[200px] md:h-[60px] md:w-[200px] md:min-w-[200px] md:max-w-[200px] md:shrink-0 md:px-4"
           >
             ALUMNI
           </Button>

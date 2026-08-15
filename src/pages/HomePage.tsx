@@ -909,15 +909,18 @@ const HomePage = () => {
           </div>
 
           {/* Upcoming Events Section*/}
-          <div className="h-full overflow-hidden rounded-[5px] max-md:pb-6 max-md:pt-[54px] md:min-w-[82vw] md:pt-[60px] md:pr-[2vw] xl:pr-[6vw] 2xl:pr-[2vw]">
-            <img
-              className="h-full w-full"
-              src="/images/home/photos/group.png"
-              alt="Group Photo"
-            />
+          <div>          
+            <div className="h-full overflow-hidden rounded-[5px] max-md:pb-6 max-md:pt-[54px] md:min-w-[82vw] md:pt-[60px] md:pr-[2vw] xl:pr-[6vw] 2xl:pr-[2vw]">
+              <img
+                className="h-full w-full"
+                src="/images/home/photos/group.png"
+                alt="Group Photo"
+              />
+            </div>
+            <div className="md:h-[175px]">
+              <UpcomingEventsCard />
+            </div>
           </div>
-
-          <UpcomingEventsCard />
         </PageContainer>
       </div>
     </>

@@ -6,18 +6,54 @@ import { ReactComponent as LinkedinIcon } from "../../assets/icons/linkedin.svg"
 import { ReactComponent as YouTubeIcon } from "../../assets/icons/youtube.svg";
 
 const footerLinks = [
-  { name: "our projects", path: "/projectspage", accentClass: "bg-bp-blue" },
-  { name: "partner with us", path: "/nonprofits", accentClass: "bg-bp-orange" },
-  { name: "join our team", path: "/students", accentClass: "bg-bp-accent-purple" },
-  { name: "about us", path: "/about", accentClass: "bg-bp-green" },
-  { name: "sponsor us", path: "/sponsor-us", accentClass: "bg-bp-accent-light-blue" },
+  {
+    name: "our projects",
+    path: "/projectspage",
+    accentClass: "bg-bp-blue",
+  },
+  {
+    name: "partner with us",
+    path: "/nonprofits",
+    accentClass: "bg-bp-orange",
+  },
+  {
+    name: "join our team",
+    path: "/students",
+    accentClass: "bg-bp-accent-purple",
+  },
+  {
+    name: "about us",
+    path: "/about",
+    accentClass: "bg-bp-green",
+  },
+  {
+    name: "sponsor us",
+    path: "/sponsor-us",
+    accentClass: "bg-bp-accent-light-blue",
+  },
 ];
 
 const socialLinks = [
-  { name: "YouTube", icon: YouTubeIcon, url: "https://youtube.com/@sfublueprint" },
-  { name: "Instagram", icon: InstagramIcon, url: "https://instagram.com/sfublueprint" },
-  { name: "LinkedIn", icon: LinkedinIcon, url: "https://linkedin.com/company/sfu-blueprint" },
-  { name: "Discord", icon: DiscordIcon, url: "https://discord.gg/blueprint" },
+  {
+    name: "YouTube",
+    icon: YouTubeIcon,
+    url: "https://youtube.com/@sfublueprint",
+  },
+  {
+    name: "Instagram",
+    icon: InstagramIcon,
+    url: "https://instagram.com/sfublueprint",
+  },
+  {
+    name: "LinkedIn",
+    icon: LinkedinIcon,
+    url: "https://linkedin.com/company/sfu-blueprint",
+  },
+  {
+    name: "Discord",
+    icon: DiscordIcon,
+    url: "https://discord.gg/blueprint",
+  },
 ];
 
 function FooterLink({
@@ -32,13 +68,28 @@ function FooterLink({
   return (
     <Link
       to={path}
-      className="relative flex items-center group"
+      className="group relative flex items-center"
     >
       <div
-        className={`absolute -left-[30px] w-[18px] h-[18px] rounded-[3px] opacity-0 group-hover:opacity-100 transition-opacity ${accentClass}`}
+        className={`
+          absolute -left-[30px]
+          h-[18px] w-[18px]
+          rounded-[3px]
+          opacity-0
+          transition-opacity
+          group-hover:opacity-100
+          ${accentClass}
+        `}
       />
+
       <span
-        className="font-poppins text-body-l-reg text-bp-dark-grey group-hover:text-bp-black transition-colors"
+        className="
+          font-poppins
+          text-body-l-reg
+          text-bp-dark-grey
+          transition-colors
+          group-hover:text-bp-black
+        "
       >
         {name}
       </span>
@@ -48,63 +99,308 @@ function FooterLink({
 
 export default function FooterRevamp() {
   return (
-    <footer id="app-footer" className="w-full bg-bp-lightest-grey font-poppins">
-      {/* Desktop */}
-      <div className="hidden lg:block px-footer-px-desktop pt-footer-py-desktop pb-8">
-        <div className="rounded-[20px] px-[80px] pt-[60px] pb-[100px] bg-white">
-          <div className="flex flex-col gap-[70px]">
-            {/* Top section */}
-            <div className="flex flex-col gap-[48px]">
-              {/* Logo + social row */}
-              <div className="flex items-center justify-between">
-                <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-                  <LogoIcon className="w-[33px] h-[31px]" style={{ fill: '#0146BE' }} />
-                  <span className="text-footer-logo-desktop text-bp-blue">blueprint</span>
-                </Link>
+    <footer
+      id="app-footer"
+      className="w-full bg-bp-lightest-grey font-poppins"
+    >
+      {/* ========================================================== */}
+      {/* DESKTOP                                                    */}
+      {/* ========================================================== */}
 
-                <div className="flex items-center gap-[22.74px]">
-                  {socialLinks.map((social, idx) => (
-                    <a
-                      key={idx}
-                      href={social.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`${social.name === "Discord" ? "w-[33px] h-[28px]" : "w-[33px] h-[27px]"} text-bp-dark-grey hover:text-bp-black transition-colors`}
-                      aria-label={social.name}
+      <div className="hidden w-full px-5 pb-8 pt-footer-py-desktop lg:block">
+        {/* Same centered boundary as navbar / PageContainer */}
+        <div
+          className="
+            mx-auto
+            w-full
+            max-w-[1600px]
+            px-2
+            md:px-6
+            xl:px-16
+          "
+        >
+          <div
+            className="
+              rounded-[20px]
+              bg-white
+              px-[80px]
+              pb-[100px]
+              pt-[60px]
+            "
+          >
+            <div className="flex flex-col gap-[70px]">
+              {/* ================================================== */}
+              {/* TOP SECTION                                        */}
+              {/* ================================================== */}
+
+              <div className="flex flex-col gap-[48px]">
+                {/* Logo + social row */}
+
+                <div className="flex items-center justify-between">
+                  <Link
+                    to="/"
+                    className="
+                      flex items-center gap-2
+                      transition-opacity
+                      hover:opacity-80
+                    "
+                  >
+                    <LogoIcon
+                      className="h-[31px] w-[33px]"
+                      style={{ fill: "#0146BE" }}
+                    />
+
+                    <span className="text-footer-logo-desktop text-bp-blue">
+                      blueprint
+                    </span>
+                  </Link>
+
+                  <div className="flex items-center gap-[22.74px]">
+                    {socialLinks.map((social) => {
+                      const SocialIcon = social.icon;
+
+                      return (
+                        <a
+                          key={social.name}
+                          href={social.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`
+                            ${
+                              social.name === "Discord"
+                                ? "h-[28px] w-[33px]"
+                                : "h-[27px] w-[33px]"
+                            }
+                            text-bp-dark-grey
+                            transition-colors
+                            hover:text-bp-black
+                          `}
+                          aria-label={social.name}
+                        >
+                          <SocialIcon className="h-full w-full" />
+                        </a>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* ================================================== */}
+                {/* TAGLINE + LINKS                                    */}
+                {/* ================================================== */}
+
+                <div className="flex items-start gap-[117px]">
+                  <div className="shrink-0">
+                    <p className="font-poppins text-heading-m-reg text-bp-black">
+                      tech for
+                    </p>
+
+                    <p
+                      className="
+                        font-caveat
+                        text-[80px]
+                        font-bold
+                        leading-[0.7]
+                        tracking-[-2.4px]
+                        text-bp-black
+                      "
                     >
-                      <social.icon className="w-full h-full" />
-                    </a>
-                  ))}
+                      social good
+                    </p>
+                  </div>
+
+                  <div className="flex flex-col gap-[12px]">
+                    {footerLinks.map((link) => (
+                      <FooterLink
+                        key={link.path}
+                        name={link.name}
+                        path={link.path}
+                        accentClass={link.accentClass}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
 
-              {/* Tagline + links */}
-              <div className="flex items-start gap-[117px]">
-                <div className="shrink-0">
+              {/* ================================================== */}
+              {/* BOTTOM SECTION                                     */}
+              {/* ================================================== */}
+
+              <div className="flex flex-col gap-[24px]">
+                <div className="h-[1px] w-full bg-bp-grey" />
+
+                <div
+                  className="
+                    flex items-center justify-between
+                    text-[14px]
+                    font-medium
+                    uppercase
+                    text-bp-dark-grey
+                  "
+                >
+                  <p>@2025 sfu blueprint</p>
+
+                  <div className="flex items-center gap-[18px]">
+                    <Link
+                      to="/privacy-policy"
+                      className="transition-colors hover:text-bp-black"
+                    >
+                      privacy policy
+                    </Link>
+
+                    <Link
+                      to="/terms-and-conditions"
+                      className="transition-colors hover:text-bp-black"
+                    >
+                      terms and conditions
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ========================================================== */}
+      {/* TABLET                                                     */}
+      {/* ========================================================== */}
+
+      <div className="hidden w-full px-5 pb-8 pt-footer-py-desktop md:block lg:hidden">
+        <div
+          className="
+            mx-auto
+            w-full
+            max-w-[1600px]
+            px-6
+          "
+        >
+          <div
+            className="
+              rounded-[20px]
+              bg-white
+              px-[60px]
+              pb-[60px]
+              pt-[48px]
+            "
+          >
+            <div className="flex flex-col gap-[48px]">
+              {/* Logo + socials */}
+
+              <div className="flex flex-col gap-[24px]">
+                <div className="flex items-center justify-between">
+                  <Link
+                    to="/"
+                    className="
+                      flex items-center gap-2
+                      transition-opacity
+                      hover:opacity-80
+                    "
+                  >
+                    <LogoIcon
+                      className="h-[24px] w-[26px]"
+                      style={{ fill: "#0146BE" }}
+                    />
+
+                    <span className="text-footer-logo-mobile text-bp-blue">
+                      blueprint
+                    </span>
+                  </Link>
+
+                  <div className="flex items-center gap-[18px]">
+                    {socialLinks.map((social) => {
+                      const SocialIcon = social.icon;
+
+                      return (
+                        <a
+                          key={social.name}
+                          href={social.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`
+                            ${
+                              social.name === "Discord"
+                                ? "h-[23px] w-[27px]"
+                                : "h-[22px] w-[27px]"
+                            }
+                            text-bp-dark-grey
+                            transition-colors
+                            hover:text-bp-black
+                          `}
+                          aria-label={social.name}
+                        >
+                          <SocialIcon className="h-full w-full" />
+                        </a>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Tagline */}
+
+                <div>
                   <p className="font-poppins text-heading-m-reg text-bp-black">
                     tech for
                   </p>
-                  <p className="font-caveat font-bold text-[80px] leading-[0.7] tracking-[-2.4px] text-bp-black">
+
+                  <p
+                    className="
+                      font-caveat
+                      text-[60px]
+                      font-bold
+                      leading-[0.7]
+                      tracking-[-1.8px]
+                      text-bp-black
+                    "
+                  >
                     social good
                   </p>
                 </div>
-
-                <div className="flex flex-col gap-[12px]">
-                  {footerLinks.map((link, idx) => (
-                    <FooterLink key={idx} name={link.name} path={link.path} accentClass={link.accentClass} />
-                  ))}
-                </div>
               </div>
-            </div>
 
-            {/* Bottom section */}
-            <div className="flex flex-col gap-[24px]">
-              <div className="w-full h-[1px] bg-bp-grey" />
-              <div className="flex items-center justify-between text-[14px] font-medium text-bp-dark-grey uppercase">
-                <p>@2025 sfu blueprint</p>
-                <div className="flex items-center gap-[18px]">
-                  <Link to="/privacy-policy" className="hover:text-bp-black transition-colors">privacy policy</Link>
-                  <Link to="/terms-and-conditions" className="hover:text-bp-black transition-colors">terms and conditions</Link>
+              {/* Links */}
+
+              <div className="flex flex-col gap-[12px]">
+                {footerLinks.map((link) => (
+                  <FooterLink
+                    key={link.path}
+                    name={link.name}
+                    path={link.path}
+                    accentClass={link.accentClass}
+                  />
+                ))}
+              </div>
+
+              {/* Bottom */}
+
+              <div className="flex flex-col gap-[24px]">
+                <div className="h-[1px] w-full bg-bp-grey" />
+
+                <div
+                  className="
+                    flex items-start justify-between
+                    text-[14px]
+                    font-medium
+                    uppercase
+                    text-bp-dark-grey
+                  "
+                >
+                  <p>@2025 sfu blueprint</p>
+
+                  <div className="flex items-center gap-[18px]">
+                    <Link
+                      to="/privacy-policy"
+                      className="transition-colors hover:text-bp-black"
+                    >
+                      privacy policy
+                    </Link>
+
+                    <Link
+                      to="/terms-and-conditions"
+                      className="transition-colors hover:text-bp-black"
+                    >
+                      terms and conditions
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
@@ -112,126 +408,157 @@ export default function FooterRevamp() {
         </div>
       </div>
 
-      {/* Tablet */}
-      <div className="hidden md:block lg:hidden px-footer-px-tablet pt-footer-py-desktop pb-8">
-        <div className="rounded-[20px] px-[60px] pt-[48px] pb-[60px] bg-white">
-          <div className="flex flex-col gap-[48px]">
-            {/* Logo */}
-            <div className="flex flex-col gap-[24px]">
-              <div className="flex items-center justify-between">
-                <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-                  <LogoIcon className="w-[26px] h-[24px]" style={{ fill: '#0146BE' }} />
-                  <span className="text-footer-logo-mobile text-bp-blue">blueprint</span>
+      {/* ========================================================== */}
+      {/* MOBILE                                                     */}
+      {/* ========================================================== */}
+
+      <div className="block w-full px-5 pb-8 pt-footer-py-mobile md:hidden">
+        <div
+          className="
+            mx-auto
+            w-full
+            max-w-[1600px]
+            px-2
+          "
+        >
+          <div
+            className="
+              rounded-[16px]
+              bg-white
+              px-[28px]
+              pb-[48px]
+              pt-[36px]
+            "
+          >
+            <div className="flex flex-col gap-[36px]">
+              {/* Logo + tagline */}
+
+              <div className="flex flex-col gap-[44px]">
+                <Link
+                  to="/"
+                  className="
+                    flex items-center gap-2
+                    transition-opacity
+                    hover:opacity-80
+                  "
+                >
+                  <LogoIcon
+                    className="h-[21px] w-[23px]"
+                    style={{ fill: "#0146BE" }}
+                  />
+
+                  <span className="text-footer-logo-mobile text-bp-blue">
+                    blueprint
+                  </span>
                 </Link>
 
-                <div className="flex items-center gap-[18px]">
-                  {socialLinks.map((social, idx) => (
+                <div>
+                  <p className="font-poppins text-mobile-heading-m-reg text-bp-black">
+                    tech for
+                  </p>
+
+                  <p
+                    className="
+                      font-caveat
+                      text-[44px]
+                      font-bold
+                      leading-[0.7]
+                      tracking-[-1.32px]
+                      text-bp-black
+                    "
+                  >
+                    social good
+                  </p>
+                </div>
+              </div>
+
+              {/* ================================================== */}
+              {/* SOCIAL ICONS                                       */}
+              {/* ================================================== */}
+
+              <div className="flex items-center gap-[18px]">
+                {socialLinks.map((social) => {
+                  const SocialIcon = social.icon;
+
+                  return (
                     <a
-                      key={idx}
+                      key={social.name}
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`${social.name === "Discord" ? "w-[27px] h-[23px]" : "w-[27px] h-[22px]"} text-bp-dark-grey hover:text-bp-black transition-colors`}
+                      className={`
+                        ${
+                          social.name === "Discord"
+                            ? "h-[23px] w-[27px]"
+                            : "h-[22px] w-[27px]"
+                        }
+                        text-bp-dark-grey
+                        transition-colors
+                        hover:text-bp-black
+                      `}
                       aria-label={social.name}
                     >
-                      <social.icon className="w-full h-full" />
+                      <SocialIcon className="h-full w-full" />
                     </a>
-                  ))}
-                </div>
+                  );
+                })}
               </div>
 
-              {/* Tagline */}
-              <div>
-                <p className="font-poppins text-heading-m-reg text-bp-black">
-                  tech for
-                </p>
-                <p className="font-caveat font-bold text-[60px] leading-[0.7] tracking-[-1.8px] text-bp-black">
-                  social good
-                </p>
+              {/* ================================================== */}
+              {/* LINKS                                              */}
+              {/* ================================================== */}
+
+              <div className="flex flex-col gap-[10px]">
+                {footerLinks.map((link) => (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    className="
+                      font-poppins
+                      text-mobile-body-l-reg
+                      text-bp-dark-grey
+                      transition-colors
+                      hover:text-bp-black
+                    "
+                  >
+                    {link.name}
+                  </Link>
+                ))}
               </div>
-            </div>
 
-            {/* Links */}
-            <div className="flex flex-col gap-[12px]">
-              {footerLinks.map((link, idx) => (
-                <FooterLink key={idx} name={link.name} path={link.path} accentClass={link.accentClass} />
-              ))}
-            </div>
+              {/* ================================================== */}
+              {/* BOTTOM                                             */}
+              {/* ================================================== */}
 
-            {/* Bottom */}
-            <div className="flex flex-col gap-[24px]">
-              <div className="w-full h-[1px] bg-bp-grey" />
-              <div className="flex items-start justify-between text-[14px] font-medium text-bp-dark-grey uppercase">
-                <p>@2025 sfu blueprint</p>
-                <div className="flex items-center gap-[18px]">
-                  <Link to="/privacy-policy" className="hover:text-bp-black transition-colors">privacy policy</Link>
-                  <Link to="/terms-and-conditions" className="hover:text-bp-black transition-colors">terms and conditions</Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+              <div className="flex flex-col gap-[16px]">
+                <div className="h-[1px] w-full bg-bp-grey" />
 
-      {/* Mobile */}
-      <div className="block md:hidden px-footer-px-mobile pt-footer-py-mobile pb-8">
-        <div className="rounded-[16px] px-[28px] pt-[36px] pb-[48px] bg-white">
-          <div className="flex flex-col gap-[36px]">
-            {/* Logo */}
-            <div className="flex flex-col gap-[44px]">
-              <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-                <LogoIcon className="w-[23px] h-[21px]" style={{ fill: '#0146BE' }} />
-                <span className="text-footer-logo-mobile text-bp-blue">blueprint</span>
-              </Link>
-
-              {/* Tagline */}
-              <div>
-                <p className="font-poppins text-mobile-heading-m-reg text-bp-black">
-                  tech for
-                </p>
-                <p className="font-caveat font-bold text-[44px] leading-[0.7] tracking-[-1.32px] text-bp-black">
-                  social good
-                </p>
-              </div>
-            </div>
-
-            {/* Social icons */}
-            <div className="flex items-center gap-[18px]">
-              {socialLinks.map((social, idx) => (
-                <a
-                  key={idx}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`${social.name === "Discord" ? "w-[27px] h-[23px]" : "w-[27px] h-[22px]"} text-bp-dark-grey hover:text-bp-black transition-colors`}
-                  aria-label={social.name}
+                <div
+                  className="
+                    flex flex-col gap-[6px]
+                    text-[10px]
+                    font-medium
+                    uppercase
+                    text-bp-dark-grey
+                  "
                 >
-                  <social.icon className="w-full h-full" />
-                </a>
-              ))}
-            </div>
+                  <p>@2025 sfu blueprint</p>
 
-            {/* Links */}
-            <div className="flex flex-col gap-[10px]">
-              {footerLinks.map((link, idx) => (
-                <Link
-                  key={idx}
-                  to={link.path}
-                  className="font-poppins text-mobile-body-l-reg text-bp-dark-grey hover:text-bp-black transition-colors"
-                >
-                  {link.name}
-                </Link>
-              ))}
-            </div>
+                  <div className="flex gap-[12px]">
+                    <Link
+                      to="/privacy-policy"
+                      className="transition-colors hover:text-bp-black"
+                    >
+                      privacy policy
+                    </Link>
 
-            {/* Bottom */}
-            <div className="flex flex-col gap-[16px]">
-              <div className="w-full h-[1px] bg-bp-grey" />
-              <div className="flex flex-col gap-[6px] text-[10px] font-medium text-bp-dark-grey uppercase">
-                <p>@2025 sfu blueprint</p>
-                <div className="flex gap-[12px]">
-                  <Link to="/privacy-policy" className="hover:text-bp-black transition-colors">privacy policy</Link>
-                  <Link to="/terms-and-conditions" className="hover:text-bp-black transition-colors">terms and conditions</Link>
+                    <Link
+                      to="/terms-and-conditions"
+                      className="transition-colors hover:text-bp-black"
+                    >
+                      terms and conditions
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>

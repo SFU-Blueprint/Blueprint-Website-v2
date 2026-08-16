@@ -27,7 +27,8 @@ const OUR_MEMBERS_CONTENT = {
   title: "Our members",
   heading:
     "Our talented members come from diverse cultures, professions, and social backgrounds.",
-  body: "With a passion for social good and dedication to creating beautiful technology, our student project teams work alongside nonprofits to help them better serve their communities.",
+  body:
+    "With a passion for social good and dedication to creating beautiful technology, our student project teams work alongside nonprofits to help them better serve their communities.",
   color: "bp-blue",
 } as const;
 
@@ -35,7 +36,8 @@ const BLUEPRINT_MULTINATIONAL_CONTENT = {
   title: "Blueprint Multinational",
   heading:
     "This chapter of Blueprint is part of a much larger multinational community, originally started at UC Berkeley.",
-  body: "As the fifth established chapter in Canada, our team is based largely at Simon Fraser University, and operating as a registered non profit!",
+  body:
+    "As the fifth established chapter in Canada, our team is based largely at Simon Fraser University, and operating as a registered non profit!",
   color: "bp-orange",
 } as const;
 
@@ -46,7 +48,7 @@ const BLUEPRINT_MULTINATIONAL_CONTENT = {
 type TeamMember = {
   name: string;
   role: string;
-  roleTypes: memberRoleType[];
+  roleType: memberRoleType[];
   photoUrl?: string;
   linkedinUrl?: string;
 };
@@ -85,53 +87,25 @@ const VALID_ROLE_TYPES: memberRoleType[] = [
   "dev",
 ];
 
-const isMemberRoleType = (
-  roleType: string
-): roleType is memberRoleType => {
-  return VALID_ROLE_TYPES.includes(
-    roleType as memberRoleType
-  );
-};
-
 /*
- * Convert Members.js into the format MemberCard expects.
+ * Members.roleType is an array.
  *
- * Members.js now supports multiple roles:
- *
- * role: "Co-President & Project Manager"
- * roleType: ["exec", "pm"]
- *
- * This lets one member appear under multiple filters
- * while still only having one card.
+ * A member may belong to multiple categories,
+ * e.g. ["exec", "dev"].
  */
-const TEAM_MEMBERS: TeamMember[] = Members.flatMap((member) => {
-  const validRoleTypes = member.roleType.filter(
+const TEAM_MEMBERS: TeamMember[] = Members.map((member) => ({
+  name: member.title,
+  role: member.role,
+
+  roleType: member.roleType.filter(
     (roleType): roleType is memberRoleType =>
-      isMemberRoleType(roleType)
-  );
+      VALID_ROLE_TYPES.includes(roleType as memberRoleType)
+  ),
 
-  if (validRoleTypes.length === 0) {
-    console.warn(
-      `No valid roleTypes found for ${member.title}.`
-    );
+  photoUrl: member.img,
+  linkedinUrl: member.linkedin || undefined,
+}));
 
-    return [];
-  }
-
-  return [
-    {
-      name: member.title,
-      role: member.role,
-      roleTypes: validRoleTypes,
-      photoUrl: member.img,
-      linkedinUrl: member.linkedin || undefined,
-    },
-  ];
-});
-
-/*
- * Desktop layout is 4 columns x 3 rows.
- */
 const MEMBERS_PER_PAGE = 12;
 
 /* -------------------------------------------------------------------------- */
@@ -474,53 +448,40 @@ const AboutPage = () => {
         : [...prev, roleType]
     );
 
-    /*
-     * Whenever filters change,
-     * go back to page 1.
-     */
     setMemberPage(1);
   };
 
   /*
-   * Filtering happens before pagination.
+   * No selected filters = everyone.
    *
-   * No selected filters = show everyone.
-   *
-   * Multiple filters use OR logic:
-   *
-   * Executives + Project Managers means:
-   * - show executives
-   * - show project managers
-   * - show members who are both
-   *
-   * A member is still rendered only once.
+   * If filters are selected, show a member if
+   * ANY of their roleTypes matches ANY selected role.
    */
-  const filteredMembers =
-    useMemo(() => {
-      const filtered =
-        selectedRoles.length === 0
-          ? TEAM_MEMBERS
-          : TEAM_MEMBERS.filter(
-              (member) =>
-                member.roleTypes.some(
-                  (roleType) =>
-                    selectedRoles.includes(
-                      roleType
-                    )
-                )
-            );
+  const filteredMembers = useMemo(() => {
+    const filtered =
+      selectedRoles.length === 0
+        ? TEAM_MEMBERS
+        : TEAM_MEMBERS.filter(
+            (member) =>
+              selectedRoles.some(
+                (selectedRole) =>
+                  member.roleType.includes(
+                    selectedRole
+                  )
+              )
+          );
 
-      return [...filtered].sort(
-        (a, b) =>
-          a.name.localeCompare(
-            b.name,
-            undefined,
-            {
-              sensitivity: "base",
-            }
-          )
-      );
-    }, [selectedRoles]);
+    return [...filtered].sort(
+      (a, b) =>
+        a.name.localeCompare(
+          b.name,
+          undefined,
+          {
+            sensitivity: "base",
+          }
+        )
+    );
+  }, [selectedRoles]);
 
   /* ------------------------------------------------------------------------ */
   /*                               PAGINATION                                 */
@@ -592,7 +553,19 @@ const AboutPage = () => {
       {/* MAIN CONTENT                                                     */}
       {/* ================================================================ */}
 
-      <div className="pt-main-mobile-top md:pt-main-desktop-top flex flex-col justify-between">
+        <div
+          className="
+            mx-auto
+            flex
+            w-full
+            max-w-[1440px]
+            flex-col
+            justify-between
+            pt-main-mobile-top
+            md:pt-main-desktop-top
+          "
+        >
+
         {/* ABOUT US */}
 
         <div className="flex md:flex-row flex-col justify-between md:mb-[100px] md:gap-28">
@@ -901,7 +874,7 @@ const AboutPage = () => {
         </div>
 
         {/* ================================================================ */}
-        {/* TEAM CARDS - 4 x 3 DESKTOP                                      */}
+        {/* TEAM CARDS                                                       */}
         {/* ================================================================ */}
 
         <div
@@ -939,17 +912,9 @@ const AboutPage = () => {
                   role={
                     member.role
                   }
-
-                  /*
-                   * MemberCard itself only needs one roleType
-                   * for visual styling.
-                   *
-                   * Filtering uses ALL of member.roleTypes.
-                   */
                   roleType={
-                    member.roleTypes[0]
+                    member.roleType[0]
                   }
-
                   photoUrl={
                     member.photoUrl
                   }
@@ -967,12 +932,9 @@ const AboutPage = () => {
         {/* NO RESULTS                                                       */}
         {/* ================================================================ */}
 
-        {filteredMembers.length ===
-          0 && (
+        {filteredMembers.length === 0 && (
           <p className="mt-8 text-center font-poppins text-bp-black">
-            No team members
-            found for the
-            selected filters.
+            No team members found for the selected filters.
           </p>
         )}
 
@@ -982,7 +944,6 @@ const AboutPage = () => {
 
         {totalMemberPages > 1 && (
           <div className="mt-10 grid w-full grid-cols-[1fr_auto_1fr] items-center">
-            {/* Previous */}
 
             <div className="flex justify-end pr-5 md:pr-8">
               <button
@@ -1011,14 +972,10 @@ const AboutPage = () => {
               </button>
             </div>
 
-            {/* Page number stays centered */}
-
             <span className="whitespace-nowrap text-center font-poppins text-[14px] text-bp-black">
               {memberPage} /{" "}
               {totalMemberPages}
             </span>
-
-            {/* Next */}
 
             <div className="flex justify-start pl-5 md:pl-8">
               <button
@@ -1051,7 +1008,7 @@ const AboutPage = () => {
         )}
 
         {/* ================================================================ */}
-        {/* ALUMNI BUTTON                                                    */}
+        {/* ALUMNI                                                           */}
         {/* ================================================================ */}
 
         <div className="mt-10 flex w-full justify-center md:mt-12">

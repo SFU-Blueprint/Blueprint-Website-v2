@@ -33,8 +33,23 @@ const NavBar = ({ isDark = false }: NavBarProps) => {
   const surfaceClass = isDark ? "bg-bp-darkest-grey" : "bg-bp-white";
 
   return (
-    <nav className="w-full justify-center px-5 pb-5 pt-8" aria-label="Primary">
-      <div className="mx-auto flex w-full max-w-full flex-col gap-4 max-lg:flex-grow px-2 md:px-6 xl:px-16 2xl:px-32 lg:flex-row lg:items-stretch lg:gap-0">
+    <nav className="w-full px-5 pb-5 pt-8" aria-label="Primary">
+  <div
+    className="
+      mx-auto
+      flex
+      w-full
+      max-w-[1600px]
+      flex-col
+      gap-4
+      px-2
+      md:px-6
+      xl:px-16
+      lg:flex-row
+      lg:items-stretch
+      lg:gap-0
+    "
+  >
         {/* Desktop (lg+): logo card, flex spacer, compact nav card (hugs links, not full width) */}
         <div
           className={`hidden items-center justify-between overflow-hidden rounded-[5px] backdrop-blur-xl lg:flex lg:shrink-0 ${

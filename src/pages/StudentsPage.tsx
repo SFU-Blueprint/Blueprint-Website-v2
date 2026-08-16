@@ -312,12 +312,16 @@ const StudentsPage = () => {
   return (
     <div className="relative overflow-x-clip bg-bp-lightest-grey">
       <HeroCrosspoint videoSrc="/videos/crosspoints/dotted-path-2.webm" />
+
       <PageContainer className="relative z-10">
-        <HeroSection onOpenPositions={scrollToPositions} />
-        <TypicalExperienceSection />
-        <ApplicationProcessSection />
-        <OpenPositionsSection />
-        <StayUpdatedSection />
+        <main className="w-full">
+          <HeroSection onOpenPositions={scrollToPositions} />
+
+          <TypicalExperienceSection />
+          <ApplicationProcessSection />
+          <OpenPositionsSection />
+          <StayUpdatedSection />
+        </main>
       </PageContainer>
     </div>
   );
@@ -329,31 +333,85 @@ function HeroSection({
   onOpenPositions: () => void;
 }) {
   return (
-    <section className="relative z-10 mb-[180px] pt-main-desktop-top max-md:pt-main-mobile-top max-[1024px]:mb-[80px] max-[480px]:mb-[64px]">
-      <div className="flex items-start justify-between gap-10 max-md:flex-col max-md:gap-12">
-        <div className="max-w-[954px]">
-          <h1 className="relative z-10 text-left self-start justify-start font-poppins text-[72px] font-bold leading-none tracking-[-1.44px] text-bp-black max-md:text-[46px] max-md:tracking-[-0.92px]">
-            join <span className="font-normal">our team</span>
-          </h1>
+    <section
+      className="
+        relative
+        z-10
+        w-full
+        pb-[180px]
+        pt-main-desktop-top
 
-          <p className="mt-6 max-w-[726px] font-poppins text-[30px] font-normal leading-[1.4] tracking-[-0.6px] text-bp-black max-md:text-[20px] max-md:leading-[1.4] max-md:tracking-[-0.4px]">
-            {HERO_CONTENT.subtitle}
-          </p>
-        </div>
-      </div>
+        max-[1024px]:pb-[100px]
+        max-md:pt-main-mobile-top
+        max-[480px]:pb-[80px]
+      "
+    >
+      {/* SAME CONTENT BOUNDARY AS ABOUT PAGE */}
+      <div className="mx-auto w-full max-w-[1440px]">
+        <h1
+          className="
+            font-poppins
+            text-[72px]
+            font-bold
+            leading-none
+            tracking-[-1.44px]
+            text-bp-black
 
-      <div className="mt-[60px] flex w-full max-w-[617px] flex-col items-start text-left max-md:mt-[67px]">
-        <h2 className="font-caveat text-heading-hand text-bp-black max-md:text-mobile-heading-hand">
-          Blueprint at SFU is right for you!
-        </h2>
-
-        <Button
-          variant="primary"
-          onClick={onOpenPositions}
-          className="mt-6 w-[200px] max-md:h-[52px] max-md:w-full max-md:max-w-[352px] max-md:text-[14px]"
+            max-md:text-[46px]
+            max-md:tracking-[-0.92px]
+          "
         >
-          SEE OPEN POSITIONS
-        </Button>
+          join <span className="font-normal">our team</span>
+        </h1>
+
+        <p
+          className="
+            mt-6
+            max-w-[726px]
+            font-poppins
+            text-[30px]
+            font-normal
+            leading-[1.4]
+            tracking-[-0.6px]
+            text-bp-black
+
+            max-md:text-[20px]
+            max-md:tracking-[-0.4px]
+          "
+        >
+          {HERO_CONTENT.subtitle}
+        </p>
+
+        <div className="mt-[54px] flex flex-col items-start">
+          <h2
+            className="
+              font-caveat
+              text-heading-hand
+              text-bp-black
+
+              max-md:text-mobile-heading-hand
+            "
+          >
+            Blueprint at SFU is right for you!
+          </h2>
+
+          <Button
+            variant="primary"
+            onClick={onOpenPositions}
+            className="
+              mt-6
+              w-[200px]
+              whitespace-nowrap
+
+              max-md:h-[52px]
+              max-md:w-full
+              max-md:max-w-[352px]
+              max-md:text-[14px]
+            "
+          >
+            SEE OPEN POSITIONS
+          </Button>
+        </div>
       </div>
     </section>
   );
@@ -361,8 +419,8 @@ function HeroSection({
 
 function TypicalExperienceSection() {
   return (
-    <section className="mx-auto flex w-full max-w-[1152px] flex-col items-center gap-[100px] px-5 pb-[148px] max-md:gap-[72px] max-md:pb-[102px]">
-      <div className="flex max-w-[792px] flex-col items-center gap-12 text-center max-md:gap-[60px]">
+    <section className="flex w-full flex-col items-center gap-[100px] pb-[148px] max-md:gap-[72px] max-md:pb-[102px]">
+      <div className="mx-auto flex w-full max-w-[792px] flex-col items-center gap-12 text-center max-md:gap-[60px]">
         <h2 className="relative max-w-[792px] font-poppins text-[36px] font-normal leading-[1.4] tracking-[-0.72px] text-black max-md:max-w-[243px] max-md:text-[24px] max-md:tracking-[-0.48px]">
           a <strong className="font-semibold">typical experience</strong> at{" "}
           <BlueprintSpark className="mx-2 inline-block align-[-12px] max-md:mx-1 max-md:align-[-6px]" />
@@ -384,7 +442,9 @@ function TypicalExperienceSection() {
           connections, and engage with a community that supports your growth -
           personally and professionally.
         </p>
-        <ExpandableContentCards cards={SOCIAL_EVENT_CARDS} />
+        <div className="mx-auto w-full max-w-[1152px]">
+          <ExpandableContentCards cards={SOCIAL_EVENT_CARDS} />
+        </div>
       </div>
 
       <TimelineSection />
@@ -647,7 +707,7 @@ function ApplicationProcessSection() {
   }, [updateIndicator]);
 
   return (
-    <section className="mx-auto flex w-full max-w-[1152px] flex-col gap-[58px] px-5 pb-[148px] max-md:gap-[31px] max-md:pb-20">
+    <section className="mx-auto flex w-full max-w-[1152px] flex-col gap-[58px] pb-[148px] max-md:gap-[31px] max-md:pb-20">
       <h2 className="font-poppins text-[48px] font-normal leading-[1.2] tracking-[-0.96px] text-[#2e2e2e] max-md:text-[28px] max-md:tracking-[-0.56px]">
         the <strong className="font-bold">application</strong> process
       </h2>
@@ -896,7 +956,7 @@ function OpenPositionsSection() {
   return (
     <section
       id="open-positions"
-      className="mx-auto relative z-10 grid w-full max-w-[1298px] grid-cols-[318px_minmax(0,623px)] justify-center gap-[127px] rounded-[20px] bg-bp-black px-[115px] py-[117px] max-xl:gap-[60px] max-xl:px-[60px] max-lg:flex max-lg:flex-col max-lg:gap-[31px] max-lg:rounded-none max-lg:px-[19px] max-lg:pb-[76px] max-lg:pt-[61px]"
+      className="mx-auto relative z-10 grid w-full max-w-[1298px] grid-cols-[318px_minmax(0,623px)] justify-center gap-[127px] rounded-[20px] bg-bp-black px-[115px] py-[117px] max-xl:gap-[60px] max-xl:px-[60px] max-lg:flex max-lg:flex-col max-lg:gap-[31px] max-lg:rounded-[10px] max-lg:px-[19px] max-lg:pb-[76px] max-lg:pt-[61px]"
     >
       <div className="flex flex-col gap-12 text-white max-lg:gap-0">
         <div className="flex flex-col gap-6">
@@ -992,7 +1052,7 @@ function OpenPositionCard({
 
 function StayUpdatedSection() {
   return (
-    <section className="relative bg-bp-lightest-grey py-[165px] max-md:py-[122px] mx-auto max-w-[1155px]">
+    <section className="relative mx-auto w-full max-w-[1155px] bg-bp-lightest-grey py-[165px] max-md:py-[122px]">
       <HeroCrosspoint
         videoSrc="/videos/crosspoints/dotted-path-2.webm"
         className="h-full"
@@ -1001,7 +1061,7 @@ function StayUpdatedSection() {
         imageClassName="w-[2260px] max-md:w-[1200px]"
       />
 
-      <div className="mx-auto z-10 relative flex w-full max-w-[1155px] flex-col items-center gap-[58px] px-5 max-md:gap-[38px]">
+      <div className="relative z-10 flex w-full flex-col items-center gap-[58px] max-md:gap-[38px]">
         <div className="flex flex-col self-start gap-3 text-left max-md:gap-1.5">
           <h2 className="font-caveat text-[78px] font-normal leading-[1.2] tracking-[-1.56px] text-bp-black max-md:text-[32px] max-md:tracking-[-0.64px]">
             stay updated

@@ -24,14 +24,14 @@ export const WebsiteRevamp2026: MemberCardProps[] = [
     photoUrl: Alfonso,
     linkedinUrl: "https://www.linkedin.com/in/alfonso-ocampo/",
     roleType: "dev",
-    role: "Developer",
+    role: "Senior Developer",
   },
   {
     name: "Teddy Malhan",
     photoUrl: Teddy,
     linkedinUrl: "https://www.linkedin.com/in/teddymalhan/",
     roleType: "dev",
-    role: "Developer",
+    role: "Senior Developer",
   },
   {
     name: "Caron McPherson",
@@ -66,13 +66,13 @@ export const WebsiteRevamp2026: MemberCardProps[] = [
     photoUrl: Xander,
     linkedinUrl: "https://www.linkedin.com/in/xander-smith-53879b294/",
     roleType: "dev",
-    role: "Developer",
+    role: "Junior Developer",
   },
   {
     name: "Marco Areliano Suteja",
     photoUrl: Marco,
     linkedinUrl: "https://ca.linkedin.com/in/marcosuteja",
     roleType: "dev",
-    role: "Developer",
+    role: "Junior Developer",
   },
 ];

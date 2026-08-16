@@ -324,10 +324,10 @@ const TechForGoodSection = () => (
   // inner px-2 / md:px-6 / xl:px-32 → 28 / 44 / 148 px) so the content's
   // left edge is flush with the left edge of the logo card up top.
   <section
-    className="relative w-screen left-1/2 -translate-x-1/2 flex bg-bp-black -mt-[116px] pt-[116px] pb-24 px-[28px] md:px-[44px] xl:px-[148px] min-[780px]:justify-start"
+    className="relative left-1/2 w-screen -translate-x-1/2 bg-bp-black -mt-[116px] pt-[116px] pb-24"
     style={TFG_SCALE_STYLE}
   >
-    <div className="flex w-full flex-col">
+    <div className="mx-auto flex w-full max-w-[1440px] flex-col px-[28px] md:px-[44px] xl:px-0">
     <div
       className={[
         "relative flex flex-col gap-10 w-full",
@@ -693,8 +693,7 @@ const ProjectsCardStack = () => {
 const ImpactSection = () => {
   return (
   <section className="relative z-20 w-full pt-[80px] max-md:pt-[75px]">
-        <div className="mx-auto flex flex-col items-center gap-12 xl:gap-24 xl:flex-row xl:items-start 
-        w-full justify-between"> {/* max-w-[1196px] xl:justify-center */}
+        <div className="mx-auto flex w-full max-w-[1440px] flex-col items-center justify-between gap-12 xl:flex-row xl:items-start xl:gap-24">
         {/* Left side Heading and logos */}
         <div className="z-20 w-full max-w-[440px] shrink-0 max-md:max-w-[90vw] xl:sticky xl:top-[25%]">
           {/* Bullet points and logos */}
@@ -798,7 +797,7 @@ const ImpactSection = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <span className="font-poppins text-sm font-semibold">RSVP</span>
+                  <span className="font-poppins text-sm font-semibold">KEEP ME UPDATED</span>
                 </Button>
               </div>
 
@@ -814,8 +813,8 @@ const ImpactSection = () => {
                 DATE AND TIME:
               </p>
               <p className="flex flex-col md:flex-row gap-1 text-body-s-reg font-light">
-                September 10, {/* date */}
-                <span>2026, 7 PM</span> {/* time */}
+                 {/* date */}
+                <span>TBD</span> {/* time */}
                   
               </p>
             </div>
@@ -825,7 +824,7 @@ const ImpactSection = () => {
               </p>
               <p className="font-poppins leading-normal flex flex-col md:flex-row gap-1 text-body-s-reg font-light">
                 SFU Burnaby {/* location */}
-                <span>Campus, ASB 9720</span> {/* location */}
+                <span>Campus, TBD</span> {/* location */}
               </p>
             </div>
           </div>
@@ -834,64 +833,222 @@ const ImpactSection = () => {
     )
   }
 
-const HomePage = () => {
-  // Only tint <html> (not <body>) so the scrollbar gutter matches the hero
-  // while the rest of the page still renders on the light body background.
-  useEffect(() => {
-    const html = document.documentElement;
-    const prev = html.style.backgroundColor;
-    html.style.backgroundColor = HERO_SCROLLBAR_BG;
-    return () => {
-      html.style.backgroundColor = prev;
-    };
-  }, []);
-  return (
-    <>
-      <PageContainer>
-        {/* Hero: "tech for good" section */}
-        <TechForGoodSection />
+  const HomePage = () => {
+    useEffect(() => {
+      const html = document.documentElement;
+      const prev = html.style.backgroundColor;
 
-        {/* Impact + projects: mx-auto wrapper so centering works at every breakpoint */}
-        <ImpactSection />
-      </PageContainer>
+      html.style.backgroundColor = HERO_SCROLLBAR_BG;
 
-      {/* Students block — sits above ImpactSection so sticky white project cards
-          cannot cover the JOIN US crosspoints as the sections overlap. */}
-      <div className="relative z-30 overflow-x-clip bg-bp-lightest-grey">
-        <PageContainer className="relative z-10 !pt-0">
-          <div className="relative pt-[100px] font-['Poppins'] md:pt-[100px]">
-            {/* self-start + inline-flex keep the /students Link button-sized.
-                A stretched full-width CTA row was covering the crosspoint curves
-                and making that area navigate to Join Our Team. */}
-            <div className="relative z-10 flex w-full min-w-0 flex-col gap-12">
-              <div className="flex w-full min-w-0 max-w-[660px] flex-col gap-6 text-zinc-800 max-md:min-w-[345px]">
-                <div className="max-w-[400px] text-heading-s-reg max-md:text-mobile-heading-m-reg md:min-w-[518px]">
-                  students: turn real projects into
-                  <span className="font-semibold"> real opportunities. </span>
-                </div>
-                <div className="text-body-m-reg leading-8 max-md:text-mobile-body-m-reg">
-                  By working with a passionate interdisciplinary team and making a real impact in
-                  their community, our members have gained invaluable skills, allowing them to pursue
-                  successful careers in tech. Join us to see the Blueprint difference.
-                </div>
-              </div>
-              <div className="relative z-10 max-md:hidden self-start">
-                <Link
-                  to="/students"
-                  className="inline-flex h-16 w-48 items-center justify-center rounded-[5px] bg-bp-black px-[44px] font-poppins text-[16px] font-semibold uppercase leading-none text-white transition-colors duration-150 hover:bg-bp-dark-grey active:bg-bp-pressed-blue"
+      return () => {
+        html.style.backgroundColor = prev;
+      };
+    }, []);
+
+    return (
+      <>
+        {/* ========================================================== */}
+        {/* HERO + IMPACT / PROJECTS                                   */}
+        {/* ========================================================== */}
+
+        <PageContainer>
+          <TechForGoodSection />
+          <ImpactSection />
+        </PageContainer>
+
+        {/* ========================================================== */}
+        {/* STUDENTS                                                   */}
+        {/* ========================================================== */}
+
+        <section className="relative z-30 overflow-x-clip bg-bp-lightest-grey">
+
+          {/* ======================================================== */}
+          {/* STUDENT INTRO                                            */}
+          {/* ======================================================== */}
+
+          <PageContainer className="relative z-10 !pt-0">
+            <div
+              className="
+                relative
+                mx-auto
+                w-full
+                max-w-[1440px]
+
+                pt-[140px]
+                md:pt-[220px]
+
+                font-poppins
+              "
+            >
+              <div
+                className="
+                  relative
+                  z-10
+                  flex
+                  w-full
+                  min-w-0
+                  flex-col
+                "
+              >
+                <div
+                  className="
+                    flex
+                    w-full
+                    max-w-[660px]
+                    min-w-0
+                    flex-col
+                    gap-6
+                    text-zinc-800
+
+                    max-md:min-w-0
+                  "
                 >
-                  join us
-                </Link>
+                  {/* TITLE */}
+
+                  <h2
+                    className="
+                      max-w-[600px]
+                      text-heading-s-reg
+                      font-normal
+
+                      max-md:max-w-full
+                      max-md:text-mobile-heading-m-reg
+                    "
+                  >
+                    students: turn real projects into{" "}
+                    <span className="font-semibold">
+                      real opportunities.
+                    </span>
+                  </h2>
+
+                  {/* DESCRIPTION */}
+
+                  <p
+                    className="
+                      max-w-[660px]
+                      text-body-m-reg
+                      leading-8
+
+                      max-md:text-mobile-body-m-reg
+                      max-md:leading-normal
+                    "
+                  >
+                    By working with a passionate interdisciplinary team and making a
+                    real impact in their community, our members have gained invaluable
+                    skills, allowing them to pursue successful careers in tech. Join us
+                    to see the Blueprint difference.
+                  </p>
+
+                  {/* DESKTOP JOIN BUTTON */}
+
+                  <div className="relative z-10 mt-6 self-start max-md:hidden">
+                    <Link
+                      to="/students"
+                      className="
+                        inline-flex
+                        h-16
+                        w-48
+                        items-center
+                        justify-center
+                        rounded-[5px]
+                        bg-bp-black
+                        px-[44px]
+                        font-poppins
+                        text-[16px]
+                        font-light
+                        uppercase
+                        leading-none
+                        text-white
+                        transition-colors
+                        duration-150
+
+                        hover:bg-bp-dark-grey
+                        active:bg-bp-pressed-blue
+                      "
+                    >
+                      join us
+                    </Link>
+                  </div>
+                </div>
+
+                {/* ====================================================== */}
+                {/* CROSSPOINT — OLD POSITIONING                           */}
+                {/* ====================================================== */}
+
+                <div
+                  className="
+                    relative
+                    z-0
+                    h-[120px]
+                    w-full
+
+                    max-md:h-[104px]
+                  "
+                >
+                  <div
+                    className="
+                      pointer-events-none
+                      absolute
+                      left-1/2
+                      top-0
+                      z-0
+                      h-full
+                      w-screen
+                      max-w-none
+                      -translate-x-1/2
+                    "
+                  >
+                    <HeroCrosspoint
+                      videoSrc="/videos/crosspoints/dotted-path-1.webm"
+                      className="
+                        pointer-events-none
+                        absolute
+                        inset-x-0
+                        top-0
+                        z-0
+                        h-full
+                      "
+                      anchorClassName="
+                        absolute
+                        top-1/2
+                        right-[clamp(24px,8vw,120px)]
+
+                        max-md:right-[24px]
+                      "
+                      videoClassName="
+                        w-[640px]
+
+                        max-md:w-[280px]
+                      "
+                      imageClassName="
+                        w-[2260px]
+
+                        max-md:w-[1200px]
+                      "
+                    />
+                  </div>
+                </div>
               </div>
             </div>
+          </PageContainer>
 
-            {/* Gap band between JOIN US and carousel — horizontal line at mid-gap.
-                Full-bleed breakout so PageContainer padding cannot clip the graphic. */}
-            <div className="relative z-0 h-[120px] w-full max-md:h-[60px]"/>
-          </div>
+          {/* ======================================================== */}
+          {/* TESTIMONIAL CAROUSEL — INTENTIONALLY FULL BLEED          */}
+          {/* ======================================================== */}
 
-          {/* testimonials */}
-          <div className="relative z-10 left-1/2 right-1/2 ml-[-50vw] mr-[-50vw] h-[390px] w-screen">
+          <div
+            className="
+              relative
+              z-10
+              h-[390px]
+              w-screen
+              left-1/2
+              -translate-x-1/2
+              overflow-hidden
+
+              max-md:h-[330px]
+            "
+          >
             <InteractiveCarousel autoScrollSpeed={1}>
               {blueprintTestimonials.map((testimonial) => (
                 <TestimonialCard
@@ -905,32 +1062,137 @@ const HomePage = () => {
             </InteractiveCarousel>
           </div>
 
-          <div className="pb-10 md:hidden -mt-[4.5rem]">
-            <Link
-              to="/students"
-              className="inline-flex h-16 w-full items-center justify-center rounded-[5px] bg-bp-black px-[44px] font-poppins text-[16px] font-normal uppercase leading-none text-white transition-colors duration-150 hover:bg-bp-dark-grey active:bg-bp-pressed-blue"
-            >
-              join us
-            </Link>
-          </div>
+          {/* ======================================================== */}
+          {/* MOBILE JOIN BUTTON                                       */}
+          {/* ======================================================== */}
 
-          {/* Upcoming Events Section*/}
-          <div>          
-            <div className="h-full overflow-hidden rounded-[5px] max-md:pb-6 max-md:pt-[54px] md:min-w-[82vw] md:pt-[60px] md:pr-[2vw] xl:pr-[6vw] 2xl:pr-[2vw]">
-              <img
-                className="h-full w-full"
-                src="/images/home/photos/group.png"
-                alt="Group Photo"
-              />
+          <PageContainer className="relative z-10 !pt-0">
+            <div
+              className="
+                mx-auto
+                hidden
+                w-full
+                max-w-[1440px]
+                pb-10
+                pt-6
+
+                max-md:block
+              "
+            >
+              <Link
+                to="/students"
+                className="
+                  inline-flex
+                  h-16
+                  w-full
+                  items-center
+                  justify-center
+                  rounded-[5px]
+                  bg-bp-black
+                  px-[44px]
+                  font-poppins
+                  text-[16px]
+                  font-normal
+                  uppercase
+                  leading-none
+                  text-white
+                  transition-colors
+                  duration-150
+
+                  hover:bg-bp-dark-grey
+                  active:bg-bp-pressed-blue
+                "
+              >
+                join us
+              </Link>
             </div>
-            <div className="md:h-[175px]">
-              <UpcomingEventsCard />
-            </div>
-          </div>
-        </PageContainer>
-      </div>
-    </>
-  );
-};
+          </PageContainer>
+
+          {/* ======================================================== */}
+          {/* UPCOMING EVENT                                           */}
+          {/* ======================================================== */}
+
+          <PageContainer className="relative z-10 !pt-0">
+            <section
+              className="
+                mx-auto
+                w-full
+                max-w-[1440px]
+                pb-[120px]
+                pt-[72px]
+
+                max-md:pb-[64px]
+                max-md:pt-[48px]
+              "
+            >
+              <div className="relative w-full">
+
+                {/* GROUP PHOTO */}
+
+                <div
+                  className="
+                    relative
+                    w-full
+                    overflow-hidden
+                    rounded-[5px]
+                  "
+                >
+                  <img
+                    src="/images/home/photos/group.png"
+                    alt="Blueprint team"
+                    className="
+                      block
+                      h-[620px]
+                      w-full
+                      object-cover
+                      object-center
+
+                      max-xl:h-[540px]
+                      max-lg:h-[460px]
+                      max-md:h-[320px]
+                      max-sm:h-[260px]
+                    "
+                  />
+                </div>
+
+                {/* DESKTOP EVENT CARD */}
+
+                <div
+                  className="
+                    absolute
+                    bottom-0
+                    right-0
+                    z-20
+                    w-full
+                    max-w-[737px]
+                    translate-y-[50%]
+
+                    max-md:hidden
+                  "
+                >
+                  <UpcomingEventsCard />
+                </div>
+              </div>
+
+              {/* Space for hanging desktop event card */}
+
+              <div className="h-[175px] max-md:hidden" />
+
+              {/* MOBILE EVENT CARD */}
+
+              <div className="hidden pt-6 max-md:block">
+                <UpcomingEventsCard />
+              </div>
+            </section>
+          </PageContainer>
+        </section>
+
+      </>
+    );
+  };
+
+
+
+
 
 export default HomePage;

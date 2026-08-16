@@ -16,27 +16,19 @@ const CONTAIN_COVER_SLUGS = new Set([
 ]);
 
 /**
- * Background colours for each project cover.
- *
- * The two Blueprint colours match the background
- * colours already present in their PNGs.
+ * Background colours for project covers.
  */
 const COVER_BG_BY_SLUG: Record<string, string> = {
   mosaic: "#5386E4",
   "our-community-bikes": "#E5E5EB",
   "reel-youth": "#F49F00",
   raps: "#FFC3E8",
-
   "original-blueprint-website": "#A5C6FF",
   "website-revamp-2026": "#D2A6FB",
 };
 
 /**
- * Custom scaling.
- *
- * Mosaic keeps its existing custom scale.
- * The two Blueprint projects stay at their natural
- * contained size instead of being enlarged.
+ * Custom cover scaling.
  */
 const COVER_SCALE_BY_SLUG: Record<string, number> = {
   mosaic: 1.28,
@@ -46,10 +38,6 @@ const COVER_SCALE_BY_SLUG: Record<string, number> = {
 
 /**
  * Vertical cover positioning.
- *
- * The Blueprint screenshots are shifted downward so
- * the bottom edge of the laptop mockup sits against
- * the bottom of the image panel.
  */
 const COVER_OFFSET_Y_BY_SLUG: Record<string, number> = {
   "original-blueprint-website": 22,
@@ -65,99 +53,142 @@ const ProjectsPage = () => {
   });
 
   return (
-    <div className="relative overflow-x-clip bg-bp-lightest-grey">
+    <div className="relative w-full overflow-x-clip bg-bp-lightest-grey">
       <HeroCrosspoint videoSrc="/videos/crosspoints/dotted-path-3.webm" />
 
       <PageContainer className="relative z-10">
-        <div className="relative z-10 flex flex-col items-center justify-center gap-4 pb-ppcard-bottom pt-main-desktop-top max-md:pt-main-mobile-top">
+        {/* ======================================================== */}
+        {/* HERO / PAGE TITLE                                        */}
+        {/* Same positioning as Sponsor Us                           */}
+        {/* ======================================================== */}
+
+        <section className="relative z-10">
+          <div
+            className="
+              mx-auto
+              w-full
+              max-w-[1440px]
+              pt-main-desktop-top
+              max-md:pt-main-mobile-top
+            "
+          >
+            <h1
+              className="
+                font-poppins
+                text-[72px]
+                font-normal
+                leading-none
+                tracking-[-1.44px]
+                text-bp-black
+
+                max-md:text-[46px]
+                max-md:tracking-[-0.92px]
+              "
+            >
+              <span className="max-md:hidden">
+                <strong>our</strong> projects
+              </span>
+
+              <span className="md:hidden">
+                all our projects
+              </span>
+            </h1>
+          </div>
+        </section>
+
+        {/* ======================================================== */}
+        {/* PROJECT GRID                                             */}
+        {/* Keeps original 1280px content width                      */}
+        {/* ======================================================== */}
+
+        <section
+          className="
+            relative
+            z-10
+            mx-auto
+            w-full
+            max-w-[1280px]
+            pt-[74px]
+
+            max-md:pt-[30px]
+          "
+        >
+          <div
+            className="
+              grid
+              w-full
+              grid-cols-1
+              gap-y-9
+
+              min-[962px]:grid-cols-2
+              min-[962px]:gap-x-[42px]
+            "
+          >
+            {filteredProjects.map((project) => {
+              const shouldContain = CONTAIN_COVER_SLUGS.has(
+                project.slug
+              );
+
+              const coverScale =
+                COVER_SCALE_BY_SLUG[project.slug];
+
+              const coverOffsetY =
+                COVER_OFFSET_Y_BY_SLUG[project.slug];
+
+              return (
+                <ProjectCard
+                  key={project.slug}
+                  logo_url={
+                    project.image
+                      ? project.image
+                      : "https://placehold.co/76x76"
+                  }
+                  logo_url_alt={`${project.name} logo`}
+                  card_cover_url={
+                    project.popupimage
+                      ? project.popupimage
+                      : "https://placehold.co/517x354"
+                  }
+                  card_cover_alt={`${project.name} project cover`}
+                  description={project.description}
+                  client_name={project.name}
+                  service={project.tags?.[0] ?? "Web App"}
+                  sector={
+                    project.tags?.[1] ??
+                    project.tags?.[0] ??
+                    "Web-app"
+                  }
+                  href={`/projects/${project.slug}`}
+                  coverBg={COVER_BG_BY_SLUG[project.slug]}
+                  coverScale={coverScale}
+                  coverFit={
+                    shouldContain ? "contain" : undefined
+                  }
+                  coverOffsetY={coverOffsetY}
+                />
+              );
+            })}
+          </div>
+
           {/* ====================================================== */}
-          {/* PAGE TITLE                                             */}
+          {/* PROJECT CTA                                            */}
           {/* ====================================================== */}
 
-          <h1 className="mb-[30px] self-start text-left font-poppins text-[72px] font-normal leading-none tracking-[-1.44px] text-bp-black md:mb-[50px] desktop:mb-[74px] max-md:text-[46px] max-md:tracking-[-0.92px]">
-            <span className="max-md:hidden">
-              <strong>our</strong> projects
-            </span>
+          <div
+            className="
+              mt-[24px]
+              flex
+              w-full
+              justify-center
+              pb-[48px]
 
-            <span className="md:hidden">
-              all our projects
-            </span>
-          </h1>
-
-          {/* ====================================================== */}
-          {/* PROJECT GRID                                           */}
-          {/* ====================================================== */}
-
-          <section className="relative w-full max-w-[1280px]">
-            <div className="grid w-full grid-cols-1 gap-x-[42px] gap-y-9 min-[962px]:grid-cols-2">
-              {filteredProjects.map((project) => {
-                const shouldContain =
-                  CONTAIN_COVER_SLUGS.has(project.slug);
-
-                const coverScale =
-                  COVER_SCALE_BY_SLUG[project.slug];
-
-                const coverOffsetY =
-                  COVER_OFFSET_Y_BY_SLUG[project.slug];
-
-                return (
-                  <ProjectCard
-                    key={project.slug}
-
-                    /* Logo */
-                    logo_url={
-                      project.image
-                        ? project.image
-                        : "https://placehold.co/76x76"
-                    }
-                    logo_url_alt={`${project.name} logo`}
-
-                    /* Cover */
-                    card_cover_url={
-                      project.popupimage
-                        ? project.popupimage
-                        : "https://placehold.co/517x354"
-                    }
-                    card_cover_alt={`${project.name} project cover`}
-
-                    /* Project information */
-                    description={project.description}
-                    client_name={project.name}
-                    service={project.tags?.[0] ?? "Web App"}
-                    sector={
-                      project.tags?.[1] ??
-                      project.tags?.[0] ??
-                      "Web-app"
-                    }
-
-                    /* Routing */
-                    href={`/projects/${project.slug}`}
-
-                    /* Cover customization */
-                    coverBg={
-                      COVER_BG_BY_SLUG[project.slug]
-                    }
-                    coverScale={coverScale}
-                    coverFit={
-                      shouldContain ? "contain" : undefined
-                    }
-                    coverOffsetY={coverOffsetY}
-                  />
-                );
-              })}
-            </div>
-
-            {/* ==================================================== */}
-            {/* PROJECT CTA                                          */}
-            {/* ==================================================== */}
-
-            <div className="pointer-events-none sticky bottom-3 z-20 mt-[10px] flex flex-col items-center pt-4 tablet:bottom-10 md:mt-[15px]">
-              <div className="pointer-events-auto">
-                <ProjectsCTA />
-              </div>
-            </div>
-          </section>
-        </div>
+              max-md:mt-[20px]
+              max-md:pb-[32px]
+            "
+          >
+            <ProjectsCTA />
+          </div>
+        </section>
       </PageContainer>
     </div>
   );

@@ -254,6 +254,28 @@ const NonprofitsPage = () => {
             </ul>
           </section>
 
+          <div className="relative h-[340px] w-full max-w-[324px] shrink-0 self-center md:h-[420px] md:max-w-[460px] min-[901px]:ml-auto">
+            <div className="absolute left-0 top-[50%] -translate-y-[20%] md:left-[10px]">
+              <PolaroidPhoto
+                imageSrc="/images/parter-with-us/stoney-creek.png"
+                caption="salmon release @stoney creek"
+                alt="Students collecting samples at Stoney Creek"
+                className="origin-top-left rotate-[-4deg] scale-[0.88] md:scale-[0.84]"
+                imageCropClassName="object-center scale-[1.04]"
+              />
+            </div>
+            <div className="absolute -right-24 max-lg:top-[65%] top-[50%] z-10 -translate-y-[68%] ">
+              <PolaroidPhoto
+                imageSrc="/images/parter-with-us/OCB_project_handoff.png"
+                caption="project handoff @OCB"
+                alt="Our Community Bikes project handoff"
+                className="origin-top-right rotate-[6deg] scale-[0.88] md:scale-[0.84]"
+                imageCropClassName="object-center scale-[1.04]"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
           {/* ========================================================== */}
           {/* OUR APPROACH                                               */}
           {/* ========================================================== */}

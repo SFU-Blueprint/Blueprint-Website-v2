@@ -36,7 +36,8 @@ export default function NonprofitsCTASection({
 
           <Link
             to={proposalFormLink}
-            className="mt-[30px] inline-flex h-[60px] w-full max-w-[200px] items-center justify-center rounded-[5px] bg-bp-blue px-[44px] font-poppins text-[16px] font-semibold uppercase leading-none text-bp-white transition-colors duration-150 hover:bg-bp-hover-blue active:bg-bp-pressed-blue focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bp-blue"
+            className="mt-[30px] inline-flex h-[60px] w-full max-w-[200px] items-center justify-center rounded-[5px] bg-bp-blue flex-nowrap
+             font-poppins text-[16px] font-semibold uppercase leading-none text-bp-white transition-colors duration-150 hover:bg-bp-hover-blue active:bg-bp-pressed-blue focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bp-blue"
           >
             PROPOSAL FORM
           </Link>

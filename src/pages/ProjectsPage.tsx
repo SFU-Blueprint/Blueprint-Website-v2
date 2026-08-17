@@ -53,8 +53,16 @@ const ProjectsPage = () => {
   });
 
   return (
-    <div className="relative w-full overflow-x-clip bg-bp-lightest-grey">
-      <HeroCrosspoint videoSrc="/videos/crosspoints/dotted-path-3.webm" />
+    <div className="relative w-full bg-bp-lightest-grey">
+      {/* ======================================================== */}
+      {/* HERO CROSSPOINT                                          */}
+      {/* Clip only the crosspoint instead of the entire page      */}
+      {/* so position: sticky continues to work correctly.         */}
+      {/* ======================================================== */}
+
+      <div className="absolute inset-x-0 top-0 overflow-x-clip">
+        <HeroCrosspoint videoSrc="/videos/crosspoints/dotted-path-3.webm" />
+      </div>
 
       <PageContainer className="relative z-10">
         {/* ======================================================== */}
@@ -89,15 +97,13 @@ const ProjectsPage = () => {
                 <strong>our</strong> projects
               </span>
 
-              <span className="md:hidden">
-                all our projects
-              </span>
+              <span className="md:hidden">all our projects</span>
             </h1>
           </div>
         </section>
 
         {/* ======================================================== */}
-        {/* PROJECT GRID                                             */}
+        {/* PROJECTS                                                 */}
         {/* Keeps original 1280px content width                      */}
         {/* ======================================================== */}
 
@@ -113,80 +119,98 @@ const ProjectsPage = () => {
             max-md:pt-[30px]
           "
         >
-          <div
-            className="
-              grid
-              w-full
-              grid-cols-1
-              gap-y-9
+          {/*
+           * This wrapper establishes the area that the sticky CTA
+           * is allowed to move within.
+           */}
+          <div className="relative">
+            {/* ==================================================== */}
+            {/* PROJECT GRID                                         */}
+            {/* ==================================================== */}
 
-              min-[962px]:grid-cols-2
-              min-[962px]:gap-x-[42px]
-            "
-          >
-            {filteredProjects.map((project) => {
-              const shouldContain = CONTAIN_COVER_SLUGS.has(
-                project.slug
-              );
+            <div
+              className="
+                grid
+                w-full
+                grid-cols-1
+                gap-y-9
 
-              const coverScale =
-                COVER_SCALE_BY_SLUG[project.slug];
+                min-[962px]:grid-cols-2
+                min-[962px]:gap-x-[42px]
+              "
+            >
+              {filteredProjects.map((project) => {
+                const shouldContain = CONTAIN_COVER_SLUGS.has(
+                  project.slug
+                );
 
-              const coverOffsetY =
-                COVER_OFFSET_Y_BY_SLUG[project.slug];
+                const coverScale =
+                  COVER_SCALE_BY_SLUG[project.slug];
 
-              return (
-                <ProjectCard
-                  key={project.slug}
-                  logo_url={
-                    project.image
-                      ? project.image
-                      : "https://placehold.co/76x76"
-                  }
-                  logo_url_alt={`${project.name} logo`}
-                  card_cover_url={
-                    project.popupimage
-                      ? project.popupimage
-                      : "https://placehold.co/517x354"
-                  }
-                  card_cover_alt={`${project.name} project cover`}
-                  description={project.description}
-                  client_name={project.name}
-                  service={project.tags?.[0] ?? "Web App"}
-                  sector={
-                    project.tags?.[1] ??
-                    project.tags?.[0] ??
-                    "Web-app"
-                  }
-                  href={`/projects/${project.slug}`}
-                  coverBg={COVER_BG_BY_SLUG[project.slug]}
-                  coverScale={coverScale}
-                  coverFit={
-                    shouldContain ? "contain" : undefined
-                  }
-                  coverOffsetY={coverOffsetY}
-                />
-              );
-            })}
-          </div>
+                const coverOffsetY =
+                  COVER_OFFSET_Y_BY_SLUG[project.slug];
 
-          {/* ====================================================== */}
-          {/* PROJECT CTA                                            */}
-          {/* ====================================================== */}
+                return (
+                  <ProjectCard
+                    key={project.slug}
+                    logo_url={
+                      project.image
+                        ? project.image
+                        : "https://placehold.co/76x76"
+                    }
+                    logo_url_alt={`${project.name} logo`}
+                    card_cover_url={
+                      project.popupimage
+                        ? project.popupimage
+                        : "https://placehold.co/517x354"
+                    }
+                    card_cover_alt={`${project.name} project cover`}
+                    description={project.description}
+                    client_name={project.name}
+                    service={project.tags?.[0] ?? "Web App"}
+                    sector={
+                      project.tags?.[1] ??
+                      project.tags?.[0] ??
+                      "Web-app"
+                    }
+                    href={`/projects/${project.slug}`}
+                    coverBg={COVER_BG_BY_SLUG[project.slug]}
+                    coverScale={coverScale}
+                    coverFit={
+                      shouldContain ? "contain" : undefined
+                    }
+                    coverOffsetY={coverOffsetY}
+                  />
+                );
+              })}
+            </div>
 
-          <div
-            className="
-              mt-[24px]
-              flex
-              w-full
-              justify-center
-              pb-[48px]
+            {/* ==================================================== */}
+            {/* STICKY PROJECT CTA                                    */}
+            {/*                                                      */}
+            {/* Sticks near the bottom of the viewport while         */}
+            {/* scrolling through the project section.               */}
+            {/* ==================================================== */}
 
-              max-md:mt-[20px]
-              max-md:pb-[32px]
-            "
-          >
-            <ProjectsCTA />
+            <div
+              className="
+                sticky
+                bottom-6
+                z-20
+
+                mt-[24px]
+                flex
+                w-full
+                justify-center
+                pb-[48px]
+
+                max-md:bottom-4
+                max-md:mt-[20px]
+                max-md:pb-[32px]
+              "
+            >
+              <ProjectsCTA />
+            </div>
           </div>
         </section>
       </PageContainer>

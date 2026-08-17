@@ -237,18 +237,21 @@ const HomeHeroFeatureCards = () => {
     Icon: React.FC<React.SVGProps<SVGSVGElement>>;
     label: string;
     squareClass: string;
-    /** Optional SVG-only tweaks (keeps asset markup unchanged). */
-    iconExtraClass?: string;
   }> = [
-    { Icon: WindmillIcon, label: "all NPO sectors", squareClass: "bg-bp-orange" },
-    { Icon: HandshakeIcon, label: "local partnerships", squareClass: "bg-bp-pink" },
+    {
+      Icon: WindmillIcon,
+      label: "all NPO sectors",
+      squareClass: "bg-bp-orange",
+    },
+    {
+      Icon: HandshakeIcon,
+      label: "local partnerships",
+      squareClass: "bg-bp-pink",
+    },
     {
       Icon: GiftIcon,
       label: "100% pro bono",
       squareClass: "bg-bp-green",
-      // Gift: viewBox reads larger on mobile than windmill/handshake — cap size; nudge down on desktop.
-      iconExtraClass:
-        "max-[779px]:translate-y-1 max-[779px]:!max-h-[64px] max-[779px]:!max-w-[36%] min-[780px]:translate-y-[calc(12px*var(--tfg-scale))]",
     },
   ];
 
@@ -266,48 +269,101 @@ const HomeHeroFeatureCards = () => {
       }
       aria-label="Blueprint highlights"
     >
-      {cards.map(({ Icon, label, squareClass, iconExtraClass }) => (
+      {cards.map(({ Icon, label, squareClass }) => (
         <div
           key={label}
           className={[
-            "flex min-h-0 w-full min-w-0 rounded-[10px] bg-[#1F1F1F]",
-            // Mobile: row, indicator+label vs icon, space-between (Figma).
-            "max-[779px]:h-[124px] max-[779px]:flex-row max-[779px]:items-center max-[779px]:justify-between max-[779px]:gap-3 max-[779px]:px-5 max-[779px]:py-4",
-            // Desktop: fixed size from Figma (scaled via `s()`). Less pt / more pb so the icon
-            // + label sit higher; extra breathing room under the label (top felt too empty).
-            "min-[780px]:h-[var(--hero-fc-h)] min-[780px]:w-[var(--hero-fc-w)] min-[780px]:shrink-0 min-[780px]:flex-col min-[780px]:items-stretch min-[780px]:gap-2 min-[780px]:px-6 min-[780px]:pt-2 min-[780px]:pb-14",
+            "relative flex min-h-0 min-w-0 overflow-hidden rounded-[10px] bg-[#1F1F1F]",
+
+            // Mobile
+            "max-[779px]:h-[124px]",
+            "max-[779px]:w-full",
+            "max-[779px]:flex-row",
+            "max-[779px]:items-center",
+            "max-[779px]:px-5",
+            "max-[779px]:py-4",
+
+            // Desktop
+            "min-[780px]:h-[var(--hero-fc-h)]",
+            "min-[780px]:w-[var(--hero-fc-w)]",
+            "min-[780px]:shrink-0",
+            "min-[780px]:flex-col",
+            "min-[780px]:px-4",
+            "min-[780px]:pt-5",
+            "min-[780px]:pb-8",
           ].join(" ")}
         >
+          {/* IMAGE */}
           <div
             className={[
-              "flex flex-wrap items-center gap-2",
-              "max-[779px]:min-w-0 max-[779px]:flex-1 max-[779px]:justify-start max-[779px]:text-left",
-              "min-[780px]:order-2 min-[780px]:shrink-0 min-[780px]:flex-nowrap min-[780px]:justify-center min-[780px]:text-center min-[780px]:-mt-2",
-            ].join(" ")}
-          >
-            <span
-              className={`size-3 shrink-0 rounded-[2px] ${squareClass}`}
-              aria-hidden
-            />
-            <span className="font-caveat text-[24px] leading-none text-bp-lightest-grey min-[630px]:text-[30px] min-[780px]:whitespace-nowrap min-[780px]:text-[36px]">
-              {label}
-            </span>
-          </div>
-          <div
-            className={[
-              "max-[779px]:contents",
-              "min-[780px]:flex min-[780px]:min-h-0 min-[780px]:flex-1 min-[780px]:items-center min-[780px]:justify-center min-[780px]:order-1",
+              "flex min-h-0 min-w-0 items-center justify-center overflow-hidden",
+
+              // Mobile
+              "max-[779px]:order-2",
+              "max-[779px]:ml-auto",
+              "max-[779px]:h-[90px]",
+              "max-[779px]:w-[120px]",
+              "max-[779px]:shrink-0",
+
+              // Desktop
+              "min-[780px]:order-1",
+              "min-[780px]:h-[250px]",
+              "min-[780px]:w-full",
+              "min-[780px]:shrink",
             ].join(" ")}
           >
             <Icon
               aria-hidden
-              className={[
-                "h-auto shrink-0",
-                "max-[779px]:max-h-[76px] max-[779px]:w-auto max-[779px]:max-w-[42%]",
-                "min-[780px]:w-full min-[780px]:max-w-[186px]",
-                iconExtraClass ?? "",
-              ].join(" ")}
+              className="
+                block
+                !h-auto
+                !w-auto
+                max-h-full
+                max-w-full
+                shrink-0
+              "
             />
+          </div>
+
+          {/* LABEL */}
+          <div
+            className={[
+              "z-10 flex min-w-0 items-center",
+
+              // Mobile
+              "max-[779px]:order-1",
+              "max-[779px]:flex-1",
+              "max-[779px]:gap-2",
+
+              // Desktop
+              "min-[780px]:order-2",
+              "min-[780px]:mt-auto",
+              "min-[780px]:w-full",
+              "min-[780px]:justify-center",
+              "min-[780px]:gap-[10px]",
+              "min-[780px]:pt-2",
+            ].join(" ")}
+          >
+            <span
+              aria-hidden
+              className={`size-3 shrink-0 rounded-[2px] ${squareClass}`}
+            />
+
+            <span
+              className="
+                min-w-0
+                whitespace-nowrap
+                font-caveat
+                leading-none
+                text-bp-lightest-grey
+
+                max-[779px]:text-[24px]
+
+                min-[780px]:text-[clamp(20px,2.3vw,36px)]
+              "
+            >
+              {label}
+            </span>
           </div>
         </div>
       ))}

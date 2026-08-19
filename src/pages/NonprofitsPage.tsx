@@ -282,6 +282,8 @@ const NonprofitsPage = () => {
                   top-[50%]
                   z-10
                   -translate-y-[68%]
+
+                  max-[900px]:-translate-y-[35%]
                 "
               >
                 <PolaroidPhoto

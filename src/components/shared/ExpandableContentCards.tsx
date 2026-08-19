@@ -57,7 +57,7 @@ export default function ExpandableContentCards({
   }, [cards.length]);
 
   return (
-    <div className="w-full max-md:w-[351px]">
+    <div className="mx-auto w-full max-lg:w-[351px]">
       <div
         ref={scrollerRef}
         className="flex justify-center gap-[23px] max-lg:snap-x max-lg:justify-start max-lg:overflow-x-auto max-lg:scrollbar-hide-custom"

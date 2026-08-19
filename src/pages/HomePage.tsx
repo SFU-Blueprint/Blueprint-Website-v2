@@ -491,21 +491,23 @@ const TechForGoodSection = () => (
               matches the body paragraph's visual alignment in the stacked
               layout. Gap above is a flat 40px at every breakpoint to match
               the fixed button size (no vw scaling). */}
-          <Button
-            variant="primary"
-            className={[
-              "mt-10 uppercase",
-              // Force mobile sizing below the layout break (Button's built-in
-              // md: kicks in at 768; we want the switch exactly at 780).
-              // mt-[21px] overrides the base mt-10 so the body→button gap is
-              // 21px on mobile per Figma.
-              "max-[779px]:!mt-[21px] max-[779px]:!h-[52px] max-[779px]:!text-[14px] max-[779px]:!w-full",
-              // Desktop: fixed 200x60 with 14px 44px padding per Figma.
-              "min-[780px]:!w-[200px] min-[780px]:!h-[60px] min-[780px]:!px-[44px] min-[780px]:!py-[14px]",
-            ].join(" ")}
-          >
-            Learn about us
-          </Button>
+          <Link to="/about">
+            <Button
+              variant="primary"
+              className={[
+                "mt-10 uppercase",
+                // Force mobile sizing below the layout break (Button's built-in
+                // md: kicks in at 768; we want the switch exactly at 780).
+                // mt-[21px] overrides the base mt-10 so the body→button gap is
+                // 21px on mobile per Figma.
+                "max-[779px]:!mt-[21px] max-[779px]:!h-[52px] max-[779px]:!text-[14px] max-[779px]:!w-full",
+                // Desktop: fixed 200x60 with 14px 44px padding per Figma.
+                "min-[780px]:!w-[200px] min-[780px]:!h-[60px] min-[780px]:!px-[44px] min-[780px]:!py-[14px]",
+              ].join(" ")}
+            >
+              Learn about us
+            </Button>
+          </Link>
         </div>
       </div>
 
@@ -1174,10 +1176,10 @@ const ImpactSection = () => {
                 mx-auto
                 w-full
                 max-w-[1440px]
-                pb-[120px]
+                pb-[38px]
                 pt-[72px]
 
-                max-md:pb-[64px]
+                max-md:pb-[19px]
                 max-md:pt-[48px]
               "
             >

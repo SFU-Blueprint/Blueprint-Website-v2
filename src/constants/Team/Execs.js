@@ -13,20 +13,7 @@ export const Executives = [
     position: "Co-president",
     lastPosition: "",
   },
-  {
-    title: "Ronney Lok",
-    img: "Ronney.jpg",
-    linkedin: "https://www.linkedin.com/in/ronneylok/",
-    position: "VP Engineering",
-    lastPosition: "",
-  },
-  {
-    title: "Praevalli Rajah",
-    img: "blueprint.jpg",
-    linkedin: "https://www.linkedin.com/in/praevalli-rajah/",
-    position: "VP External",
-    lastPosition: "",
-  },
+
   {
     title: "Melvika Faustine",
     img: "Melvika.jpg",
@@ -43,14 +30,14 @@ export const Executives = [
   },
   {
     title: "Ananya Singh",
-    img: "blueprint.jpg",
+    img: "AnanyaSingh.jpg",
     linkedin: "https://www.linkedin.com/in/ananyaxsingh/",
     position: "Co-President",
     lastPosition: "",
   },
   {
     title: "Nicolas Ramirez",
-    img: "blueprint.jpg",
+    img: "NicolasRamirez.jpg",
     linkedin: "https://www.linkedin.com/in/nicolas-ramirez-pm/",
     position: "VP Product",
     lastPosition: "",
@@ -79,16 +66,25 @@ export const Executives = [
   },
   {
     title: "Irvin Cardoza",
-    img: "blueprint.jpg",
+    img: "IrvinCardoza.jpg",
     linkedin: "https://www.linkedin.com/in/irvincardoza/",
     position: "VP Scoping",
     lastPosition: "",
   },
-  {
-    title: "Fatma Omer",
-    img: "blueprint.jpg",
-    linkedin: "https://www.linkedin.com/in/fatmabinteomer/",
-    position: "VP Talent",
+    {
+    title: "Bidisha Roy",
+    img: "BidishaRoy.jpg",
+    linkedin: "https://www.linkedin.com/in/bidisha--roy/",
+    role: "VP Internal",
+    roleType: ["exec"],
     lastPosition: "",
   },
+  {
+    title: "Lavanya Sharma",
+    img: "LavanyaSharma.jpeg",
+    linkedin: "",
+    role: "VP Marketing",
+    roleType: ["exec"],
+    lastPosition: "",
+  }
 ];

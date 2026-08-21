@@ -1,9 +1,18 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
+
 import linkedinIcon from "../../assets/icons/linkedin2.png";
 import { ReactComponent as ArrowUpRightIcon } from "../../assets/icons/ArrowUpRight.svg";
 
-export type memberRoleType = "designer" | "pm" | "dev" | "exec" | "techLead"
-export type memberCardLayoutType = "default" | "alumni"
+export type memberRoleType =
+  | "designer"
+  | "pm"
+  | "dev"
+  | "exec"
+  | "techLead";
+
+export type memberCardLayoutType =
+  | "default"
+  | "alumni";
 
 export type MemberCardProps = {
   name: string;
@@ -15,154 +24,483 @@ export type MemberCardProps = {
   layout?: memberCardLayoutType;
 };
 
-// Role-based hover/click background (solid brand colors per palette)
-const ROLE_HOVER_BG_CLASS: Record<NonNullable<MemberCardProps["roleType"]>, string> = {
+const ROLE_HOVER_BG_CLASS: Record<
+  NonNullable<MemberCardProps["roleType"]>,
+  string
+> = {
   designer: "bg-bp-accent-purple",
   pm: "bg-bp-orange",
   dev: "bg-bp-accent-light-blue",
   exec: "bg-bp-accent-very-light-blue",
   techLead: "bg-bp-accent-medium-blue",
 };
-// [#71EC59]
-const BORDER_RADIUS = 10;
-// Phone: 170×228, padding 10 9 10 8 (top right bottom left)
-// Tablet: 224×308, padding 12 10 26 12
-// Desktop: 299×332, padding 14 13 30 13
 
-/**
- * The name prop must be less than 15 chars in length. Preferred format is 'FirstName LastInitial'. e.g: Jonathan G
- * @param {MemberCardProps} prop - see type definition for more infor
- * @see MemberCardProps
- * @see memberRoleType
- */
+const BORDER_RADIUS = 10;
+
 export default function MemberCard({
   name,
   role,
   roleType = "designer",
   photoUrl,
   linkedinUrl,
-  randomRotation,
+  randomRotation = false,
   layout = "default",
 }: MemberCardProps) {
-  const [isHovered, setIsHovered] = useState(false);
+  const [isHovered, setIsHovered] =
+    useState(false);
 
-  // Names 15 characters or longer display the first name and initials of the remaining names
-  const getDisplayName = (fullName: string) => {
-    if (fullName.length < 15) return fullName;
+  const isAlumniLayout =
+    layout === "alumni";
 
-    const parts = fullName.trim().split(/\s+/);
+  const hoverBgClass =
+    ROLE_HOVER_BG_CLASS[roleType];
 
-    if (parts.length === 1) return fullName;
+  const showHoverStyle = Boolean(
+    isHovered && linkedinUrl
+  );
+
+  /*
+   * ============================================================
+   * DISPLAY NAME
+   * ============================================================
+   *
+   * Keep normal names intact.
+   *
+   * Only abbreviate unusually long names.
+   */
+  const getDisplayName = (
+    fullName: string
+  ) => {
+    const trimmedName =
+      fullName.trim();
+
+    if (trimmedName.length <= 20) {
+      return trimmedName;
+    }
+
+    const parts =
+      trimmedName.split(/\s+/);
+
+    if (parts.length <= 1) {
+      return trimmedName;
+    }
 
     return `${parts[0]} ${parts
       .slice(1)
-      .map((part) => `${part.charAt(0).toUpperCase()}.`)
+      .map(
+        (part) =>
+          `${part
+            .charAt(0)
+            .toUpperCase()}.`
+      )
       .join(" ")}`;
   };
 
-  const displayName = getDisplayName(name);
+  const displayName =
+    getDisplayName(name);
 
-  const hoverBgClass = ROLE_HOVER_BG_CLASS[roleType];
-  const showHoverStyle = isHovered && linkedinUrl;
-  const isAlumniLayout = layout === "alumni";
+  /*
+   * ============================================================
+   * ROTATION
+   * ============================================================
+   */
 
-  // If randomRotation is true: selects a rotation degree between +/- 3-5 otherwise defaults to +5
-  const rotationDegree: string = randomRotation
-    ? String(
-        (Math.floor(Math.random() * 4) + 2) *
-          (-1) ** Math.floor(Math.random() * 2)
-      )
-    : "5";
+  const rotationDegree =
+    useMemo(() => {
+      if (!randomRotation) {
+        return "0";
+      }
+
+      const magnitude =
+        Math.floor(
+          Math.random() * 4
+        ) + 2;
+
+      const direction =
+        Math.random() < 0.5
+          ? -1
+          : 1;
+
+      return String(
+        magnitude * direction
+      );
+    }, [randomRotation]);
+
+  /*
+   * ============================================================
+   * CLICK
+   * ============================================================
+   */
 
   const handleClick = () => {
-    if (linkedinUrl) {
-      window.open(linkedinUrl, "_blank", "noopener,noreferrer");
+    if (!linkedinUrl) {
+      return;
     }
+
+    window.open(
+      linkedinUrl,
+      "_blank",
+      "noopener,noreferrer"
+    );
   };
 
-  const photoSizeClassName = isAlumniLayout
-    ? "w-full h-[136px] tablet:aspect-square tablet:max-h-[196px] tablet:h-auto tablet:min-h-[120px] rounded-md bg-bp-lightest-grey overflow-hidden shrink-0"
-    : "w-min-[153px] h-[127px] w-full tablet:h-[192px] tablet:min-h-[192px] tablet:max-h-[192px] desktop:h-[192px] desktop:min-h-[192px] desktop:max-h-[192px] rounded-md bg-bp-lightest-grey overflow-hidden shrink-0";
+  /*
+   * ============================================================
+   * PHOTO SIZE
+   * ============================================================
+   *
+   * Three distinct layouts:
+   *
+   * Mobile
+   * Tablet
+   * Desktop
+   */
+
+  const photoSizeClassName =
+    isAlumniLayout
+      ? `
+          w-full
+          h-[136px]
+
+          tablet:h-[190px]
+
+          desktop:h-[192px]
+
+          shrink-0
+          overflow-hidden
+          rounded-md
+          bg-bp-lightest-grey
+        `
+      : `
+          w-full
+          h-[127px]
+
+          tablet:h-[192px]
+
+          desktop:h-[192px]
+
+          shrink-0
+          overflow-hidden
+          rounded-md
+          bg-bp-lightest-grey
+        `;
+
+  /*
+   * ============================================================
+   * CARD SIZE
+   * ============================================================
+   *
+   * ALUMNI
+   *
+   * Mobile:
+   * fills grid cell, capped at 230px
+   *
+   * Tablet:
+   * fixed 220px
+   *
+   * Desktop:
+   * fixed 267px
+   *
+   * The desktop grid is max 1128px:
+   *
+   * 267 × 4 = 1068
+   * 20 × 3  =   60
+   * ----------------
+   *           1128
+   */
+
+  const sizeClassName =
+    isAlumniLayout
+      ? `
+          box-border
+
+          w-[calc(100%-5px)]
+          max-w-[230px]
+          h-[250px]
+
+          pt-[10px]
+          pr-[9px]
+          pb-[10px]
+          pl-[8px]
+
+          tablet:w-[220px]
+          tablet:max-w-[220px]
+          tablet:h-[315px]
+
+          tablet:pt-[12px]
+          tablet:pr-[10px]
+          tablet:pb-[16px]
+          tablet:pl-[12px]
+
+          desktop:w-[267px]
+          desktop:max-w-[267px]
+          desktop:h-[330px]
+
+          desktop:pt-[14px]
+          desktop:pr-[13px]
+          desktop:pb-[18px]
+          desktop:pl-[13px]
+        `
+      : `
+          box-border
+
+          w-full
+          max-w-[230px]
+          h-[228px]
+
+          pt-[10px]
+          pr-[9px]
+          pb-[10px]
+          pl-[8px]
+
+          tablet:w-[224px]
+          tablet:max-w-[224px]
+          tablet:h-[308px]
+
+          tablet:pt-[12px]
+          tablet:pr-[10px]
+          tablet:pb-[26px]
+          tablet:pl-[12px]
+
+          desktop:w-[299px]
+          desktop:max-w-[299px]
+          desktop:h-[332px]
+
+          desktop:pt-[14px]
+          desktop:pr-[13px]
+          desktop:pb-[30px]
+          desktop:pl-[13px]
+        `;
+
+  /*
+   * ============================================================
+   * CONTENT
+   * ============================================================
+   */
 
   const cardContent = (
-    <div className="flex flex-col items-start w-full flex-1 min-h-0">
-      {/* Photo placeholder or image: phone 153×127; tablet/desktop full width, aspect-square */}
+    <div
+      className="
+        flex
+        h-full
+        w-full
+        min-w-0
+        flex-col
+        items-start
+      "
+    >
+      {/* PHOTO */}
       <div
-        className={photoSizeClassName}
+        className={
+          photoSizeClassName
+        }
       >
         {photoUrl ? (
           <img
             src={photoUrl}
             alt=""
-            className="w-full h-full object-cover"
+            className="
+              block
+              h-full
+              w-full
+              object-cover
+            "
           />
         ) : (
           <div
-            className="w-full h-full bg-bp-grey"
+            className="
+              h-full
+              w-full
+              bg-bp-grey
+            "
             aria-hidden
           />
         )}
       </div>
 
-      {/* Lower section: fills space below photo; on desktop hover, centers LinkedIn vertically */}
+      {/* =======================================================
+          LOWER CONTENT
+          ======================================================= */}
       <div
-        className={`flex flex-col items-start w-full flex-1 min-h-0 ${
-          showHoverStyle
-            ? "desktop:justify-center"
-            : "desktop:justify-start"
-        }`}
+        className={`
+          flex
+          w-full
+          min-w-0
+          flex-1
+          flex-col
+          items-start
+
+          ${
+            showHoverStyle
+              ? "desktop:justify-center"
+              : "desktop:justify-start"
+          }
+        `}
       >
-        {/* Role: phone 10px; tablet/desktop 14px; hidden on desktop when hovered */}
+        {/* ROLE */}
         <span
-          className={`font-poppins text-[10px] font-medium text-black uppercase leading-normal self-stretch mt-2 tablet:mt-[18px] tablet:text-[14px] ${
-            showHoverStyle ? "desktop:hidden" : ""
-          }`}
-          style={{ minHeight: 18 }}
+          className={`
+            block
+            w-full
+            min-w-0
+
+            font-poppins
+            font-medium
+            uppercase
+            text-black
+
+            mt-[8px]
+
+            text-[10px]
+            leading-[13px]
+            min-h-[26px]
+
+            tablet:mt-[12px]
+            tablet:text-[13px]
+            tablet:leading-[17px]
+            tablet:min-h-[34px]
+
+            desktop:mt-[14px]
+            desktop:text-[14px]
+            desktop:leading-[18px]
+            desktop:min-h-[36px]
+
+            whitespace-normal
+            break-words
+            [overflow-wrap:anywhere]
+
+            ${
+              showHoverStyle
+                ? "desktop:hidden"
+                : ""
+            }
+          `}
         >
           {role}
         </span>
 
-        {/* Name: phone 18px, 130%, -0.36px; tablet/desktop 24px, 130%, -0.48px; hidden on desktop when hovered */}
+        {/* NAME */}
         <span
-          className={`font-poppins text-[18px] font-medium text-black leading-[130%] tracking-[-0.36px] self-stretch mt-0.5 tablet:mt-1.5 tablet:text-[24px] tablet:tracking-[-0.48px] whitespace-nowrap ${
-            showHoverStyle ? "desktop:hidden" : ""
-          }`}
+          className={`
+            block
+            w-full
+            min-w-0
+            max-w-full
+
+            font-poppins
+            font-medium
+            text-black
+
+            text-[18px]
+            leading-[120%]
+            tracking-[-0.36px]
+
+            tablet:text-[22px]
+            tablet:leading-[120%]
+            tablet:tracking-[-0.44px]
+
+            desktop:text-[24px]
+            desktop:leading-[120%]
+            desktop:tracking-[-0.48px]
+
+            whitespace-normal
+            break-words
+            [overflow-wrap:anywhere]
+
+            ${
+              showHoverStyle
+                ? "desktop:hidden"
+                : ""
+            }
+          `}
         >
           {displayName.toLowerCase()}
         </span>
 
-        {/* LinkedIn: phone/tablet = icon only; desktop = full row when hovered */}
+        {/* =====================================================
+            LINKEDIN
+            ===================================================== */}
         {linkedinUrl && (
           <span
-            className={`flex items-center gap-1.5 font-poppins text-[24px] font-normal leading-[130%] tracking-[-0.48px] text-black mt-1.5 tablet:mt-[12px] -ml-0.5 desktop:ml-0 ${
-              showHoverStyle
-                ? "desktop:flex desktop:mt-6"
-                : "desktop:hidden"
-            }`}
+            className={`
+              flex
+              min-w-0
+              items-center
+              gap-[6px]
+
+              font-poppins
+              font-normal
+              text-black
+
+              mt-auto
+              pt-[4px]
+
+              ${
+                showHoverStyle
+                  ? `
+                      desktop:flex
+                      desktop:mt-6
+                      desktop:pt-0
+                    `
+                  : "desktop:hidden"
+              }
+            `}
           >
             <img
               src={linkedinIcon}
               alt=""
-              className={`w-[17px] h-[17px] shrink-0 tablet:w-[24px] tablet:h-[24px] ${
-                showHoverStyle
-                  ? "desktop:w-[40px] desktop:h-[40px]"
-                  : ""
-              }`}
               aria-hidden
+              className={`
+                h-[17px]
+                w-[17px]
+                shrink-0
+
+                tablet:h-[22px]
+                tablet:w-[22px]
+
+                ${
+                  showHoverStyle
+                    ? `
+                        desktop:h-[40px]
+                        desktop:w-[40px]
+                      `
+                    : ""
+                }
+              `}
             />
 
             <span
-              className={`hidden ${
-                showHoverStyle ? "desktop:inline" : ""
-              }`}
+              className={`
+                hidden
+
+                text-[24px]
+                leading-[130%]
+                tracking-[-0.48px]
+
+                ${
+                  showHoverStyle
+                    ? "desktop:inline"
+                    : ""
+                }
+              `}
             >
               linkedin
             </span>
 
             <ArrowUpRightIcon
-              className={`w-6 h-6 shrink-0 [&_path]:fill-current hidden ${
-                showHoverStyle ? "desktop:block" : ""
-              }`}
+              className={`
+                hidden
+                h-6
+                w-6
+                shrink-0
+                [&_path]:fill-current
+
+                ${
+                  showHoverStyle
+                    ? "desktop:block"
+                    : ""
+                }
+              `}
               aria-hidden
             />
           </span>
@@ -171,72 +509,126 @@ export default function MemberCard({
     </div>
   );
 
-  const baseClassName =
-    "flex flex-col items-start rounded-[10px] font-poppins cursor-pointer transition-transform duration-200 ease-out";
+  /*
+   * ============================================================
+   * CARD WRAPPER
+   * ============================================================
+   */
 
-  // Phone: 170×228, padding 10 9 10 8 | Tablet: 224×308, padding 12 10 26 12 | Desktop: 299×332, padding 14 13 30 13
-  const sizeClassName =
-    isAlumniLayout
-      ? `w-full min-w-[170px] max-[629px]:max-w-[230px] min-h-[236px] pt-[10px] pr-[9px] pb-[10px] pl-[8px]
-         tablet:w-full tablet:max-w-[248px] tablet:min-h-[324px] tablet:pt-3 tablet:pr-[10px] tablet:pb-[26px] tablet:pl-3 
-         desktop:max-w-[252px] desktop:min-h-[316px] desktop:pt-[14px] desktop:pr-[13px] desktop:pb-[30px] desktop:pl-[13px]`
-      : `w-full min-w-[170px] max-[629px]:max-w-[230px] h-[228px] min-h-[228px] pt-[10px] pr-[9px] pb-[10px] pl-[8px] max-w-[350px]
-         tablet:min-w-[224px] tablet:w-full tablet:h-[308px] tablet:min-h-[308px] tablet:pt-3 tablet:pr-[10px] tablet:pb-[26px] tablet:pl-3
-         desktop:w-[299px] desktop:min-w-[299px] desktop:max-w-[299px] desktop:h-[332px] desktop:min-h-[332px] desktop:pt-[14px] desktop:pr-[13px] desktop:pb-[30px] desktop:pl-[13px]`;
+  const baseClassName = `
+    flex
+    flex-col
+    items-start
 
-  const wrapperStyle: React.CSSProperties = {
-    borderRadius: BORDER_RADIUS,
-  };
+    shrink-0
 
-  const rotationStyle: React.CSSProperties = {
-    "--customRot": `${rotationDegree}deg`,
+    rounded-[10px]
+    font-poppins
+
+    cursor-pointer
+
+    transition-transform
+    duration-200
+    ease-out
+  `;
+
+  const wrapperStyle:
+    React.CSSProperties = {
+      borderRadius:
+        BORDER_RADIUS,
+    };
+
+  const rotationStyle = {
+    "--customRot":
+      `${rotationDegree}deg`,
   } as React.CSSProperties;
 
-  const wrapperBgClass = isHovered
-    ? hoverBgClass
-    : "bg-white";
+  const wrapperBgClass =
+    isHovered
+      ? hoverBgClass
+      : "bg-white";
 
-  const rotationClass = isHovered
-    ? "desktop:rotate-[--customRot]"
-    : "";
+  /*
+   * Disabled while we verify the grid.
+   *
+   * Once everything is stable, this can be restored to:
+   *
+   * const rotationClass =
+   *   isHovered && randomRotation
+   *     ? "desktop:rotate-[--customRot]"
+   *     : "";
+   */
+  const rotationClass = "";
+
+  const combinedClassName = `
+    ${baseClassName}
+    ${sizeClassName}
+    ${wrapperBgClass}
+    ${rotationClass}
+  `;
+
+  /*
+   * ============================================================
+   * CLICKABLE
+   * ============================================================
+   */
 
   if (linkedinUrl) {
     return (
       <div
         role="button"
         tabIndex={0}
-        className={`${baseClassName} ${sizeClassName} ${wrapperBgClass} ${rotationClass}`}
+        className={
+          combinedClassName
+        }
         style={{
           ...wrapperStyle,
           ...rotationStyle,
         }}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        onMouseEnter={() =>
+          setIsHovered(true)
+        }
+        onMouseLeave={() =>
+          setIsHovered(false)
+        }
         onClick={handleClick}
         onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
+          if (
+            e.key === "Enter" ||
+            e.key === " "
+          ) {
             e.preventDefault();
             handleClick();
           }
         }}
-        aria-label={`${name}, ${role}. ${
-          linkedinUrl ? "Open LinkedIn profile." : ""
-        }`}
+        aria-label={`${name}, ${role}. Open LinkedIn profile.`}
       >
         {cardContent}
       </div>
     );
   }
 
+  /*
+   * ============================================================
+   * NON-CLICKABLE
+   * ============================================================
+   */
+
   return (
     <div
-      className={`${baseClassName} ${sizeClassName} ${wrapperBgClass} ${rotationClass}`}
+      className={
+        combinedClassName
+      }
       style={{
         ...wrapperStyle,
         ...rotationStyle,
       }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() =>
+        setIsHovered(true)
+      }
+      onMouseLeave={() =>
+        setIsHovered(false)
+      }
       aria-label={`${name}, ${role}`}
     >
       {cardContent}

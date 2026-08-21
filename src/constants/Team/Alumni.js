@@ -5,6 +5,9 @@
 // Headshots
 import blueprint from "../../assets/team-headshots/blueprint.jpg";
 
+
+import Fatma from "../../assets/team-headshots/Fatma.jpeg";
+import SydneyKomanac from "../../assets/team-headshots/SydneyKomanac.png";
 import Shivam from "../../assets/team-headshots/Shivam.jpg";
 import Peiman from "../../assets/team-headshots/Peiman.jpg";
 import Supriya from "../../assets/team-headshots/Supriya.jpg";
@@ -35,6 +38,14 @@ export const Alumni2023 = [
     linkedin: "https://www.linkedin.com/in/andy-zhang-sfu/",
     role: "Product Manager",
     roleType: "pm",
+  },
+    {
+    title: "Praevalli Rajah",
+    img: blueprint,
+    linkedin: "https://www.linkedin.com/in/praevalli-rajah/",
+    role: "VP External",
+    roleType: ["exec"],
+    lastPosition: "",
   },
   {
     title: "Brian Tsou",
@@ -331,6 +342,14 @@ export const Alumni2025 = [
     role: "Junior Developer",
     roleType: "dev",
   },
+    {
+    title: "Sydney Komanac",
+    img: SydneyKomanac,
+    linkedin: "https://www.linkedin.com/in/sydney-komanac-9982a0354/",
+    role: "VP Internal",
+    roleType: ["exec"],
+    lastPosition: "",
+  },
   {
     title: "Olivia Steed",
     img: blueprint,
@@ -399,7 +418,7 @@ export const Alumni2025 = [
   },
   {
     title: "Fatma Omer",
-    img: blueprint,
+    img: Fatma,
     linkedin: "https://www.linkedin.com/in/fatmabinteomer/",
     role: "VP Talent",
     roleType: "exec",

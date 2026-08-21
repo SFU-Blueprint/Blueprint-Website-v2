@@ -2,10 +2,12 @@ import { MemberCardProps } from "../../components/shared/MemberCard";
 
 import blueprint from "../../assets/team-headshots/blueprint.jpg";
 
+import NatalieKayda from "../../assets/team-headshots/NatalieKayda.jpg";
+
 export const UBC: MemberCardProps[] = [
   {
     name: "Natalie Kayda",
-    photoUrl: blueprint,
+    photoUrl: NatalieKayda,
     linkedinUrl: "",
     roleType: "designer",
     role: "UX Designer",

@@ -21,7 +21,7 @@ import blueprint from "../../assets/team-headshots/blueprint.jpg";
 import Johnson from "../../assets/team-headshots/Johnson.jpg";
 import Derek from "../../assets/team-headshots/Derek.jpg";
 import Fabian from "../../assets/team-headshots/Fabian.jpg";
-import Iris from "../../assets/team-headshots/IrisYeung.png";
+import Iris from "../../assets/team-headshots/IrisYeung.jpg";
 import Lauryn from "../../assets/team-headshots/LaurynYau.png";
 import Joshua from "../../assets/team-headshots/JoshuaLi.png";
 import Jimmy from "../../assets/team-headshots/JimmyHui.png";
@@ -42,6 +42,18 @@ import Marco from "../../assets/team-headshots/Marco.png";
 
 import Sylvia from "../../assets/team-headshots/Sylvia.jpg";
 import Amy from "../../assets/team-headshots/Amy.jpg";
+import AnakaLeong from "../../assets/team-headshots/AnakaLeong.jpg";
+import AnshAggarwal from "../../assets/team-headshots/AnshAggarwal.jpg";
+
+import IrvinCardoza from "../../assets/team-headshots/IrvinCardoza.png";
+import NicolasRamirez from "../../assets/team-headshots/NicolasRamirez.jpg";
+import AnanyaSingh from "../../assets/team-headshots/AnanyaSingh.jpg";
+import VickyXu from "../../assets/team-headshots/VickyXu.png";
+import NeevMadaan from "../../assets/team-headshots/NeevMadaan.jpg";
+import BidishaRoy from "../../assets/team-headshots/BidishaRoy.jpg";
+import LavanyaSharma from "../../assets/team-headshots/LavanyaSharma.jpeg";
+
+import NatalieKayda from "../../assets/team-headshots/NatalieKayda.jpg";
 
 export const Members = [
   // ==========================================================================
@@ -65,17 +77,9 @@ export const Members = [
     lastPosition: "",
   },
   {
-    title: "Praevalli Rajah",
-    img: blueprint,
-    linkedin: "https://www.linkedin.com/in/praevalli-rajah/",
-    role: "VP External",
-    roleType: ["exec"],
-    lastPosition: "",
-  },
-  {
     title: "Neev Madaan",
-    img: blueprint,
-    linkedin: "",
+    img: NeevMadaan,
+    linkedin: "https://www.linkedin.com/in/neevmadaan/",
     role: "VP External",
     roleType: ["exec"],
     lastPosition: "",
@@ -89,16 +93,8 @@ export const Members = [
     lastPosition: "",
   },
   {
-    title: "Sydney Komanac",
-    img: blueprint,
-    linkedin: "",
-    role: "VP Internal",
-    roleType: ["exec"],
-    lastPosition: "",
-  },
-  {
     title: "Nicolas Ramirez",
-    img: blueprint,
+    img: NicolasRamirez,
     linkedin: "https://www.linkedin.com/in/nicolas-ramirez-pm/",
     role: "VP Product & Product Manager",
     roleType: ["exec", "pm"],
@@ -106,7 +102,7 @@ export const Members = [
   },
   {
     title: "Ananya Singh",
-    img: blueprint,
+    img: AnanyaSingh,
     linkedin: "https://www.linkedin.com/in/ananyaxsingh/",
     role: "Co-President",
     roleType: ["exec"],
@@ -114,7 +110,7 @@ export const Members = [
   },
   {
     title: "Irvin Cardoza",
-    img: blueprint,
+    img: IrvinCardoza,
     linkedin: "https://www.linkedin.com/in/irvincardoza/",
     role: "VP Scoping & Tech Lead",
     roleType: ["exec", "techLead"],
@@ -139,8 +135,8 @@ export const Members = [
   },
   {
     title: "Vicky Xu",
-    img: blueprint,
-    linkedin: "",
+    img: VickyXu,
+    linkedin: "https://www.linkedin.com/in/vickykxu/",
     role: "VP Talent",
     roleType: ["exec"],
     lastPosition: "",
@@ -151,6 +147,22 @@ export const Members = [
     linkedin: "https://www.linkedin.com/in/sylvia-zhang-siqi/",
     role: "VP Scoping & Product Manager",
     roleType: ["exec", "pm"],
+    lastPosition: "",
+  },
+  {
+    title: "Bidisha Roy",
+    img: BidishaRoy,
+    linkedin: "https://www.linkedin.com/in/bidisha--roy/",
+    role: "VP Internal",
+    roleType: ["exec"],
+    lastPosition: "",
+  },
+  {
+    title: "Lavanya Sharma",
+    img: LavanyaSharma,
+    linkedin: "",
+    role: "VP Marketing",
+    roleType: ["exec"],
     lastPosition: "",
   },
 
@@ -169,7 +181,7 @@ export const Members = [
   {
     title: "Amanda Kamayata",
     img: blueprint,
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/amanda-kamayata/",
     role: "UX Researcher & Product Manager",
     roleType: ["designer", "pm"],
     lastPosition: "",
@@ -282,7 +294,7 @@ export const Members = [
   },
   {
     title: "Natalie Kayda",
-    img: blueprint,
+    img: NatalieKayda,
     linkedin: "",
     role: "UX Designer",
     roleType: ["designer"],
@@ -306,8 +318,8 @@ export const Members = [
   },
   {
     title: "Anaka Leong",
-    img: blueprint,
-    linkedin: "",
+    img: AnakaLeong,
+    linkedin: "https://www.linkedin.com/in/leonganaka/",
     role: "UX Designer",
     roleType: ["designer"],
     lastPosition: "",
@@ -403,7 +415,7 @@ export const Members = [
   {
     title: "Chaitanya Mittal",
     img: blueprint,
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/chaitanya-mittal-47ab8a2a4/",
     role: "Junior Developer",
     roleType: ["dev"],
     lastPosition: "",
@@ -587,7 +599,7 @@ export const Members = [
   },
   {
     title: "Ansh Aggarwal",
-    img: blueprint,
+    img: AnshAggarwal,
     linkedin: "",
     role: "Junior Developer",
     roleType: ["dev"],

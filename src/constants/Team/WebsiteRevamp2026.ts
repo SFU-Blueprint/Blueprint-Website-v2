@@ -8,7 +8,7 @@ import Teddy from "../../assets/team-headshots/TeddyMalhan.png";
 import Alfonso from "../../assets/team-headshots/Alfonso.png";
 import blueprint from "../../assets/team-headshots/blueprint.jpg";
 import Caron from "../../assets/team-headshots/Caron.png";
-import Iris from "../../assets/team-headshots/IrisYeung.png";
+import Iris from "../../assets/team-headshots/IrisYeung.jpg";
 import Marco from "../../assets/team-headshots/Marco.png";
 
 export const WebsiteRevamp2026: MemberCardProps[] = [

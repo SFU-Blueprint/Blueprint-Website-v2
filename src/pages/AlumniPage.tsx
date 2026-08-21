@@ -24,7 +24,7 @@ const AlumniPage = () => {
   const [filterState, setFilterState] = useState<string[]>([]);
 
   /*
-   * Keep this FALSE for now.
+   * Keeping this FALSE for now.
    *
    * CSS rotation can visually push a card outside its grid cell,
    * which can make correctly-spaced cards look like they overlap.

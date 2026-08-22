@@ -101,13 +101,13 @@ export default function FooterRevamp() {
   return (
     <footer
       id="app-footer"
-      className="w-full bg-bp-lightest-grey font-poppins"
+      className="w-full relative bg-bp-lightest-grey font-poppins"
     >
       {/* ========================================================== */}
       {/* DESKTOP                                                    */}
       {/* ========================================================== */}
 
-      <div className="hidden w-full px-5 pb-8 pt-footer-py-desktop lg:block">
+      <div className="hidden relative z-10 w-full px-5 pb-8 pt-footer-py-desktop lg:block">
         {/* Same centered boundary as navbar / PageContainer */}
         <div
           className="
@@ -117,6 +117,7 @@ export default function FooterRevamp() {
             px-2
             md:px-6
             xl:px-16
+            z-[11]
           "
         >
           <div
@@ -265,7 +266,7 @@ export default function FooterRevamp() {
       {/* TABLET                                                     */}
       {/* ========================================================== */}
 
-      <div className="hidden w-full px-5 pb-8 pt-footer-py-desktop md:block lg:hidden">
+      <div className="hidden relative z-10 w-full px-5 pb-8 pt-footer-py-desktop md:block lg:hidden">
         <div
           className="
             mx-auto
@@ -412,7 +413,7 @@ export default function FooterRevamp() {
       {/* MOBILE                                                     */}
       {/* ========================================================== */}
 
-      <div className="block w-full px-5 pb-8 pt-footer-py-mobile md:hidden">
+      <div className="block w-full relative px-5 pb-8 pt-footer-py-mobile md:hidden">
         <div
           className="
             mx-auto

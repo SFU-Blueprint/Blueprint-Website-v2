@@ -780,6 +780,7 @@ function InfoSessionCard() {
           <Button
             variant="tertiary"
             className="h-[54px] w-[149px] max-md:h-[52px] max-md:w-full max-md:text-[14px]"
+            href = "https://forms.gle/bLYDXW3rRoafpBJR6"
           >
             RSVP
           </Button>
@@ -792,11 +793,11 @@ function InfoSessionCard() {
       <div className="flex flex-col md:justify-around max-md:gap-4 font-poppins text-bp-black">
         <EventDetail
           label="DATE AND TIME:"
-          value="September 10, 2026, 7 PM"
+          value="September 21, 2026, 5:30 - 7:00 PM"
         />
         <EventDetail
           label="LOCATION:"
-          value="SFU Burnaby Campus, ASB 9720"
+          value="SFU Burnaby Campus, ASB 9703"
         />
       </div>
     </article>

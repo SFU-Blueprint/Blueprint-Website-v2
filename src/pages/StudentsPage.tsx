@@ -261,10 +261,10 @@ const APPLY_ROLE_ACCORDIONS: RoleAccordionItem[] = [
 ];
 
 const OPEN_POSITIONS = [
-  { title: "senior developer", count: 3, accent: "#71EC59", href: "#" },
-  { title: "designer", count: 3, accent: "#D2A6FB", href: "#" },
-  { title: "product manager", count: 3, accent: "#F49F00", href: "#" },
-  { title: "event coordinator", count: 3, accent: "#9CC0FF", href: "#" },
+  // { title: "senior developer", count: 3, accent: "#71EC59", href: "#" },
+  // { title: "designer", count: 3, accent: "#D2A6FB", href: "#" },
+  // { title: "product manager", count: 3, accent: "#F49F00", href: "#" },
+  // { title: "event coordinator", count: 3, accent: "#9CC0FF", href: "#" },
 ];
 
 const SOCIAL_LINKS = [

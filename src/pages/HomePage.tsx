@@ -855,7 +855,7 @@ const ImpactSection = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <span className="font-poppins text-sm font-semibold">KEEP ME UPDATED</span>
+                  <span className="font-poppins text-sm font-semibold">RSVP</span>
                 </Button>
               </div>
 

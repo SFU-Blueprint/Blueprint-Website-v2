@@ -872,7 +872,7 @@ const ImpactSection = () => {
               </p>
               <p className="flex flex-col md:flex-row gap-1 text-body-s-reg font-light">
                  {/* date */}
-                <span>TBD</span> {/* time */}
+                <span>September 21, 5:30 - 7:00 PM </span> {/* time */}
                   
               </p>
             </div>
@@ -882,7 +882,7 @@ const ImpactSection = () => {
               </p>
               <p className="font-poppins leading-normal flex flex-col md:flex-row gap-1 text-body-s-reg font-light">
                 SFU Burnaby {/* location */}
-                <span>Campus, TBD</span> {/* location */}
+                <span>Campus, ASB 9703</span> {/* location */}
               </p>
             </div>
           </div>

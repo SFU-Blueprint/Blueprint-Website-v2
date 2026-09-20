@@ -69,7 +69,7 @@ const APPLICATION_TAB_CONTENT: Record<
   string[]
 > = {
   "MEET BLUEPRINT": [
-    "We host info session events once a semester; join us to have fun and hear directly from our team members about the Blueprint experience!",
+    "We typically host info session events once a semester; join us to have fun and hear directly from our team members about the Blueprint experience!",
   ],
   APPLY: [],
   INTERVIEW: [],
@@ -755,8 +755,7 @@ function ApplicationProcessSection() {
         </div>
 
         <div className="flex flex-col gap-12 max-md:gap-[30px]">
-          {activeTab === "MEET BLUEPRINT"}
-          /* {activeTab === "MEET BLUEPRINT" && <InfoSessionCard />} */
+          {activeTab === "MEET BLUEPRINT"} 
           <ApplicationTabBody activeTab={activeTab} />
         </div>
       </div>
@@ -764,46 +763,48 @@ function ApplicationProcessSection() {
   );
 }
 
-// function InfoSessionCard() {
-//   return (
-//     <article className="flex min-h-[278px] flex-col md:flex-row gap-8 rounded-[10px] bg-bp-lighter-grey p-12 max-md:min-h-[390px] max-md:px-6 max-md:py-12">
-//       <div className="flex flex-col md:flex-row gap-3 max-md:gap-[23px] md:w-[clamp(1px,1000px,600px)]">
-//         <div className="flex flex-col items-start max-md:justify-between gap-8 max-md:gap-[23px] md:mr-auto ">
-//           <div className="flex max-w-[366px] flex-col gap-1 text-bp-black max-md:w-full">
-//             <p className="font-poppins text-[14px] font-medium uppercase leading-normal max-md:text-[10px]">
-//               upcoming event:
-//             </p>
-//             <h3 className="font-poppins text-[36px] font-normal leading-[1.4] tracking-[-0.72px] max-md:text-[24px] max-md:tracking-[-0.48px]">
-//               blueprint info session
-//             </h3>
-//           </div>
+//          {activeTab === "MEET BLUEPRINT" && <InfoSessionCard />} 
 
-//           <Button
-//             variant="tertiary"
-//             className="h-[54px] w-[149px] max-md:h-[52px] max-md:w-full max-md:text-[14px]"
-//             href = "https://forms.gle/bLYDXW3rRoafpBJR6"
-//           >
-//             RSVP
-//           </Button>
-//         </div>
+function InfoSessionCard() {
+  return (
+    <article className="flex min-h-[278px] flex-col md:flex-row gap-8 rounded-[10px] bg-bp-lighter-grey p-12 max-md:min-h-[390px] max-md:px-6 max-md:py-12">
+      <div className="flex flex-col md:flex-row gap-3 max-md:gap-[23px] md:w-[clamp(1px,1000px,600px)]">
+        <div className="flex flex-col items-start max-md:justify-between gap-8 max-md:gap-[23px] md:mr-auto ">
+          <div className="flex max-w-[366px] flex-col gap-1 text-bp-black max-md:w-full">
+            <p className="font-poppins text-[14px] font-medium uppercase leading-normal max-md:text-[10px]">
+              upcoming event:
+            </p>
+            <h3 className="font-poppins text-[36px] font-normal leading-[1.4] tracking-[-0.72px] max-md:text-[24px] max-md:tracking-[-0.48px]">
+              blueprint info session
+            </h3>
+          </div>
 
-//         <div className="w-full h-[1px] md:hidden bg-black/10" />
-//         <div className="w-[1px] h-100 max-md:hidden bg-black/10" />
-//       </div>
+          <Button
+            variant="tertiary"
+            className="h-[54px] w-[149px] max-md:h-[52px] max-md:w-full max-md:text-[14px]"
+            href = "https://forms.gle/bLYDXW3rRoafpBJR6"
+          >
+            RSVP
+          </Button>
+        </div>
 
-//       <div className="flex flex-col md:justify-around max-md:gap-4 font-poppins text-bp-black">
-//         <EventDetail
-//           label="DATE AND TIME:"
-//           value="September 21, 2026, 5:30 - 7:00 PM"
-//         />
-//         <EventDetail
-//           label="LOCATION:"
-//           value="SFU Burnaby Campus, ASB 9703"
-//         />
-//       </div>
-//     </article>
-//   );
-// }
+        <div className="w-full h-[1px] md:hidden bg-black/10" />
+        <div className="w-[1px] h-100 max-md:hidden bg-black/10" />
+      </div>
+
+      <div className="flex flex-col md:justify-around max-md:gap-4 font-poppins text-bp-black">
+        <EventDetail
+          label="DATE AND TIME:"
+          value="September 21, 2026, 5:30 - 7:00 PM"
+        />
+        <EventDetail
+          label="LOCATION:"
+          value="SFU Burnaby Campus, ASB 9703"
+        />
+      </div>
+    </article>
+  );
+}
 
 function EventDetail({
   label,

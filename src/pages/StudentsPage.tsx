@@ -755,7 +755,8 @@ function ApplicationProcessSection() {
         </div>
 
         <div className="flex flex-col gap-12 max-md:gap-[30px]">
-          {activeTab === "MEET BLUEPRINT" && <InfoSessionCard />}
+          {activeTab === "MEET BLUEPRINT"}
+          /* {activeTab === "MEET BLUEPRINT" && <InfoSessionCard />} */
           <ApplicationTabBody activeTab={activeTab} />
         </div>
       </div>

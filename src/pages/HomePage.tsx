@@ -843,7 +843,7 @@ const ImpactSection = () => {
                   upcoming event: 
                 </p>
                 <p className="font-poppins max-md:font-normal max-md:leading-8 text-[36px] leading-8 tracking-[-0.72px] max-md:text-2xl">
-                  blueprint info session
+                  None currently. Check back for future events!
                 </p>
               </div>
               
@@ -851,11 +851,11 @@ const ImpactSection = () => {
                 <Button
                   variant="secondary"
                   className="w-[200px] shrink-0 max-md:w-full"
-                  href="https://docs.google.com/forms/d/e/1FAIpQLSegkDsV6h21IHxVVwgo_ovTbJmlgJAFYcnN19M7qn0pYbXQYQ/viewform?usp=publish-editor"
+                  href="https://forms.gle/KxcKKLQXrK8Xzfc8A"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <span className="font-poppins text-sm font-semibold">RSVP</span>
+                  <span className="font-poppins text-sm font-semibold">Keep Me Updated</span>
                 </Button>
               </div>
 

@@ -1,9 +1,19 @@
-import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
+
 import PageContainer from "../components/layout/PageContainer";
 import Button from "../components/shared/Button";
 import Carousel from "../components/shared/Carousel";
 import InteractiveCarousel from "../components/shared/Carousel-Interactive";
-import { blueprintTestimonials, bpLogos } from "../constants/homepage-media";
+import {
+  blueprintTestimonials,
+  bpLogos,
+} from "../constants/homepage-media";
 import TestimonialCard from "../components/shared/TestimonialCard.tsx";
 import { Link } from "react-router-dom";
 import ProjectCard from "../components/home-page/HomeProjectCard.tsx";
@@ -14,47 +24,39 @@ import { ReactComponent as GiftIcon } from "../assets/home/gift.svg";
 import { createPortal } from "react-dom";
 import HeroCrosspoint from "../components/shared/HeroCrosspoint";
 
+/* ================================================================ */
+/* CONSTANTS                                                        */
+/* ================================================================ */
+
 const HERO_SCROLLBAR_BG = "#2A2A2A";
-const impactPoints = [
-  {color: "bp-blue", text: "Reducing administrative workflows"},
-  {color: "bp-accent-medium-blue", text: "Improving access to help and resources"},
-  {color: "bp-accent-light-blue", text: "Increasing volunteer engagement"},
-];
+
 const WHO_WE_ARE_VIDEO_SRC = "/videos/who-we-are.mp4";
 const WHO_WE_ARE_TEASER_SRC = "/videos/who-we-are-teaser.mp4";
 
-const TFG_SCALE_STYLE = {
-  // Desktop / tablet reference: 1440px — scales linearly between 780-1440,
-  // clamped at 1 above 1440 so nothing grows past the design size.
-  "--tfg-scale": "min(1px, calc(100vw / 1440))",
-  // Tighter scale used by the card stack + big headline so they shrink faster
-  // between 780-1440 (otherwise they crowd / overflow the right edge at the
-  // lower end). Shifted formula: at 1440+ it caps at 1px, at 780 it's ~0.45
-  // (vs. ~0.54 for --tfg-scale). This keeps the headline + cards inside the
-  // section at narrow desktop widths while leaving the left text column
-  // untouched.
-  "--tfg-scale-tight":
-    "min(1px, calc(max(100vw - 240px, 0px) / 1200))",
-  // Mobile reference: 390px — scales linearly below 390, clamped at 1 above
-  // so at 390-779 the design renders at its Figma-spec size.
-  "--tfg-mscale": "min(1px, calc(100vw / 390))",
-} as React.CSSProperties;
+const impactPoints = [
+  {
+    color: "bp-blue",
+    text: "Reducing administrative workflows",
+  },
+  {
+    color: "bp-accent-medium-blue",
+    text: "Improving access to help and resources",
+  },
+  {
+    color: "bp-accent-light-blue",
+    text: "Increasing volunteer engagement",
+  },
+];
 
-// Helper to turn a 1440-base design pixel value into a scaled CSS length.
-const s = (designPx: number) => `calc(${designPx} * var(--tfg-scale))`;
-// Tight-scale variant for the card stack + big headline (shrinks faster
-// between 780-1440 than s() does, see --tfg-scale-tight above).
-const st = (designPx: number) => `calc(${designPx} * var(--tfg-scale-tight))`;
-// Mobile equivalent: 390-base design pixel → scaled CSS length.
-const ms = (designPx: number) => `calc(${designPx} * var(--tfg-mscale))`;
+/* ================================================================ */
+/* PLAY ICON                                                        */
+/* ================================================================ */
 
-// Hero feature cards (windmill / handshake / gift). Figma: 378×407px on a
-// 1457px-wide desktop frame → normalized to the 1440 reference used by `s()`
-// so dimensions scale with `--tfg-scale` like the rest of this section.
-const HERO_FEATURE_CARD_W_DESIGN = (378 * 1440) / 1457;
-const HERO_FEATURE_CARD_H_DESIGN = (407 * 1440) / 1457;
-
-const PlayIcon = ({ className = "" }: { className?: string }) => (
+const PlayIcon = ({
+  className = "",
+}: {
+  className?: string;
+}) => (
   <svg
     aria-hidden="true"
     viewBox="0 0 10 12"
@@ -65,37 +67,51 @@ const PlayIcon = ({ className = "" }: { className?: string }) => (
   </svg>
 );
 
-// "Who we are" pill. Only two sizes (desktop / mobile); switch at 780.
-// Desktop spec (Figma):
-//   padding: 12px 18px 12px 12px, gap 10px, radius 10px
-//   default:  bg #1F1F1F at 90% opacity,       text white
-//   hover:    bg bp-white,                      text bp-black
-//   pressed:  bg bp-light-grey (#D9D9D9),       text bp-black
-// Mobile / tablet-small spec (Figma):
-//   padding: 8px 16px 8px 12px, gap 10px, radius 5px, 12px text
-//   color state transitions follow the desktop pattern.
+/* ================================================================ */
+/* WHO WE ARE PILL                                                  */
+/* ================================================================ */
+
 const WhoWeArePill = () => (
   <span
     aria-hidden="true"
-    className={[
-      "inline-flex items-center font-poppins font-medium whitespace-nowrap",
-      "transition-colors duration-150 select-none",
-      // Mobile: padding 8/16/8/12, gap 10, 12px text, radius 5
-      "max-[779px]:rounded-[5px] max-[779px]:pt-2 max-[779px]:pr-4 max-[779px]:pb-2 max-[779px]:pl-3 max-[779px]:gap-[10px] max-[779px]:text-[12px]",
-      "max-[779px]:bg-[#1F1F1F]/90 max-[779px]:text-bp-white",
-      "group-hover:max-[779px]:bg-bp-white group-hover:max-[779px]:text-bp-black",
-      "group-active:max-[779px]:bg-bp-light-grey group-active:max-[779px]:text-bp-black",
-      // Desktop
-      "min-[780px]:rounded-[10px] min-[780px]:pt-3 min-[780px]:pr-[18px] min-[780px]:pb-3 min-[780px]:pl-3 min-[780px]:gap-[10px] min-[780px]:text-[14px]",
-      "min-[780px]:bg-[#1F1F1F]/90 min-[780px]:text-bp-white",
-      "group-hover:min-[780px]:bg-bp-white group-hover:min-[780px]:text-bp-black",
-      "group-active:min-[780px]:bg-bp-light-grey group-active:min-[780px]:text-bp-black",
-    ].join(" ")}
+    className="
+      inline-flex
+      items-center
+      gap-[10px]
+      whitespace-nowrap
+      rounded-[10px]
+      bg-[#1F1F1F]/90
+      px-[18px]
+      py-3
+      font-poppins
+      text-[14px]
+      font-medium
+      text-bp-white
+      transition-colors
+      duration-150
+      select-none
+
+      group-hover:bg-bp-white
+      group-hover:text-bp-black
+
+      group-active:bg-bp-light-grey
+      group-active:text-bp-black
+
+      max-md:rounded-[5px]
+      max-md:px-4
+      max-md:py-2
+      max-md:text-[12px]
+    "
   >
-    <PlayIcon className="max-[779px]:h-3 max-[779px]:w-2.5 min-[780px]:h-[14px] min-[780px]:w-[12px]" />
+    <PlayIcon className="h-[14px] w-[12px] max-md:h-3 max-md:w-2.5" />
+
     Who we are
   </span>
 );
+
+/* ================================================================ */
+/* VIDEO CARD                                                       */
+/* ================================================================ */
 
 const VideoCardStack = () => {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
@@ -103,7 +119,9 @@ const VideoCardStack = () => {
   const openVideo = () => setIsVideoOpen(true);
   const closeVideo = () => setIsVideoOpen(false);
 
-  const handleCardKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+  const handleCardKeyDown = (
+    event: React.KeyboardEvent<HTMLDivElement>
+  ) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
       openVideo();
@@ -112,85 +130,122 @@ const VideoCardStack = () => {
 
   return (
     <>
-      {/* Shared hover group so every layer and the pill rotate together. */}
       <div
-        className={[
-          "relative group",
-          "max-[779px]:w-[85%] max-[779px]:aspect-square",
-        ].join(" ")}
+        className="
+          group
+          relative
+          aspect-square
+          w-full
+          max-w-[560px]
+
+          max-lg:max-w-[480px]
+          max-md:max-w-[500px]
+        "
       >
+        {/* Purple backing card */}
+
         <div
-          className="relative w-full h-full min-[780px]:w-[var(--tfg-card-w)] min-[780px]:h-[var(--tfg-card-h)]"
-          style={
-            {
-              "--tfg-card-w": st(634),
-              "--tfg-card-h": st(646),
-            } as React.CSSProperties
-          }
+          aria-hidden="true"
+          className="
+            absolute
+            inset-0
+            rounded-[10px]
+            bg-bp-accent-purple
+            origin-center
+            rotate-[4.7deg]
+            translate-x-[14px]
+            -translate-y-[5px]
+            transition-transform
+            duration-300
+            ease-out
+
+            group-hover:rotate-[6.4deg]
+          "
+        />
+
+        {/* Blue backing card */}
+
+        <div
+          aria-hidden="true"
+          className="
+            absolute
+            inset-0
+            rounded-[10px]
+            bg-bp-accent-blue
+            origin-center
+            rotate-[2deg]
+            transition-transform
+            duration-300
+            ease-out
+
+            group-hover:-rotate-[2.2deg]
+          "
+        />
+
+        {/* Main video card */}
+
+        <div
+          role="button"
+          tabIndex={0}
+          aria-label="Play Who we are video"
+          onClick={openVideo}
+          onKeyDown={handleCardKeyDown}
+          className="
+            relative
+            h-full
+            w-full
+            cursor-pointer
+            overflow-hidden
+            rounded-[10px]
+            bg-bp-darkest-grey
+            origin-center
+            transition-transform
+            duration-300
+            ease-out
+
+            group-hover:rotate-[2deg]
+
+            focus-visible:outline
+            focus-visible:outline-2
+            focus-visible:outline-offset-4
+            focus-visible:outline-bp-white
+          "
         >
-          {/* Purple backing card */}
-          <div
+          <video
             aria-hidden="true"
-            className={[
-              "absolute top-0 left-0 w-full aspect-square rounded-[10px] bg-bp-accent-purple",
-              "origin-center rotate-[4.704deg] translate-x-[var(--tfg-purple-tx)] translate-y-[var(--tfg-purple-ty)]",
-              "min-[780px]:transition-transform min-[780px]:duration-300 min-[780px]:ease-out",
-              "min-[780px]:group-hover:rotate-[6.417deg]",
-            ].join(" ")}
-            style={
-              {
-                "--tfg-purple-tx": `calc(16 * var(--tfg-scale-tight))`,
-                "--tfg-purple-ty": `calc(-4 * var(--tfg-scale-tight))`,
-              } as React.CSSProperties
-            }
+            className="
+              absolute
+              inset-0
+              z-0
+              h-full
+              w-full
+              object-cover
+            "
+            src={WHO_WE_ARE_TEASER_SRC}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
           />
 
-          {/* Blue backing card */}
           <div
-            aria-hidden="true"
-            className={[
-              "absolute top-0 left-0 w-full aspect-square rounded-[10px] bg-bp-accent-blue",
-              "origin-center rotate-[4.704deg]",
-              "min-[780px]:transition-transform min-[780px]:duration-300 min-[780px]:ease-out",
-              "min-[780px]:group-hover:-rotate-[2.277deg]",
-            ].join(" ")}
-          />
+            className="
+              absolute
+              left-5
+              top-5
+              z-10
 
-          {/* Main video card */}
-          <div
-            role="button"
-            tabIndex={0}
-            aria-label="Play Who we are video"
-            onClick={openVideo}
-            onKeyDown={handleCardKeyDown}
-            className={[
-              "relative h-full w-full rounded-[10px] bg-bp-darkest-grey overflow-hidden cursor-pointer",
-              "origin-center rotate-0",
-              "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-bp-white",
-              "min-[780px]:transition-transform min-[780px]:duration-300 min-[780px]:ease-out",
-              "min-[780px]:group-hover:rotate-[3.5deg]",
-            ].join(" ")}
+              max-md:left-3
+              max-md:top-3
+            "
           >
-            <video
-              aria-hidden="true"
-              className="absolute inset-0 z-0 h-full w-full object-cover"
-              src={WHO_WE_ARE_TEASER_SRC}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-            />
-            {/* Pill lives on the card so it rotates with it. */}
-            <div
-              className="absolute z-10 max-[779px]:top-3 max-[779px]:left-3 min-[780px]:top-[var(--tfg-pill-inset)] min-[780px]:left-[var(--tfg-pill-inset)]"
-              style={{ "--tfg-pill-inset": st(20) } as React.CSSProperties}
-            >
-              <WhoWeArePill />
-            </div>
+            <WhoWeArePill />
           </div>
         </div>
       </div>
+
+      {/* Video modal */}
 
       {isVideoOpen &&
         createPortal(
@@ -205,14 +260,47 @@ const VideoCardStack = () => {
               type="button"
               aria-label="Close video"
               onClick={closeVideo}
-              className="fixed right-4 top-4 z-[10001] rounded-[5px] bg-bp-white/95 px-4 py-2 font-poppins text-sm font-medium text-bp-black transition-colors duration-150 hover:bg-bp-light-grey active:bg-bp-grey focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bp-white"
+              className="
+                fixed
+                right-4
+                top-4
+                z-[10001]
+                rounded-[5px]
+                bg-bp-white/95
+                px-4
+                py-2
+                font-poppins
+                text-sm
+                font-medium
+                text-bp-black
+                transition-colors
+                duration-150
+
+                hover:bg-bp-light-grey
+                active:bg-bp-grey
+
+                focus-visible:outline
+                focus-visible:outline-2
+                focus-visible:outline-offset-2
+                focus-visible:outline-bp-white
+              "
             >
               Close
             </button>
 
             <video
-              className="fixed inset-0 z-[10000] m-auto aspect-video bg-black object-contain"
-              style={{ width: "min(calc(100vw - 32px), 1000px)" }}
+              className="
+                fixed
+                inset-0
+                z-[10000]
+                m-auto
+                aspect-video
+                bg-black
+                object-contain
+              "
+              style={{
+                width: "min(calc(100vw - 32px), 1000px)",
+              }}
               src={WHO_WE_ARE_VIDEO_SRC}
               controls
               controlsList="nodownload noplaybackrate noremoteplayback"
@@ -231,6 +319,10 @@ const VideoCardStack = () => {
     </>
   );
 };
+
+/* ================================================================ */
+/* HERO FEATURE CARDS                                               */
+/* ================================================================ */
 
 const HomeHeroFeatureCards = () => {
   const cards: Array<{
@@ -257,60 +349,63 @@ const HomeHeroFeatureCards = () => {
 
   return (
     <div
-      className={[
-        "mt-[58px] flex w-full flex-col gap-[28px]",
-        "min-[780px]:flex-row min-[780px]:justify-center min-[780px]:gap-[28px]",
-      ].join(" ")}
-      style={
-        {
-          "--hero-fc-w": s(HERO_FEATURE_CARD_W_DESIGN),
-          "--hero-fc-h": s(HERO_FEATURE_CARD_H_DESIGN),
-        } as React.CSSProperties
-      }
+      className="
+        mt-[58px]
+        grid
+        w-full
+        grid-cols-1
+        gap-[28px]
+
+        md:grid-cols-3
+      "
       aria-label="Blueprint highlights"
     >
       {cards.map(({ Icon, label, squareClass }) => (
         <div
           key={label}
-          className={[
-            "relative flex min-h-0 min-w-0 overflow-hidden rounded-[10px] bg-[#1F1F1F]",
+          className="
+            relative
+            flex
+            min-h-0
+            min-w-0
+            overflow-hidden
+            rounded-[10px]
+            bg-[#1F1F1F]
 
-            // Mobile
-            "max-[779px]:h-[124px]",
-            "max-[779px]:w-full",
-            "max-[779px]:flex-row",
-            "max-[779px]:items-center",
-            "max-[779px]:px-5",
-            "max-[779px]:py-4",
+            h-[124px]
+            w-full
+            flex-row
+            items-center
+            px-5
+            py-4
 
-            // Desktop
-            "min-[780px]:h-[var(--hero-fc-h)]",
-            "min-[780px]:w-[var(--hero-fc-w)]",
-            "min-[780px]:shrink-0",
-            "min-[780px]:flex-col",
-            "min-[780px]:px-4",
-            "min-[780px]:pt-5",
-            "min-[780px]:pb-8",
-          ].join(" ")}
+            md:h-[clamp(250px,28vw,402px)]
+            md:flex-col
+            md:px-4
+            md:pb-8
+            md:pt-5
+          "
         >
           {/* IMAGE */}
+
           <div
-            className={[
-              "flex min-h-0 min-w-0 items-center justify-center overflow-hidden",
+            className="
+              order-2
+              ml-auto
+              flex
+              h-[90px]
+              w-[120px]
+              shrink-0
+              items-center
+              justify-center
+              overflow-hidden
 
-              // Mobile
-              "max-[779px]:order-2",
-              "max-[779px]:ml-auto",
-              "max-[779px]:h-[90px]",
-              "max-[779px]:w-[120px]",
-              "max-[779px]:shrink-0",
-
-              // Desktop
-              "min-[780px]:order-1",
-              "min-[780px]:h-[250px]",
-              "min-[780px]:w-full",
-              "min-[780px]:shrink",
-            ].join(" ")}
+              md:order-1
+              md:ml-0
+              md:h-[250px]
+              md:w-full
+              md:shrink
+            "
           >
             <Icon
               aria-hidden
@@ -326,23 +421,25 @@ const HomeHeroFeatureCards = () => {
           </div>
 
           {/* LABEL */}
+
           <div
-            className={[
-              "z-10 flex min-w-0 items-center",
+            className="
+              order-1
+              z-10
+              flex
+              min-w-0
+              flex-1
+              items-center
+              gap-2
 
-              // Mobile
-              "max-[779px]:order-1",
-              "max-[779px]:flex-1",
-              "max-[779px]:gap-2",
-
-              // Desktop
-              "min-[780px]:order-2",
-              "min-[780px]:mt-auto",
-              "min-[780px]:w-full",
-              "min-[780px]:justify-center",
-              "min-[780px]:gap-[10px]",
-              "min-[780px]:pt-2",
-            ].join(" ")}
+              md:order-2
+              md:mt-auto
+              md:w-full
+              md:flex-none
+              md:justify-center
+              md:gap-[10px]
+              md:pt-2
+            "
           >
             <span
               aria-hidden
@@ -354,12 +451,11 @@ const HomeHeroFeatureCards = () => {
                 min-w-0
                 whitespace-nowrap
                 font-caveat
+                text-[24px]
                 leading-none
                 text-bp-lightest-grey
 
-                max-[779px]:text-[24px]
-
-                min-[780px]:text-[clamp(20px,2.3vw,36px)]
+                md:text-[clamp(20px,2.3vw,36px)]
               "
             >
               {label}
@@ -371,251 +467,239 @@ const HomeHeroFeatureCards = () => {
   );
 };
 
-const TechForGoodSection = () => (
-  // Full-bleed bp-black. We break out of PageContainer's padding by using the
-  // `w-screen + left-1/2 + -translate-x-1/2` technique so the section always
-  // spans the viewport width regardless of any parent padding/max-width.
-  //
-  // Horizontal padding mirrors the navbar's own inset (nav p-5 = 20 plus
-  // inner px-2 / md:px-6 / xl:px-32 → 28 / 44 / 148 px) so the content's
-  // left edge is flush with the left edge of the logo card up top.
-  <section
-    className="relative left-1/2 w-screen -translate-x-1/2 bg-bp-black -mt-[116px] pt-[116px] pb-24"
-    style={TFG_SCALE_STYLE}
-  >
-    <div className="mx-auto flex w-full max-w-[1440px] flex-col px-[28px] md:px-[44px] xl:px-0">
-    <div
-      className={[
-        "relative flex flex-col gap-10 w-full",
-        // Desktop layout: text pinned left, card column pushed flush to the
-        // right edge of the section's padded content area via justify-between.
-        "min-[780px]:flex-row min-[780px]:items-start min-[780px]:justify-between",
-        "min-[780px]:min-h-[var(--tfg-h)] min-[780px]:gap-[var(--tfg-gap)]",
-      ].join(" ")}
-      style={
-        {
-          "--tfg-h": s(716),
-          "--tfg-gap": s(40),
-        } as React.CSSProperties
-      }
+/* ================================================================ */
+/* TECH FOR GOOD HERO                                               */
+/* ================================================================ */
+
+const TechForGoodSection = () => {
+  return (
+    <section
+      className="
+        relative
+        left-1/2
+        -mt-[116px]
+        w-screen
+        -translate-x-1/2
+        bg-bp-black
+        pb-24
+        pt-[116px]
+      "
     >
-      {/* Left text column wrapper.
-          On mobile (<780px) this is `display: contents`, so TopText, the card
-          column, and BottomText become direct siblings of the outer flex-col
-          and are re-ordered via `order-*` classes to produce the mobile flow:
-             TopText (we are + blueprint)
-             → card + headline
-             → BottomText (body + button)
-          On desktop (>=780px) it becomes a normal flex column that contains
-          both TopText and BottomText stacked, sitting to the left of the
-          card column. */}
       <div
-        className="contents min-[780px]:flex min-[780px]:flex-col min-[780px]:items-start min-[780px]:max-w-[var(--tfg-text-w)] min-[780px]:pt-[var(--tfg-text-pt)]"
-        style={
-          {
-            "--tfg-text-w": s(372),
-            "--tfg-text-pt": s(32),
-          } as React.CSSProperties
-        }
+        className="
+          mx-auto
+          w-full
+          max-w-[1440px]
+          px-[28px]
+
+          md:px-[44px]
+          xl:px-[72px]
+          2xl:px-0
+        "
       >
-        {/* TopText: "we are" + "blueprint" */}
-        <div className="flex flex-col items-start order-1 min-[780px]:order-none">
-          {/* "we are"
-              Mobile @390: Caveat 40/100%/-1.2/400
-              Desktop @1440: Caveat 64/100%/-1.92/400 */}
-          <p
-            className="font-caveat font-normal text-bp-lightest-grey leading-none text-[length:var(--tfg-we-are-m)] tracking-[var(--tfg-we-are-m-ls)] min-[780px]:text-[length:var(--tfg-script)] min-[780px]:tracking-[var(--tfg-script-ls)]"
-            style={
-              {
-                "--tfg-we-are-m": ms(40),
-                "--tfg-we-are-m-ls": ms(-1.2),
-                "--tfg-script": s(64),
-                "--tfg-script-ls": s(-1.92),
-              } as React.CSSProperties
-            }
-          >
-            we are
-          </p>
-          {/* "blueprint"
-              Mobile @390: Poppins 28/120%/-0.56/600
-              Desktop @1440: Poppins 50/100%/-1/500 */}
-          <h1
-            className="font-poppins font-semibold leading-none text-bp-lightest-grey text-[length:var(--tfg-h1-m)] tracking-[var(--tfg-h1-m-ls)] max-[779px]:mt-[var(--tfg-h1-m-mt)] min-[780px]:font-medium min-[780px]:text-[length:var(--tfg-h1)] min-[780px]:tracking-[var(--tfg-h1-ls)] min-[780px]:mt-[var(--tfg-h1-mt)]"
-            style={
-              {
-                "--tfg-h1-m": ms(28),
-                "--tfg-h1-m-ls": ms(-0.56),
-                "--tfg-h1-m-mt": ms(-4),
-                "--tfg-h1": s(50),
-                "--tfg-h1-ls": s(-1),
-                "--tfg-h1-mt": s(-6),
-              } as React.CSSProperties
-            }
-          >
-            blueprint
-          </h1>
-        </div>
+        <div
+          className="
+            grid
+            w-full
+            grid-cols-1
+            gap-14
 
-        {/* BottomText: body copy + "Learn about us" button.
-            order-3 on mobile so it renders AFTER the card column (order-2).
-            order-none on desktop so it sits directly below TopText inside
-            the left text column. */}
-        <div className="flex flex-col items-start order-3 min-[780px]:order-none">
-          {/* Body — Poppins 16, weight 400, line-height normal, 351px wide.
-              Mobile: no top margin, the outer flex-col's gap-10 handles the
-              spacing between the card column and BottomText. Desktop: s(28)
-              top margin for spacing below "blueprint" inside the left col. */}
-          {/* Body copy.
-              Mobile @390 (Figma): Poppins 14px, weight 400, line-height
-                normal (CSS keyword), color bp-lightest-grey (#F3F3F3),
-                stretched to fill the parent's cross-axis.
-              Desktop (Figma @1150): Poppins 16px fixed, 284px fixed width,
-                weight 400, line-height normal — does NOT vw-scale (matches
-                the pill + CTA button policy of "two sizes only: desktop
-                and mobile"). Top margin still vw-scales for vertical rhythm.
-              max-[779px]:mt-[30px] + outer gap-10 (40px) = 70px gap between
-              "social good" and body copy on mobile. */}
-          <p
-            className="font-poppins font-normal text-bp-lightest-grey leading-[normal] max-[779px]:text-[14px] max-[779px]:self-stretch max-[779px]:mt-[30px] min-[780px]:text-[16px] min-[780px]:w-[284px] min-[780px]:mt-[var(--tfg-body-mt)]"
-            style={
-              {
-                "--tfg-body-mt": s(28),
-              } as React.CSSProperties
-            }
-          >
-            Our student teams have been committed to promoting public welfare
-            since 2023. We build apps, websites, and digital products for
-            impactful non profit organizations in BC, Canada, free of charge.
-          </p>
-          {/* Button — 200x60 fixed at desktop; full-width on mobile so it
-              matches the body paragraph's visual alignment in the stacked
-              layout. Gap above is a flat 40px at every breakpoint to match
-              the fixed button size (no vw scaling). */}
-          <Link to="/about">
-            <Button
-              variant="primary"
-              className={[
-                "mt-10 uppercase",
-                // Force mobile sizing below the layout break (Button's built-in
-                // md: kicks in at 768; we want the switch exactly at 780).
-                // mt-[21px] overrides the base mt-10 so the body→button gap is
-                // 21px on mobile per Figma.
-                "max-[779px]:!mt-[21px] max-[779px]:!h-[52px] max-[779px]:!text-[14px] max-[779px]:!w-full",
-                // Desktop: fixed 200x60 with 14px 44px padding per Figma.
-                "min-[780px]:!w-[200px] min-[780px]:!h-[60px] min-[780px]:!px-[44px] min-[780px]:!py-[14px]",
-              ].join(" ")}
-            >
-              Learn about us
-            </Button>
-          </Link>
-        </div>
-      </div>
+            lg:grid-cols-[minmax(260px,360px)_minmax(0,1fr)]
+            lg:items-start
+            lg:gap-[clamp(50px,6vw,100px)]
 
-      {/* Right / bottom stacked video card area. Width matches the card so
-          the headline can be anchored to the same left edge as the card and
-          layered on top via negative margin + z-index. */}
-      {/* Right / card column.
-          Mobile: order-2 so it slots between TopText (order-1) and BottomText
-          (order-3) in the outer flex-col (the outer's gap-10 handles vertical
-          spacing between all three). Desktop: order-none, pinned to the right
-          of the row via justify-between. */}
-      <div
-        className="relative flex flex-col order-2 max-[779px]:items-center min-[780px]:items-start min-[780px]:order-none min-[780px]:w-[var(--tfg-right-w)] min-[780px]:shrink-0 min-[780px]:pt-[var(--tfg-right-pt)] min-[780px]:mr-[38px]"
-        style={
-          {
-            // Right-column width follows the card (tight scale) so the column
-            // shrinks alongside it instead of leaving a gap.
-            "--tfg-right-w": st(634),
-            "--tfg-right-pt": s(32),
-          } as React.CSSProperties
-        }
-      >
-        <VideoCardStack />
-
-        {/* Headline. Desktop specs (20% smaller than original Figma):
-            "we build tech for" — Poppins 96/weight 500/lh 90%/ls -2.88px
-            "social good"       — Caveat 160/weight 700/lh 100%/ls -4.8px
-            Both #F4F4F4 ≈ bp-lightest-grey. Sizes/tracking scale with vw via s().
-
-            On desktop the headline sits ON TOP of the video card: relative +
-            z-10 to render above the card, and a negative top margin to pull
-            it back up so it overlaps the lower portion of the stack.
-            whitespace-nowrap keeps each typographic line on its own row. */}
-        {/* Headline typography specs:
-              Mobile: unchanged (15%-shrunk-from-Figma ms() values).
-              Desktop "we build tech for" / "social good": ×0.8 vs prior artboard.
-              "we build tech for" — Poppins weight 500, line-height 90%
-                 Mobile @390:  40.1455px / -1.20445px letter-spacing (ms)
-                 Desktop@1440: 96px    / -2.88px   letter-spacing
-              "social good"        — Caveat weight 700, line-height 100%
-                 Mobile @390:  66.9086px / -2.00685px letter-spacing (ms)
-                 Desktop@1440: 160px   / -4.8px    letter-spacing
-            Color #F4F4F4 ≈ bp-lightest-grey.
-
-            On desktop the headline sits ON TOP of the video card: relative +
-            z-10 to render above the card, and a negative top margin to pull
-            it back up so it overlaps the lower portion of the stack.
-            whitespace-nowrap keeps each typographic line on its own row. */}
-        <h2
-          className="relative z-10 font-poppins font-medium text-bp-lightest-grey whitespace-nowrap leading-[0.9] text-[length:var(--tfg-h2-m)] tracking-[var(--tfg-h2-m-ls)] mt-[var(--tfg-h2-m-overlap)] max-[779px]:self-start min-[780px]:text-[length:var(--tfg-h2)] min-[780px]:tracking-[var(--tfg-h2-ls)] min-[780px]:mt-[var(--tfg-h2-overlap)] min-[780px]:ml-[var(--tfg-h2-ml)]"
-          style={
-            {
-              // Mobile headline: original ms() sizing (not affected by desktop −20%).
-              "--tfg-h2-m": ms(40.1455),
-              "--tfg-h2-m-ls": ms(-1.20445),
-              // Negative mobile margin-top so the headline overlays the lower
-              // portion of the card stack (same idea as desktop).
-              "--tfg-h2-m-overlap": `calc(-59.5 * var(--tfg-mscale))`,
-              // Headline uses the tight scale so it shrinks in step with the
-              // card stack (same scale → consistent overlay relationship)
-              // and doesn't overflow the section at narrow desktop widths.
-              "--tfg-h2": st(120 * 0.8),
-              "--tfg-h2-ls": st(-3.6 * 0.8),
-              // Negative desktop margin-top to pull the headline up so it
-              // overlays the lower portion of the video card stack.
-              "--tfg-h2-overlap": `calc(${-360 * 0.8} * var(--tfg-scale-tight))`,
-              // Nudge the headline left of the card-frame's left edge.
-              "--tfg-h2-ml": `calc(${-120 * 0.8} * var(--tfg-scale-tight))`,
-            } as React.CSSProperties
-          }
+            xl:grid-cols-[372px_minmax(0,1fr)]
+          "
         >
-          we build
-          <br />
-          tech for
-          {/* "social good": rendered as a block so it gets its own line
-              without needing a <br>. Caveat's built-in ascender space makes
-              leading-none still look gappy next to the Poppins line above,
-              so we pull it up with a scaled negative margin-top. */}
-          <span
-            className="block font-caveat font-bold leading-none text-[length:var(--tfg-sg-m)] tracking-[var(--tfg-sg-m-ls)] mt-[var(--tfg-sg-m-mt)] ml-[var(--tfg-sg-m-ml)] min-[780px]:text-[length:var(--tfg-sg)] min-[780px]:tracking-[var(--tfg-sg-ls)] min-[780px]:mt-[var(--tfg-sg-mt)] min-[780px]:ml-[var(--tfg-sg-ml)]"
-            style={
-              {
-                // Mobile "social good": original ms() sizing (unchanged vs desktop −20%).
-                "--tfg-sg-m": ms(66.9086),
-                "--tfg-sg-m-ls": ms(-2.00685),
-                "--tfg-sg-m-mt": `calc(-20.4 * var(--tfg-mscale))`,
-                "--tfg-sg-m-ml": `calc(-4.25 * var(--tfg-mscale))`,
-                // "social good" tracks the headline (tight scale) so the
-                // two lines of the title shrink together.
-                "--tfg-sg": st(200 * 0.8),
-                "--tfg-sg-ls": st(-6 * 0.8),
-                "--tfg-sg-mt": `calc(${-60 * 0.8} * var(--tfg-scale-tight))`,
-                "--tfg-sg-ml": `calc(${-14 * 0.8} * var(--tfg-scale-tight))`,
-              } as React.CSSProperties
-            }
-          >
-            social good
-          </span>
-        </h2>
-      </div>
-    </div>
-    <HomeHeroFeatureCards />
-    </div>
-  </section>
-);
+          {/* LEFT COLUMN */}
 
-/** Mosaic + Our Community Bikes (was `Projects[5]` — out of range; only 0–4 exist). */
-/** Matches the baked-in panel color of each project card-cover image */
+          <div
+            className="
+              flex
+              flex-col
+              items-start
+
+              lg:pt-8
+            "
+          >
+            <p
+              className="
+                font-caveat
+                text-[40px]
+                font-normal
+                leading-none
+                tracking-[-1.2px]
+                text-bp-lightest-grey
+
+                md:text-[52px]
+                lg:text-[clamp(48px,4.4vw,64px)]
+              "
+            >
+              we are
+            </p>
+
+            <h1
+              className="
+                -mt-1
+                font-poppins
+                text-[28px]
+                font-semibold
+                leading-none
+                tracking-[-0.56px]
+                text-bp-lightest-grey
+
+                md:text-[40px]
+
+                lg:text-[clamp(40px,3.5vw,50px)]
+                lg:font-medium
+                lg:tracking-[-1px]
+              "
+            >
+              blueprint
+            </h1>
+
+            <p
+              className="
+                mt-8
+                max-w-[420px]
+                font-poppins
+                text-[14px]
+                font-normal
+                leading-normal
+                text-bp-lightest-grey
+
+                lg:mt-7
+                lg:max-w-[284px]
+                lg:text-[16px]
+              "
+            >
+              Our student teams have been committed to promoting public
+              welfare since 2023. We build apps, websites, and digital
+              products for impactful non profit organizations in BC,
+              Canada, free of charge.
+            </p>
+
+            <Link
+              to="/about"
+              className="
+                mt-[21px]
+                w-full
+
+                md:w-auto
+                lg:mt-10
+              "
+            >
+              <Button
+                variant="primary"
+                className="
+                  !h-[52px]
+                  !w-full
+                  uppercase
+
+                  md:!w-[200px]
+
+                  lg:!h-[60px]
+                  lg:!px-[44px]
+                  lg:!py-[14px]
+                "
+              >
+                Learn about us
+              </Button>
+            </Link>
+          </div>
+
+          {/* RIGHT COLUMN */}
+
+          <div
+            className="
+              relative
+              flex
+              min-w-0
+              flex-col
+              items-center
+
+              lg:items-end
+              lg:pt-8
+            "
+          >
+            <div
+              className="
+                relative
+                w-full
+                max-w-[560px]
+
+                lg:w-[clamp(430px,43vw,560px)]
+              "
+            >
+              <VideoCardStack />
+
+              {/* HEADLINE */}
+
+              <div
+                className="
+                  relative
+                  z-20
+                  -mt-[64px]
+                  w-full
+
+                  md:-mt-[85px]
+
+                  lg:-ml-[8%]
+                  lg:-mt-[clamp(125px,13vw,190px)]
+                  lg:w-[115%]
+                "
+              >
+                <h2
+                  className="
+                    whitespace-nowrap
+                    font-poppins
+                    text-[clamp(40px,10.3vw,64px)]
+                    font-medium
+                    leading-[0.9]
+                    tracking-[-1.2px]
+                    text-bp-lightest-grey
+
+                    lg:text-[clamp(58px,6.4vw,92px)]
+                    lg:tracking-[-2.4px]
+                  "
+                >
+                  we build
+                  <br />
+                  tech for
+
+                  <span
+                    className="
+                      -ml-[0.04em]
+                      -mt-[0.12em]
+                      block
+                      font-caveat
+                      text-[clamp(67px,17vw,108px)]
+                      font-bold
+                      leading-none
+                      tracking-[-2px]
+
+                      lg:text-[clamp(96px,10.5vw,152px)]
+                      lg:tracking-[-4px]
+                    "
+                  >
+                    social good
+                  </span>
+                </h2>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <HomeHeroFeatureCards />
+      </div>
+    </section>
+  );
+};
+
+/* ================================================================ */
+/* FEATURED PROJECTS                                                */
+/* ================================================================ */
+
 const PROJECT_COVER_BG: Record<string, string> = {
   mosaic: "#5386E4",
   "our-community-bikes": "#E5E5EB",
@@ -628,51 +712,89 @@ const featuredProjects = Projects.filter((p) =>
 
 const PROJECTS_CARD_STICKY_TOP = 40;
 const PROJECTS_CARD_GAP = 16;
-/** Visible strip of each buried card above the card in front (2 strips = 2 cards behind the last). */
 const PROJECTS_CARD_PEEK_HEIGHT = 20;
 
 const getProjectsCardStickyTop = (index: number) =>
-  PROJECTS_CARD_STICKY_TOP + index * PROJECTS_CARD_PEEK_HEIGHT;
+  PROJECTS_CARD_STICKY_TOP +
+  index * PROJECTS_CARD_PEEK_HEIGHT;
 
 const PROJECTS_CARD_SCROLL_ANIMATIONS = [
-  { minScale: 0.7, minBrightness: 0.7 },
-  { minScale: 0.8, minBrightness: 0.8 },
+  {
+    minScale: 0.7,
+    minBrightness: 0.7,
+  },
+  {
+    minScale: 0.8,
+    minBrightness: 0.8,
+  },
 ] as const;
+
+/* ================================================================ */
+/* PROJECT CARD STACK                                               */
+/* ================================================================ */
 
 const ProjectsCardStack = () => {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const updateCardTransforms = useCallback(() => {
     const lastIndex = featuredProjects.length - 1;
+
     const lastCard = cardRefs.current[lastIndex];
-    const lastStickyTop = getProjectsCardStickyTop(lastIndex);
+
+    const lastStickyTop =
+      getProjectsCardStickyTop(lastIndex);
+
     const isStackComplete =
       lastCard != null &&
-      lastCard.getBoundingClientRect().top <= lastStickyTop + 1;
+      lastCard.getBoundingClientRect().top <=
+        lastStickyTop + 1;
 
     cardRefs.current.forEach((card, index) => {
       if (!card) return;
 
-      const cardStickyTop = getProjectsCardStickyTop(index);
-      const config = PROJECTS_CARD_SCROLL_ANIMATIONS[index];
+      const cardStickyTop =
+        getProjectsCardStickyTop(index);
+
+      const config =
+        PROJECTS_CARD_SCROLL_ANIMATIONS[index];
 
       if (!config) {
-        card.style.transform = "scale3d(1, 1, 1)";
-        card.style.filter = "brightness(1)";
+        card.style.transform =
+          "scale3d(1, 1, 1)";
+
+        card.style.filter =
+          "brightness(1)";
+
         return;
       }
 
-      const nextCard = cardRefs.current[index + 1];
+      const nextCard =
+        cardRefs.current[index + 1];
+
       if (!nextCard) {
-        card.style.transform = "scale3d(1, 1, 1)";
-        card.style.filter = "brightness(1)";
+        card.style.transform =
+          "scale3d(1, 1, 1)";
+
+        card.style.filter =
+          "brightness(1)";
+
         return;
       }
 
-      const nextTop = nextCard.getBoundingClientRect().top;
-      const scrollDistance = card.offsetHeight + PROJECTS_CARD_GAP;
+      const nextTop =
+        nextCard.getBoundingClientRect().top;
+
+      const scrollDistance =
+        card.offsetHeight +
+        PROJECTS_CARD_GAP;
+
       let progress = Math.min(
-        Math.max(1 - (nextTop - cardStickyTop) / scrollDistance, 0),
+        Math.max(
+          1 -
+            (nextTop - cardStickyTop) /
+              scrollDistance,
+          0
+        ),
         1
       );
 
@@ -680,435 +802,830 @@ const ProjectsCardStack = () => {
         progress = 1;
       }
 
-      const scale = 1 - progress * (1 - config.minScale);
-      const brightness = 1 - progress * (1 - config.minBrightness);
+      const scale =
+        1 -
+        progress *
+          (1 - config.minScale);
 
-      card.style.transform = `scale3d(${scale}, ${scale}, 1)`;
-      card.style.filter = `brightness(${brightness})`;
+      const brightness =
+        1 -
+        progress *
+          (1 - config.minBrightness);
+
+      card.style.transform =
+        `scale3d(${scale}, ${scale}, 1)`;
+
+      card.style.filter =
+        `brightness(${brightness})`;
     });
   }, []);
 
   useLayoutEffect(() => {
     updateCardTransforms();
-    window.addEventListener("scroll", updateCardTransforms, { passive: true });
-    window.addEventListener("resize", updateCardTransforms);
+
+    window.addEventListener(
+      "scroll",
+      updateCardTransforms,
+      {
+        passive: true,
+      }
+    );
+
+    window.addEventListener(
+      "resize",
+      updateCardTransforms
+    );
+
     return () => {
-      window.removeEventListener("scroll", updateCardTransforms);
-      window.removeEventListener("resize", updateCardTransforms);
+      window.removeEventListener(
+        "scroll",
+        updateCardTransforms
+      );
+
+      window.removeEventListener(
+        "resize",
+        updateCardTransforms
+      );
     };
   }, [updateCardTransforms]);
-
-  /** Square / letterboxed covers that look over-cropped with object-cover */
-  const CONTAIN_COVER_SLUGS = new Set(["pedals", "blueprint-website"]);
-  const COVER_BG_BY_SLUG: Record<string, string> = {
-    pedals: "#F4F4F4",
-    "blueprint-website": "#2A2A2A",
-  };
 
   return (
     <section className="w-full min-w-0">
       <div className="flex w-full min-w-0 flex-col gap-4">
-        {featuredProjects.map((project, index) => (
-          <div
-            key={project.slug}
-            ref={(el) => {
-              cardRefs.current[index] = el;
-            }}
-            className="sticky origin-top"
-            style={{
-              top: getProjectsCardStickyTop(index),
-              zIndex: 20 + index,
-              willChange:
-                index < PROJECTS_CARD_SCROLL_ANIMATIONS.length
-                  ? "transform, filter"
-                  : undefined,
-            }}
-          >
-            <ProjectCard
-              project={{
-                LOGO_PLACEHOLDER: project.image
-                  ? project.image
-                  : "https://placehold.co/76x76",
-                COVER_PLACEHOLDER: project.popupimage
-                  ? project.popupimage
-                  : "https://placehold.co/517x354",
-                COVER_BG: PROJECT_COVER_BG[project.slug] ?? "#5387E3",
-                COVER_SCALE: project.slug === "mosaic" ? 1.28 : undefined,
-                TITLE_PLACEHOLDER: project.description,
-                CLIENT_PLACEHOLDER: project.name,
-                SERVICE_PLACEHOLDER: project.tags?.[0] ?? "Web App",
-                SECTOR_PLACEHOLDER:
-                  project.tags?.[1] ?? project.tags?.[0] ?? "NPO",
+        {featuredProjects.map(
+          (project, index) => (
+            <div
+              key={project.slug}
+              ref={(el) => {
+                cardRefs.current[index] = el;
               }}
-            />
-          </div>
-        ))}
+              className="sticky origin-top"
+              style={{
+                top: getProjectsCardStickyTop(
+                  index
+                ),
+
+                zIndex: 20 + index,
+
+                willChange:
+                  index <
+                  PROJECTS_CARD_SCROLL_ANIMATIONS.length
+                    ? "transform, filter"
+                    : undefined,
+              }}
+            >
+              <ProjectCard
+                project={{
+                  LOGO_PLACEHOLDER:
+                    project.image
+                      ? project.image
+                      : "https://placehold.co/76x76",
+
+                  COVER_PLACEHOLDER:
+                    project.popupimage
+                      ? project.popupimage
+                      : "https://placehold.co/517x354",
+
+                  COVER_BG:
+                    PROJECT_COVER_BG[
+                      project.slug
+                    ] ?? "#5387E3",
+
+                  COVER_SCALE:
+                    project.slug === "mosaic"
+                      ? 1.28
+                      : undefined,
+
+                  TITLE_PLACEHOLDER:
+                    project.description,
+
+                  CLIENT_PLACEHOLDER:
+                    project.name,
+
+                  SERVICE_PLACEHOLDER:
+                    project.tags?.[0] ??
+                    "Web App",
+
+                  SECTOR_PLACEHOLDER:
+                    project.tags?.[1] ??
+                    project.tags?.[0] ??
+                    "NPO",
+                }}
+              />
+            </div>
+          )
+        )}
       </div>
     </section>
   );
 };
 
+/* ================================================================ */
+/* IMPACT SECTION                                                   */
+/* ================================================================ */
+
 const ImpactSection = () => {
   return (
-  <section className="relative z-20 w-full pt-[80px] max-md:pt-[75px]">
-        <div className="mx-auto flex w-full max-w-[1440px] flex-col items-center justify-between gap-12 xl:flex-row xl:items-start xl:gap-24">
-        {/* Left side Heading and logos */}
-        <div className="z-20 w-full max-w-[440px] shrink-0 max-md:max-w-[90vw] xl:sticky xl:top-[25%]">
-          {/* Bullet points and logos */}
-          <div className="flex w-full flex-col gap-9 md:gap-12">
-            <span className="text-bp-black text-mobile-heading-m-reg font-normal font-['Poppins'] 
-            md:w-72 justify-start md:text-heading-s-reg leading-8 md:leading-[50.40px]">
-              <h2>
-                impact that 
-              </h2>
-                <strong className="font-semibold">speaks for itself</strong>
-            </span>
-              {/* bullet points */}
-              <div className="flex flex-col justify-start items-start gap-[9px]">
+    <section className="relative z-20 w-full pt-[80px] max-md:pt-[75px]">
+      <div
+        className="
+          mx-auto
+          flex
+          w-full
+          max-w-[1440px]
+          flex-col
+          items-center
+          justify-between
+          gap-12
 
+          xl:flex-row
+          xl:items-start
+          xl:gap-24
+        "
+      >
+        {/* LEFT SIDE */}
+
+        <div
+          className="
+            z-20
+            w-full
+            max-w-[440px]
+            shrink-0
+
+            max-md:max-w-[90vw]
+
+            xl:sticky
+            xl:top-[25%]
+          "
+        >
+          <div className="flex w-full flex-col gap-9 md:gap-12">
+            <div
+              className="
+                justify-start
+                font-['Poppins']
+                text-mobile-heading-m-reg
+                font-normal
+                leading-8
+                text-bp-black
+
+                md:w-72
+                md:text-heading-s-reg
+                md:leading-[50.40px]
+              "
+            >
+              <h2>
+                impact that
+              </h2>
+
+              <strong className="font-semibold">
+                speaks for itself
+              </strong>
+            </div>
+
+            {/* BULLETS */}
+
+            <div className="flex flex-col items-start justify-start gap-[9px]">
               {impactPoints.map((point) => (
-                <div className="flex flex-row gap-[18px] justify-center items-center font-poppins 
-                md:justify-start">
-                  <div className={`w-4 h-4 bg-${point.color} rounded-[3px] shrink-0`}/>
+                <div
+                  key={point.text}
+                  className="
+                    flex
+                    flex-row
+                    items-center
+                    justify-center
+                    gap-[18px]
+                    font-poppins
+
+                    md:justify-start
+                  "
+                >
+                  <div
+                    className={`h-4 w-4 shrink-0 rounded-[3px] bg-${point.color}`}
+                  />
+
                   {point.text}
                 </div>
               ))}
-              </div>
+            </div>
 
-              {/* logos */}
-              <div className="relative w-full">
-                
-                <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-16 md:w-36 bg-gradient-to-r from-bp-lightest-grey to-transparent" />
-                
-                <Carousel>
+            {/* LOGOS */}
+
+            <div className="relative w-full">
+              <div
+                className="
+                  pointer-events-none
+                  absolute
+                  left-0
+                  top-0
+                  z-10
+                  h-full
+                  w-16
+                  bg-gradient-to-r
+                  from-bp-lightest-grey
+                  to-transparent
+
+                  md:w-36
+                "
+              />
+
+              <Carousel>
                 {bpLogos.map((logo) => (
-                  <img className="h-full w-full object-contain" key={logo.id} src={logo.image} alt={logo.id.toString()} />
+                  <img
+                    className="h-full w-full object-contain"
+                    key={logo.id}
+                    src={logo.image}
+                    alt={logo.id.toString()}
+                  />
                 ))}
-                </Carousel>
-                
-                <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 md:w-36 bg-gradient-to-l from-bp-lightest-grey to-transparent" />
-              </div>
+              </Carousel>
+
+              <div
+                className="
+                  pointer-events-none
+                  absolute
+                  right-0
+                  top-0
+                  z-10
+                  h-full
+                  w-16
+                  bg-gradient-to-l
+                  from-bp-lightest-grey
+                  to-transparent
+
+                  md:w-36
+                "
+              />
+            </div>
           </div>
 
-          <div className="pt-10 w-full max-md:hidden">
+          <div className="w-full pt-10 max-md:hidden">
             <Link to="/projectspage">
-            <Button variant="tertiary" className="uppercase max-xl:!basis-auto max-xl:!w-full !w-52 max-md:!w-full !h-15">see all projects</Button>
+              <Button
+                variant="tertiary"
+                className="
+                  !h-15
+                  !w-52
+                  uppercase
+
+                  max-xl:!basis-auto
+                  max-xl:!w-full
+                "
+              >
+                see all projects
+              </Button>
             </Link>
           </div>
-
-            
         </div>
-          
 
-        {/* Projects preview */}
-        <div className="flex flex-1 w-full max-w-[708px] min-w-0 shrink-0 justify-center max-md:pt-[30px] xl:sticky xl:top-[40px]">
+        {/* PROJECT PREVIEW */}
+
+        <div
+          className="
+            flex
+            w-full
+            min-w-0
+            max-w-[708px]
+            flex-1
+            shrink-0
+            justify-center
+
+            max-md:pt-[30px]
+
+            xl:sticky
+            xl:top-[40px]
+          "
+        >
           <ProjectsCardStack />
         </div>
-        </div>
-        <div className="mx-auto w-full max-w-[440px] pt-[4rem] max-md:max-w-[90vw] md:hidden">
-            <Link to="/projectspage">
-            <Button variant="tertiary" className=" uppercase !w-52 max-md:!w-full !h-15">see all projects</Button>
-            </Link>
-        </div>
-      </section>
-    )
-  }
+      </div>
 
-  const UpcomingEventsCard = () => {
-    return (
-      <div className="flex justify-end max-md:justify-center items-end md:-mb-10">
-      <div className="bg-bp-blue rounded-[5px] text-bp-white relative flex w-full md:max-w-[737px] md:pl-12 md:pr-[50px] md:pb-[72px] h-[350px] 
-      max-md:px-[26px] max-md:pb-[61px] max-md:pt-[34px] flex flex-col gap-[32px] min-w-[347px] max-md:h-[336px] md:translate-y-[-50%]"
-      style={{ 
-        clipPath: 'url(#clip-slant)',
-        borderRadius: '5px'
-      }}>
-        
-        <svg className="max-md:hidden" aria-hidden>
-        <defs>
-          <clipPath id="clip-slant" clipPathUnits="objectBoundingBox">
-          <path d=" M 0,0 Q 0,0 0,0.13
-          C 0.02,0.05 0.1,0.4 0.008,0.117
-          L 1,0 L 1,1 L 0,1 Z" />
-          </clipPath>
-        </defs>
-      </svg>
-    
-          {/* Top section */}
+      {/* MOBILE PROJECT BUTTON */}
+
+      <div
+        className="
+          mx-auto
+          hidden
+          w-full
+          max-w-[440px]
+          pt-[4rem]
+
+          max-md:block
+          max-md:max-w-[90vw]
+        "
+      >
+        <Link to="/projectspage">
+          <Button
+            variant="tertiary"
+            className="
+              !h-15
+              !w-52
+              uppercase
+
+              max-md:!w-full
+            "
+          >
+            see all projects
+          </Button>
+        </Link>
+      </div>
+    </section>
+  );
+};
+
+/* ================================================================ */
+/* UPCOMING EVENT CARD                                              */
+/* ================================================================ */
+
+const UpcomingEventsCard = () => {
+  return (
+    <div className="flex items-end justify-end max-md:justify-center md:-mb-10">
+      {/*
+        The content container itself is NOT clipped.
+        This avoids Safari clipping text along with the blue shape.
+      */}
+
+      <div
+        className="
+          relative
+          flex
+          h-[350px]
+          w-full
+          min-w-[347px]
+          flex-col
+          text-bp-white
+
+          md:max-w-[737px]
+          md:px-[50px]
+          md:pb-[60px]
+          md:pt-[72px]
+
+          max-md:h-auto
+          max-md:min-h-[336px]
+          max-md:px-[26px]
+          max-md:pb-[40px]
+          max-md:pt-[34px]
+        "
+      >
+        {/* BLUE SHAPE ONLY */}
+
+        <div
+          aria-hidden="true"
+          className="
+            pointer-events-none
+            absolute
+            inset-0
+            z-0
+            rounded-[5px]
+            bg-bp-blue
+
+            md:[clip-path:polygon(0_13%,100%_0,100%_100%,0_100%)]
+          "
+        />
+
+        {/* CONTENT */}
+
+        <div
+          className="
+            relative
+            z-10
+            flex
+            h-full
+            w-full
+            flex-col
+          "
+        >
+          {/* TOP */}
+
           <div className="flex flex-col gap-[25px]">
-            <div className="flex justify-between items-end max-md:flex-col max-md:items-stretch max-md:gap-[26px]">
-              <div className="flex flex-col gap-[16px] w-[366px] max-md:w-full ">
-                <p className=" max-md:font-normal  
-                md:text-body-s-reg  text-[10px] uppercase leading-normal ">
-                  upcoming event: 
+            <div
+              className="
+                flex
+                items-end
+                justify-between
+                gap-8
+
+                max-md:flex-col
+                max-md:items-stretch
+                max-md:gap-[26px]
+              "
+            >
+              <div
+                className="
+                  flex
+                  min-w-0
+                  max-w-[366px]
+                  flex-1
+                  flex-col
+                  gap-[16px]
+
+                  max-md:w-full
+                  max-md:max-w-none
+                "
+              >
+                <p
+                  className="
+                    font-poppins
+                    text-[10px]
+                    font-normal
+                    uppercase
+                    leading-normal
+
+                    md:text-[14px]
+                  "
+                >
+                  upcoming event:
                 </p>
-                <p className="font-poppins max-md:font-normal max-md:leading-8 text-[36px] leading-8 tracking-[-0.72px] max-md:text-2xl">
+
+                <p
+                  className="
+                    font-poppins
+                    text-[36px]
+                    font-normal
+                    leading-[0.95]
+                    tracking-[-0.72px]
+
+                    max-md:text-2xl
+                    max-md:leading-8
+                  "
+                >
                   None currently. Check back for future events!
                 </p>
               </div>
-              
-              <div>
+
+              <div className="shrink-0 max-md:w-full">
                 <Button
                   variant="secondary"
-                  className="w-[200px] shrink-0 max-md:w-full"
+                  className="
+                    w-[200px]
+                    shrink-0
+
+                    max-md:w-full
+                  "
                   href="https://forms.gle/KxcKKLQXrK8Xzfc8A"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <span className="font-poppins text-sm font-semibold">Keep Me Updated</span>
+                  <span className="font-poppins text-sm font-semibold">
+                    Keep Me Updated
+                  </span>
                 </Button>
               </div>
-
             </div>
-            
-            <div className="w-full h-px bg-white/30 " />
+
+            <div className="h-px w-full bg-white/30" />
           </div>
 
-          {/* Bottom section: date + location */}
-          <div className="flex flex-row gap-[52px] max-md:gap-[24px] font-poppins w-full justify-start">
-            <div className="flex flex-col max-md:w-full md:gap-[10px] gap-[6px] md:font-medium max-md:font-normal text-[10px] leading-normal">
-              <p className=" md:text-[14px] uppercase leading-normal font-normal">
+          {/* BOTTOM */}
+
+          <div
+            className="
+              mt-auto
+              flex
+              w-full
+              flex-row
+              justify-start
+              gap-[52px]
+              pt-6
+              font-poppins
+
+              max-md:mt-6
+              max-md:flex-col
+              max-md:gap-5
+              max-md:pt-0
+            "
+          >
+            {/* DATE */}
+
+            <div
+              className="
+                flex
+                flex-col
+                gap-[6px]
+                text-[10px]
+                font-normal
+                leading-normal
+
+                md:gap-[10px]
+              "
+            >
+              <p
+                className="
+                  font-normal
+                  uppercase
+                  leading-normal
+
+                  md:text-[14px]
+                "
+              >
                 DATE AND TIME:
               </p>
-              <p className="flex flex-col md:flex-row gap-1 text-body-s-reg font-light">
-                 {/* date */}
-                <span>September 21, 5:30 - 7:00 PM </span> {/* time */}
-                  
+
+              <p
+                className="
+                  flex
+                  flex-col
+                  gap-1
+                  text-body-s-reg
+                  font-light
+
+                  md:flex-row
+                "
+              >
+                <span>
+                  TBD
+                </span>
               </p>
             </div>
-            <div className="flex flex-col max-md:w-full md:gap-[10px] gap-[6px] md:font-medium max-md:font-normal text-[10px] uppercase leading-normal ">
-              <p className=" md:text-[14px] uppercase leading-normal font-normal">
+
+            {/* LOCATION */}
+
+            <div
+              className="
+                flex
+                flex-col
+                gap-[6px]
+                text-[10px]
+                font-normal
+                leading-normal
+
+                md:gap-[10px]
+              "
+            >
+              <p
+                className="
+                  font-normal
+                  uppercase
+                  leading-normal
+
+                  md:text-[14px]
+                "
+              >
                 LOCATION:
               </p>
-              <p className="font-poppins leading-normal flex flex-col md:flex-row gap-1 text-body-s-reg font-light">
-                SFU Burnaby {/* location */}
-                <span>Campus, ASB 9703</span> {/* location */}
+
+              <p
+                className="
+                  flex
+                  flex-col
+                  gap-1
+                  font-poppins
+                  text-body-s-reg
+                  font-light
+                  leading-normal
+
+                  md:flex-row
+                "
+              >
+                <span>TBD</span>
+                <span></span>
               </p>
             </div>
           </div>
         </div>
       </div>
-    )
-  }
+    </div>
+  );
+};
 
-  const HomePage = () => {
-    useEffect(() => {
-      const html = document.documentElement;
-      const prev = html.style.backgroundColor;
+/* ================================================================ */
+/* HOME PAGE                                                        */
+/* ================================================================ */
 
-      html.style.backgroundColor = HERO_SCROLLBAR_BG;
+const HomePage = () => {
+  useEffect(() => {
+    const html =
+      document.documentElement;
 
-      return () => {
-        html.style.backgroundColor = prev;
-      };
-    }, []);
+    const prev =
+      html.style.backgroundColor;
 
-    return (
-      <>
-        {/* ========================================================== */}
-        {/* HERO + IMPACT / PROJECTS                                   */}
-        {/* ========================================================== */}
+    html.style.backgroundColor =
+      HERO_SCROLLBAR_BG;
 
-        <PageContainer>
-          <TechForGoodSection />
-          <ImpactSection />
-        </PageContainer>
+    return () => {
+      html.style.backgroundColor =
+        prev;
+    };
+  }, []);
 
-        {/* ========================================================== */}
-        {/* STUDENTS                                                   */}
-        {/* ========================================================== */}
+  return (
+    <>
+      {/* ========================================================== */}
+      {/* HERO + IMPACT                                              */}
+      {/* ========================================================== */}
 
-        <section className="relative z-30 overflow-x-clip bg-bp-lightest-grey">
+      <PageContainer>
+        <TechForGoodSection />
 
-          {/* ======================================================== */}
-          {/* STUDENT INTRO                                            */}
-          {/* ======================================================== */}
+        <ImpactSection />
+      </PageContainer>
 
-          <PageContainer className="relative z-10 !pt-0">
+      {/* ========================================================== */}
+      {/* STUDENTS                                                   */}
+      {/* ========================================================== */}
+
+      <section
+        className="
+          relative
+          z-30
+          overflow-x-clip
+          bg-bp-lightest-grey
+        "
+      >
+        {/* ======================================================== */}
+        {/* STUDENT INTRO                                            */}
+        {/* ======================================================== */}
+
+        <PageContainer className="relative z-10 !pt-0">
+          <div
+            className="
+              relative
+              mx-auto
+              w-full
+              max-w-[1440px]
+
+              pt-[140px]
+
+              font-poppins
+
+              md:pt-[220px]
+            "
+          >
             <div
               className="
                 relative
-                mx-auto
+                z-10
+                flex
                 w-full
-                max-w-[1440px]
-
-                pt-[140px]
-                md:pt-[220px]
-
-                font-poppins
+                min-w-0
+                flex-col
               "
             >
               <div
                 className="
-                  relative
-                  z-10
                   flex
                   w-full
+                  max-w-[660px]
                   min-w-0
                   flex-col
+                  gap-6
+                  text-zinc-800
+
+                  max-md:min-w-0
+                "
+              >
+                {/* TITLE */}
+
+                <h2
+                  className="
+                    max-w-[600px]
+                    text-heading-s-reg
+                    font-normal
+
+                    max-md:max-w-full
+                    max-md:text-mobile-heading-m-reg
+                  "
+                >
+                  students: turn real projects into{" "}
+                  <span className="font-semibold">
+                    real opportunities.
+                  </span>
+                </h2>
+
+                {/* DESCRIPTION */}
+
+                <p
+                  className="
+                    max-w-[660px]
+                    text-body-m-reg
+                    leading-8
+
+                    max-md:text-mobile-body-m-reg
+                    max-md:leading-normal
+                  "
+                >
+                  By working with a passionate
+                  interdisciplinary team and making a
+                  real impact in their community, our
+                  members have gained invaluable skills,
+                  allowing them to pursue successful
+                  careers in tech. Join us to see the
+                  Blueprint difference.
+                </p>
+
+                {/* DESKTOP JOIN */}
+
+                <div className="relative z-10 mt-6 self-start max-md:hidden">
+                  <Link
+                    to="/students"
+                    className="
+                      inline-flex
+                      h-16
+                      w-48
+                      items-center
+                      justify-center
+                      rounded-[5px]
+                      bg-bp-black
+                      px-[44px]
+                      font-poppins
+                      text-[16px]
+                      font-light
+                      uppercase
+                      leading-none
+                      text-white
+                      transition-colors
+                      duration-150
+
+                      hover:bg-bp-dark-grey
+                      active:bg-bp-pressed-blue
+                    "
+                  >
+                    join us
+                  </Link>
+                </div>
+              </div>
+
+              {/* ================================================== */}
+              {/* CROSSPOINT                                         */}
+              {/* ================================================== */}
+
+              <div
+                className="
+                  relative
+                  z-0
+                  h-[120px]
+                  w-full
+
+                  max-md:h-[104px]
                 "
               >
                 <div
                   className="
-                    flex
-                    w-full
-                    max-w-[660px]
-                    min-w-0
-                    flex-col
-                    gap-6
-                    text-zinc-800
-
-                    max-md:min-w-0
-                  "
-                >
-                  {/* TITLE */}
-
-                  <h2
-                    className="
-                      max-w-[600px]
-                      text-heading-s-reg
-                      font-normal
-
-                      max-md:max-w-full
-                      max-md:text-mobile-heading-m-reg
-                    "
-                  >
-                    students: turn real projects into{" "}
-                    <span className="font-semibold">
-                      real opportunities.
-                    </span>
-                  </h2>
-
-                  {/* DESCRIPTION */}
-
-                  <p
-                    className="
-                      max-w-[660px]
-                      text-body-m-reg
-                      leading-8
-
-                      max-md:text-mobile-body-m-reg
-                      max-md:leading-normal
-                    "
-                  >
-                    By working with a passionate interdisciplinary team and making a
-                    real impact in their community, our members have gained invaluable
-                    skills, allowing them to pursue successful careers in tech. Join us
-                    to see the Blueprint difference.
-                  </p>
-
-                  {/* DESKTOP JOIN BUTTON */}
-
-                  <div className="relative z-10 mt-6 self-start max-md:hidden">
-                    <Link
-                      to="/students"
-                      className="
-                        inline-flex
-                        h-16
-                        w-48
-                        items-center
-                        justify-center
-                        rounded-[5px]
-                        bg-bp-black
-                        px-[44px]
-                        font-poppins
-                        text-[16px]
-                        font-light
-                        uppercase
-                        leading-none
-                        text-white
-                        transition-colors
-                        duration-150
-
-                        hover:bg-bp-dark-grey
-                        active:bg-bp-pressed-blue
-                      "
-                    >
-                      join us
-                    </Link>
-                  </div>
-                </div>
-
-                {/* ====================================================== */}
-                {/* CROSSPOINT — OLD POSITIONING                           */}
-                {/* ====================================================== */}
-
-                <div
-                  className="
-                    relative
+                    pointer-events-none
+                    absolute
+                    left-1/2
+                    top-0
                     z-0
-                    h-[120px]
-                    w-full
-
-                    max-md:h-[104px]
+                    h-full
+                    w-screen
+                    max-w-none
+                    -translate-x-1/2
                   "
                 >
-                  <div
+                  <HeroCrosspoint
+                    videoSrc="/videos/crosspoints/dotted-path-1.webm"
                     className="
                       pointer-events-none
                       absolute
-                      left-1/2
+                      inset-x-0
                       top-0
                       z-0
                       h-full
-                      w-screen
-                      max-w-none
-                      -translate-x-1/2
                     "
-                  >
-                    <HeroCrosspoint
-                      videoSrc="/videos/crosspoints/dotted-path-1.webm"
-                      className="
-                        pointer-events-none
-                        absolute
-                        inset-x-0
-                        top-0
-                        z-0
-                        h-full
-                      "
-                      anchorClassName="
-                        absolute
-                        top-1/2
-                        right-[clamp(24px,8vw,120px)]
+                    anchorClassName="
+                      absolute
+                      right-[clamp(24px,8vw,120px)]
+                      top-1/2
 
-                        max-md:right-[24px]
-                      "
-                      videoClassName="
-                        w-[640px]
+                      max-md:right-[24px]
+                    "
+                    videoClassName="
+                      w-[640px]
 
-                        max-md:w-[280px]
-                      "
-                      imageClassName="
-                        w-[2260px]
+                      max-md:w-[280px]
+                    "
+                    imageClassName="
+                      w-[2260px]
 
-                        max-md:w-[1200px]
-                      "
-                    />
-                  </div>
+                      max-md:w-[1200px]
+                    "
+                  />
                 </div>
               </div>
             </div>
-          </PageContainer>
+          </div>
+        </PageContainer>
 
-          {/* ======================================================== */}
-          {/* TESTIMONIAL CAROUSEL — INTENTIONALLY FULL BLEED          */}
-          {/* ======================================================== */}
+        {/* ======================================================== */}
+        {/* TESTIMONIAL CAROUSEL                                     */}
+        {/* ======================================================== */}
 
-          <div
-            className="
-              relative
-              z-10
-              h-[390px]
-              w-screen
-              left-1/2
-              -translate-x-1/2
-              overflow-hidden
+        <div
+          className="
+            relative
+            left-1/2
+            z-10
+            h-[390px]
+            w-screen
+            -translate-x-1/2
+            overflow-hidden
 
-              max-md:h-[330px]
-            "
-          >
-            <InteractiveCarousel autoScrollSpeed={1}>
-              {blueprintTestimonials.map((testimonial) => (
+            max-md:h-[330px]
+          "
+        >
+          <InteractiveCarousel autoScrollSpeed={1}>
+            {blueprintTestimonials.map(
+              (testimonial) => (
                 <TestimonialCard
                   key={testimonial.id}
                   name={testimonial.name}
@@ -1116,141 +1633,136 @@ const ImpactSection = () => {
                   picture={testimonial.image}
                   caption={testimonial.caption}
                 />
-              ))}
-            </InteractiveCarousel>
-          </div>
+              )
+            )}
+          </InteractiveCarousel>
+        </div>
 
-          {/* ======================================================== */}
-          {/* MOBILE JOIN BUTTON                                       */}
-          {/* ======================================================== */}
+        {/* ======================================================== */}
+        {/* MOBILE JOIN BUTTON                                       */}
+        {/* ======================================================== */}
 
-          <PageContainer className="relative z-10 !pt-0">
-            <div
+        <PageContainer className="relative z-10 !pt-0">
+          <div
+            className="
+              mx-auto
+              hidden
+              w-full
+              max-w-[1440px]
+              pb-10
+              pt-6
+
+              max-md:block
+            "
+          >
+            <Link
+              to="/students"
               className="
-                mx-auto
-                hidden
+                inline-flex
+                h-16
                 w-full
-                max-w-[1440px]
-                pb-10
-                pt-6
+                items-center
+                justify-center
+                rounded-[5px]
+                bg-bp-black
+                px-[44px]
+                font-poppins
+                text-[16px]
+                font-normal
+                uppercase
+                leading-none
+                text-white
+                transition-colors
+                duration-150
 
-                max-md:block
+                hover:bg-bp-dark-grey
+                active:bg-bp-pressed-blue
               "
             >
-              <Link
-                to="/students"
-                className="
-                  inline-flex
-                  h-16
-                  w-full
-                  items-center
-                  justify-center
-                  rounded-[5px]
-                  bg-bp-black
-                  px-[44px]
-                  font-poppins
-                  text-[16px]
-                  font-normal
-                  uppercase
-                  leading-none
-                  text-white
-                  transition-colors
-                  duration-150
+              join us
+            </Link>
+          </div>
+        </PageContainer>
 
-                  hover:bg-bp-dark-grey
-                  active:bg-bp-pressed-blue
+        {/* ======================================================== */}
+        {/* UPCOMING EVENT                                           */}
+        {/* ======================================================== */}
+
+        <PageContainer className="relative z-10 !pt-0">
+          <section
+            className="
+              mx-auto
+              w-full
+              max-w-[1440px]
+              pb-[38px]
+              pt-[72px]
+
+              max-md:pb-[19px]
+              max-md:pt-[48px]
+            "
+          >
+            <div className="relative w-full">
+              {/* GROUP PHOTO */}
+
+              <div
+                className="
+                  relative
+                  w-full
+                  overflow-hidden
+                  rounded-[5px]
                 "
               >
-                join us
-              </Link>
-            </div>
-          </PageContainer>
-
-          {/* ======================================================== */}
-          {/* UPCOMING EVENT                                           */}
-          {/* ======================================================== */}
-
-          <PageContainer className="relative z-10 !pt-0">
-            <section
-              className="
-                mx-auto
-                w-full
-                max-w-[1440px]
-                pb-[38px]
-                pt-[72px]
-
-                max-md:pb-[19px]
-                max-md:pt-[48px]
-              "
-            >
-              <div className="relative w-full">
-
-                {/* GROUP PHOTO */}
-
-                <div
+                <img
+                  src="/images/home/photos/group.png"
+                  alt="Blueprint team"
                   className="
-                    relative
+                    block
+                    h-[620px]
                     w-full
-                    overflow-hidden
-                    rounded-[5px]
+                    object-cover
+                    object-center
+
+                    max-xl:h-[540px]
+                    max-lg:h-[460px]
+                    max-md:h-[320px]
+                    max-sm:h-[260px]
                   "
-                >
-                  <img
-                    src="/images/home/photos/group.png"
-                    alt="Blueprint team"
-                    className="
-                      block
-                      h-[620px]
-                      w-full
-                      object-cover
-                      object-center
-
-                      max-xl:h-[540px]
-                      max-lg:h-[460px]
-                      max-md:h-[320px]
-                      max-sm:h-[260px]
-                    "
-                  />
-                </div>
-
-                {/* DESKTOP EVENT CARD */}
-
-                <div
-                  className="
-                    absolute
-                    bottom-0
-                    right-0
-                    z-20
-                    w-full
-                    max-w-[737px]
-                    translate-y-[50%]
-
-                    max-md:hidden
-                  "
-                >
-                  <UpcomingEventsCard />
-                </div>
+                />
               </div>
 
-              {/* Space for hanging desktop event card */}
+              {/* DESKTOP EVENT CARD */}
 
-              <div className="h-[175px] max-md:hidden" />
+              <div
+                className="
+                  absolute
+                  bottom-0
+                  right-0
+                  z-20
+                  w-full
+                  max-w-[737px]
+                  translate-y-[50%]
 
-              {/* MOBILE EVENT CARD */}
-
-              <div className="hidden pt-6 max-md:block">
+                  max-md:hidden
+                "
+              >
                 <UpcomingEventsCard />
               </div>
-            </section>
-          </PageContainer>
-        </section>
+            </div>
 
-      </>
-    );
-  };
+            {/* SPACE FOR HANGING CARD */}
 
+            <div className="h-[175px] max-md:hidden" />
 
+            {/* MOBILE EVENT CARD */}
 
-
+            <div className="hidden pt-6 max-md:block">
+              <UpcomingEventsCard />
+            </div>
+          </section>
+        </PageContainer>
+      </section>
+    </>
+  );
+};
 
 export default HomePage;

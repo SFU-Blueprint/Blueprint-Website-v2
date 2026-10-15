@@ -19,6 +19,7 @@ import Ayana from "../../assets/team-headshots/AyanaHussain.png";
 import Monishka from "../../assets/team-headshots/Monishka.jpg";
 import LaurenYip from "../../assets/team-headshots/LaurenYip.png";
 import Amy from "../../assets/team-headshots/Amy.jpg";
+import Avni from "../../assets/team-headshots/Avni.jpg";
 
 import Jerry from "../../assets/team-headshots/JerryDeng.png";
 import Harpreet from "../../assets/team-headshots/HarpreetDubb.png";
@@ -421,6 +422,13 @@ export const Alumni2025 = [
     img: Fatma,
     linkedin: "https://www.linkedin.com/in/fatmabinteomer/",
     role: "VP Talent",
+    roleType: "exec",
+  },
+  {
+    title: "Avni Kapoor",
+    img: Avni,
+    linkedin: "https://www.linkedin.com/in/avni-kapoor/",
+    role: "VP Project",
     roleType: "exec",
   },
 ];

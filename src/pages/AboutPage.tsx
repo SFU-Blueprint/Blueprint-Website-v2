@@ -815,7 +815,7 @@ const AboutPage = () => {
       {/* ================================================================ */}
 
       <section
-        className="meet-the-team relative z-0 w-full max-w-[1328px] mx-auto rounded-[20px] bg-bp-lighter-grey px-4 pt-14 pb-16 sm:px-8 md:px-10 md:pt-20 md:pb-24 xl:px-14"
+        className="meet-the-team relative z-0 w-full max-w-[1400px] mx-auto rounded-[20px] bg-bp-lighter-grey px-4 pt-14 pb-16 sm:px-8 md:px-10 md:pt-20 md:pb-24 xl:px-14"
         aria-labelledby="meet-the-team-heading"
       >
         {/* TITLE */}
@@ -881,12 +881,15 @@ const AboutPage = () => {
           className="
             grid
             w-full
+            max-w-[1256px]
+            mx-auto
             grid-cols-2
-            gap-3
+            gap-[10px]
             justify-items-center
-            md:grid-cols-3
-            md:gap-8
-            xl:grid-cols-4
+            tablet:grid-cols-[repeat(auto-fit,minmax(224px,1fr))]
+            tablet:gap-[20px]
+            desktop:grid-cols-[repeat(auto-fit,minmax(299px,1fr))]
+            desktop:gap-[20px]
           "
           role="list"
           aria-live="polite"

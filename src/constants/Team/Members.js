@@ -27,7 +27,6 @@ import Joshua from "../../assets/team-headshots/JoshuaLi.png";
 import Jimmy from "../../assets/team-headshots/JimmyHui.png";
 
 import Kate from "../../assets/team-headshots/Kate.jpg";
-import Avni from "../../assets/team-headshots/Avni.jpg";
 import Terry from "../../assets/team-headshots/Terry.jpg";
 import Ronney from "../../assets/team-headshots/Ronney.jpg";
 
@@ -60,14 +59,6 @@ export const Members = [
   // EXECUTIVES
   // ==========================================================================
 
-  {
-    title: "Avni Kapoor",
-    img: Avni,
-    linkedin: "https://www.linkedin.com/in/avni-kapoor/",
-    role: "VP Project",
-    roleType: ["exec"],
-    lastPosition: "",
-  },
   {
     title: "Hinako Kamiya",
     img: Hinako,
